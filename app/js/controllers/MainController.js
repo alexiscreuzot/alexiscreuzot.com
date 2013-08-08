@@ -6,7 +6,7 @@ myApp.controller('MainController',function($scope, $http, $routeParams){
 
     $scope.perso = {
         mail:"alexis.creuzot@gmail.com",
-        gravatar:"http://www.gravatar.com/avatar/e5fe13cbbb92ae5b473a25cc95222387?s=100",
+        gravatar:"http://www.gravatar.com/avatar/e5fe13cbbb92ae5b473a25cc95222387?s=150",
         github:"https://github.com/kirualex",
         stack_overflow:"http://stackoverflow.com/users/421786/kirualex",
         hn:"https://news.ycombinator.com/user?id=kirualex",
