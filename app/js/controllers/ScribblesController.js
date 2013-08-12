@@ -43,6 +43,10 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         id:7,
         title: "Choosing how to build a personal website",
         date: "3 Jul"
+    },{
+        id:8,
+        title: "A first iOS project Post Mortem",
+        date: "12 Aug"
     }];
 
 

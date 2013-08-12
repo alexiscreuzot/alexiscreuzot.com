@@ -128,7 +128,7 @@ a:hover{
 	background-color: @color;
 }
 
-a[href*="akamai"]:hover{
+a[href*="github"]:hover{
 	display:none;
 }
 
@@ -269,6 +269,10 @@ ul.scribbles li a.btn:hover{
 	max-width: 700px;
 	padding:0 40px;
 	margin:auto;
+}
+
+.scribble img{
+max-height: 450px;
 }
 
 .scribble h1{
