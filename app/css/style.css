@@ -105,14 +105,6 @@ blockquote{
 	padding: 1px 5px 15px 15px !important;
 }
 
-blockquote p:before {
-	content: open-quote;
-	font-weight: bold;
-	font-size: 2em;
-	line-height: 1em;
-	margin-right: 10px;
-}
-
 a,
 a:link {
 	color: @color;
@@ -396,8 +388,9 @@ max-height: 450px;
 		z-index: 9999;
 	}
 
-	#header .btn-toolbar .btn-group{
-		width:213px;
+	#header .btn-group{
+		min-width:213px;
+		height:39px;
 		margin:0 auto;
 	}
 

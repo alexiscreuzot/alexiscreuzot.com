@@ -14,39 +14,53 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
     [{
         id:0,
         title: "KALayoutHelper library",
-        date: "13 Apr"
+        date: "13 Apr",
+        published:true
     },{
         id:1,
         title: "KASlideShow library",
-        date: "22 May"
+        date: "22 May",
+        published:true
     },{
         id:2,
         title: "KANibHelper library",
-        date: "24 May"
+        date: "24 May",
+        published:true
     },{
         id:3,
         title: "ColourLove Project, DRY KISS anyone?",
-        date: "27 May"
+        date: "27 May",
+        published:true
     },{
         id:4,
         title: "Building the 7 Minute Workout App",
-        date: "6 Jun"
+        date: "6 Jun",
+        published:true
     },{
         id:5,
         title: "Circular progress with KAProgressLabel",
-        date: "12 Jun"
+        date: "12 Jun",
+        published:true
     },{
         id:6,
         title: "You are the only one seeing this page",
-        date: "25 Jun"
+        date: "25 Jun",
+        published:true
     },{
         id:7,
         title: "Choosing how to build a personal website",
-        date: "3 Jul"
+        date: "3 Jul",
+        published:true
     },{
         id:8,
         title: "A first iOS project Post Mortem",
-        date: "12 Aug"
+        date: "12 Aug",
+        published:true
+    },{
+        id:9,
+        title: "On Soylent, and why engineers should not stick to their code",
+        date: "13 Aug",
+        published:false
     }];
 
 
