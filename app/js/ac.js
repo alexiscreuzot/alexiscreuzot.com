@@ -10,9 +10,6 @@ $(document).ready(function(){
   $(window).scroll(function() {
     var yPos = ($(window).scrollTop() / factor) + yOffset;
     header.css({ backgroundPosition: '50% '+ yPos + 'px' });
-    if(header.width() >  480){
-      menu.css({opacity:((yOffset+110)-yPos)/100});
-    }
   });
 });
 

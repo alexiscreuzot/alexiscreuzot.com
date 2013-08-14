@@ -60,7 +60,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         id:9,
         title: "On Soylent, and why engineers should not stick to their code",
         date: "13 Aug",
-        published:false
+        published:true
     }];
 
 
