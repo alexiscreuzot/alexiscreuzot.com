@@ -123,8 +123,8 @@ a:hover{
 	background-color: @color;
 }
 
-a[href*="github"]:hover{
-	display:none;
+a[href*="github"]{
+	padding:0 !important;
 }
 
 a.anchor{
