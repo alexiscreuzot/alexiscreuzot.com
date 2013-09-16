@@ -59,12 +59,17 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
     },{
         id:9,
         title: "On Soylent, and why engineers should not stick to their code",
-        date: "13 Aug",
+        date: "15 Aug",
         published:true
     },{
         id:10,
         title: "Rien à Craindre",
         date: "21 Aug",
+        published:true
+    },{
+        id:11,
+        title: "Creating a reusable Settings component for iOS",
+        date: "16 Sept",
         published:true
     }];
 
