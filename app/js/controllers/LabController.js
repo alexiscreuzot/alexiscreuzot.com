@@ -57,6 +57,10 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Other",
         content:
         [{
+            name:"RESideMenu",
+            url:"https://github.com/romaonthego/RESideMenu",
+            description:"An open source iOS project on which I heavily contributed. This project aim to provide a new menu style based on a designer idea."
+        },{
             name:"ColourLove",
             url:"http://alexiscreuzot.com/ColourLove",
             description:"This project only purpose is to provide brief, clean and readable code in a dummy application. It is heavily library based and MVC oriented and shows mecanisms like downloading, storing and displaying data from a webservice."
