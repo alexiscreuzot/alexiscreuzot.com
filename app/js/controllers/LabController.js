@@ -9,6 +9,10 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Mobile Apps",
         content:
         [{
+            name:"Nice Weather",
+            url:"http://alexiscreuzot.com/apps/nice-weather",
+            description:"Clean and simple Weather App designed with iOS7 guidelines in mind."
+        },{
             name:"Reddito",
             url:"http://alexiscreuzot.com/apps/reddito",
             description:"Get your daily dose of fun with Reddito. Browse, save and share Reddit images like never before !"
