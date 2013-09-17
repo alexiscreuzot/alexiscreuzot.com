@@ -75,7 +75,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         },{
             name:"Dear Sister",
             url:"http://alexiscreuzot.com/lab/dearsister",
-            description:"Based on a skit by SNL. Don't ask."
+            description:"Based on a skit by the lonely island. Don't ask."
         }]
     }];
 
