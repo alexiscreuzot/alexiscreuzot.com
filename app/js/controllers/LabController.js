@@ -54,7 +54,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             description:"Ease up iOS Nib management and improve app maintanability"
         }]
     },{
-        name:"Other",
+        name:"Open Source projects",
         content:
         [{
             name:"RESideMenu",
@@ -64,6 +64,18 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             name:"ColourLove",
             url:"http://alexiscreuzot.com/ColourLove",
             description:"This project only purpose is to provide brief, clean and readable code in a dummy application. It is heavily library based and MVC oriented and shows mecanisms like downloading, storing and displaying data from a webservice."
+        }]
+    },{
+        name:"Funny stuff",
+        content:
+        [{
+            name:"The Shouting Sheep",
+            url:"http://alexiscreuzot.com/lab/sheep",
+            description:"Everyone should make the sheep shout once in a while"
+        },{
+            name:"Dear Sister",
+            url:"http://alexiscreuzot.com/lab/dearsister",
+            description:"Based on a skit by SNL. Don't ask."
         }]
     }];
 
