@@ -69,9 +69,9 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Funny stuff",
         content:
         [{
-            name:"The Shouting Sheep",
+            name:"The Screaming Sheep",
             url:"http://alexiscreuzot.com/lab/sheep",
-            description:"Everyone should make the sheep shout once in a while"
+            description:"Everyone should make the sheep scream once in a while. At work. Speakers on."
         },{
             name:"Dear Sister",
             url:"http://alexiscreuzot.com/lab/dearsister",
