@@ -265,11 +265,31 @@ body{
     margin:0 auto;
   }
 }
-@media(max-width:440px){
+@media(max-width:320px){
   .row{
+    width:300px;
     margin:0px;
   }
-  .iphone{
-    margin-left: 10px;
+
+  .details{
+    padding: 5px;
+    width:310px;
+}
+.span5{
+    width:310px;
   }
+
+  .iphone {
+    margin:20px 10px -120px;
+    width:275px; /* you can use % */
+    height: auto;
+    padding:92px 0 0 22px;
+    background-size: contain;
+}
+#slides {
+    width: 252px;
+    height: auto;
+    margin-bottom: 2px;
+    display: none
+}
 }
