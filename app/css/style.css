@@ -393,7 +393,7 @@ max-height: 550px;
 
 	#header .btn-group{
 		min-width:213px;
-		height:39px;
+		height:auto;
 		margin:0 auto;
 	}
 
