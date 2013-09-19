@@ -1,56 +1,51 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="myApp" ng-controller="AppController">
-<head>
-  <title>7 Minutes Workout</title>
-
-  <!-- Metas -->
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta content="7 Minutes Workout" property="og:title" />
-  <meta content="images/icon.png" property="og:image" />
-
-  <!-- Icons -->
-  <link rel="icon" type="image/png" href="images/favicon.png" />
-  <link rel="apple-touch-icon-precomposed" href="images/icon.png"/>
-  <link rel="apple-touch-startup-image" href="images/default.png" />
-
-  <!-- Stylesheet -->
-  <link href="css/libs/bootstrap.css" rel='stylesheet' type='text/css'>
-  <link href="css/libs/font-awesome.min.css" rel="stylesheet">
-  <link href="css/libs/jquery.share.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-
-</head>
-
-<body>
-  <div id="topline">
-
-   <div class="container">
-
-    <div class="row">
-      <div id="icon" class="span2"></div>
-      <div class="span10"><h1> 7 Minutes Workout</h1></div>
-    </div>
-  </div>
-</div>
-
-<div id="header">
-  <div class="container">
-
-    <div class="row">
-      <div class="span6 iphone">
-       <div id="slides">
-        <img src="images/slides/1.png">
-        <img src="images/slides/2.png">
-        <img src="images/slides/3.png">
-        <img src="images/slides/4.png">
-        <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
-        <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
+  <head>
+    <title>7 Minutes Workout</title>
+    <!-- Metas -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta content="7 Minutes Workout" property="og:title" />
+    <meta content="images/icon.png" property="og:image" />
+    <meta name="description" content="Ban boredom by getting your daily fix of fun with Reddito!" />
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/icon.png"/>
+    <link rel="apple-touch-startup-image" href="images/default.png" />
+    <!-- Stylesheet -->
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600' rel='stylesheet' type='text/css'>
+    <link href="css/libs/bootstrap.css" rel='stylesheet' type='text/css'>
+    <link href="css/libs/font-awesome.min.css" rel="stylesheet">
+    <link href="css/libs/jquery.share.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+  </head>
+  <body>
+    <div id="body-wrapper"><!-- for sticky footer. contains everything but sticky footer -->
+        <div id="header">
+         <div class="container">
+          <div class="row">
+            <div id="icon" class="span2"></div>
+            <h1>&nbsp;&nbsp;7 Minutes Workout</h1>
+          </div>
+        </div>
       </div>
-    </div>
+      <div id="main-app-area">
+        <div class="container">
+          <div class="row">
+            <div class="span6 iphone">
+              <div id="slides">
+                <img src="images/slides/1.png"/>
+                <img src="images/slides/2.png"/>
+                <img src="images/slides/3.png"/>
+                <img src="images/slides/4.png"/>
+                <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
+                <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
+              </div>
+            </div>
 
-    <div class="span6 details">
+            <div class="span6 details">
 
-      <div class="row">
+              <div class="row">
         <div class="span1"><br/><p class="centered"><i class="icon-question-sign icon-large"></i></p></div>
         <div class="span5"><p>
           <b>7 Minutes Workout</b> is inspired by the HIIT (High Intensity Interval Training) which purpose is to get a maximum result in a short timespan, as <a target="_blank" href="http://well.blogs.nytimes.com/2013/05/09/the-scientific-7-minute-workout/">featured on the New York Times.</a>
@@ -90,11 +85,13 @@
         <br>
       </p>
     </div>
-  </div>
-</div>
-</div>
 
-<div id="main">
+
+        </div>
+      </div>
+      </div>
+      <div id="features">
+
   <div class="container">
 
     <div class="row">
@@ -113,39 +110,40 @@
     </div>
 
   </div>
-</div>
+      </div>
+      <div id="sticky-footer-push"></div>
+    </div>
+    <div id="footer">
+      <div class="container centered">
+        <small>An App by <a href="http://alexiscreuzot.com">Alexis Creuzot</a></small>
+      </div>
+    </div>
 
-<div id="footer">
-  <div class="container centered">
-    <small>An App by <a href="http://alexiscreuzot.com">Alexis Creuzot</a></small>
-  </div>
-</div>
+    <!-- Scripts -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery.slides.min.js"></script>
+    <script src="js/libs/jquery.share.js"></script>
 
-<!-- Scripts -->
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="js/libs/jquery.slides.min.js"></script>
-<script src="js/libs/jquery.share.js"></script>
+    <script>
+    $(function() {
+      $('#slides').slidesjs({
+        width: 242,
+        height: 440,
+        navigation: false,
+        play: {
+          active: false,
+          auto: true,
+          interval: 4000,
+          pauseOnHover: true
+        }
+      });
 
-<script>
-$(function() {
-  $('#slides').slidesjs({
-    width: 300,
-    height: 544,
-    navigation: false,
-    play: {
-      active: false,
-      auto: true,
-      interval: 4000,
-      pauseOnHover: true
-    }
-  });
-
-  // Sharing
-  $('#sharing').share({
+      // Sharing
+      $('#sharing').share({
         networks: ['facebook','twitter','email','googleplus','digg']
-    });
-});
-</script>
+      });
 
-</body>
+    });
+    </script>
+  </body>
 </html>
