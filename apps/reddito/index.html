@@ -124,6 +124,18 @@
 
     <script>
     $(function() {
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+     // some code..
+     $('#slides').slidesjs({
+        width: 242,
+        height: 440,
+        navigation: false,
+        play: {
+          active: false,
+          auto: false
+        }
+      });
+    }else{
       $('#slides').slidesjs({
         width: 242,
         height: 440,
@@ -135,6 +147,7 @@
           pauseOnHover: true
         }
       });
+    }
 
       // Sharing
       $('#sharing').share({

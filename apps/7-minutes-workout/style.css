@@ -9,7 +9,6 @@ body {
     height:100%;
     text-rendering: optimizeLegibility;
     font-family:'Source Sans Pro', Helvetica, Arial, sans-serif;
-    overflow-x:hidden;
 }
 
 hr{
@@ -148,7 +147,6 @@ hr{
   background-image: url('images/pagination.png');
   background-position: 0 0;
   float: left;
-  overflow: hidden;
 }
 
 .slidesjs-pagination li a.active,
