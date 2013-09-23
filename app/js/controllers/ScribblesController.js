@@ -71,6 +71,11 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         title: "Creating a reusable Settings component for iOS",
         date: "16 Sept",
         published:true
+    },{
+        id:12,
+        title: "Managing data on iOS : Active Record to the rescue",
+        date: "23 Sept",
+        published:true
     }];
 
 
