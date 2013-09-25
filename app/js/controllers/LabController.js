@@ -11,14 +11,17 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         [{
             name:"Nice Weather",
             url:"http://alexiscreuzot.com/apps/nice-weather",
+            image:"http://i.imgur.com/sNrBKKL.png",
             description:"Clean and simple Weather App designed with iOS7 guidelines in mind."
         },{
             name:"Reddito",
             url:"http://alexiscreuzot.com/apps/reddito",
+            image:"http://i.imgur.com/PzI3QWY.png",
             description:"Get your daily dose of fun with Reddito. Browse, save and share Reddit images like never before !"
         },{
             name:"7 minutes Workout",
             url:"http://alexiscreuzot.com/apps/7-minutes-workout",
+            image:"http://i.imgur.com/xNXPvj6.png",
             description:"The perfect assistant to get in shape using the scientific 7-minute Workout, directly on your iPhone"
         }]
     },{

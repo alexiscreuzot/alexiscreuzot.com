@@ -3,7 +3,7 @@
 <div class="content animate from-right" ng-class="{trigger: true}">
     <div data-ng-repeat="category in lab_data">
         <h2>{{category.name}}</h2>
-        <ul>
+        <ul class="lab">
            <li data-ng-repeat="item in category.content">
             <a href="{{item.url}}" target="_blank">{{item.name}}</a>
             <br/>{{item.description}}</li>
