@@ -112,10 +112,11 @@ a:active{
 #slides {
     width: 322px;
     margin-bottom: 2px;
-    display: none
+    display: none;
 }
 
 #slides .slidesjs-navigation {
+  display: none;
   margin-top:3px;
 }
 
@@ -130,6 +131,7 @@ a:active{
 }
 
 .slidesjs-pagination {
+  display: none;
   margin: 6px 0 0;
   float: right;
   list-style: none;
