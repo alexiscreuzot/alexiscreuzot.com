@@ -8,6 +8,7 @@ myApp.controller('MainController',function($scope, $http, $routeParams){
         mail:"alexis.creuzot@gmail.com",
         gravatar:"http://www.gravatar.com/avatar/e5fe13cbbb92ae5b473a25cc95222387?s=150",
         github:"https://github.com/kirualex",
+        dribbble:"http://dribbble.com/kirualex",
         stack_overflow:"http://stackoverflow.com/users/421786/kirualex",
         hn:"https://news.ycombinator.com/user?id=kirualex",
         grooveshark:"http://grooveshark.com/#!/kirualex",
