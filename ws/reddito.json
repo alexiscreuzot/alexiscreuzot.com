@@ -1,22 +1,23 @@
 {
-    "ads":true,
-    "app_version":"1.4",
-    "app_link":"http://itunes.apple.com/app/reddito/id674736514?ls=1&mt=8",
-    "apps":[
-    {
-        "appId":"com.alexiscreuzot.niceweather",
-        "order":1,
-        "icon":"http://i.imgur.com/sNrBKKL.png",
-        "title":"Nice Weather",
-        "description":"The Weather, simply. Optimized for iOS7!",
-        "link":"http://itunes.apple.com/app/nice-weather/id709290908?ls=1&mt=8",
-    },{
-        "appId":"com.alexiscreuzot.sevenmw",
-        "order":2,
-        "icon":"http://i.imgur.com/xNXPvj6.png",
-        "title":"7 Minutes Workout",
-        "description":"Keep in shape by working out efficiently with the scientifically approved 7 Minute Workout !",
-        "link":"http://itunes.apple.com/app/7-minutes-workout/id650627810?ls=1&mt=8"
-    }
+    "ads": true,
+    "app_version": "1.4",
+    "app_link": "http://itunes.apple.com/app/reddito/id674736514?ls=1&mt=8",
+    "apps": [
+        {
+            "appId": "com.alexiscreuzot.niceweather",
+            "order": 1,
+            "icon": "http://i.imgur.com/sNrBKKL.png",
+            "title": "Nice Weather",
+            "description": "The Weather, simply. Optimized for iOS7!",
+            "link": "http://itunes.apple.com/app/nice-weather/id709290908?ls=1&mt=8"
+        },
+        {
+            "appId": "com.alexiscreuzot.sevenmw",
+            "order": 2,
+            "icon": "http://i.imgur.com/xNXPvj6.png",
+            "title": "7 Minutes Workout",
+            "description": "Keep in shape by working out efficiently with the scientifically approved 7 Minute Workout !",
+            "link": "http://itunes.apple.com/app/7-minutes-workout/id650627810?ls=1&mt=8"
+        }
     ]
 }
