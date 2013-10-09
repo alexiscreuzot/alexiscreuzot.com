@@ -239,9 +239,9 @@ img.icon{
 	width: 72px;
     height: 72px;
 
-    border-radius:12px;
-    -moz-border-radius:12px;
-    -webkit-border-radius:12px;
+    border-radius:18px;
+    -moz-border-radius:18px;
+    -webkit-border-radius:18px;
 }
 
 /* Lab */
