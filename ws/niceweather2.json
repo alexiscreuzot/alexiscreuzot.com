@@ -13,7 +13,7 @@
     },
     {
         "appId":"com.alexiscreuzot.reddito",
-        "order":1,
+        "order":2,
         "icon":"http://i.imgur.com/PzI3QWY.png",
         "title":"Reddito",
         "description":"Take your daily fix of fun with Reddito! ",
@@ -21,7 +21,7 @@
     },
     {
         "appId":"com.alexiscreuzot.sevenmw",
-        "order":2,
+        "order":3,
         "icon":"http://i.imgur.com/xNXPvj6.png",
         "title":"7 Minutes Workout",
         "description":"Keep in shape by working out efficiently with the scientifically approved 7 Minute Workout !",
