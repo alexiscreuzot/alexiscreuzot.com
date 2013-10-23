@@ -12,8 +12,8 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             name:"Nice Weather 2",
             url:"http://alexiscreuzot.com/apps/nice-weather-2",
             image:"http://i.imgur.com/kUR1VZL.png",
-            description:"The Nice Weather app sequel, with its all new killer design !"
-        }{
+            description:"Nice Weather app sequel, with its all new killer design !"
+        },{
             name:"Nice Weather",
             url:"http://alexiscreuzot.com/apps/nice-weather",
             image:"http://i.imgur.com/sNrBKKL.png",
