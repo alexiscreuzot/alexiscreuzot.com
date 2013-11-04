@@ -11,7 +11,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
 
     // Scribbles
     $scope.scribbles =
-    [{
+    [/*{
         id:0,
         title: "KALayoutHelper library",
         date: "13 Apr",
@@ -26,7 +26,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         title: "KANibHelper library",
         date: "24 May",
         published:true
-    },{
+    },*/{
         id:3,
         title: "ColourLove Project, DRY KISS anyone?",
         date: "27 May",
