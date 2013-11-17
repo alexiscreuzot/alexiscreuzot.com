@@ -76,6 +76,11 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         title: "Managing data on iOS : Active Record to the rescue",
         date: "23 Sept",
         published:true
+    },{
+        id:13,
+        title: "La métaphysique des bulles",
+        date: "17 Nov",
+        published:true
     }];
 
 
