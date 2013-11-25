@@ -36,16 +36,16 @@ hr{
 
 
 .btn.btn-primary{
-	background-color: @color;
+	background-color: fadeout(@color,10%);
 }
 
 .btn.btn-primary.active,
 .btn.btn-primary.active:hover{
-	background-color: darken(@color,7%);
+	background-color: fadeout(darken(@color,7%),10%);
 }
 
 .btn.btn-primary:hover{
-	background-color: lighten(@color,7%);
+	background-color: fadeout(lighten(@color,7%),10%);
 }
 .btn i.icon-large:before{
 	vertical-align: 10% !important;
@@ -106,6 +106,8 @@ blockquote{
 }
 
 a,
+a:active,
+a:hover,
 a:link {
 	color: @color;
 	text-decoration: none;
@@ -114,9 +116,6 @@ a:link {
         word-wrap: break-word;
 }
 
-a:hover{
-	text-decoration: none;
-}
 
 a.anchor{
 	display: none;
@@ -398,11 +397,15 @@ max-height: 550px;
 	/* Menu */
 	#header .btn-toolbar{
 		width:100%;
-		background-color: @color;
+		background-color: fadeout(@color,10%);
 		text-align: center;
 		padding: 0;
 		position:fixed;
 		z-index: 9999;
+	}
+
+	.btn.btn-primary{
+		background-color: fadeout(@color,90%);
 	}
 
 	#header .btn-group{
