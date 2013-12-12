@@ -12,14 +12,6 @@
         "link": "http://itunes.apple.com/app/nice-weather/id709290908?ls=1&mt=8"
     },
     {
-        "appId":"com.alexiscreuzot.reddito1",
-        "order":2,
-        "icon":"http://i.imgur.com/PzI3QWY.png",
-        "title":"Reddito",
-        "description":"Take your daily fix of fun with Reddito! ",
-        "link":"http://itunes.apple.com/app/reddito/id674736514?ls=1&mt=8"
-    },
-    {
         "appId":"com.alexiscreuzot.sevenmw",
         "order":3,
         "icon":"http://i.imgur.com/xNXPvj6.png",
