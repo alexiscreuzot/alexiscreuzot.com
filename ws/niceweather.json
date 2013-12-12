@@ -4,6 +4,14 @@
     "app_link":"http://itunes.apple.com/app/",
     "apps":[
     {
+        "appId": "com.madsquare.dailycig",
+        "order": 1,
+        "icon": "http://i.imgur.com/2dbSvid.png",
+        "title": "DailyCig",
+        "description": "DailyCig is the coolest iPhone app to measure, visualize and control your smoking !",
+        "link": "http://goo.gl/qXVmUX"
+    },
+    {
         "appId": "com.alexiscreuzot.niceweather2",
         "order": 2,
         "icon": "http://i.imgur.com/kUR1VZL.png",
