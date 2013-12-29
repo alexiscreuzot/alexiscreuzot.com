@@ -6,7 +6,6 @@ $(document).ready(function(){
   var menu=$('#header .btn-toolbar');
   var backgroundPos = $(header).css('backgroundPosition').split(" ");
   var yOffset = parseFloat(backgroundPos[1].replace(/[^0-9-]/g, ''));
-  console.log(yOffset);
   $(window).scroll(function() {
     var yPos = ($(window).scrollTop() / factor) + yOffset;
     header.css({ backgroundPosition: '50% '+ yPos + 'px' });
