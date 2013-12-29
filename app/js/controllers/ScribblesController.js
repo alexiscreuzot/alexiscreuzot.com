@@ -90,7 +90,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
 
             // Twitter
             $('a.tweet').click(function(e){
-              window.open('http://twitter.com/share?url=' + escape(loc)+'&text='+escape(title), 'tweetsharer', windowFeatures);
+              window.open('http://twitter.com/share?url=' + escape(loc)+'&text='+encodeURI(title), 'tweetsharer', windowFeatures);
           });
 
             // Fb
