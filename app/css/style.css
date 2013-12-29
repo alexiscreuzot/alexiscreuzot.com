@@ -1,4 +1,5 @@
 @color: #3a9ea6;
+@color_hover: #c0392b;
 .myColor { color: @color; }
 
 * {
@@ -12,6 +13,7 @@ body {
 	padding:0;
 	height:100%;
 	text-rendering: optimizeLegibility;
+	overflow-y: scroll;
 }
 
 body{
@@ -36,7 +38,7 @@ hr{
 
 
 .btn.btn-primary{
-	background-color: fadeout(@color,10%);
+	background-color: @color;
 }
 
 .btn.btn-primary.active,
@@ -115,6 +117,11 @@ a:link {
 	word-break: break-all;
         word-wrap: break-word;
 }
+
+a:hover{
+	border-bottom: 1px solid @color;
+}
+
 
 
 a.anchor{
@@ -196,6 +203,10 @@ a.back{
 	color: #ECF0F1 ;
 }
 
+#header .btn-toolbar a:hover{
+	border:none;
+}
+
 /* Main */
 
 #main{
@@ -270,6 +281,7 @@ ul.scribbles li a.btn{
 
 ul.scribbles li a.btn:hover{
 	background: @color;
+	border: none;
 }
 
 
