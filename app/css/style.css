@@ -13,7 +13,6 @@ body {
 	padding:0;
 	height:100%;
 	text-rendering: optimizeLegibility;
-	overflow-y: scroll;
 }
 
 body{
@@ -351,7 +350,6 @@ max-height: 550px;
 	body{
 		color:#E6E6E6 ;
 		background: url("../images/shattered.png") #242222;
-		overflow-y: no-display;
 	}
 
 	/* typo */
