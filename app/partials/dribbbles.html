@@ -1,0 +1,10 @@
+<h1 class="animate from-left" ng-class="{trigger: true}">/dribbbles</h1>
+
+<div class="content animate from-right" ng-class="{trigger: true}">
+    <ul class="dribbbles">
+    <li data-ng-repeat="d in dribbbles | orderBy:'id':true" >
+            <h2>{{d.title}}</h2>
+            <a href="{{d.url}}"><img src="{{d.image_url}}" /></a>
+   </li>
+</ul>
+</div>

@@ -198,7 +198,7 @@ a.back{
 }
 
 #header .btn-toolbar a.btn{
-	padding: 11px 18px 5px;
+	padding: 10px 15px 10px 15px;
 	color: #ECF0F1 ;
 }
 
@@ -250,13 +250,15 @@ ul.lab{
 
 /* Scribbles */
 
-ul.scribbles {
+ul.scribbles,
+ul.dribbbles {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-ul.scribbles li{
+ul.scribbles li,
+ul.dribbbles li{
 	padding : 12px 0;
 }
 

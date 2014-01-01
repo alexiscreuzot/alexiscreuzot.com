@@ -19,6 +19,10 @@ myApp.config(function ($routeProvider,$locationProvider){
     controller:'ScribblesController',
     templateUrl:'app/partials/scribble.html'
   })
+  .when('/dribbbles',{
+    controller:'DribbblesController',
+    templateUrl:'app/partials/dribbbles.html'
+  })
   .when('/contact',{
     controller:'MainController',
     templateUrl:'app/partials/contact.html'
