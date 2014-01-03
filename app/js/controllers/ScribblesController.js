@@ -105,7 +105,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         scribbles: [
             {
                 id: 14,
-                title: "7 advices to launch a successful app",
+                title: "7 tips to launch a successful app",
                 date: "2 Jan",
                 published: true
             }
