@@ -22,7 +22,7 @@
 <h2 class="animate from-right" ng-class="{trigger: true}">Last scribbles</h2>
 <div class="content animate from-right" ng-class="{trigger: true}" ng-controller="ScribblesController">
 	<ul class="scribbles">
-		<li data-ng-repeat="s in years[0].scribbles | orderBy:'id':true | filter:{published:true} | limitTo:3 " >
+		<li data-ng-repeat="s in years[years.length-1].scribbles | orderBy:'id':true | filter:{published:true} | limitTo:3 " >
 			<span class="date">{{s.date}}</span>
 			<a ng-href="#!/scribble/{{slug(s.title)}}" class="btn">{{s.title}}</a>
 		</li>
