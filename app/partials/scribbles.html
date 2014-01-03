@@ -1,10 +1,13 @@
 <h1 class="animate from-left" ng-class="{trigger: true}">/scribbles</h1>
 
 <div class="content animate from-right" ng-class="{trigger: true}">
-    <ul class="scribbles">
-    <li data-ng-repeat="s in scribbles | orderBy:'id':true | filter:{published:true}" >
-        <span class="date">{{s.date}}</span>
-       <a ng-href="#!/scribble/{{slug(s.title)}}" class="btn">{{s.title}}</a>
-   </li>
-</ul>
+	<div data-ng-repeat="y in years | orderBy:'year':true ">
+		<h2>{{y.year}}</h2>
+	    <ul class="scribbles">
+	    <li data-ng-repeat="s in y.scribbles | orderBy:'id':true | filter:{published:true}" >
+	        <span class="date">{{s.date}}</span>
+	       <a ng-href="#!/scribble/{{slug(s.title)}}" class="btn">{{s.title}}</a>
+	   </li>
+	   </ul>
+	</div>
 </div>
