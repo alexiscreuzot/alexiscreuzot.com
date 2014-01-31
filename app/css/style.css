@@ -294,6 +294,7 @@ ul.scribbles li a.btn:hover{
 
 .scribble img{
 max-height: 550px;
+margin: auto;
 }
 
 .scribble h1{
