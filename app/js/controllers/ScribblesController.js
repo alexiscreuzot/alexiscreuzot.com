@@ -110,7 +110,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
                 published: true
             },{
                 id: 15,
-                title: "WowApp : Learn to Make an App in 3 Minutes",
+                title: "Learn to Make an App in 3 Minutes",
                 date: "31 Jan",
                 published: true
             }
