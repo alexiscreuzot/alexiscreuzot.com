@@ -145,6 +145,9 @@ a.back{
 }
 
 .avatar img{
+	transform:rotate(28deg);
+	-ms-transform:rotate(28deg); /* IE 9 */
+	-webkit-transform:rotate(28deg); /* Safari and Chrome */
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
