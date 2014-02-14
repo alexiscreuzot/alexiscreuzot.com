@@ -65,6 +65,10 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Open Source projects",
         content:
         [{
+            name:"SprityBird",
+            url:"https://github.com/kirualex/SprityBird",
+            description:" Small clone of Flappy Bird for iOS using SpriteKit framework. It can be used as a base for many types of scrolling games with some imagination."
+        },{
             name:"RESideMenu",
             url:"https://github.com/romaonthego/RESideMenu",
             description:"An open source iOS project on which I heavily contributed. This project aim to provide a new menu style based on a designer idea."
