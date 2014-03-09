@@ -7,6 +7,8 @@ body {
     margin:0;
     padding:0;
     height:100%;
+    background-color: #333;
+    color:#EEE;
     text-rendering: optimizeLegibility;
     font-family:'Source Sans Pro', Helvetica, Arial, sans-serif;
 }
@@ -26,7 +28,6 @@ hr{
 /* ----------  Typo ----------- */
 
 h1{
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     font-size:28px;
     font-weight: 300;
     margin:8px 0;
@@ -34,12 +35,10 @@ h1{
 
 
 h2{
-    text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
-    color:#068065;
+    color:#EEE;
     font-size:28px;
     font-weight: 500;
 }
-
 
 li,p{
     font-size:18px;
@@ -48,7 +47,6 @@ li,p{
 }
 
 p{
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     margin:15px 0;
 }
 
@@ -89,7 +87,7 @@ img.icon{
 /* content */
 
 #main-app-area{
-    background: #16a085;
+    background: #333;
     background-position: 50% 50%;
 }
 
@@ -167,18 +165,17 @@ img.icon{
   color: #9e2020
 }
 
-
 /* features */
 
 #features{
-    padding:20px 0 45px 20px;
-    height:100%;
+  padding:20px 0 45px 20px;
+  height:100%;
+  background-color: #222;
+
 }
-
 /* footer */
-
 #footer{
-    background-color: #16a085;
+    background-color: #333;
 }
 
 /* make the footer sticky */
@@ -194,11 +191,7 @@ img.icon{
   height:60px; /* unfortunately, static height is required for sticky footers. this could be done live in Js but footers don't change much so I don't think it's worth the performance cost of the JS */
 }
 
-/* style */
-body{
-  color:#ecf0f1;
-}
-#header, #features, body{
+#header{
   background-color:#1abc9c;
 }
 
