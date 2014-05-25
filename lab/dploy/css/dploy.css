@@ -5,7 +5,6 @@ body{
     padding: 0;
     margin: 0;
     font-family: 'Open Sans', sans-serif;
-    /*background: #f9f9f9 url('../img/snow.png') repeat;*/
 }
 h1{
     font-weight: 200;
@@ -23,39 +22,98 @@ p, li{
 hr{
     margin:5px 0;
 }
+a,
+a:hover{
+    color:#fc543e;
+}
+/*-------------------------------------------------*\
+ *  Misc UI
+ *-------------------------------------------------*/
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus{
+ outline:0 !important;
+ box-shadow: none;
+-moz-box-shadow: none;
+-webkit-box-shadow: none;
+  border-color:#fc543e;
+}
+
+.btn,
+.btn:focus{
+    background-image:none;
+    outline: none;
+    box-shadow:none !important;
+}
+
+.btn-primary{
+    background: #fc543e;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+  background: #ec442e;
+}
 /*-------------------------------------------------*\
  *  Header
  *-------------------------------------------------*/
 header{
     padding : 20px 0 20px;
 }
-header .btn{
-    font-size: 16px;
-}
-header .btn.btn-link{
-    color:#999;
-    margin-left:10px;
-}
 
 header #logo span.baseline{
     display: block;
     margin:-16px 0 0 70px;
     font-size: 15px;
-}
-
-header ul#menu{
-    margin-top:50px;
-    list-style-type: none;
-    text-align: right;
-}
-
-header ul#menu li{
-    display: inline;
+    color: #999;
 }
 
 header .focus{
     background: #2d2d2d;
     padding:20px 0;
+}
+
+
+menu ul{
+    margin-top:50px;
+    list-style-type: none;
+    text-align: right;
+}
+
+menu ul li{
+    display: inline;
+}
+
+menu ul li .btn{
+    font-size: 16px;
+}
+menu ul li .btn.btn-link{
+    color:#999;
+}
+
+/*-------------------------------------------------*\
+ *  Focus
+ *-------------------------------------------------*/
+
+.focus h1{
+    color:#fff;
+}
+.focus h2{
+    color:#fc543e;
 }
 /*-------------------------------------------------*\
  *  section

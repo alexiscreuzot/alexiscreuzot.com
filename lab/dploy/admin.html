@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>dploy - fast app deployment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Styles -->
+  <link href="./css/bootstrap.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+  <link href="./css/dploy.css" rel="stylesheet">
+  <link href="./css/dropzone.css" rel="stylesheet">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+  <script src="./js/jquery-1.9.js"></script>
+  <script src="./js/bootstrap.js"></script>
+  <script src="./js/dploy.js"></script>
+
+</head>
+<body>
+
+
+  <header>
+
+    <div class="container fixed">
+      <div class="row">
+        <div id="logo" class="span4">
+          <img src="./img/logo.png" />
+          <span class="baseline">Fast beta app deployment</span>
+        </div>
+        <menu>
+        <ul class="span8">
+          <li><a class="btn btn-link">Deployments</a></li>
+          <li><a class="btn btn-link">Account</a></li>
+          <li><a class="btn btn-primary" href="./index.html">Logout</a></li>
+        </ul>
+      </menu>
+      </div>
+      <br/>
+    </div>
+
+    <div class="focus">
+      <div class="dropzone">
+          <img class="city" src="img/landscape/1_city.png"/>
+          <img class="houses" src="img/landscape/2_houses.png"/>
+          <img class="trees" src="img/landscape/3_trees.png"/>
+
+          <div class="drop">
+            <img src="img/icon_drop.png"/>
+            <h4>Drop you file here </h4>
+          </div>
+
+          <div class="airplane">
+            <img src="img/icon_airplane.png"/>
+            <h4>Uploading...</h4>
+          </div>
+
+          <div class="parachute">
+            <img src="img/icon_parachute.png"/>
+            <input type="text" id="build_link" value="http://dploy.io/123456" />
+          </div>
+      </div>
+    </div>
+
+  </header>
+
+  <div class="container fixed">
+
+    <h1>Deployments</h1>
+    <br/><br/>
+    <div id="tab" class="btn-group" data-toggle="buttons-radio">
+      <a href="#ios" class="btn btn-large btn-info active" data-toggle="tab">iOS</a>
+      <a href="#android" class="btn btn-large btn-info" data-toggle="tab">Android</a>
+      <a href="#wp" class="btn btn-large btn-info" data-toggle="tab">Windows Phone</a>
+    </div>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="ios">
+        <h2> iOS</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>App name</th>
+              <th>Upload date</th>
+              <th>Version</th>
+              <th>short link</th>
+              <th>nb clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>MyApp</td>
+              <td>14/02/13 at 11:09</td>
+              <td>5</td>
+              <td><input type="text" value="http://dploy.io/464263"></td>
+              <td>18</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>MyApp</td>
+              <td>12/02/13 at 18:12</td>
+              <td>5</td>
+              <td><input type="text" value="http://dploy.io/464263"></td>
+              <td>18</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tab-pane" id="android">
+        <h2> Android</h2>
+      </div>
+      <div class="tab-pane" id="wp">
+        <h2> Windows Phone</h2>
+      </div>
+    </div>
+
+  </div> <!-- /container -->
+
+  <footer>
+    <div class="container fixed">
+      <div class="row ">
+          <p style="text-align:center">&copy; 2013 <a href="">www.dploy.io</a></p>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+</html>

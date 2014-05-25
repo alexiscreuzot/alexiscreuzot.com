@@ -36,6 +36,10 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             name:"grinderlabs.com",
             url:"http://grinderlabs.com/",
             description:"A serverless website made for a good friend & colegue, Jérémy Paul. Images and videos are fetched directly from Flickr and Vimeo API using JQuery."
+        },{
+            name:"dploy",
+            url:"http://alexiscreuzot.com/lab/dploy",
+            description:"Front-end of a website that never saw the light of day... for now !"
         }]
     },{
         name:"Libraries",
