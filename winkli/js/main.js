@@ -39,6 +39,7 @@ $(function() {
 
 // Pages overlays
 (function() {
+  console.log('init overlays');
     $('.trigger-overlay').click(function (event) {
         var idName = ($(this).attr('id'));
         $('.overlay.'+idName).addClass('open');
@@ -46,6 +47,7 @@ $(function() {
     });
 
     $('.overlay-close').on( "click touchstart", function(event){
+      console.log('close');
       $('.overlay').removeClass('open');
       $("body").css({ overflow: 'inherit' })
     });
