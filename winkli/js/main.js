@@ -1,10 +1,10 @@
 // Typed
 $(function() {
     $("span.typed").typed({
-        strings: ["your next Facebook event", "your friend's birthday", "the next music festival", "the club night out", "your friend's wedding"],
+        strings: ["your next Facebook event", "the next music festival", "your neighbor's birthday", "the club night out", "your friend's wedding"],
         typeSpeed: 50,
-        backSpeed: 30,
-        backDelay: 750,
+        backSpeed: 20,
+        backDelay: 1200,
         loop: true
     });
 });
@@ -39,12 +39,12 @@ $(function() {
     }else if(isAndroid){
         $(".ios").hide();
     }
-
     // Overlays
     $('.trigger-overlay').click(function (event) {
         var idName = ($(this).attr('id'));
         $('.overlay.'+idName).addClass('open');
         $("body").css({ overflow: 'hidden' });
+
         if(isIOS){
           $("video").hide();
         }

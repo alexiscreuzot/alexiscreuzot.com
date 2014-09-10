@@ -50,16 +50,17 @@
 	font-size:26px;
 }
 
+
 /*---------------------------------------------*\
 |*    Effects
 \*---------------------------------------------*/
 .overlay-scale {
 	visibility: hidden;
 	opacity: 0;
-	-webkit-transform: scale(0.9);
-	transform: scale(0.9);
-	-webkit-transition: -webkit-transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
-	transition: transform 0.2s, opacity 0.2s, visibility 0s 0.2s;
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+	-webkit-transition: all 0.4s;
+	transition: all 0.4s;
 }
 
 .overlay-scale.open {
@@ -67,15 +68,18 @@
 	opacity: 1;
 	-webkit-transform: scale(1);
 	transform: scale(1);
-	-webkit-transition: -webkit-transform 0.4s, opacity 0.4s;
-	transition: transform 0.4s, opacity 0.4s;
+
 }
+
+/*---------------------------------------------*\
+|*    Mobile
+\*---------------------------------------------*/
 
 @media screen and (max-width: 550px) {
 	.overlay
 	.overlay-close {
-		width: 44px;
-		height: 44px;
+		width: 30px;
+		height: 30px;
 	}
 
 	.overlay nav {
@@ -90,9 +94,8 @@
 		font-size:30px;
 	}
 
-.overlay .content
-	{
-		padding:60px 20px;
+	.overlay .content{
+		padding:60px 40px 0px 20px;
 	}
 	.content p{
 		font-size:16px;
