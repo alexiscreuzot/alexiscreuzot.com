@@ -50,7 +50,7 @@ $(function() {
         }
     });
 
-    $('.overlay-close').on( "click", function(event){
+    $('.overlay-close').on( "touchstart click", function(event){
       $('.overlay').removeClass('open');
       $("body").css({ overflow: 'inherit' });
 

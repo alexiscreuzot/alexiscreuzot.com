@@ -38,7 +38,6 @@ body {
   margin:auto;
   text-align:center;
   max-width:500px;
-
 }
 
 .title img{
@@ -108,7 +107,6 @@ body {
 
 .apps ul > li{
   text-decoration:none;
-  padding: 0px 20px;
   display: inline-block;
   outline: none;
   height:70px;
