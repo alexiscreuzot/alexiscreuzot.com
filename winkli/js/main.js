@@ -52,4 +52,10 @@ $(function() {
       $("body").css({ overflow: 'inherit' })
     });
 
+    $('.overlay').on( "click touchstart", function(event){
+      console.log('close');
+      $('.overlay').removeClass('open');
+      $("body").css({ overflow: 'inherit' })
+    });
+
 })();
