@@ -47,8 +47,7 @@ $(function() {
         $("video").hide();
     });
 
-    $('.overlay-close').on( "click touchstart", function(event){
-      console.log('close');
+    $('.overlay-close').on( "click", function(event){
       $('.overlay').removeClass('open');
       $("body").css({ overflow: 'inherit' });
       $("video").show();
