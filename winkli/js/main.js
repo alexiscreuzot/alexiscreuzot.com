@@ -43,19 +43,15 @@ $(function() {
     $('.trigger-overlay').click(function (event) {
         var idName = ($(this).attr('id'));
         $('.overlay.'+idName).addClass('open');
-        $("body").css({ overflow: 'hidden' })
+        $("body").css({ overflow: 'hidden' });
+        $("video").hide();
     });
 
     $('.overlay-close').on( "click touchstart", function(event){
       console.log('close');
       $('.overlay').removeClass('open');
-      $("body").css({ overflow: 'inherit' })
-    });
-
-    $('.overlay').on( "click touchstart", function(event){
-      console.log('close');
-      $('.overlay').removeClass('open');
-      $("body").css({ overflow: 'inherit' })
+      $("body").css({ overflow: 'inherit' });
+      $("video").show();
     });
 
 })();
