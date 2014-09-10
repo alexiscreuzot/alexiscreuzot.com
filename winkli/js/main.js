@@ -26,31 +26,37 @@ $(function() {
 })();
 
 // App links based on user agent
-(function() {
-    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    if( userAgent.match( /iPad/i ) ||
-      userAgent.match( /iPhone/i ) ||
-      userAgent.match( /iPod/i )){
-        $(".android").hide();
-    }else if( userAgent.match( /Android/i ) ){
-        $(".ios").hide();
-    }
-})();
-
 // Pages overlays
 (function() {
-  console.log('init overlays');
+
+    // User agent
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var isAndroid = userAgent.match( /Android/i );
+    var isIOS = (userAgent.match( /iPad/i ) ||userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ));
+
+    if(isIOS){
+        $(".android").hide();
+    }else if(isAndroid){
+        $(".ios").hide();
+    }
+
+    // Overlays
     $('.trigger-overlay').click(function (event) {
         var idName = ($(this).attr('id'));
         $('.overlay.'+idName).addClass('open');
         $("body").css({ overflow: 'hidden' });
-        $("video").hide();
+        if(isIOS){
+          $("video").hide();
+        }
     });
 
     $('.overlay-close').on( "click", function(event){
       $('.overlay').removeClass('open');
       $("body").css({ overflow: 'inherit' });
-      $("video").show();
+
+      if(isIOS){
+        $("video").show();
+      }
     });
 
 })();
