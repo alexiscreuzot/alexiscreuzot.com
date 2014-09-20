@@ -13,7 +13,7 @@ myApp.controller('MainController',function($scope, $http, $routeParams){
         hn:"https://news.ycombinator.com/user?id=kirualex",
         grooveshark:"http://grooveshark.com/#!/kirualex",
         osrc:"http://osrc.dfm.io/kirualex",
-        twitter:"http://twitter.com/kirualex",
+        twitter:"http://twitter.com/alexiscreuzot",
         isAvailable:false
     };
 
