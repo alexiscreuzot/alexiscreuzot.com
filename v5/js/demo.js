@@ -4,7 +4,7 @@
  */
 
 $(document).ready(function() {
-  
+
   FastClick.attach(document.body);
 
   $('#page').particleground({
@@ -12,6 +12,6 @@ $(document).ready(function() {
     lineColor: 'rgba(255,255,255,0.2)',
     curvedLines:false,
     proximity:100,
-    parallaxMultiplier:30
+    parallaxMultiplier:-20
   });
 });
