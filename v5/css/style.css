@@ -3,6 +3,9 @@
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+
+          user-select: none;
+          -webkit-touch-callout: none;
 }
 
 html, body {
@@ -103,6 +106,7 @@ p {
 @media only screen and (max-width: 460px) {
 
   html, body {
+    -webkit-overflow-scrolling: touch;
     overflow:scroll;
   }
 
