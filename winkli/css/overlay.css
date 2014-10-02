@@ -80,6 +80,7 @@
 	.overlay-close {
 		width: 30px;
 		height: 30px;
+		-webkit-overflow-scrolling: touch;
 	}
 
 	.overlay nav {

@@ -1,0 +1,104 @@
+/* Overlay style */
+.overlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(235, 51, 73, 0.9);
+}
+
+/* Overlay closing cross */
+.overlay
+.overlay-close {
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	overflow: hidden;
+	border: none;
+	background: url(../img/cross.png) no-repeat center center;
+	text-indent: 200%;
+	color: transparent;
+	outline: none;
+	z-index: 999;
+ 	cursor:pointer;
+}
+
+.overlay .content{
+	width:680px;
+	max-width:90%;
+	padding:100px 40px;
+	margin:auto;
+	overflow:scroll;
+  max-height:100%;
+}
+
+.content::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(255,0,0,1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+}
+
+.content h1{
+	font-size:40px;
+}
+
+.content p{
+	font-size:26px;
+}
+
+
+/*---------------------------------------------*\
+|*    Effects
+\*---------------------------------------------*/
+.overlay-scale {
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+	-webkit-transition: all 0.4s;
+	transition: all 0.4s;
+}
+
+.overlay-scale.open {
+	visibility: visible;
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+
+}
+
+/*---------------------------------------------*\
+|*    Mobile
+\*---------------------------------------------*/
+
+@media screen and (max-width: 550px) {
+	.overlay
+	.overlay-close {
+		width: 30px;
+		height: 30px;
+	}
+
+	.overlay nav {
+		height: 70%;
+		font-size: 34px;
+	}
+	.overlay ul li {
+		min-height: 34px;
+	}
+
+	.content h1{
+		font-size:30px;
+	}
+
+	.overlay .content{
+		padding:60px 40px 0px 20px;
+	}
+	.content p{
+		font-size:16px;
+	}
+
+}

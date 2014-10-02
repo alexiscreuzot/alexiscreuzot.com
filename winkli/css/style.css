@@ -69,6 +69,7 @@ hr {
   position: fixed; top: 0; left: 0;
   min-width: 100%;
   width: auto;
+  opacity:1;
   z-index: -100;
 }
 
@@ -77,10 +78,9 @@ hr {
   top:0;left:0;
   width:100%;
   height:100%;
-
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(244, 92, 67, 0.3)), to(#EB3349));
-  background: -webkit-linear-gradient(rgba(244, 92, 67, 0.3), #EB3349);
-  background: linear-gradient(rgba(244, 92, 67, 0.3), #EB3349);
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(244, 92, 67, 0.1)), to(#F45C43));
+  background: -webkit-linear-gradient(rgba(244, 92, 67, 0.1), #F45C43);
+  background: linear-gradient(rgba(244, 92, 67, 0.1), #EB3349);
 }
 
 #overlay-video-preloader{
@@ -88,8 +88,8 @@ hr {
   top:0;left:0;
   width:100%;
   height:100%;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(244, 92, 67, 1)), to(#EB3349));
-  background: -webkit-linear-gradient(rgba(244, 92, 67, 1), #EB3349);
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(244, 92, 67, 1)), to(#F45C43));
+  background: -webkit-linear-gradient(rgba(244, 92, 67, 1), #F45C43);
   background: linear-gradient(rgba(244, 92, 67, 1), #EB3349);
   -webkit-transition: opacity 2s;
   transition: opacity 2s;

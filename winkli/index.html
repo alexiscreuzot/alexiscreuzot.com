@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
 <title>Winkli App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,8 +31,8 @@
 <div class=home>
   <div id="video-container">
       <video video muted="muted" autoplay loop width="100%" >
-          <source src="http://static-p.iuqo.com/media/home/home/video/cloud.mp4" type="video/mp4"/>
-          <source src="cloud.webm" type="video/webm"/>
+          <source src="video.webm" type="video/webm"/>
+          <source src="video.mp4" type="video/mp4"/>
       </video>
       <div id="overlay-video">  </div>
       <div id="overlay-video-preloader">  </div>
@@ -41,17 +43,21 @@
     <h2>Discover who you'll bump into at<br/><span class=typed></span></h2>
   </div>
 
+<br><br>
+  <div class=title>
+    <h2><b>Soon ...<b/></h2>
+    </div>
 
   <div class=apps>
     <ul>
       <li class=ios>
-        <a href="https://itunes.apple.com/us/app/nice-weather-2/id913588239?mt=8&uo=4" target="itunes_store">
-        <img alt="Get it on iTunes" src="img/ios@2x.png" />
+        <!-- a href="http://wink.li" target="itunes_store" -->
+        <img alt="Get it on iTunes" src="img/ios@2x.png" style="opacity:0.4"/>
         </a>
       </li>
       <li class=android>
-        <a href="https://play.google.com/store/search?q=pub:com.winkli.winkliapp">
-        <img alt="Get it on Google Play" src="img/android@2x.png" />
+        <!-- a href="http://wink.li" -->
+        <img alt="Get it on Google Play" src="img/android@2x.png" style="opacity:0.4"/>
         </a>
       </li>
     </ul>
@@ -64,36 +70,151 @@
       <li><a href="https://twitter.com/winkliapp?fref=wink.li" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
       <li><a href="https://www.facebook.com/app.wink.li?fref=wink.li" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></li>
       <!-- li><a href="http://winkliblog.tumblr.com" target="_blank">Blog</a></li -->
-      <li><a class="trigger-overlay" id=privacy href="#">Privacy</a></li>
-      <li><a class="trigger-overlay" id=terms href="#">Terms</a></li>
-      <li><a class="trigger-overlay" id=press href="#">Press &amp; Contact</a></li>
+      <li><a class="trigger-overlay" id=faq href="#faq">FAQ</a></li>
+      <li><a class="trigger-overlay" id=privacy href="#privacy">Privacy</a></li>
+      <li><a class="trigger-overlay" id=terms href="#terms">Terms</a></li>
+      <li><a class="trigger-overlay" id=press href="#press">Press</a></li>
     </ul>
   </footer>
 </section>
 
 
-<div class="overlay overlay-scale privacy">
+<div class="overlay overlay-scale faq">
 <a href="#" class="overlay-close" title="Close this modal"></a>
   <div class=content>
-		<h1>Privacy</h1>
+		<h1>FAQ</h1>
     <hr/>
-		<p>Lorem ipsum dolor sit amet, per posse singulis urbanitas ut, altera malorum vim an. Per elit decore ullamcorper cu.
-      Vero eirmod id sed, commodo menandri ad cum. Nemore oporteat ex pro, no pro indoctum reprimique.
+		<p>
+<br><br><b>Est-ce que l’application publie sur ma Page Facebook ?</b>
+<br>winkli ne publie jamais rien sur votre mur Facebook.
+<br>Lorsque vous invitez un ami à utiliser winkli, celui-ci recevra une simple notification privée.
 
-      Atomorum torquatos consetetur sit id, nonumy ubique his ne. Ei alii omnesque euripidis sea,
-      in fugit iriure omnesque usu. Ne amet dolore inimicus eum. Eam minimum hendrerit ei, postea perfecto
-      salutandi et mea. Ius aliquam volutpat intellegat ea, ut doctus ancillae liberavisse vim. Tale persius consetetur vix et, an usu alii magna.
+<br><br><b>À quoi correspondent les grands profils sur la home page ?</b>
+<br>Ce sont les profils des personnes qui ont répondu "présent" à l'événement affiché.
 
-      Pri an laudem sanctus fabellas. Ei omittam electram aliquando duo. No velit noster animal sea,
-       bonorum alienum ponderum his te, quo dolore adipiscing no. Alia fabellas ei nam, est agam incorrupte in.
+<br><br><b>À quoi correspondent les petits profils attachés à la grande photo ?</b>
+<br>Ils correspondent aux amis en commun que vous avez avec le participant.
 
-      Illud periculis efficiantur usu te, mei id autem noster. Sit ne quod veniam, eam viris laudem no.
-      Quo quaestio efficiantur te. Ne mea veri virtute gloriatur, clita expetendis per id, putant noluisse ex pro.
-      Ne augue doctus sit, no eos maiorum mnesarchum, ex laoreet percipitur mea.
+<br><br><b>À quoi correspondent les petits profils en bas à gauche ?</b>
+<br>Ils correspondent à vos amis qui se rendent à l'événement.
 
-      Vel recusabo expetendis ullamcorper eu. Feugait philosophia eum et, ad eam purto detraxit. Ut pri iudicabit
-      interpretaris. At aperiri ornatus dolorem cum. Usu atqui everti tacimates cu, mel ne accusamus mediocritatem, suas cibo albucius eos ex.
-      Qui aeque liberavisse id, id dico eleifend conceptam qui, fabellas adipisci id per.</p>
+<br><br><b>Comment interagir avec les profils ?</b>
+<br>Vous pouvez envoyer un "wink" (le bouton cœur) sur une personne qui vous intéresse.
+<br>Un wink réciproque déclenche la mise en relation par une notification / popup et l'ouverture d'une nouvelle conversation.
+<br>Un simple clic sur la photo de profil d'un ami direct Facebook vous permet soit de l'inviter soit de lancer une conversation avec lui.
+
+<br><br><b>Comment fait-on pour discuter avec quelqu’un ?</b>
+<br>Vous ne pouvez pas discuter directement avec un profil.
+<br>Pour engager une conversation, il faut que l’envie soit réciproque : il faut etre "matché".
+
+<br><br><b>Peut-on annuler un Wink envoyé ?</b>
+<br>Oui il est tout à fait possible de l'annuler.
+
+<br><br><b>Que signifie le bouton "Let's GO?" ?</b>
+<br>Le bouton vous permet de répondre au statut de l'événément et se synchronise avec Facebook.
+<br>Vous pouvez également cliquer sur "Plus d'infos" pour afficher le détail de l'événement sur l'application Facebook.
+
+<br><br><b>Peut-on supprimer une conversation ?</b>
+<br>Il est tout à fait possible de supprimer une conversation que ce soit avec un(e) ami(e) et/ou un match. .
+
+<br><br><b>Comment ajouter des photos de profils ?</b>
+<br>Pour le moment seule la photo de profil Facebook principale est intégrée.
+
+<br><br><b>Doit-on avoir une connexion internet pour que l’application fonctionne ?</b>
+<br>Il est nécessaire d’avoir une connexion internet pour que l’application fonctionne correctement (wifi/3G/4G).
+
+<br><br><b>À quoi servent les Paramètres dans le Menu de Gauche ?</b>
+<br>Les Paramètres vous permettent d’indiquer le sexe des personnes que vous souhaitez afficher.</p>
+    </div>
+</div>
+
+<div class="overlay overlay-scale privacy">
+  <a href="#" class="overlay-close" title="Close this modal"></a>
+  <div class=content>
+    <h1>Privacy</h1>
+    <hr/>
+
+<p>Last updated: October 01, 2014</p>
+
+<p>Winkli SAS ("us", "we", or "our") operates the Winkli mobile application (the "Service").</p>
+
+<p>Any information that you provide to us is subject to our Privacy Policy, which governs our collection and use of your information. You understand that through your use of the Service you consent to the collection and use (as set forth in the Privacy Policy) of this information, including the transfer of this information for storage, processing and use by us. As part of providing you the Service, we may need to provide you with certain communications, such as service announcements and administrative messages. These communications are considered part of the Service and your account with us. However, you can opt-out of most communications from us, including our notification e-mails.</p>
+
+<p>We will not use or share your information with anyone except as described in this Privacy Policy.</p>
+
+<p><strong>We use your Personal Information for providing and improving the Service. By using the Service, you agree to the collection and use of information in accordance with this policy.</strong> Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible at </p>
+
+
+<p><strong>Information Collection And Use</strong></p>
+
+<p>While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you. Personally identifiable information may include, but is not limited to, your email address, name, other information ("Personal Information").</p>
+
+<p><strong>Log Data</strong></p>
+
+<p>We collect information that your browser sends whenever you visit our Service ("Log Data"). This Log Data may include information such as your computer's Internet Protocol ("IP") address, browser type, browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on those pages and other statistics.</p>
+
+<p>In addition, we may use third party services such as Google Analytics that collect, monitor and analyze this type of information in order to increase our Service's functionality. These third party service providers have their own privacy policies addressing how they use such information.</p>
+
+<p>When you access the Service by or through a mobile device, we may collect certain information automatically, including, but not limited to, the type of mobile device you use, your mobile devices unique device ID, the IP address of your mobile device, your mobile operating system, the type of mobile Internet browser you use and other statistics.</p>
+
+
+<p><strong>Cookies</strong></p>
+
+<p>Cookies are files with small amount of data, which may include an anonymous unique identifier. Cookies are sent to your browser from a web site and stored on your computer's hard drive.</p>
+
+<p>We use "cookies" to collect information. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service.</p>
+
+
+
+
+<p><strong>Service Providers</strong></p>
+
+<p>We may employ third party companies and individuals to facilitate our Service, to provide the Service on our behalf, to perform Service-related services or to assist us in analyzing how our Service is used.</p>
+
+<p>These third parties have access to your Personal Information only to perform these tasks on our behalf and are obligated not to disclose or use it for any other purpose.</p>
+
+<p>Facebook API</p>
+
+
+
+
+<p><strong>Security</strong></p>
+
+<p>The security of your Personal Information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Information, we cannot guarantee its absolute security.</p>
+
+<p><strong>International Transfer</strong></p>
+
+<p>Your information, including Personal Information, may be transferred to — and maintained on — computers located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction.</p>
+
+<p>If you are located outside France and choose to provide information to us, please note that we transfer the information, including Personal Information, to France and process it there.</p>
+
+<p>Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.</p>
+
+<p><strong>Links To Other Sites</strong></p>
+
+<p>Our Service may contain links to other sites that are not operated by us. If you click on a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit.</p>
+
+<p>We have no control over, and assume no responsibility for the content, privacy policies or practices of any third party sites or services.</p>
+
+<p><strong>Children's Privacy</strong></p>
+
+<p>Our Service does not address anyone under the age of 13 ("Children").</p>
+
+<p>We do not knowingly collect personally identifiable information from children under 13. If you are a parent or guardian and you are aware that your Children has provided us with Personal Information, please contact us. If we discover that a Children under 13 has provided us with Personal Information, we will delete such information from our servers.</p>
+
+<p>If you are between the age of 13 and 18 years old, you may use the Service but only under the supervision of a parent or legal guardian who agrees to be bound by these Terms. If you are a parent or legal guardian agreeing to these Terms for the benefit of a child between 13 and 18 years old, be advised that you are fully responsible for his or her use of the Service, and any and all legal liability that he or she may incur. Our Service is not directed to people under age 13. If you are under age 13 you may not, under any circumstances or for any reason, use the Service. By accessing or using the Service, you represent and warrant that you are 13 or older.</p>
+
+<p><strong>Changes To This Privacy Policy</strong></p>
+
+<p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+
+<p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+
+<p><strong>Contact Us</strong></p>
+
+<p>If you have any questions about this Privacy Policy, please contact us.</p>
+
+
     </div>
 </div>
 
@@ -102,23 +223,333 @@
   <div class=content>
     <h1>Terms</h1>
     <hr/>
-    <p>Lorem ipsum dolor sit amet, per posse singulis urbanitas ut, altera malorum vim an. Per elit decore ullamcorper cu.
-      Vero eirmod id sed, commodo menandri ad cum. Nemore oporteat ex pro, no pro indoctum reprimique.
+<p>The company Winkli SAS provides a real service encounters led users to meet through an event via Facebook Mobile Application Winkli (hereinafter the "Application"), available on iPhone and Android . Any use of the Application is subject to acceptance of these Terms and Conditions (hereinafter the "Terms").
+<br><br>
+1. object<br>
+(: "Users" below) have common points of interest, in connection with them: The "Winkli" application (hereinafter the "Application") is to connect users to participation in events offered on Facebook (hereinafter: the "events").
+<br><br>
+These terms are intended to define the terms and conditions of use of the Application and services that are offered to them (hereinafter: the "Services"), and to define the rights and obligations of the parties in this framework.
+<br>
+They are accessible at any time in the Application. They are also accessible via a direct link at the bottom of page on the website www.wink.li.
+<br>
+They may be supplemented as necessary by conditions of use specific to certain services which complement these Terms and, in case of conflict, take precedence over the latter.
+<br><br>
+<br> 2. Operator of the Application and Services Contact
+<br><br>
+The Application and Services are operated by the company Winkli, SAS with a capital of 1 000 euros, registered with the RCS Paris under number 801 142 803, with registered office at 50 boulevard Murat - 75016 Paris (hereinafter after "Winkli"). Email: contact@wink.li
+<br><br>
+<br> 3. Access to the Application and Services
+<br><br>
+3.1 Legal Capacity
+<br>
+The Application and Services are available only to individuals who are at least 16 years old and have full legal capacity to engage under these terms.
+<br>
+The aged at least 16 years old individual who does not have full legal capacity can not access the Application and the Services without the consent of his legal representative.
+<br><br>
+<br> 3.2 Application and Services dedicated to specific
+<br><br>
+The Application and Services are only available to individuals through private use and not for professionals, understood as all natural or legal persons in paid employment than occasionally in all sectors activities of industry or commerce.
+<br><br>
+<br> 4. Acceptance of Terms
+<br><br>
+The acceptance of these terms is shown by validating the button "connect" for this purpose when registering to the Application. This acceptance can only be full. Each accession subject is considered null and void. Users who do not agree to be bound by these terms and conditions shall not access or use the Application Services.
+<br><br>
+<br> 5. Access to the Application and Services
+<br><br>
+<br> 5.1 The User who wishes to use the service must download the application from the Apple App Store or Google Play for Android.
+<br>
+This download is subject to the conditions specific to the download platforms use.
+<br><br>
+<br> 5.2 Application and Services are offered exclusively via the Facebook website.
+<br><br>
+To gain access, the user must be registered on Facebook and use its login credentials. It should also prove a minimum number of 50 persons with whom he is friends on Facebook (hereinafter: the "Friends") and for security reasons.
+<br>
+<br> User expressly authorizes Winkli to retrieve the following information, to the extent that he made ​​public on Facebook:
+<br><br>
+<br> - The name of the User,
+<br> - His age,
+<br> - Her sex,
+<br> - His photography public profile
+<br> - Its geographical location,
+<br> - His expressions of interest (hereinafter: the "Like")
+<br> - The list of his friends,
+<br> - The list of events to which he was invited,
+<br> - List of Events that his friends will be traveling.
+<br><br>
+<br> The User guarantees that all the information on the account established on Facebook is accurate, current and accurate and are not tainted by any character misleading. It is informed and agrees that such information are worth proof of identity.
+<br><br>
+Winkli reserves the right to ask the user for additional information it considers necessary to validate the registration.
+<br>
+In all cases, the user must provide Winkli all marked as mandatory information. Incomplete registration will not be validated.
+<br>
+Registration for the application automatically will open an account in the name of the User (hereinafter: the "Account"), giving it access to the Application.
+<br><br>
+<br> 5.3 The User can access at any time after the application identified by its login to Facebook.
+<br><br>
+The User agrees to use the services personally and not to allow any third party to use in its place or on its behalf, except to bear full responsibility.
+<br><br>
+<br> 6. Description of Services
+<br><br>
+<br> Users have access to services that follow, in a form and depending on the features and technical resources that Winkli considers most appropriate.
+<br><br>
+<br> 6.1 Viewing Events
+<br><br>
+<br> Application allows the display of all events which:
+<br>
+- The user is invited;
+<br>
+- The user has indicated that he would perhaps using "Maybe" button;
+<br>
+- The user has indicated that he would use the "I'm going".
+<br>
+The event continues to be displayed when the user has indicated that it would not use the "No Medium" button.
+<br>
+The application also allows the display of events that the Friends of the user indicated that they would make using the "Going" button.
+<br>
+The classification of events is displayed according to the criteria Winkli.
+<br><br>
+<br> 6.2 Information displayed in the Events
+<br><br>
+<br> 6.2.1 Information available in the Event
+<br>
+The application used to display, in each event, the following information:
+<br>
+- The list of Friends of the user who will travel to the Event;
+<br>
+- The profiles of other people who will go to the Event (hereinafter: the "Participants").
+<br>
 
-      Atomorum torquatos consetetur sit id, nonumy ubique his ne. Ei alii omnesque euripidis sea,
-      in fugit iriure omnesque usu. Ne amet dolore inimicus eum. Eam minimum hendrerit ei, postea perfecto
-      salutandi et mea. Ius aliquam volutpat intellegat ea, ut doctus ancillae liberavisse vim. Tale persius consetetur vix et, an usu alii magna.
+<br> 6.2.2 Available Information on the Participant Profile
+<br>
+If the Participant is not enrolled in the Application, the selection of the profile allows the user to access the following information:
+<br>
+<br> - His first name,
+<br> - Her sex,
+<br> - The photograph of her profile
+<br> - Friends he has in common with the User
+<br> - centers of common interest with the User
 
-      Pri an laudem sanctus fabellas. Ei omittam electram aliquando duo. No velit noster animal sea,
-       bonorum alienum ponderum his te, quo dolore adipiscing no. Alia fabellas ei nam, est agam incorrupte in.
+<br><br>
+<br> 6.3 Wink of Participant Profile
+<br><br>
+Users have the opportunity to post a "Wink" on the Profile of a Participant, whether or not registered with the Application.
+<br>
+The user also has the option to cancel this action "Wink" by clicking a second time on the button.
+<br>
+If two users have each posted a Wink on the profile of the other, and that they are reciprocally active, a notification is sent to each of them, through the Application, by email and / or any other means proposed in the application.
+<br>
+A Wink posted by a user is on the profile of a Participant who is not enrolled in the Application or on the profile of a user who does not post back, remains anonymous and is remembered by Application.
+<br>
+When the User or the Participant recipient, if it was included on the Application meantime, post in turn Like the first user profile, a notification is sent to each of them under the same conditions as those described above.
+<br>
+This notification is intended to enable the linking (hereinafter: the "Match") for between Users that have appreciated each other.
+<br>
+6.4 Features related Match
+<br>
+<br> 6.4.1 Access to private messaging
+<br>
+The application provides users with a related private messaging Match allowing them to exchange them.
+<br>
+The Utiisateurs Facebook friends can also enjoy the services of messaging and initiate a conversation via events, mutual friends or through the friends list in the Application menu.
+<br>
+<br> 6.4.2 Blocking Match
+<br>
+The User who wishes to suspend or terminate Match can request that it be blocked. In this case, the profile of each of the users concerned will not be displayed and made available to another user of the Match blocked.
+<br><br>
+<br> 6.5 Other Services
+<br><br>
+Winkli reserves to provide any other service it deems appropriate, in a form and depending on the features and technical means it deems most appropriate to make such Services.
+<br><br>
+<br> 7. Free Services
+<br><br>
+Access to Application and Services are provided free of charge.
+<br><br>
+<br> 8. No withdrawal
+<br><br>
+Because of the free services, the User is not granted any right of withdrawal.
+<br><br>
+9 Data Winkli
+<br><br>
+The User expressly acknowledges and agrees:
+<br>
+(i) the data collected in the Application and IT equipment Winkli attest to the reality of the transactions take place in the context of these,
+<br>
+(ii) that these data are the only mode of proof recognized by the parties.
+<br>
+Users may access the data in the application.
+<br><br>
+10 User Obligations
+<br>
+Without prejudice to the other obligations set forth herein, the User agrees to comply with the obligations that follow.
+<br>
+10.1 The User agrees, in its use of the Services, to comply with laws and regulations and does not infringe the rights of third parties or the public order.
+<br>
+10.2 The User acknowledges characteristics and constraints, especially techniques, and application of all Services.
+<br>
+He is solely responsible for its use of the Services including relationships that may develop with other users and the information communicated to them as part of the Services. It is to exercise caution and proper discernment in these relations and communications. The User agrees that, in its discussions with other Users, to the customary rules of politeness and courtesy.
+<br>
+10.3 The User expressly acknowledges and agrees that by accessing the Application and using the Services, it is bound by the terms and conditions of use policy for using Facebook data.
+<br>
+It also acknowledges and agrees that the suspension or cancellation for any reason whatsoever, the account established on Facebook automatically lead to the inability to access and use the Application Services
+<br>
+10.4 You are solely responsible for the content of any kind (editorial, graphics, audio, visual or otherwise, including the name and / or image may be selected by the user to identify it in the Application) that it diffuses into the Services (hereinafter referred to: "Content").
+<br>
+It guarantees Winkli he has all the rights and permissions necessary to disseminate such Content.
+<br>
+He agrees that the said contents are lawful, do not violate public order or morality or the rights of others, do not violate any statutory or regulatory provision and, more generally, are by no means likely to game civil or criminal liability Winkli.
+<br>
+The User and not broadcast, including, but are not limited to:
+<br>
+<br> - Content pornographic, obscene, indecent, offensive or inappropriate for a family audience, defamatory, abusive, violent, racist, xenophobic or revisionist
+<br> - infringing content,
+<br> - Content detrimental to the image of a third party,
+<br> - Content untrue, misleading or offering or promoting illegal activity, fraudulent or misleading,
+<br> - Content harmful to computer systems of others (such as viruses, worms, Trojans, etc.)
+<br> - and more generally of the Content may infringe the rights of third parties or to be harmful to others in any manner and in any form whatsoever.
+<br><br>
+10.5 For the purposes of implementation of the Services, the User authorizes Winkli to use its contents according to the following procedures:
+<br><br>
+<br> - He agrees that its contents are distributed free of charge by Winkli in the Application,
+<br>
+<br> - He agrees that its contents are disseminated by Winkli by any means and in any media for promotion of the Application
+<br>
+<br> - He accepts that its editorial content to be translated into all languages,
+<br>
+<br> - It acknowledges and agrees that the Content may be subject to change, especially as regards their framing, their size and color, as well as alterations or degradations in quality, according to the technical constraints of Application,
+<br>
+<br> - He renounces ask Winkli any remuneration, fee, compensation or financial compensation for that.
+<br><br>
+10.6 The User expressly acknowledges and agrees that in case of termination of access to the Application, partly because of shortcomings outlined in Article 12, it can not re-register.
+<br><br>
+10.7 The User agrees and understands that the implementation of the Services requires that it be connected to the internet and the quality of service is directly in this connection, which he alone is responsible.
+<br><br>
+11 Warranty User
+<br><br>
+The User warrants Winkli against all claims, demands, actions and / or any claims that Winkli may suffer by reason of the breach by User of any of its obligations or warranties under these Terms.
+<br>
+He agrees to indemnify Winkli any detriment to it and pay to all costs, charges and / or convictions that may incur as a result.
+<br>
+12 Prohibited behavior
+<br><br>
+12.1 It is strictly forbidden to use the Services to:
+<br><br>
+- Pursuit of illegal, fraudulent or which infringes the rights or safety of others activities
+- The threat to public order or violation of laws and regulations,
+- The intrusion of a third party or any activity likely to harm computer system, monitor, interfere with, intercept or any part of the computer system of a third party, violate the integrity or security
+- Sending unsolicited and / or prospecting or commercial solicitation emails,
+- Operations to improve the ranking of a third site,
+- Help or encouragement in any form and by any means whatsoever, to one or more of the acts and activities described above,
+- And more generally any practice away Services for purposes other than those for which they were designed.
+<br><br>
+12.2 It is strictly forbidden for users to copy and / or divert their goals or those of third concept, technology or any other element of the Application.
+<br><br>
+12.3 are also strictly prohibited: (i) any behavior likely to interrupt, pause, slow or prevent the continuity of services, (ii) any intrusions or attempted intrusions into systems Winkli, (iii) any misuse of system resources the Application, (iv) any action likely to impose a disproportionate burden on the latter's infrastructure, (v) any violations of safety measures and authentication, (vi) any act likely to impair the rights and financial, business and moral interests of Winkli or users of its application, and then more generally (vii) any breach of these terms and conditions.
+<br><br>
+12.4 It is strictly prohibited to monetize, sell or license all or part of the Services or access the Application, as well as information housed and / or shared.
+<br><br>
 
-      Illud periculis efficiantur usu te, mei id autem noster. Sit ne quod veniam, eam viris laudem no.
-      Quo quaestio efficiantur te. Ne mea veri virtute gloriatur, clita expetendis per id, putant noluisse ex pro.
-      Ne augue doctus sit, no eos maiorum mnesarchum, ex laoreet percipitur mea.
+<br>
+13 Sanctions for breaches
+<br>
+In case of breach of any provision of these terms or more generally, violations of the laws and regulations by a User, Winkli reserves the right to take appropriate action including:
+<br><br>
+(i) suspend, remove, or prevent access to the Application and User Services, person, or of the offense, or who participated,
+(ii) remove any content posted on the Site,
+(iii) publish in the Application any information message Winkli deems fit,
+(iv) advise any authority,
+(v) any judicial action.
+<br><br>
+14 Liability and warranty Winkli
+<br><br>
+14.1 Winkli agrees to provide the Services with due diligence and in accordance with the rules of the art, with the stipulation that it weighs on a best effort basis, to the exclusion of any obligation of result, which the User acknowledges and agrees specifically.
+<br><br>
+14.2 The Services offered by the only aim Winkli linking users under the conditions specified in Article 6 Winkli is not a party to the relationships that occur between users and does not intervene in them.
+<br><br>
+Accordingly, Winkli can not be held responsible for the consequences that might result from this relationship or any exchanges between Users outside the scope of the Services.
+<br><br>
+14.3 Winkli not aware of the events that are proposed and organized by Facebook and can not be held responsible for any problem of any nature whatsoever, direct or indirect, from them.
+<br><br>
+Any report or any claims should be made directly and exclusively to Facebook.
+<br>
+14.4 Winkli not aware of the Content posted by users in the Services, in which she makes no moderation, selection, audit or control of any kind, for which it acts only 'as a hosting provider.
+<br>
+Accordingly, Winkli can not be held responsible for the Content, authored by third parties, any claims to be primarily directed towards the author of the Content in question.
+<br>
+Harmful to a third party Content may be notified to Winkli as provided by Article 6 I 5 of Law No. 2004-575 of 21 June 2004 on confidence in the digital economy, Winkli reserving the right to take the action specified in Article 13.
+<br>
+14.5 Winkli agrees to make regular checks to verify the functioning and accessibility of the Application. As such, Winkli reserves the right to temporarily suspend access to the Application for maintenance reasons.
+<br>
+Similarly, Winkli can not be held responsible for any difficulties or impossibilities momentary access to the Application that would malfunction origin of Facebook, for any reason whatsoever.
+<br><br>
+14.6 Winkli does not guarantee Users (i) the Services, subject to constant research to improve significantly the performance and progress will be completely free of errors, faults or defects, (ii) the Services, as standard and not offered for the sole purpose of a particular user based on his own personal constraints, tailored specifically to their needs and expectations.
+<br><br>
+14.7 In any event, the liability could be incurred by Winkli hereunder is expressly limited to direct damages suffered by the User proved.
+<br>
+15 Intellectual Property Winkli
+<br>
+Systems, software, structures, infrastructure, databases and content of any kind (text, images, video, music, logos, trademarks, database, etc ...) operated by Winkli within the application is protected by all intellectual property rights or rights of producers of databases in force. All disassembly, decompilation, deciphering, extractions, re-use, copy and, more generally, any act of reproduction, dissemination and use of any of these elements, in whole or in part without permission is strictly prohibited and Winkli may be subject to prosecution.
+<br><br>
+16 Personal Data
+<br><br>
+Winkli a policy of protection of personal data whose characteristics are detailed in the document entitled "Charter on the protection of personal data" that the User is expressly invited to read.
+<br><br>
+17 Duration of Services, unsubscribe
+<br><br>
+Services are underwritten indefinitely.
+<br>
+Users may unsubscribe Services at any time through the Application.
+<br>
+Deregistration is effective immediately. It will automatically delete the User Account, which then has no access to the Application.
+<br>
+The User expressly agrees and understands that chat history it has traded under the private courier, described in section 6.5, will be displayed in the Application for a maximum of 30 days Unsubscribed User, Winkli reserving the right to remove this history at any time.
+<br><br>
+18 changes
+<br><br>
+Winkli reserves the right to modify at any time these terms and conditions.
+<br>
+The User will be notified of such changes by any means useful.
+<br>
+Users who do not accept the modified terms and conditions shall unsubscribe Services as provided in Article 17.
+<br>
+Any User who uses the Services after the entry into force of the amended terms and conditions shall be deemed to have accepted these changes.
+<br><br>
+19 Language
+<br><br>
+Assuming a translation of these terms in one or more languages​​, language interpretation will be French in case of conflict or dispute the meaning of a term or provision.
+<br><br>
+20 Law and Jurisdiction
+<br><br>
+These general conditions are governed by French law.
+<br>
+In case of dispute the validity, interpretation and / or execution of these terms, the parties agree that the courts of Paris shall have exclusive jurisdiction to judge, unless otherwise mandatory rules of procedure.
+<br><br>
+21 Entry into force
+<br><br>
+These terms came into force on 01.09.2014
+</ p>
+<br>
 
-      Vel recusabo expetendis ullamcorper eu. Feugait philosophia eum et, ad eam purto detraxit. Ut pri iudicabit
-      interpretaris. At aperiri ornatus dolorem cum. Usu atqui everti tacimates cu, mel ne accusamus mediocritatem, suas cibo albucius eos ex.
-      Qui aeque liberavisse id, id dico eleifend conceptam qui, fabellas adipisci id per.</p>
+<br>
+<br>Limitation of Liability
+<br>
+<br> MAXIMUM EXTENT PERMITTED TO THE BY APPLICABLE LAW, AND ITS Winkli Subsidiaries, AFFILIATES, OFFICERS, EMPLOYEES, AGENTS, PARTNERS AND BE LIABLE licensors WILL NOT FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOOD-WILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM (i) YOUR ACCESS TO OR USE OF OR ACCESS TO OR USE Inability THE SERVICE; (ii) ANY CONTENT OR CONDUCT OF ANY THIRD PARTY ON THE SERVICE, INCLUDING WITHOUT LIMITATION, ANY defamatory, OFFENSIVE OR ILLEGAL CONDUCT OF OTHER USERS OR THIRD PARTIES; (iii) ANY CONTENT OBTAINED FROM THE SERVICE; AND (iv) UNAUTHORIZED ACCESS, USE OR ALTERATION OF YOUR TRANSMISSIONS OR CONTENT, WHETHER BASED ON WARRANTY, CONTRACT, TORT (INCLUDING NEGLIGENCE) OR ANY OTHER LEGAL THEORY, WHETHER OR NOT HAS BEEN INFORMED Winkli OF THE POSSIBILITY OF SUCH DAMAGE, AND EVEN IF A REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE. <br>
+
+<br>
+<br> exclusions
+<br>
+<br> Some jurisdictions do not allow the exclusion of some warranties or the exclusion or limitation of liability for consequential or incidental damages, so the limitations marked values ​​May not apply to you. <br>
+
+<br>
+<br> Waiver and SWinkliability
+<br>
+<br> The failure of Winkli to enforce Any right or provision of These Terms Will not be Deemed a waiver of right or provision Such. In the event That Any provision of These Terms is invalid or held-to-BE unenforceable, the Remaining Provisions of These Terms Will Remain in full strength and effect. <br>
+
+<br>
+<br> Entire Agreement
+<br>
+<br> These Terms and our Privacy Policy are the Entire and exclusive agreement betweens Winkli and respond to you about the service (EXCLUDING Any services for All which you-have A Separate agreement with Winkli That Is Explicitly in addition or in place of These Terms), and thesis Terms supersede and Any replace Prior agreements betweens Winkli and respond to you about the service. Other than members of the group of companies of Winkli All which is the parent, no person or company --other Will Be Third-Party Beneficiaries to the Terms. We May revised Terms from time to thesis time. If we determined, in our sole discretion, That a revision is material we notify you via May a general update or e-mail to the Associated email with your account. By Continuing to access or use the Service After Those revisions Become effective, you AGREE To Be bound by the revised Terms. These Service is operated and provided by Winkli, SAS. If you-have Any Questions about thesis Terms, please contact us at contact@wink.li. <br>
+
+<br> These Terms Were Most Recently modified and made ​​effective on October 1st, 2014.
     </div>
 </div>
 

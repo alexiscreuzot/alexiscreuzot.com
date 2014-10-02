@@ -29,6 +29,10 @@ $(function() {
 // Pages overlays
 (function() {
 
+  if(window.location.hash) {
+    $('.overlay.'+window.location.hash.slice(1)).addClass('open');
+  }
+
     // User agent
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     var isAndroid = userAgent.match( /Android/i );
