@@ -1,17 +1,9 @@
 {
     "ads":1,
-    "app_version":"1.40",
+    "app_version":"1.80",
     "app_link":"http://itunes.apple.com/app/",
     "magic_bean":"WINTERISCOMING",
     "apps":[
-    {
-        "appId": "com.alexiscreuzot.niceweather",
-        "order": 1,
-        "icon": "http://i.imgur.com/sNrBKKL.png",
-        "title": "Nice Weather",
-        "description": "The Weather, simply.",
-        "link": "http://itunes.apple.com/app/nice-weather/id709290908?ls=1&mt=8"
-    },
     {
         "appId":"com.alexiscreuzot.reddito",
         "order":2,
@@ -22,7 +14,7 @@
     },
     {
         "appId":"com.alexiscreuzot.sevenmw",
-        "order":3,
+        "order":1,
         "icon":"http://i.imgur.com/xNXPvj6.png",
         "title":"7 Minutes Workout",
         "description":"Keep in shape by working out efficiently with the scientifically approved 7 Minute Workout !",
