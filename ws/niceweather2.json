@@ -1,8 +1,8 @@
 {
-    "ads":1,
+    "ads":0,
     "app_version":"1.80",
     "app_link":"http://itunes.apple.com/app/",
-    "magic_bean":"THXALEX",
+    "magic_bean":"BIGUP",
     "apps":[
     {
         "appId":"com.alexiscreuzot.reddito",
