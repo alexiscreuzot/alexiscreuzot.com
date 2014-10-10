@@ -2,6 +2,7 @@
     "ads": 1,
     "app_version": "2.5",
     "app_link": "http://itunes.apple.com/app/reddito/id674736514?ls=1&mt=8",
+    "magic_bean":"BIGUP",
     "apps": [
         {
             "appId": "com.alexiscreuzot.niceweather2",
