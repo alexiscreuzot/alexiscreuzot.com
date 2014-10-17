@@ -1,6 +1,6 @@
 {
     "ads": 0,
-    "app_version": "2.5",
+    "app_version": "2.6",
     "app_link": "http://itunes.apple.com/app/reddito/id674736514?ls=1&mt=8",
     "magic_bean":"BIGUP",
     "apps": [
@@ -11,14 +11,6 @@
             "title": "Nice Weather 2",
             "description": "Nice Weather app sequel, with its all new killer design !",
             "link": "http://itunes.apple.com/app/nice-weather-2/id729430189?ls=1&mt=8"
-        },
-        {
-            "appId": "com.alexiscreuzot.niceweather",
-            "order": 2,
-            "icon": "http://i.imgur.com/sNrBKKL.png",
-            "title": "Nice Weather",
-            "description": "The Weather, simply.",
-            "link": "http://itunes.apple.com/app/nice-weather/id709290908?ls=1&mt=8"
         },
         {
             "appId": "com.alexiscreuzot.sevenmw",
