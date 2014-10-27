@@ -45,27 +45,26 @@ span{
   width: 100%;
   text-align: center;
   background:#eee;
+  transition:all 1s;
 }
 
-#pupil{
-  display:inline-block;
+.pupil{
+  transition:all 1s;
   position:absolute;
-  opacity:0;
-  font-size: 0px;
-  padding-top:30px;
-  transition : opacity 1s;
+  font-size:90px;
+  margin:48px -74px;
 }
 
-#pupil.show{
-  padding-top:50px;
+.pupil.show{
+  margin:66px -74px;
   opacity:1;
-  font-size: 90px;
-  margin-left:-75px;
 }
 
 #qle{
-  transition : all 1s;
+  transition:all 1s;
+  display:inline;
 }
+
 #qle.show{
-  margin-left:-92px;
+  margin-left:-98px;
 }
