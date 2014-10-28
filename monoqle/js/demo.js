@@ -20,12 +20,12 @@ $(document).ready(function() {
 
   // Mobile with accelerometer
 
-  if (window.DeviceMotionEvent) {
-    window.addEventListener('devicemotion', function () {
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener("deviceorientation", function () {
+        curX = (event.gamma + 20) * ($(window).width()/40);
         $('h1').text(event.gamma);
-        curX = (event.gamma + 180) * ($(window).width()/360);
     }, true);
-}
+  }
 
   setInterval(function () {
 
