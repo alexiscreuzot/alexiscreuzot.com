@@ -29,6 +29,26 @@ span{
   font-weight:300;
   font-size: 160px;
 }
+/* ----------  Loupe ----------- */
+
+.loupe {
+  position:absolute;
+  display:inline-block;
+  margin:28px 0px 0 -30px;
+  width:90px;
+  height:102px;
+  border-radius:45px;
+  overflow: hidden;
+  background: #eee;
+}
+
+.loupe span.zoomed{
+  position:absolute;
+  font-size:176px;
+  margin-top:-38px;
+  margin-left:-148px;
+
+}
 
 /* ----------  Structure ----------- */
 
@@ -38,9 +58,7 @@ span{
   height: 100%;
 }
 
-#main {
-  position: absolute;
-  top: 30%;
+.main {
   margin: 30px 0;
   width: 100%;
   text-align: center;
@@ -48,23 +66,7 @@ span{
   transition:all 1s;
 }
 
-.pupil{
-  transition:all 1s;
-  position:absolute;
-  font-size:90px;
-  margin:48px -74px;
-}
-
-.pupil.show{
-  margin:66px -74px;
-  opacity:1;
-}
 
 #qle{
-  transition:all 1s;
-  display:inline;
-}
-
-#qle.show{
-  margin-left:-98px;
+  margin-left:-50px;
 }

@@ -1,18 +1,21 @@
-/**
- * Particleground demo
- * @author Jonathan Nicol - @mrjnicol
- */
+
 
 $(document).ready(function() {
 
-  $( "#main" ).mouseenter(function() {
-    $( ".pupil" ).addClass( "show" );
-    $( "#qle" ).addClass( "show" );
-  });
+  var maxDx = 10;
+  var mid = $(window).width()/2;
 
-  $( "#main" ).mouseleave(function() {
-    $( ".pupil" ).removeClass( "show" );
-    $( "#qle" ).removeClass( "show" );
+  var loupe = $(".loupe");
+  var zoomed = $(".zoomed");
+  var qle = $("#qle");
+
+  $(window).mousemove(function( event ) {
+    var msg = event.pageX ;
+    var dx = (event.pageX-mid)/mid * maxDx;
+
+    loupe.css('margin-left' , (-30 + dx));
+    zoomed.css('margin-left' , (-148 - dx));
+    qle.css('margin-left' , (-50 + dx));
   });
 
 });
