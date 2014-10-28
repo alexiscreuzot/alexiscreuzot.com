@@ -1,15 +1,22 @@
 
-
 $(document).ready(function() {
 
   var zoomed = $("#zoomed");
   var qle = $("#qle");
 
   var curX = 0;
+
+  // Desktop
   $(document).mousemove(function(event) {
     curX = event.pageX;
   });
 
+  // Mobile
+  document.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    var touch = e.touches[0];
+    curX = touch.pageX;
+  }, false);
 
   setInterval(function () {
 
