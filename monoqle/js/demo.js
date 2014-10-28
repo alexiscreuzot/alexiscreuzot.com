@@ -19,11 +19,18 @@ $(document).ready(function() {
   }, false);
 
   // Mobile with accelerometer
-    window.addEventListener('deviceorientation', function(e) {
-      e.preventDefault();
-      curX = (e.gamma + 180) * ($(window).width()/360);
-    }, false);
 
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener("deviceorientation", function () {
+      console.log(event.gamma);
+        curX = (event.gamma + 180) * ($(window).width()/360);
+    }, true);
+} else if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', function () {
+      console.log(event.gamma);
+        curX = (event.gamma + 180) * ($(window).width()/360);
+    }, true);
+}
 
   setInterval(function () {
 
