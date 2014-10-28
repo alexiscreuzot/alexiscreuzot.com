@@ -24,9 +24,18 @@ body {
   color: #111;
 }
 
-h1{
+hr {
+  width:80px;
+}
+
+h3{
   font-size: 30px;
-  margin-bottom:20px;
+}
+
+h2{
+  font-size: 50px;
+  color: #444;
+  font-weight:300;
 }
 
 span{
@@ -43,18 +52,25 @@ span{
 }
 
 .main {
-  margin: 200px 0px;
+  margin: 160px 0px;
   width: 100%;
   text-align:center;
   transition:margin 1s;
 }
 
-/* ----------  Loupe ----------- */
+#title
+{
+  margin : 30px 0;
+}
 
 #qle{
   margin-left:-50px;
   transition:margin 1s;
 }
+
+/* ----------  Loupe ----------- */
+
+
 
 #loupe {
   position:absolute;
@@ -66,13 +82,15 @@ span{
   background: #f8f8f8;
   text-align:center;
   overflow:hidden;
+
 }
 
 #zoomed{
   position:absolute;
   font-size:176px;
-  margin-top:-38px;
+  margin-top:-32px;
   margin-left:-154px;
+  font-weight:400;
   transition: margin 1s;
 }
 
@@ -84,7 +102,7 @@ span{
     margin: 150px 0px;
   }
 
-  h1{
+  h3{
     font-size: 22px;
   }
 
@@ -105,7 +123,7 @@ span{
   #zoomed{
     position:absolute;
     font-size:66px;
-    margin-top:-14px;
+    margin-top:-12px;
     margin-left:-48px;
     transition:all 1s;
   }

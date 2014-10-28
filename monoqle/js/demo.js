@@ -29,7 +29,7 @@ $(document).ready(function() {
   setInterval(function () {
 
     var mid = $(window).width()/2;
-    var maxDx = 12;
+    var maxDx = 14;
     var mlZoom = -154;
     var mlQle = -50;
 
@@ -40,7 +40,7 @@ $(document).ready(function() {
     }
 
     var dx = -(curX-mid)/mid * maxDx;
-    zoomed.css('margin-left' , (mlZoom - dx));
+    zoomed.css('margin-left' , (mlZoom - dx*1.4));
     qle.css('margin-left' , (mlQle + dx));
 
   }, 200);
