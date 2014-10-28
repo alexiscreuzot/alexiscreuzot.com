@@ -20,12 +20,7 @@ $(document).ready(function() {
 
   // Mobile with accelerometer
 
-  if (window.DeviceOrientationEvent) {
-    window.addEventListener("deviceorientation", function () {
-        curX = (event.gamma + 180) * ($(window).width()/360);
-        $('h1').text(event.gamma);
-    }, true);
-} else if (window.DeviceMotionEvent) {
+  if (window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', function () {
         $('h1').text(event.gamma);
         curX = (event.gamma + 180) * ($(window).width()/360);
