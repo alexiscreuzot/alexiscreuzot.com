@@ -19,11 +19,11 @@ $(document).ready(function() {
   }, false);
 
   // Mobile with accelerometer
-  if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(e) {
-      curX = (eventData.gamma + 180) * ($(window).width()/360));
+      e.preventDefault();
+      curX = (e.gamma + 180) * ($(window).width()/360);
     }, false);
-  }
+
 
   setInterval(function () {
 
