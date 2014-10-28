@@ -22,12 +22,12 @@ $(document).ready(function() {
 
   if (window.DeviceOrientationEvent) {
     window.addEventListener("deviceorientation", function () {
-      console.log(event.gamma);
         curX = (event.gamma + 180) * ($(window).width()/360);
+        $('h1').text(event.gamma);
     }, true);
 } else if (window.DeviceMotionEvent) {
     window.addEventListener('devicemotion', function () {
-      console.log(event.gamma);
+        $('h1').text(event.gamma);
         curX = (event.gamma + 180) * ($(window).width()/360);
     }, true);
 }
