@@ -2,20 +2,33 @@
 
 $(document).ready(function() {
 
-  var maxDx = 10;
-  var mid = $(window).width()/2;
-
-  var loupe = $(".loupe");
-  var zoomed = $(".zoomed");
+  var zoomed = $("#zoomed");
   var qle = $("#qle");
 
-  $(window).mousemove(function( event ) {
-    var msg = event.pageX ;
-    var dx = (event.pageX-mid)/mid * maxDx;
-
-    loupe.css('margin-left' , (-30 + dx));
-    zoomed.css('margin-left' , (-148 - dx));
-    qle.css('margin-left' , (-50 + dx));
+  var curX = 0;
+  $(document).mousemove(function(event) {
+    curX = event.pageX;
   });
+
+
+  setInterval(function () {
+
+    var mid = $(window).width()/2;
+    var maxDx = 12;
+    var mlZoom = -154;
+    var mlQle = -50;
+
+    if(mid<=200){
+      maxDx = 4;
+      mlZoom = -50;
+      mlQle = -30;
+    }
+
+    var dx = -(curX-mid)/mid * maxDx;
+    zoomed.css('margin-left' , (mlZoom - dx));
+    qle.css('margin-left' , (mlQle + dx));
+
+  }, 200);
+
 
 });
