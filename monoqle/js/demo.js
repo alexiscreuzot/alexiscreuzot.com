@@ -22,8 +22,7 @@ $(document).ready(function() {
 
   if (window.DeviceOrientationEvent) {
     window.addEventListener("deviceorientation", function () {
-        curX = (event.gamma + 20) * ($(window).width()/40);
-        $('h1').text(event.gamma);
+        curX = (event.gamma + 40) * ($(window).width()/20);
     }, true);
   }
 
