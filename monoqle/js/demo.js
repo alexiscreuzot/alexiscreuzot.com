@@ -35,7 +35,7 @@ $(document).ready(function() {
 
     if(mid<=200){
       maxDx = 4;
-      mlZoom = -48;
+      mlZoom = -45;
       mlQle = -30;
     }
 
