@@ -1,4 +1,20 @@
 /* ----------  Commons ----------- */
+
+@font-face {
+  font-family: 'Aileron-Regular';
+  src: url('../fonts/Aileron-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Aileron-Light';
+  src: url('../fonts/Aileron-Light.otf');
+}
+
+@font-face {
+  font-family: 'Aileron-SemiBold';
+  src: url('../fonts/Aileron-SemiBold.otf');
+}
+
 * {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 
@@ -20,7 +36,7 @@ html, body {
 
 
 body {
-  font-family: 'Muli', sans-serif;
+  font-family: 'Aileron-Light', sans-serif;
   color: #111;
 }
 
@@ -69,14 +85,12 @@ span{
 
 /* ----------  Loupe ----------- */
 
-
-
 #loupe {
   position:absolute;
   display:inline-block;
-  margin:28px 0px 0 21px;
-  width:90px;
-  height:102px;
+  margin:34px 0px 0 19px;
+  width:80px;
+  height:100px;
   border-radius:45px;
   background: #f8f8f8;
   text-align:center;
@@ -84,10 +98,11 @@ span{
 }
 
 #zoomed{
+  font-family: 'Aileron-Regular', sans-serif;
   position:absolute;
   font-size:176px;
-  margin-top:-32px;
-  margin-left:-180px;
+  margin-top:-42px;
+  margin-left:-134px;
   font-weight:400;
   transition: margin 1s;
 }
@@ -109,21 +124,19 @@ span{
   }
 
   #qle{
-    margin-left:-30px;
+    margin-left:-20px;
   }
 
   #loupe {
-    margin:11px 0px 0 8px;
+    margin:13px 0px 0 6px;
     width:32px;
     height:37px;
   }
 
   #zoomed{
-    position:absolute;
     font-size:66px;
-    margin-top:-12px;
-    margin-left:-48px;
-    transition:all 1s;
+    margin-top:-16px;
+    margin-left:-50px;
   }
 
 }

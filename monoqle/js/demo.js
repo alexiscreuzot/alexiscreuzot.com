@@ -30,13 +30,13 @@ $(document).ready(function() {
 
     var mid = $(window).width()/2;
     var maxDx = 14;
-    var mlZoom = -154;
+    var mlZoom = -134;
     var mlQle = -50;
 
     if(mid<=200){
       maxDx = 4;
-      mlZoom = -45;
-      mlQle = -30;
+      mlZoom = -50;
+      mlQle = -20;
     }
 
     var dx = -(curX-mid)/mid * maxDx;
