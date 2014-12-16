@@ -31,23 +31,6 @@ body {
 	font-size: 20px;
 }
 
-body, html {
-	height: 100%;
-}
-
-a {
-	color: #fff;
-	text-decoration: none;
-}
-
-a:hover {
-	color: #ef434c;
-}
-
-img {
-	max-width: 100%;
-}
-
 h1 {
 	font-family: 'Aileron-Thin', sans-serif;
 	font-weight: 100;
@@ -91,13 +74,12 @@ Main components
 .logo-intro img{
 	width:100%;
 	max-width:500px;
-	min-width:280px;
+	min-width:260px;
 }
 
 .baseline {
 	margin-top: 20px;
 }
-
 
 .scroll-down {
   position: absolute;
