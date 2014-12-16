@@ -85,7 +85,7 @@ Main components
 	transform: translate(-50%,-50%);
 }
 
-.logo-intro video{
+.logo-intro img{
 	width:100%;
 	max-width:500px;
 	min-width:250px;
