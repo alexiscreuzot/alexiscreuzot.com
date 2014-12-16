@@ -1,10 +1,21 @@
-jQuery(document).ready(function($){
+$(function() {
+
+	// -------------------------------
+    // FastClick
+    // -------------------------------
+
+    FastClick.attach(document.body);
+
+    // -------------------------------
+    // Navigation
+    // -------------------------------
 	var contentSections = $('section'),
 		navigationItems = $('#vertical-nav a');
 
 	updateNavigation();
 	$(window).on('scroll', function(){
 		updateNavigation();
+		$('#vertical-nav').removeClass('open');
 	});
 
 	//smooth scroll to the section
@@ -12,6 +23,7 @@ jQuery(document).ready(function($){
         event.preventDefault();
         smoothScroll($(this.hash));
     });
+
     //smooth scroll to second section
     $('.scroll-down').on('click', function(event){
         event.preventDefault();
@@ -19,13 +31,9 @@ jQuery(document).ready(function($){
     });
 
     //open-close navigation on touch devices
-    $(' .nav-trigger').on('click', function(){
-    	$(' #vertical-nav').toggleClass('open');
+    $('.nav-trigger').on('click', function(){
+    	$('#vertical-nav').toggleClass('open');
 
-    });
-    //close navigation on touch devices when selectin an elemnt from the list
-    $(' #vertical-nav a').on('click', function(){
-    	$(' #vertical-nav').removeClass('open');
     });
 
 	function updateNavigation() {

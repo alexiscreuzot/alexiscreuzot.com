@@ -193,7 +193,8 @@
     display: none;
   }
    #vertical-nav a.is-selected span:last-child,
-   #vertical-nav a:hover {
+   #vertical-nav a:hover,
+   #vertical-nav a:active {
     color: #ef434c;
   }
 
