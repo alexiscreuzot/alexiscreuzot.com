@@ -1,142 +1,225 @@
-/* ----------  Commons ----------- */
+/* --------------------------------
 
-@font-face {
-  font-family: 'Aileron-Regular';
-  src: url('../fonts/Aileron-Regular.otf');
+Primary styles
+
+-------------------------------- */
+
+html * {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	-webkit-transition: all .2s ease-in-out;
+	-moz-transition: all .2s ease-in-out;
+	-o-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
 }
 
-@font-face {
-  font-family: 'Aileron-Light';
-  src: url('../fonts/Aileron-Light.otf');
-}
-
-@font-face {
-  font-family: 'Aileron-SemiBold';
-  src: url('../fonts/Aileron-SemiBold.otf');
-}
-
-* {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-
+*, *:after, *:before {
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-
-          user-select: none;
-          -webkit-touch-callout: none;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
-html, body {
-  width: 100%;
-  height: 100%;
-  -webkit-font-smoothing: antialiased;
-  overflow:hidden;
-  background:#dfdfdf;
-}
-
 
 body {
-  font-family: 'Aileron-Light', sans-serif;
-  color: #111;
+	font-size: 100%;
+	font-family: 'Aileron-Light', sans-serif;
+	color: #000;
+	background-color: #fff;
+	font-size: 20px;
 }
 
-hr {
-  width:80px;
+body, html {
+	height: 100%;
 }
 
-h3{
-  font-size: 30px;
+a {
+	color: #fff;
+	text-decoration: none;
 }
 
-h2{
-  font-size: 50px;
-  color: #444;
-  font-weight:300;
+a:hover {
+	color: #ef434c;
 }
 
-span{
-  font-weight:300;
-  font-size: 160px;
+img {
+	max-width: 100%;
 }
 
-/* ----------  Structure ----------- */
-
-#page{
-  position: relative;
-  width: 100%;
-  height: 100%;
+h1 {
+	font-family: 'Aileron-Thin', sans-serif;
+	font-weight: 100;
+	color: #2f3034;
+	font-size: 60px;
 }
 
-.main {
-  margin: 160px 0px;
-  width: 100%;
-  text-align:center;
+h3 {
+	font-family: 'Aileron-Light', sans-serif;
+	font-weight: 300;
+	font-size: 20px;
+	color: #a49c99;
 }
 
-#title
-{
-  margin : 30px 0;
+p {
+	font-family: 'Aileron-Light', sans-serif;
+	color: #a49c99;
 }
 
-#qle{
-  margin-left:-50px;
-  transition:margin 1s;
+/* --------------------------------
+
+Main components
+
+-------------------------------- */
+
+/** Logo **/
+
+.logo-intro {
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	text-align:center;
+
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
 }
 
-/* ----------  Loupe ----------- */
-
-#loupe {
-  position:absolute;
-  display:inline-block;
-  margin:34px 0px 0 19px;
-  width:80px;
-  height:100px;
-  border-radius:45px;
-  background: #f8f8f8;
-  text-align:center;
-  overflow:hidden;
+.logo-intro video{
+	width:100%;
+	max-width:500px;
+	min-width:250px;
 }
 
-#zoomed{
-  font-family: 'Aileron-Regular', sans-serif;
-  position:absolute;
-  font-size:176px;
-  margin-top:-42px;
-  margin-left:-134px;
-  font-weight:400;
-  transition: margin 1s;
+.baseline {
+	margin-top: 20px;
 }
 
-/* ----------  Mobile ----------- */
 
-@media only screen and (max-width: 500px) {
-
-  .main {
-    margin: 150px 0px;
-  }
-
-  h3{
-    font-size: 22px;
-  }
-
-  span{
-    font-size: 60px;
-  }
-
-  #qle{
-    margin-left:-20px;
-  }
-
-  #loupe {
-    margin:13px 0px 0 6px;
-    width:32px;
-    height:37px;
-  }
-
-  #zoomed{
-    font-size:66px;
-    margin-top:-16px;
-    margin-left:-50px;
-  }
-
+.scroll-down {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: 40px;
+  width: 44px;
+  height: 30px;
+  background: url("../img/arrow-bottom.svg") no-repeat center center;
 }
+
+/** Sections **/
+section {
+	min-height: 100%;
+	padding: 10px 0 150px;
+}
+
+#section1{
+	background-color: #161618;
+}
+
+#section2{
+	background-color: #fff;
+	background:url('../img/iphone.png') no-repeat bottom center;
+	-webkit-background-size: 90%;
+	-moz-background-size: 90%;
+	-o-background-size: 90%;
+	background-size: 90%;
+}
+#section2 h1{
+	color:#ef434c;
+}
+
+#section3{
+	background-color: #161618;
+}
+
+#section3 h1{
+	color: #fdd390;
+}
+
+#section4{
+	background-color: #988d88;
+	color: #2f3034;
+}
+
+/** Form **/
+
+#contact{
+	margin-top:80px;
+}
+
+#contact input,
+#contact textarea{
+	color:#FFF;
+	margin:20px 0;
+	background:transparent;
+	border:none;
+	border-bottom: 1px solid #BBB;
+}
+
+#contact select,
+#contact select:focus{
+	color:#FFF;
+	margin:30px 0;
+	background:transparent;
+	border: 1px solid #BBB;
+	height: 44px;
+}
+
+#contact textarea,
+#contact textarea:focus{
+	border: 1px solid #BBB;
+	height:172px;
+}
+
+#contact button,
+#contact button:hover{
+	color:#DDD;
+	font-size:24px;
+	background:transparent;
+	border: 3px solid #BBB;
+	height: 60px;
+}
+
+#contact button:hover{
+	color:#FFF;
+	border-color:#FFF;
+}
+
+
+
+/** Footer **/
+
+footer{
+	padding: 2em 0;
+	background:#C9BEBA;
+}
+
+footer .row{
+	margin:0;
+}
+
+/* --------------------------------
+
+Media Queries
+
+-------------------------------- */
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
