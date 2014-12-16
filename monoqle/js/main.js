@@ -3,8 +3,8 @@ $(function() {
 	// -------------------------------
     // FastClick
     // -------------------------------
-
-    FastClick.attach(document.body);
+    var attachFastClick = Origami.fastclick;
+	attachFastClick(document.body);
 
     // -------------------------------
     // Navigation
