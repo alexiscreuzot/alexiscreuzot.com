@@ -147,6 +147,58 @@ section {
 	color: #2f3034;
 }
 
+/** Card **/
+
+.card{
+	width:80%;
+	min-width: 260px;
+	background: #FFF;
+	margin:80px auto 0px;
+}
+
+/** id **/
+.card img{
+	display : inline;
+	border-radius: 50%;
+	width:30%;
+	height:30%;
+	padding:2%;
+}
+
+.card .id .right{
+	margin-top:4%;
+	float:right;
+	width:70%;
+}
+.card .id .name{
+	font-size: 22px;
+}
+.card .id .title{
+	font-size: 18px;
+	color: #AAA;
+}
+
+/** infos **/
+.card .infos{
+	background-color: #555;
+	color: #FFF;
+	font-size: 14px;
+	text-align: center;
+}
+.card .infos .right{
+	padding: 16px 0;
+	width:50%;
+	float:right;
+	display: inline;
+	border-left: 1px solid #ef434c;
+}
+.card .infos .left{
+	padding: 16px 0;
+	display: inline;
+	width:50%;
+	float:left;
+}
+
 /** Form **/
 #contact{
 	margin-top:80px;
