@@ -150,8 +150,8 @@ section {
 /** Card **/
 
 .card{
-	width:80%;
-	min-width: 260px;
+	width:85%;
+	min-width: 270px;
 	background: #FFF;
 	margin:80px auto 0px;
 }
@@ -160,13 +160,15 @@ section {
 .card img{
 	display : inline;
 	border-radius: 50%;
-	width:30%;
-	height:30%;
-	padding:2%;
+	width:26%;
+	height:26%;
+	padding:3%;
 }
-
+.card .id {
+	line-height: 0.9em;
+}
 .card .id .right{
-	margin-top:4%;
+	margin-top:7%;
 	float:right;
 	width:70%;
 }
@@ -180,20 +182,20 @@ section {
 
 /** infos **/
 .card .infos{
-	background-color: #555;
+	background-color: #333;
 	color: #FFF;
 	font-size: 14px;
 	text-align: center;
 }
 .card .infos .right{
-	padding: 16px 0;
+	padding: 22px 0;
 	width:50%;
 	float:right;
 	display: inline;
 	border-left: 1px solid #ef434c;
 }
 .card .infos .left{
-	padding: 16px 0;
+	padding: 22px 0;
 	display: inline;
 	width:50%;
 	float:left;
@@ -244,12 +246,12 @@ section {
 
 /** Footer **/
 footer{
-	padding: 12px 0;
+	padding: 70px 0;
 	background:#C9BEBA;
 }
 
 footer .row{
-	margin:5px 0;
+	margin:0;
 }
 
 /* --------------------------------
