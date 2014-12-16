@@ -2,7 +2,7 @@
   list-style-type:none;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 600px) {
 
   #vertical-nav li a{
     padding: 8px 10px 8px 0;
@@ -97,16 +97,15 @@
   }
 }
 
-
-
-@media only screen and (max-width: 767px) {
-  /* Touch devices */
+/* Touch devices */
+@media only screen and (max-width: 600px) {
+  
    .nav-trigger {
     display: block;
     z-index: 2;
     position: fixed;
     bottom: 30px;
-    right: 5%;
+    right: 30px;
     height: 44px;
     width: 44px;
     border-radius: 0.25em;

@@ -18,22 +18,24 @@ html * {
 }
 
 *, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body {
-	font-size: 100%;
-	font-family: 'Aileron-Light', sans-serif;
-	color: #000;
-	background-color: #fff;
-	font-size: 20px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body, html {
 	height: 100%;
+	font-size: 20px;
+	font-family: 'Aileron-Light', sans-serif;
+	color: #000;
+	background-color: #fff;
 }
+
+/* --------------------------------
+
+Typos
+
+-------------------------------- */
 
 a {
 	color: #fff;
@@ -69,8 +71,7 @@ Main components
 
 -------------------------------- */
 
-/** Logo **/
-
+/** Intro **/
 .logo-intro {
 	position:absolute;
 	top: 50%;
@@ -94,20 +95,20 @@ Main components
 	margin-top: 20px;
 }
 
-
 .scroll-down {
   position: absolute;
   left: 50%;
   right: auto;
+  bottom: 40px;
+  width: 44px;
+  height: 30px;
+  background: url("../img/arrow-bottom.svg") no-repeat center center;
+
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  bottom: 40px;
-  width: 44px;
-  height: 30px;
-  background: url("../img/arrow-bottom.svg") no-repeat center center;
 }
 
 /** Sections **/
@@ -123,6 +124,7 @@ section {
 #section2{
 	background-color: #fff;
 	background:url('../img/iphone.png') no-repeat bottom center;
+
 	-webkit-background-size: 90%;
 	-moz-background-size: 90%;
 	-o-background-size: 90%;
@@ -146,7 +148,6 @@ section {
 }
 
 /** Form **/
-
 #contact{
 	margin-top:80px;
 }
@@ -189,16 +190,14 @@ section {
 	border-color:#FFF;
 }
 
-
 /** Footer **/
-
 footer{
-	padding: 2em 0;
+	padding: 12px 0;
 	background:#C9BEBA;
 }
 
 footer .row{
-	margin:0;
+	margin:5px 0;
 }
 
 /* --------------------------------
