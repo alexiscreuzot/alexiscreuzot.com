@@ -115,6 +115,23 @@ img{
 	height:50px;
 }
 
+#pic{
+	background-image: url('../id.jpg');
+	margin:20px auto;
+	width: 180px;
+    height: 180px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center !important;
+    background-repeat: no-repeat;
+    border-radius: 90px;
+}
+
+#pic img{
+	margin-top:-20px;
+	width: 180px;
+}
+
 /* Calques secondaires */
 
 

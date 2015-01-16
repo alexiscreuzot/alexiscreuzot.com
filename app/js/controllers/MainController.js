@@ -14,7 +14,7 @@ myApp.controller('MainController',function($scope, $http, $routeParams){
         grooveshark:"http://grooveshark.com/#!/kirualex",
         osrc:"http://osrc.dfm.io/kirualex",
         twitter:"http://twitter.com/alexiscreuzot",
-        isAvailable:false
+        isAvailable:true
     };
 
     var image = $('.avatar img').attr('src', $scope.perso.gravatar);
