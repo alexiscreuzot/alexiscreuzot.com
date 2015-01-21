@@ -38,6 +38,10 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Web",
         content:
         [{
+            name:"Monoqle",
+            url:"http://monoqle.fr/",
+            description:"Website for the company I cofounded with Jeremy Paul"
+        },{
             name:"Wink.li",
             url:"http://wink.li/",
             description:"Product page for the Winkli iPhone App"
