@@ -9,6 +9,11 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Mobile Apps",
         content:
         [{
+            name:"Winkli",
+            url:"https://itunes.apple.com/fr/app/winkli-discover-wholl-bump/id913588239",
+            image:"http://i.imgur.com/7GS8spQ.png",
+            description:"Discover who you'll bump into at your next Facebook event"
+        },{
             name:"Nice Weather 2",
             url:"http://alexiscreuzot.com/apps/nice-weather-2",
             image:"http://i.imgur.com/kUR1VZL.png",
@@ -33,9 +38,9 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Web",
         content:
         [{
-            name:"grinderlabs.com",
-            url:"http://grinderlabs.com/",
-            description:"A serverless website made for a good friend & colegue, Jérémy Paul. Images and videos are fetched directly from Flickr and Vimeo API using JQuery."
+            name:"Wink.li",
+            url:"http://wink.li/",
+            description:"Product page for the Winkli iPhone App"
         },{
             name:"dploy",
             url:"http://alexiscreuzot.com/lab/dploy",
