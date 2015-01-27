@@ -135,6 +135,10 @@ a.back{
 	left:15px;
 }
 
+a.back:hover{
+	border:none;
+}
+
 /* ----------  Misc ----------- */
 
 .avatar {
