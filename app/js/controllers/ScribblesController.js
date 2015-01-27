@@ -113,6 +113,11 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
                 title: "Build an iOS App in 3 Minutes",
                 date: "31 Jan",
                 published: true
+            },{
+                id: 16,
+                title: "Cocoapods with Swift",
+                date: "4 Jun",
+                published: true
             }
         ]
     }];
