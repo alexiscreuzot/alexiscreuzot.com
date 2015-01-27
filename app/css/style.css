@@ -292,13 +292,14 @@ a.back:hover{
 
 ul.apps{
 	list-style-type: none;
-	margin: 15px 0 0 20px;
 	padding: 0px;
+	margin:auto;
+	width:570px;
 }
 
 ul.apps li{
 	display: inline-block;
-	margin: 0px 20px 20px 0;
+	margin: 20px;
 }
 
 img.icon{
@@ -466,6 +467,15 @@ ul.scribbles li a.btn:hover{
 		font-size:20px;
 		color:#fff;
 		opacity:0.7;
+	}
+
+	ul.apps{
+		width:auto;
+	}
+
+	ul.apps li{
+		display: inline-block;
+		margin: 16px;
 	}
 
 	/* layout */
