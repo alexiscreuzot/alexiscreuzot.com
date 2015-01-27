@@ -1,4 +1,4 @@
-@color: #3a9ea6;
+@color: #3a9eb6;
 @color_hover: #c0392b;
 .myColor { color: @color; }
 
@@ -17,8 +17,8 @@ body {
 
 body{
 	font-family:'Lato', Helvetica, Arial, sans-serif;
-	color:#1c2125 ;
-	background: #F2F2F2;
+	background: #242222 ;
+	color:#EEE ;
 }
 
 hr{
@@ -53,14 +53,15 @@ hr{
 	line-height: 1em !important;
 }
 
+
 /* ----------  Typo ----------- */
 
 ::-moz-selection {
-	background-color: rgba(0,0,0,0.1);
+	background-color: rgba(255,255,255, 0.2);
 }
 
 ::selection {
-	background-color: rgba(0,0,0,0.1);
+	background-color: rgba(255,255,255, 0.2);
 }
 
 
@@ -68,17 +69,20 @@ h1{
 	font-size:48px;
 	font-weight: 300;
 	margin:30px 0 50px;
+	color:#fff;
 }
 
 
 h2{
 	font-size:28px;
 	font-weight: 500;
+	color:#fff;
 }
 
 h3{
 	font-size:24px;
 	font-weight: 500;
+	color:#fff;
 }
 
 h4{
@@ -87,7 +91,7 @@ h4{
 }
 
 li,p{
-	font-size:18px;
+	font-size:20px;
 	font-weight: 300;
 	line-height: 1.8;
 }
@@ -98,7 +102,7 @@ p{
 
 blockquote{
 	font-family: Georgia, Times, serif;
-	background: #EFEFEF;
+	background: fadeout(#1c2125,60%);
 	font-style: italic;
 	font-size: 22px;
 	font-weight: 300;
@@ -120,8 +124,6 @@ a:link {
 a:hover{
 	border-bottom: 1px solid @color;
 }
-
-
 
 a.anchor{
 	display: none;
@@ -172,10 +174,54 @@ a.back{
 /* Header */
 
 #header{
-	background: url("../images/shattered.png") #242222;
-	background-position: 50% 0px;
+	background:#242222 url("../images/bg.png") no-repeat;
+	background-size: 100%; /* Always size the image to the width of the div */
+	text-align: center;
+	padding:160px 0px;
+	background-attachment: fixed;
 }
 
+#header h1{
+	font-size:60px;
+	color:#fff;
+	font-weight: bold;
+	padding:50px 0px 0px;
+	margin:0;
+}
+
+#header h2{
+	color:@color;
+	background-color: rgba(0,0,0,.7);
+	display:block;
+	width:220px;
+	margin: 20px auto 40px;
+	border-radius: 10px;
+	padding:2px 2px 3px;
+	font-weight: 300;
+	font-variant: italic;
+}
+
+#header ul.social {
+	margin:0;
+	padding:0;
+}
+
+#header ul.social li{
+	display:inline;
+	padding:30px;
+}
+
+#header ul.social li a{
+	font-size:35px;
+	color:#fff;
+	opacity:0.7;
+}
+
+#header ul.social li a:hover{
+	text-decoration: none;
+	border:0;
+	opacity:1;
+}
 
 #logo{
 	position: absolute;
@@ -193,25 +239,41 @@ a.back{
 	opacity: 1;
 }
 
-#header .btn-toolbar{
-	width:213px;
+/* Menu */
+.btn-toolbar{
+	width:100%;
+	background-color: fadeout(@color,10%);
+	text-align: center;
+	padding: 0;
+	position:fixed;
+	z-index: 9999;
+	margin:0;
+}
+
+.btn-toolbar a:hover{
+	border-bottom: 0;
+}
+
+.btn.btn-primary{
+	background-color: fadeout(@color,90%);
+}
+
+.btn-group{
+	min-width:213px;
+	height:auto;
 	margin:0 auto;
-	padding: 60px 0;
 }
 
-#header .btn-toolbar a.btn{
-	padding: 8px 15px 8px 15px;
-	color: #ECF0F1 ;
-}
-
-#header .btn-toolbar a:hover{
-	border:none;
+.btn-group > .btn:first-of-type,
+.btn-group > .btn:last-of-type {
+	border-radius: 0;
 }
 
 /* Main */
 
 #main{
-	padding-bottom: 100px;
+	padding-top:40px;
+	padding-bottom: 120px;
 	perspective: 600px;
 	perspective-origin: 50% 50%;
 	-webkit-perspective: 600px;
@@ -274,7 +336,7 @@ ul.scribbles span{
 
 ul.scribbles li a.btn{
 	font-size: 20px;
-	background:#242222;
+	background:rgba(255,255,255,0.1);
 	padding: 8px 15px;
 	margin-left: 90px;
 	text-align: left;
@@ -295,8 +357,8 @@ ul.scribbles li a.btn:hover{
 }
 
 .scribble img{
-max-height: 550px;
-margin: auto;
+	max-height: 550px;
+	margin: auto;
 }
 
 .scribble h1{
@@ -350,12 +412,8 @@ margin: auto;
 
 /* ------------------- Mobile CSS ------------------------*/
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
 
-	body{
-		color:#E6E6E6 ;
-		background: url("../images/shattered.png") #242222;
-	}
 
 	/* typo */
 	h1{
@@ -373,30 +431,52 @@ margin: auto;
 		font-family: Georgia,'Times New Roman', Times, serif;
 		font-style: italic;
 		font-size: 18px;
-		background: fadeout(#1c2125,60%);
 	}
 
 	a.back{
 		position: relative;
 	}
 
-	/* layout */
-
-	#topline{
-		height:0px;
+	#header{
+		padding: 80px 0 60px;
+		margin-bottom:-40px;
+		background-size: cover;
+		background-position: center;
 	}
+
+	#header h1{
+		
+		font-size:42px;
+	}
+
+	#header h2{
+		font-size:25px;
+		margin: 20px auto 40px;
+	}
+
+	#header ul.social li {
+		padding:20px;
+	}
+
+	#header ul.social li a{
+		font-size:20px;
+		color:#fff;
+		opacity:0.7;
+	}
+
+	/* layout */
 
 	.container #logo{
 		display: none;
 	}
 
 	#main{
-		padding-bottom: 50px;
-
+		padding-top: 40px;
+		padding-bottom: 30px;
 	}
 
 	#main .container{
-		padding:60px 10px 30px;
+		padding:10px 10px 30px;
 	}
 
 	.scribble{
@@ -410,31 +490,6 @@ margin: auto;
 		background: none;
 	}
 
-	/* Menu */
-	#header .btn-toolbar{
-		width:100%;
-		background-color: fadeout(@color,10%);
-		text-align: center;
-		padding: 0;
-		position:fixed;
-		z-index: 9999;
-	}
-
-	.btn.btn-primary{
-		background-color: fadeout(@color,90%);
-	}
-
-	#header .btn-group{
-		min-width:213px;
-		height:auto;
-		margin:0 auto;
-	}
-
-
-	.btn-group > .btn:first-of-type,
-	.btn-group > .btn:last-of-type {
-		border-radius: 0;
-	}
 
 	/* Scribbles */
 	ul.scribbles li a.btn{
@@ -447,5 +502,4 @@ margin: auto;
 	ul.scribbles span{
 		width: 60px;
 	}
-
 }

@@ -1,30 +1,27 @@
-<div class="avatar animate" ng-class="{trigger: imageLoaded}">
-	<img />
+
+<div id="header">
+  <div class="container">
+    <h1>Alexis Creuzot</h1>
+    <h2>[iOS developer]</h2>
+    <ul class="social">
+		<li><a href="{{perso.twitter}}"><i class="fa fa-twitter fa-lg"></i></a></li>
+		<li><a href="{{perso.github}}"><i class="fa fa-github fa-lg"></i></a></li>
+		<li><a href="{{perso.stack_overflow}}"><i class="fa fa-stack-overflow fa-lg"></i></a></li>
+		<li><a href="{{perso.dribbble}}"><i class="fa fa-dribbble fa-lg"></i></a></li>
+    </ul>
+  </div>
 </div>
 
-<div class="content animate from-right" ng-class="{trigger: true}">
-	<p>I'm <b>Alexis Creuzot</b>, co-founder of <a href="http://monoqle.fr"  target="_blank">Monoqle</a> and <a href="http://happyh0urs.com"  target="_blank">Happy Hours coworking</a> located in <b>Rennes, France</b></p>
-	<p>
-		I experiment new ideas <a href="{{perso.github}}" target="_blank">on Github</a>, help and get helped on <a href="{{perso.stack_overflow}}" target="_blank">Stack Overflow</a> and scout for great stories <a href="{{perso.hn}}" target="_blank">on Hacker News</a>. I even craft some pixels on <a href="{{perso.dribbble}}" target="_blank">Dribbble</a> when I'm in the mood.
-		<p>If you're also fond of that stuff, we should follow each other on <a href="{{perso.twitter}}" target="_blank">Twitter</a>.
-	</p>
-</div>
-<br/>
-<h2 class="animate from-right" ng-class="{trigger: true}">Last Apps</h2>
-<div class="content animate from-right" ng-class="{trigger: true}" ng-controller="LabController">
-	<ul class="apps">
-		<li data-ng-repeat="app in lab_data[0].content | limitTo:6 " >
-			<a class="nopadding" ng-href="{{app.url}}" target="_blank"><img class="icon" src="{{app.image}}" /></a>
-		</li>
-	</ul>
-</div>
-<br/>
-<h2 class="animate from-right" ng-class="{trigger: true}">Last scribbles</h2>
-<div class="content animate from-right" ng-class="{trigger: true}" ng-controller="ScribblesController">
-	<ul class="scribbles">
-		<li data-ng-repeat="s in years[years.length-1].scribbles | orderBy:'id':true | filter:{published:true} | limitTo:3 " >
-			<span class="date">{{s.date}}</span>
-			<a ng-href="#!/scribble/{{slug(s.title)}}" class="btn">{{s.title}}</a>
-		</li>
-	</ul>
+<div id="main">
+	<div class="container">
+		<h1 class="animate from-left" ng-class="{trigger: true}">/me</h1>
+		<div class="content animate from-right" ng-class="{trigger: true}">
+			<p>While studying for my Master in Computer Science, I fell in love with mobile technologies.
+			From this point, I had various experiences on Android, iOS and Web technologies, allowing me to gain a comprehensive vision of this field. I now specialize on iPhone and iPad platforms, with a keen eye for design and user experience.
+			</p>
+			<p>This expertise and love of entrepreneurship led me to co-found <a href="http://monoqle.fr" target="_blank">Monoqle</a> with my associate and incredible designer <a href="http://jeremypaul.me" target="_blank">Jeremy Paul</a>.
+			</p>
+			<p>I'm currently working at <a href="http://happyh0urs.com"  target="_blank">Happy Hours coworking</a> located in Rennes (France) which I also helped to create.</p>
+		</div>
+	</div>
 </div>

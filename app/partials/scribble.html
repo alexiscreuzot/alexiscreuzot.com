@@ -1,17 +1,20 @@
-<br/>
-<div class="scribble">
-    <a class="back" href="#!/scribbles"><i class="icon-mail-reply icon-large"></i></a>
-    <h1 class="animate from-left" ng-class="{trigger: true}">{{scribble.title}}</h1>
+<div id="main">
+    <div class="container">
+        <br/>
+        <div class="scribble">
+            <a class="back" href="#!/scribbles"><i class="icon-mail-reply icon-large"></i></a>
+            <h1 class="animate from-left" ng-class="{trigger: true}">{{scribble.title}}</h1>
 
-    <div class="article animate from-right" >
+            <div class="article animate from-right" >
 
-        <div class="article-content"  ng-bind-html-unsafe="scribble.content"></div>
-        <div class="article-footer">
-            <div class="sharing">
-                <a class="tweet"><i class="fa fa-twitter fa-lg"></i></a>
-                <a class="facebook"><i class="fa fa-facebook fa-lg"></i></a>
+                <div class="article-content"  ng-bind-html-unsafe="scribble.content"></div>
+                <div class="article-footer">
+                    <div class="sharing">
+                        <a class="tweet"><i class="fa fa-twitter fa-lg"></i></a>
+                        <a class="facebook"><i class="fa fa-facebook fa-lg"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>

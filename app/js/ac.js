@@ -1,16 +1,16 @@
 //
 // Parralax effect
-$(document).ready(function(){
-  var factor = 1.4;
-  var header= $('#header');
-  var menu=$('#header .btn-toolbar');
-  var backgroundPos = $(header).css('backgroundPosition').split(" ");
-  var yOffset = parseFloat(backgroundPos[1].replace(/[^0-9-]/g, ''));
-  $(window).scroll(function() {
-    var yPos = ($(window).scrollTop() / factor) + yOffset;
-    header.css({ backgroundPosition: '50% '+ yPos + 'px' });
-  });
-});
+// $(document).ready(function(){
+//   var factor = 1.4;
+//   var header= $('#header');
+//   var menu=$('#header .btn-toolbar');
+//   var backgroundPos = $(header).css('backgroundPosition').split(" ");
+//   var yOffset = parseFloat(backgroundPos[1].replace(/[^0-9-]/g, ''));
+//   $(window).scroll(function() {
+//     var yPos = ($(window).scrollTop() / factor) + yOffset;
+//     header.css({ backgroundPosition: '50% '+ yPos + 'px' });
+//   });
+// });
 
 //
 // Analytics
