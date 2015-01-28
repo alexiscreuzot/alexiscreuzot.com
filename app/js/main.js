@@ -1,13 +1,13 @@
 //
 // Parralax effect
-$(document).ready(function(){
+// $(document).ready(function(){
 
-  $(window).scroll(function() {
-    var yPos = $(window).scrollTop();
-    var alpha = (yPos/400);
-    $(".headerOverlay").css("background-color","RGBA(35, 33, 33, "+alpha+")");
-  });
-});
+//   $(window).scroll(function() {
+//     var yPos = $(window).scrollTop();
+//     var alpha = (yPos/400);
+//     $(".headerOverlay").css("background-color","RGBA(35, 33, 33, "+alpha+")");
+//   });
+// });
 
 //
 // Analytics
