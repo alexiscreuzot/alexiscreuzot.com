@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="app/css/libs/flat-ui.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="app/css/libs/pygment.css" type="text/css" media="screen" />
   <link rel="stylesheet" href="app/css/libs/transitions.css" type="text/css" media="screen" />
-  <link rel="stylesheet/less" href="app/css/style.css" type="text/css" media="screen" />
+  <link rel="stylesheet/less" href="app/css/main.css" type="text/css" media="screen" />
 
 </head>
 
@@ -35,7 +35,7 @@
     <div class="btn-toolbar">
       <div class="btn-group">
         <a data-ng-repeat="menu in menus" class="btn btn-primary" ng-class="{active: routeIs('/{{menu.link}}')}" ng-href="#!/{{menu.link}}" onClick="Graphy.animate(150);_gaq.push(['_trackEvent', '{{menu.link}}', 'pageview', '']);">
-          <i class="fa fa-{{menu.icon}} fa-lg"></i>
+          <i class="fa fa-{{menu.icon}} fa-lg"></i>&nbsp;&nbsp;{{menu.link}}
         </a>
       </div>
     </div>
@@ -60,7 +60,7 @@
   <script src="app/js/controllers/DribbblesController.js"></script>
 
   <script src="app/js/libs/raphael.js"></script>
-  <script src="app/js/ac.js"></script>
+  <script src="app/js/main.js"></script>
 
 </body>
 </html>

@@ -15,7 +15,7 @@ myApp.controller('AppController', function($scope, $location) {
 	};
 
 	$scope.menus =
-	[{link:"", icon:"user"},
+	[{link:"", icon:"home"},
 	{link:"lab", icon:"flask"},
 	//{link:"dribbbles", icon:"dribbble"},
 	{link:"scribbles", icon:"bookmark"},
