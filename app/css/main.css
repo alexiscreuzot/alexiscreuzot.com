@@ -461,7 +461,7 @@ ul.scribbles li a.btn:hover{
 
 	.headerOverlay{
 		background-color: RGBA(35, 33, 33, 0) ;
-		padding:60px 0px 40px;
+		padding:80px 0px 40px;
 	}
 
 	#header h1{
@@ -490,7 +490,7 @@ ul.scribbles li a.btn:hover{
 
 	ul.apps li{
 		display: inline-block;
-		margin: 12px;
+		margin: 14px;
 	}
 
 	/* layout */
