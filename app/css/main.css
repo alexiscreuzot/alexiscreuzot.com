@@ -259,7 +259,7 @@ a.back:hover{
 
 .btn-toolbar a{
 	color : #fff;
-	opacity:.5;
+	opacity:#;
 }
 
 .btn-toolbar a:hover,
@@ -309,7 +309,7 @@ ul.apps{
 
 ul.apps li{
 	display: inline-block;
-	margin: 20px;
+	margin: 18px;
 }
 
 img.icon{
@@ -453,10 +453,15 @@ ul.scribbles li a.btn:hover{
 	}
 
 	#header{
-		padding: 20px 0 0px;
 		margin-bottom:-40px;
 		background-size: cover;
 		background-position: center;
+		background-attachment: fixed;
+	}
+
+	.headerOverlay{
+		background-color: RGBA(35, 33, 33, 0) ;
+		padding:40px 0px 40px;
 	}
 
 	#header h1{
