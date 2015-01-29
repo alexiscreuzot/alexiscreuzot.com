@@ -10,27 +10,27 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         content:
         [{
             name:"Winkli",
-            url:"https://itunes.apple.com/fr/app/winkli-discover-wholl-bump/id913588239",
+            url:"https://itunes.apple.com/fr/app/id913588239",
             image:"http://i.imgur.com/7GS8spQ.png",
             description:"Discover who you'll bump into at your next Facebook event"
         },{
             name:"Nice Weather 2",
-            url:"http://alexiscreuzot.com/apps/nice-weather-2",
+            url:"https://itunes.apple.com/fr/app/id729430189",
             image:"http://i.imgur.com/kUR1VZL.png",
             description:"Nice Weather app sequel, with its all new killer design !"
         },{
             name:"Nice Weather",
-            url:"http://alexiscreuzot.com/apps/nice-weather",
+            url:"https://itunes.apple.com/fr/app/id709290908",
             image:"http://i.imgur.com/sNrBKKL.png",
             description:"A clean and simple Weather App."
         },{
             name:"Reddito",
-            url:"http://alexiscreuzot.com/apps/reddito",
+            url:"https://itunes.apple.com/fr/app/id674736514",
             image:"http://i.imgur.com/PzI3QWY.png",
             description:"Get your daily dose of fun with Reddito. Browse, save and share Reddit images like never before !"
         },{
             name:"7 minutes Workout",
-            url:"http://alexiscreuzot.com/apps/7-minutes-workout",
+            url:"https://itunes.apple.com/fr/app/id650627810",
             image:"http://i.imgur.com/xNXPvj6.png",
             description:"The perfect assistant to get in shape using the scientific 7-minute Workout, directly on your iPhone"
         }]
@@ -40,7 +40,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         [{
             name:"Monoqle",
             url:"http://monoqle.fr/",
-            description:"Website for the company I cofounded with Jeremy Paul"
+            description:"Website for the company I cofounded"
         },{
             name:"Wink.li",
             url:"http://wink.li/",
@@ -55,23 +55,23 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         content:
         [{
             name:"KAProgressLabel",
-            url:"http://alexiscreuzot.com/KAProgressLabel/",
+            url:"http://github.com/kirualex/KAProgressLabel/",
             description:"Minimal iOS circular progress library"
         },{
             name:"KAStatusBar",
-            url:"http://alexiscreuzot.com/KAStatusBar/",
+            url:"http://github.com/kirualex/KAStatusBar/",
             description:"iOS status bar notification/alert library"
         },{
             name:"KALayoutHelper",
-            url:"http://alexiscreuzot.com/KALayoutHelper",
+            url:"http://github.com/kirualex/KALayoutHelper",
             description:"A work in progress aiming to add a layout mechanism (similar to android) to views in iOS"
         },{
             name:"KASlideShow",
-            url:"http://alexiscreuzot.com/KASlideShow",
+            url:"http://github.com/kirualex/KASlideShow",
             description:"Simple slideshow library for iOS "
         },{
             name:"KANibHelper",
-            url:"http://alexiscreuzot.com/KANibHelper",
+            url:"http://github.com/kirualex/KANibHelper",
             description:"Ease up iOS Nib management and improve app maintanability"
         }]
     },{
@@ -87,7 +87,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             description:"An open source iOS project on which I heavily contributed. This project aim to provide a new menu style based on a designer idea."
         },{
             name:"ColourLove",
-            url:"http://alexiscreuzot.com/ColourLove",
+            url:"http://github.com/kirualex/ColourLove",
             description:"This project only purpose is to provide brief, clean and readable code in a dummy application. It is heavily library based and MVC oriented and shows mecanisms like downloading, storing and displaying data from a webservice."
         }]
     },{
