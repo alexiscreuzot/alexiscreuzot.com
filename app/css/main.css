@@ -309,7 +309,7 @@ ul.apps{
 
 ul.apps li{
 	display: inline-block;
-	margin: 10px;
+	margin: 20px;
 }
 
 img.icon{
@@ -490,7 +490,7 @@ ul.scribbles li a.btn:hover{
 
 	ul.apps li{
 		display: inline-block;
-		margin: 16px;
+		margin: 12px;
 	}
 
 	/* layout */
