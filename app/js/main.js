@@ -4,9 +4,8 @@
 
 //   $(window).scroll(function() {
 //     var yPos = $(window).scrollTop();
-//     var alpha = (yPos/400);
-//     $(".headerOverlay").css("background-color","RGBA(35, 33, 33, "+alpha+")");
-//   });
+//     var offset = -(yPos/3);
+//     $("#header").css("background-position","0px "+offset+"px");
 // });
 
 //
