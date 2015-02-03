@@ -126,7 +126,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         scribbles: [
             {
                 id: 17,
-                title: "À la recherche d'heures heureuses",
+                title: "A la recherche d'heures heureuses",
                 date: "2 Fev",
                 published: true
             }
