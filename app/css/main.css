@@ -115,8 +115,6 @@ a:link {
 	color: @color;
 	text-decoration: none;
 	font-weight: 300;
-	word-break: break-all;
-        word-wrap: break-word;
 }
 
 a:hover{
@@ -308,7 +306,7 @@ ul.apps{
 	list-style-type: none;
 	padding: 0px;
 	margin:auto;
-	width:570px;
+	width:600px;
 }
 
 ul.apps li{
