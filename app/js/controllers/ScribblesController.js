@@ -126,7 +126,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
         scribbles: [
             {
                 id: 17,
-                title: "A la recherche d'heures heureuses",
+                title: "À la recherche d'heures heureuses",
                 date: "2 Fev",
                 published: true
             }
@@ -140,7 +140,7 @@ myApp.controller('ScribblesController',function($scope, $http, $routeParams, $lo
 
             // Twitter
             $('a.tweet').click(function(e){
-              window.open('http://twitter.com/share?url=' + escape(loc)+'&text='+encodeURI('"'+title+'" by @kirualex'), 'tweetsharer', windowFeatures);
+              window.open('http://twitter.com/share?url=' + escape(loc)+'&text='+encodeURI('"'+title+'" by @alexiscreuzot'), 'tweetsharer', windowFeatures);
           });
 
             // Fb
