@@ -306,7 +306,7 @@ ul.apps{
 	list-style-type: none;
 	padding: 0px;
 	margin:auto;
-	width:600px;
+	width:620px;
 }
 
 ul.apps li{
@@ -368,7 +368,7 @@ ul.scribbles li a.btn:hover{
 
 
 .scribble{
-	max-width: 760px;
+	max-width: 780px;
 	padding:0 40px;
 	margin:auto;
 }
@@ -384,14 +384,17 @@ ul.scribbles li a.btn:hover{
 	margin:20px 0 30px;
 }
 
-.scribble h2{
-	font-size:32px;
-	margin-top:40px;
+.article-content h2{
+	font-size:38px;
+	margin-top:50px;
 }
 
-.scribble h2{
-	margin-top:10px;
-	opacity:.9;
+.article-content h3{
+	padding:20px 0 0 20px;
+}
+
+.article-content em{
+	font-weight: 200;
 }
 
 /* Scribble content */
