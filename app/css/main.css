@@ -384,6 +384,16 @@ ul.scribbles li a.btn:hover{
 	margin:20px 0 30px;
 }
 
+.scribble h2{
+	font-size:32px;
+	margin-top:40px;
+}
+
+.scribble h2{
+	margin-top:10px;
+	opacity:.9;
+}
+
 /* Scribble content */
 
 .article-footer{
