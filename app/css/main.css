@@ -448,13 +448,18 @@ ul.scribbles li a.btn:hover{
 
 	/* typo */
 	h1{
-		font-size:42px;
+		font-size:38px;
 		margin-top:10px;
 		margin-bottom:20px;
 	}
 
+	h2{
+		font-size:24px;
+		margin:20px 0 10px;
+	}
+
 	li,p{
-		font-size:16px;
+		font-size:15px;
 		font-weight: 300;
 	}
 
@@ -481,11 +486,11 @@ ul.scribbles li a.btn:hover{
 	}
 
 	#header h1{
-		font-size:42px;
+		font-size:38px;
 	}
 
 	#header h2{
-		font-size:25px;
+		font-size:22px;
 		margin: 20px auto 40px;
 	}
 
@@ -545,5 +550,20 @@ ul.scribbles li a.btn:hover{
 
 	ul.scribbles span{
 		width: 60px;
+	}
+
+	
+	.scribble h1{
+		font-size: 38px;
+	}
+
+	.article-content h2{
+		font-size: 30px;
+	}
+
+
+	.article-content h3{
+		font-size: 18px;
+		line-height: 1.4em;
 	}
 }
