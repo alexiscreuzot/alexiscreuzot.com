@@ -27,7 +27,7 @@
 
 			<ul class="apps">
 				<li data-ng-repeat="app in lab_data[0].content | limitTo:6 " class="animate from-right" ng-class="{trigger: true}" >
-					<a class="nopadding" ng-href="{{app.url}}" target="_blank"><img class="icon" src="{{app.image}}" alt="{{app.name}}"></img></a>
+					<a class="nopadding" ng-href="{{app.url}}" target="_blank"><img class="icon" ng-src="{{app.image}}" ng-alt="{{app.name}}"></img></a>
 				</li>
 			</ul>
 		</div>
