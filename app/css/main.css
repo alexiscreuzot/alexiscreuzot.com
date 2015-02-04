@@ -303,10 +303,10 @@ a.back:hover{
 /* me */
 
 ul.apps{
+	text-align:center;
 	list-style-type: none;
 	padding: 0px;
-	margin:auto;
-	width:620px;
+	width:auto;
 }
 
 ul.apps li{
