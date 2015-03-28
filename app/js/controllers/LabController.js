@@ -38,6 +38,10 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Web",
         content:
         [{
+            name:"Qolor",
+            url:"http://monoqle.fr/qolor",
+            description:"Qolor app product page"
+        },{
             name:"Monoqle",
             url:"http://monoqle.fr/",
             description:"Website for the company I cofounded"
