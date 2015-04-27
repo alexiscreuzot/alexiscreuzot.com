@@ -9,6 +9,11 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         name:"Mobile Apps",
         content:
         [{
+            name:"Qolor",
+            url:"https://itunes.apple.com/fr/app/id973492333",
+            image:"http://i.imgur.com/5xpXBqi.png",
+            description:"Wonder what color is your friend's dress? What shade of green is your neighbor's grass? There's an app for that."
+        },{
             name:"Winkli",
             url:"https://itunes.apple.com/fr/app/id913588239",
             image:"http://i.imgur.com/7GS8spQ.png",
