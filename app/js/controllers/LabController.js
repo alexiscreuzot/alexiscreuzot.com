@@ -17,7 +17,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             name:"Winkli",
             url:"https://itunes.apple.com/fr/app/id913588239",
             image:"http://i.imgur.com/7GS8spQ.png",
-            description:"Discover who you'll bump into at your next Facebook event"
+            description:"Discover who you'll bump into at your next Facebook event (Not working anymore due to Facebook API changes)"
         },{
             name:"Nice Weather 2",
             url:"https://itunes.apple.com/fr/app/id729430189",
