@@ -22,12 +22,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             name:"Nice Weather 2",
             url:"https://itunes.apple.com/fr/app/id729430189",
             image:"http://i.imgur.com/kUR1VZL.png",
-            description:"Nice Weather app sequel, with its all new killer design !"
-        },{
-            name:"Nice Weather",
-            url:"https://itunes.apple.com/fr/app/id709290908",
-            image:"http://i.imgur.com/sNrBKKL.png",
-            description:"A clean and simple Weather App."
+            description:"A gorgeous weather app, featured on the App Store several times"
         },{
             name:"Reddito",
             url:"https://itunes.apple.com/fr/app/id674736514",
@@ -37,7 +32,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
             name:"7 minutes Workout",
             url:"https://itunes.apple.com/fr/app/id650627810",
             image:"http://i.imgur.com/xNXPvj6.png",
-            description:"The perfect assistant to get in shape using the scientific 7-minute Workout, directly on your iPhone"
+            description:"The perfect app to get in shape using the scientific 7-minute Workout"
         }]
     },{
         name:"Web",
