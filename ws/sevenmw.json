@@ -1,7 +1,7 @@
 {
     "app_version":"3.0",
     "app_link":"http://itunes.apple.com/app/7-minutes-workout/id650627810?ls=1&mt=8",
-    "magic_bean":"BIGUP",
+    "magic_bean":"THXALEX",
     "apps":[
     {
         "appId": "com.alexiscreuzot.niceweather2",
@@ -10,14 +10,6 @@
         "title": "Nice Weather 2",
         "description": "Nice Weather app sequel, with its all new killer design !",
         "link": "http://itunes.apple.com/app/nice-weather-2/id729430189?ls=1&mt=8"
-    },
-    {
-        "appId":"com.alexiscreuzot.niceweather",
-        "order":1,
-        "icon":"http://i.imgur.com/sNrBKKL.png",
-        "title":"Nice Weather",
-        "description":"La météo, simplement.",
-        "link":"http://itunes.apple.com/app/nice-weather/id709290908?l=fr&ls=1&mt=8"
     },
     {
         "appId":"com.alexiscreuzot.reddito",
