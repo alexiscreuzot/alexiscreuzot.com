@@ -21,7 +21,7 @@ myApp.controller('LabController',function($scope, $http, $routeParams){
         },{
             name:"Nice Weather 2",
             url:"https://itunes.apple.com/fr/app/id729430189",
-            image:"http://i.imgur.com/kUR1VZL.png",
+            image:"http://i.imgur.com/nsgcuXh.png",
             description:"A gorgeous weather app, featured on the App Store several times"
         },{
             name:"Reddito",
