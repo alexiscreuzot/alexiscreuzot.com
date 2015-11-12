@@ -1,0 +1,81 @@
+- id: vero
+  name: Vero
+  tagline: True Social
+  description : >
+                Vero is a relationship-first social network. 
+                I contributed to this project as an iOS developer, 
+                within an awesome team scattered around the world!
+  website: http://vero.co
+  appid: id971055041
+
+- id: fuzzie
+  name: Fuzzie
+  tagline: Mobile Gifting now pawssible
+  description : >
+                I took the iOS technical lead on this awesome 
+                project for a company based in Singapore
+  website: http://fuzzie.com.sg
+  appid: id969637423
+
+- id: qolor
+  name: Qolor
+  tagline: Fast & Fun Color Grabber
+  description : >
+                This was the first project edited through my company Monoqle.<br/> The design was
+                handled by my associate and friend Jeremy Paul, and we manage to get it from the idea
+                to the App Store in 3 weeks.
+  website: http://fuzzie.com.sg
+  appid: id973492333
+
+- id: winkli
+  name: Winkli
+  tagline: Discover who you'll bump into
+  description : >
+                Discontinued project for a Social Network revolving around Facebook events.
+                I contributed on it as a co-founder and main iOS developer
+  website: http://wink.li
+  appid: id913588239
+
+- id: follow
+  name: Follow The Dot
+  tagline: One Dot. One Rule.
+  description : >
+                Another app developed for Utopia Web.<br/>
+                A fun and adictive game based on visual agility.
+  website: http://followdot.net/
+  appid: id888642859
+
+- id: dailycig
+  name: DailyCig
+  tagline: DailyCig could be your best ally to quit smoking!
+  description : >
+                One of the App I developed for Utopia Web as an employee.<br/>
+                It's a cool iPhone app to measure, visualize and control your smoking consumption (tobacco & e-cigarettes)
+  website: http://dailycig.com
+  appid: id725447590
+
+- id: nw2
+  name: Nice Weather 2
+  tagline: The Weather, simply gorgeous
+  description : >
+                Inspired by the Android app of my friend Aurélien Hubert, this weather app
+                was featured multiple times by Apple and praised for it's unique design.
+                It generated more than 250,000 downloads.
+  website: http://alexiscreuzot.com/apps/nice-weather-2
+  appid: id729430189
+
+- id: reddito
+  name: Reddito
+  tagline: The Ultimate Reddit Browser
+  description : >
+                As a heavy user of Reddit, I felt there was a better way to browse its content
+                more visually. Reddito does just that and revolve mostly around my own use habits.
+  appid: id674736514
+
+- id: 7minw
+  name: 7 Minutes Workout
+  tagline: The Perfect Coach to get Healthy
+  description : >
+                First iOS project developed in my own name.
+                I took it from the idea to launch in 2 weeks, and it was downloaded more than 100,000 times.
+  appid: id650627810

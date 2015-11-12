@@ -1,0 +1,39 @@
+<section id="work">
+  <div class="container">
+    <h2>Work</h2>
+  </div>
+
+  {% for project in site.data.works %}
+  <project>
+    <div class="abstract">
+      <div class="container">
+        <div class="name">
+          <span>{{ project.name }}</span>
+        </div>
+        <div class="more-icon">
+          <span>></span>
+        </div>
+      </div>
+    </div>
+    <div class="more" data-src="img/{{ project.id }}/{{ project.id }}-back.jpg">
+      <div class="back-overlay">
+        <div class="container" >
+          <div class="five columns">
+            <h3>{{ project.tagline }}</h3>
+
+            <div class="buttons"> 
+              {% if project.website %}<a href="{{ project.website }}">Website</a>{% endif %}
+              {% if project.appid %}<a href="https://itunes.apple.com/app/{{ project.appid }}">App Store</a>{% endif %}
+            </div>
+
+            <p>{{ project.description }}</p>
+          </div>
+          <div class="seven columns screenshot">
+            <img data-src="img/{{ project.id }}/{{ project.id }}.png"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </project>
+  {% endfor %}
+</section>
