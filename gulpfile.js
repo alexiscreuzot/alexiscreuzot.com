@@ -16,6 +16,7 @@ gulp.task('serve', function () {
          gulp.src(['js/*.js', '!js/main.min.js'])
          .pipe(jshint({reporter: 'default'}))
          .pipe(concat('main.min.js'))
+         .pipe(uglify())
          .pipe(gulp.dest('./js/'));
     });
 
