@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
     
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
@@ -13,14 +13,17 @@ $( document ).ready(function() {
 
 	  var moreDiv  = $(this).next();
 	  moreDiv.toggleClass("show");
-	  moreDiv.css({"background" : "#222 url('" + moreDiv.attr('data-src') + "') no-repeat center center fixed",
+
+	  if($(document).width() > 800){
+	  	moreDiv.css({"background" : "#222 url('" + moreDiv.attr('data-src') + "') no-repeat center center fixed",
 					"-webkit-background-size": "auto "+$( document ).width()+"px",
 			    	"-moz-background-size": "auto "+$( document ).width()+"px",
 			   		"-o-background-size":"auto "+$( document ).width()+"px",
 			    	"background-size": "auto "+$( document ).width()+"px"})
-	  		 .waitForImages(function() {
-	   moreDiv.children(".back-overlay").css("background-color", "rgba(0,0,0,.3)");
-	  }, $.noop, true);
+	  		.waitForImages(function() {
+		   		moreDiv.children(".back-overlay").css("background-color", "rgba(60,60,60,.3)");
+		  	}, $.noop, true);
+	  }
 
 	  var img = moreDiv.children().children().children().children('.screenshot img');
 	  img.attr("src", img.attr('data-src'))

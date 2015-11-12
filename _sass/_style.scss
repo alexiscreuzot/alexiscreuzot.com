@@ -191,7 +191,7 @@ section {
 		.back-overlay{
 	      padding: 60px 0;
 	      height: 500px;
-	      background-color: #111;
+	      background-color: $color-project-back;
 	      transition: background 3s ease-in-out;
 	    }
 		.more {
