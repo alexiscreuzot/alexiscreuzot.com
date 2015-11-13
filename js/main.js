@@ -13,7 +13,7 @@ $(document).ready(function() {
 
 	  var moreDiv  = $(this).next();
 	  moreDiv.toggleClass("show");
-	moreDiv.children(".back-overlay").css("background-color", "rgba(60,60,60,.3)");
+		moreDiv.children(".back-overlay").css("background-color", "rgba(20,20,20,.4)");
 	  
 
 	  var img = moreDiv.children().children().children().children('.screenshot img');
