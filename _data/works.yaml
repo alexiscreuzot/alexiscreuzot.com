@@ -1,5 +1,6 @@
 - id: vero
   name: Vero
+  color: 20788C
   tagline: True Social
   description : >
                 Vero is a relationship-first social network. 
@@ -10,6 +11,7 @@
 
 - id: fuzzie
   name: Fuzzie
+  color: FA3E3F
   tagline: Mobile Gifting now pawssible
   description : >
                 I took the iOS technical lead on this awesome 
@@ -19,6 +21,7 @@
 
 - id: qolor
   name: Qolor
+  color: 8279C8
   tagline: Fast & Fun Color Grabber
   description : >
                 This was the first project edited through my company Monoqle.<br/> The design was
@@ -29,6 +32,7 @@
 
 - id: winkli
   name: Winkli
+  color: ED3E47
   tagline: Discover who you'll bump into
   description : >
                 Discontinued project for a Social Network revolving around Facebook events.
@@ -38,6 +42,7 @@
 
 - id: follow
   name: Follow The Dot
+  color: 1091B3
   tagline: One Dot. One Rule.
   description : >
                 Another app developed for Utopia Web.<br/>
@@ -47,6 +52,7 @@
 
 - id: dailycig
   name: DailyCig
+  color: 1B234E
   tagline: DailyCig could be your best ally to quit smoking!
   description : >
                 One of the App I developed for Utopia Web as an employee.<br/>
@@ -56,6 +62,7 @@
 
 - id: nw2
   name: Nice Weather 2
+  color: C6A0B7
   tagline: The Weather, simply gorgeous
   description : >
                 Inspired by the Android app of my friend Aurélien Hubert, this weather app
@@ -66,6 +73,7 @@
 
 - id: reddito
   name: Reddito
+  color: 16BC9C
   tagline: The Ultimate Reddit Browser
   description : >
                 As a heavy user of Reddit, I felt there was a better way to browse its content
@@ -74,6 +82,7 @@
 
 - id: 7minw
   name: 7 Minutes Workout
+  color: 3498DB
   tagline: The Perfect Coach to get Healthy
   description : >
                 First iOS project developed in my own name.

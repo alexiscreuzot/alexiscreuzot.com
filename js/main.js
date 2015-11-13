@@ -13,17 +13,8 @@ $(document).ready(function() {
 
 	  var moreDiv  = $(this).next();
 	  moreDiv.toggleClass("show");
-
-	  if($(document).width() > 800){
-	  	moreDiv.css({"background" : "#222 url('" + moreDiv.attr('data-src') + "') no-repeat center center fixed",
-					"-webkit-background-size": "auto "+$( document ).width()+"px",
-			    	"-moz-background-size": "auto "+$( document ).width()+"px",
-			   		"-o-background-size":"auto "+$( document ).width()+"px",
-			    	"background-size": "auto "+$( document ).width()+"px"})
-	  		.waitForImages(function() {
-		   		moreDiv.children(".back-overlay").css("background-color", "rgba(60,60,60,.3)");
-		  	}, $.noop, true);
-	  }
+	moreDiv.children(".back-overlay").css("background-color", "rgba(60,60,60,.3)");
+	  
 
 	  var img = moreDiv.children().children().children().children('.screenshot img');
 	  img.attr("src", img.attr('data-src'))
