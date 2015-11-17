@@ -12,11 +12,10 @@ $(document).ready(function() {
 	  $(this).children().children(".more-icon").toggleClass("open");
 
 	  if( $(this).hasClass("show") ){
+	  	var textDelta = -parseInt($(this).css('font-size')) + 26;
 	  	$('html, body').animate({
-	        scrollTop: $(this).offset().top - $(this).height() - 20
+	        scrollTop: ($(this).offset().top - $(this).outerHeight(false) - textDelta)
 	    }, 300);
-	  }else{
-	  	console.log('opiopi'); 
 	  }
 
 	  var moreDiv  = $(this).next();
