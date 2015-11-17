@@ -11,10 +11,17 @@ $(document).ready(function() {
 	  $(this).toggleClass("show");
 	  $(this).children().children(".more-icon").toggleClass("open");
 
+	  if( $(this).hasClass("show") ){
+	  	$('html, body').animate({
+	        scrollTop: $(this).offset().top - $(this).height() - 20
+	    }, 300);
+	  }else{
+	  	console.log('opiopi'); 
+	  }
+
 	  var moreDiv  = $(this).next();
 	  moreDiv.toggleClass("show");
 		moreDiv.children(".back-overlay").css("background-color", "rgba(20,20,20,.4)");
-	  
 
 	  var img = moreDiv.children().children().children().children('.screenshot img');
 	  img.attr("src", img.attr('data-src'))
@@ -23,17 +30,16 @@ $(document).ready(function() {
 	  				img.parent().css("opacity", "1");
 	  			}
 	  }, $.noop, true);
-	});
 
+	});
 
 	$('a').click(function(event){
 	    $('html, body').animate({
 	        scrollTop: $( $.attr(this, 'href') ).offset().top
-	    }, 500);
+	    }, 300);
 	    $(this).blur(); 
 	    event.preventDefault();
 	});
-
 
     // Vals
     var diviserX = 100;

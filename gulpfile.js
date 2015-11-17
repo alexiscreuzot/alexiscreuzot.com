@@ -10,13 +10,22 @@ var stylish = require('jshint-stylish');
 gulp.task('build',shell.task(['jekyll build --watch']));
 
 // Task for serving blog with Browsersync
+gulp.task('lint', function () {
+    return gulp.src(['js/main.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+// Task for serving blog with Browsersync
 gulp.task('serve', function () {
     browserSync.init({server: {baseDir: '_site/'}});
     gulp.watch(['js/*.js', '!js/main.min.js']).on('change', function () {
+
+    	 gulp.start('lint');
+
          gulp.src(['js/*.js', '!js/main.min.js'])
-         .pipe(jshint({reporter: 'default'}))
          .pipe(concat('main.min.js'))
-         .pipe(uglify())
+         .pipe(uglify().on('error', function(){}))
          .pipe(gulp.dest('./js/'));
     });
 
