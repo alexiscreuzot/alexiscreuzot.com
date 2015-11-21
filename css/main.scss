@@ -4,14 +4,6 @@
 @charset "utf-8";
 @import url(http://fonts.googleapis.com/css?family=Raleway:200,500,700,800);
 
-@font-face {
-    font-family: 'SocialFont';
-    src: url('../font/socialfont.eot?#iefix') format('embedded-opentype'),
-         url('../font/socialfont.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 // Our variables
 $font-color-base : #404d5b;
 $font-color-highlight : #7F33F0;
@@ -30,6 +22,6 @@ $font_2: sans-serif;
 @import
         "normalize",
         "skeleton",
-        "icons",
+        "icomoon",
         "style"
 ;
