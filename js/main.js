@@ -20,7 +20,12 @@ $(document).ready(function() {
 
 	  var moreDiv  = $(this).next();
 	  moreDiv.toggleClass("show");
-		moreDiv.children(".back-overlay").css("background-color", "rgba(20,20,20,.4)");
+	  moreDiv.css("background-image", "url("+moreDiv.attr('data-src')+")")
+	  		.waitForImages(function(){},function(loaded, count, success) {
+	  			if(success){
+	  				moreDiv.children(".back-overlay").css("background-color", "rgba(20,20,20,.7)");
+	  			}
+	  }, $.noop, true);
 
 	  var img = moreDiv.children().children().children().children('.screenshot img');
 	  img.attr("src", img.attr('data-src'))
