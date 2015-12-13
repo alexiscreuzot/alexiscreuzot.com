@@ -40,9 +40,9 @@ body {
 	font-size: 200%;
 	font-family: $font_0, $font_1, $font_2;
 
-	background: #8e9eab; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to left, #a1aecb , #f1f2f3); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to left, #a1aecb , #f1f2f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	     
+	background: $color-background; /* fallback for old browsers */
+	background: -webkit-linear-gradient(to left, $color-background-bis, $color-background); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to left, $color-background-bis, $color-background); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	     
 	background-attachment: fixed;  
 }
 p {
@@ -159,6 +159,7 @@ section {
 				border-radius: 20px;
 				&:hover {
 					background: $font-color-base;
+					color: $font-color-highlight;
 				}
 			}
 		}

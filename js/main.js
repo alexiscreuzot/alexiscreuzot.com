@@ -23,7 +23,7 @@ $(document).ready(function() {
 	  moreDiv.css("background-image", "url("+moreDiv.attr('data-src')+")")
 	  		.waitForImages(function(){},function(loaded, count, success) {
 	  			if(success){
-	  				moreDiv.children(".back-overlay").css("background-color", "rgba(20,20,20,.6)");
+	  				moreDiv.children(".back-overlay").css("background-color", "rgba(0,0,0,.8)");
 	  			}
 	  }, $.noop, true);
 
