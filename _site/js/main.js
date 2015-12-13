@@ -3,6 +3,14 @@ $(document).ready(function() {
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
 
+	$('#particles').particleground({
+	    dotColor: '#DA1E29',
+	    lineColor: '#DA1E29',
+	    parallax:false,
+	    proximity:0,
+	    particleRadius:3
+	 });
+
 	$("header .title a").hover(function() {
 	  $(this).toggleClass("hover");
 	});
