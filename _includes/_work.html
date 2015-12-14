@@ -22,8 +22,8 @@
             <h3>{{ project.tagline }}</h3>
 
             <div class="buttons"> 
-              {% if project.website %}<a href="{{ project.website }}">Website</a>{% endif %}
-              {% if project.appid %}<a href="https://itunes.apple.com/app/{{ project.appid }}">App Store</a>{% endif %}
+              {% if project.website %}<a class="button" href="{{ project.website }}">Website</a>{% endif %}
+              {% if project.appid %}<a class="button" href="https://itunes.apple.com/app/{{ project.appid }}">App Store</a>{% endif %}
             </div>
 
             <p>{{ project.description }}</p>
