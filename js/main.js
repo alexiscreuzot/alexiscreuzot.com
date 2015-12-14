@@ -26,7 +26,7 @@ $(document).ready(function() {
 	  $(this).children().children(".more-icon").toggleClass("open");
 
 	  if( $(this).hasClass("show") ){
-	  	var textDelta = -parseInt($(this).css('font-size')) + 26;
+	  	var textDelta = -parseInt($(this).css('font-size')) + 24;
 	  	$('html, body').animate({
 	        scrollTop: ($(this).offset().top - $(this).outerHeight(false) - textDelta)
 	    }, 300);
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	  moreDiv.css("background-image", "url("+moreDiv.attr('data-src')+")")
 	  		.waitForImages(function(){},function(loaded, count, success) {
 	  			if(success){
-	  				moreDiv.children(".back-overlay").css("background-color", "rgba(0,0,0,.3)");
+	  				moreDiv.children(".back-overlay").css("background-color", "rgba(0,0,0,.4)");
 	  			}
 	  }, $.noop, true);
 

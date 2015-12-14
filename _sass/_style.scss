@@ -57,7 +57,7 @@ a {
 		border-radius: 30px;
 		border:2px solid $font-color-highlight;
 		&:hover {
-			background: $font-color-highlight;
+			background: transparentize($font-color-highlight,.7);
 			color: $font-color-base;
 		}	
 		&:focus {
