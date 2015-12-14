@@ -5,15 +5,15 @@ $(document).ready(function() {
 
 	$('#particles').particleground({
 	    dotColor: '#DA1E29',
-	    lineColor: 'rgba(255,0,0,.25)',
+	    lineColor: 'rgba(255,0,0,.15)',
 	    maxSpeedX:0,
 	    maxSpeedY:0,
 	    minSpeedX:0,
 	    minSpeedY:0,
 	    density:14000,
 	    proximity:170,
-	    lineWidth:.5,
-	    particleRadius:3,
+	    lineWidth:1,
+	    particleRadius:4,
 	    parallaxMultiplier:-40
 	 });
 
