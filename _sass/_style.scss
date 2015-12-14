@@ -42,7 +42,7 @@ body {
 
 	background: $color-background; /* fallback for old browsers */
 	background: -webkit-linear-gradient(to left, $color-background-bis, $color-background); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to left, $color-background-bis, $color-background); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	     
+	background: linear-gradient(to top, $color-background-bis, $color-background); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	     
 	background-attachment: fixed;  
 }
 p {
@@ -65,6 +65,7 @@ a {
 h2 {
 	font-weight: 600;
 	font-size: 55px;
+	color: $font-color-highlight;
 }
 
 header {
