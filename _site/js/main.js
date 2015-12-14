@@ -5,10 +5,16 @@ $(document).ready(function() {
 
 	$('#particles').particleground({
 	    dotColor: '#DA1E29',
-	    lineColor: '#DA1E29',
-	    parallax:false,
-	    proximity:0,
-	    particleRadius:3
+	    lineColor: 'rgba(255,0,0,.25)',
+	    maxSpeedX:0,
+	    maxSpeedY:0,
+	    minSpeedX:0,
+	    minSpeedY:0,
+	    density:14000,
+	    proximity:170,
+	    lineWidth:.5,
+	    particleRadius:3,
+	    parallaxMultiplier:-40
 	 });
 
 	$("header .title a").hover(function() {

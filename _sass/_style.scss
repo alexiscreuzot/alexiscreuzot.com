@@ -41,8 +41,8 @@ body {
 	font-family: $font_0, $font_1, $font_2;
 
 	background: $color-background; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to left, $color-background-bis, $color-background); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to top, $color-background-bis, $color-background); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	     
+	background: -webkit-linear-gradient(to bottom, $color-background-bis, $color-background); /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to bottom, $color-background-bis, $color-background); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	     
 	background-attachment: fixed;  
 }
 p {
@@ -80,6 +80,7 @@ header {
 	span {
 		vertical-align: middle;
 	}
+
 	.title {
 		width: auto;
 		float: left;
@@ -130,6 +131,15 @@ section {
 			top: 50%;
 			width: 100%;
 		}
+
+		#particles{
+			min-height:86%;
+			min-width:92%;
+			left:4%;
+			bottom:20px;
+			position:absolute;
+		}
+
 		.teaser {
 			font-weight: 600;
 			text-align: center;
