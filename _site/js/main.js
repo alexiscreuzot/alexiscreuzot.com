@@ -3,7 +3,8 @@ $(document).ready(function() {
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
 
-	$('#particles').particleground({
+	function setParticles(){
+		$('#particles').particleground({
 	    dotColor: '#DA1E29',
 	    lineColor: '#DA1E29',
 	    maxSpeedX:0,
@@ -16,6 +17,14 @@ $(document).ready(function() {
 	    particleRadius:4,
 	    parallaxMultiplier:-40
 	 });
+	}
+
+	setParticles()
+	
+	$('.title').click(function(event){
+	    $('#particles').particleground('destroy');
+	    setParticles()
+	});
 
 	$("header .title a").hover(function() {
 	  $(this).toggleClass("hover");
