@@ -19,7 +19,8 @@ $(document).ready(function() {
 	 });
 	}
 
-    function showparticles() {     
+    function showparticles() {  
+        $('#particles')removeClass("show"); 
         setParticles()
         $('#particles').addClass("show");
     }
