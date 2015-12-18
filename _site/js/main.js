@@ -19,7 +19,7 @@ $(document).ready(function() {
 	 });
 	}
 
-	setParticles()
+    setTimeout(setParticles(), 500)
 	
 	$('.title').click(function(event){
 	    $('#particles').particleground('destroy');
