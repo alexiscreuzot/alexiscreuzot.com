@@ -24,7 +24,7 @@ $(document).ready(function() {
         $('#particles').addClass("show");
     }
 
-    setTimeout(showparticles, 100)
+    setTimeout(showparticles, 500)
 	
 	$('.title').click(function(event){
 	    $('#particles').particleground('destroy');
