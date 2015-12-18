@@ -4,9 +4,12 @@ $(document).ready(function() {
 	attachFastClick(document.body);
 
 	function setParticles(){
+
+        var color = $('.slash').css('color');
+
 		$('#particles').particleground({
-	    dotColor: '#DA1E29',
-	    lineColor: '#DA1E29',
+	    dotColor: color,
+	    lineColor: color,
 	    maxSpeedX:0,
 	    maxSpeedY:0,
 	    minSpeedX:0,
@@ -15,21 +18,19 @@ $(document).ready(function() {
 	    proximity:170,
 	    lineWidth:.5,
 	    particleRadius:4,
-	    parallaxMultiplier:-40
+	    parallaxMultiplier:-35
 	 });
 	}
 
     function showparticles() {  
-        $('#particles')removeClass("show"); 
+        $('#particles').addClass("show"); 
         setParticles()
-        $('#particles').addClass("show");
     }
-
     setTimeout(showparticles, 10)
 	
 	$('.title').click(function(event){
 	    $('#particles').particleground('destroy');
-	    setParticles()
+	    setParticles();
 	});
 
 	$("header .title a").hover(function() {
