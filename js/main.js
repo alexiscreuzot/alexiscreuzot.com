@@ -19,7 +19,12 @@ $(document).ready(function() {
 	 });
 	}
 
-    setTimeout(setParticles(), 500)
+    function showparticles() {     
+        setParticles()
+        $('#particles').addClass("show");
+    }
+
+    setTimeout(showparticles, 100)
 	
 	$('.title').click(function(event){
 	    $('#particles').particleground('destroy');

@@ -141,11 +141,17 @@ section {
 		}
 
 		#particles{
+			opacity:0;
 			min-height:80%;
 			min-width:80%;
 			position:absolute;
 			margin:10% ;
 			margin-top:100px ;
+			transition: opacity 3s ease-in-out;
+		}
+
+		#particles.show{
+			opacity:1;
 		}
 
 		.teaser {
