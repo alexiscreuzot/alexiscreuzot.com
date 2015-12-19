@@ -14,8 +14,8 @@ $(document).ready(function() {
 	    maxSpeedY:0,
 	    minSpeedX:0,
 	    minSpeedY:0,
-	    density:14000,
-	    proximity:170,
+	    density:10000,
+	    proximity:150,
 	    lineWidth:.5,
 	    particleRadius:4,
 	    parallaxMultiplier:-35
