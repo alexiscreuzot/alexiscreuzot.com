@@ -16,7 +16,7 @@ $(document).ready(function() {
 	    minSpeedY:0,
 	    density:10000,
 	    proximity:150,
-	    lineWidth:.5,
+	    lineWidth:0.5,
 	    particleRadius:4,
 	    parallaxMultiplier:-35
 	 });
@@ -24,9 +24,9 @@ $(document).ready(function() {
 
     function showparticles() {  
         $('#particles').addClass("show"); 
-        setParticles()
+        setParticles();
     }
-    setTimeout(showparticles, 10)
+    setTimeout(showparticles, 10);
 	
 	$('.title').click(function(event){
 	    $('#particles').particleground('destroy');
@@ -67,11 +67,22 @@ $(document).ready(function() {
 
 	});
 
-	$('a').click(function(event){
+	$('.nav a').click(function(event){
 	    $('html, body').animate({
 	        scrollTop: $( $.attr(this, 'href') ).offset().top
 	    }, 300);
 	    $(this).blur(); 
+	    event.preventDefault();
+	});
+
+	String.prototype.reverse = function () {
+	    return this.split("").reverse().join("");
+	};
+
+	$('a.e-mail').click(function(event){
+		var user = $(this).attr("data-user").split("").reverse().join("");
+		var domain = $(this).attr("data-website").split("").reverse().join("");
+	    window.location.href = "mailto:"+user+"@"+domain;
 	    event.preventDefault();
 	});
 

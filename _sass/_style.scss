@@ -51,6 +51,7 @@ a {
 	}
 
 	&.button{
+		cursor: pointer;
 		background: transparent;
 		color: $font-color-base;
 		padding: 2px 10px 5px;
@@ -277,6 +278,13 @@ section {
 	&#contact {
 		min-height: 80%;
 		padding-top: 100px;
+
+		.e-mail:before {
+            content: attr(data-website) "\0040" attr(data-user);
+            unicode-bidi: bidi-override;
+            direction: rtl;
+        }
+
 		h2 {
 			margin-bottom: 40px;
 		}
