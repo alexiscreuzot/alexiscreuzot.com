@@ -19,6 +19,7 @@ $(document).ready(function() {
 	    particleRadius:3,
 	    parallaxMultiplier:-35
 	 });
+
 	}
 
     function showparticles() {  
