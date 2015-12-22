@@ -25,10 +25,11 @@ $(document).ready(function() {
     function showparticles() {  
         $('#particles').addClass("show"); 
         setParticles();
+        
     }
     setTimeout(showparticles, 10);
 	
-	$('.title').click(function(event){
+	$('header .title a').click(function(event){
 	    $('#particles').particleground('destroy');
 	    setParticles();
 	});
@@ -67,7 +68,7 @@ $(document).ready(function() {
 
 	});
 
-	$('.nav a').click(function(event){
+	$('header a').click(function(event){
 	    $('html, body').animate({
 	        scrollTop: $( $.attr(this, 'href') ).offset().top
 	    }, 300);
