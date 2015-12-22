@@ -264,11 +264,7 @@
      * Draw particle
      */
     Particle.prototype.draw = function() {
-      // Draw circle
-      ctx.beginPath();
-      ctx.arc(this.position.x + this.parallaxOffsetX, this.position.y + this.parallaxOffsetY, options.particleRadius / 2, 0, Math.PI * 2, true);
-      ctx.closePath();
-      ctx.fill();
+      
 
       // Draw lines
       ctx.beginPath();
@@ -295,6 +291,12 @@
 
       ctx.stroke();
       ctx.closePath();
+
+      // Draw circle
+      ctx.beginPath();
+      ctx.arc(this.position.x + this.parallaxOffsetX, this.position.y + this.parallaxOffsetY, options.particleRadius / 2, 0, Math.PI * 2, true);
+      ctx.closePath();
+      ctx.fill();
     };
 
     /**

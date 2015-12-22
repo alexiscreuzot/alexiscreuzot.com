@@ -4,20 +4,19 @@ $(document).ready(function() {
 	attachFastClick(document.body);
 
 	function setParticles(){
-
-        var color = $('.slash').css('color');
-
+        var color1 = $('.slash').css('color');
+        var color2 = $('header').css('background-color');
 		$('#particles').particleground({
-	    dotColor: color,
-	    lineColor: color,
+	    dotColor: color1,
+	    lineColor: color2,
 	    maxSpeedX:0,
 	    maxSpeedY:0,
 	    minSpeedX:0,
 	    minSpeedY:0,
-	    density:10000,
-	    proximity:150,
-	    lineWidth:0.5,
-	    particleRadius:4,
+	    density:12000,
+	    proximity:160,
+	    lineWidth:1,
+	    particleRadius:3,
 	    parallaxMultiplier:-35
 	 });
 	}
@@ -54,7 +53,7 @@ $(document).ready(function() {
 	  moreDiv.css("background-image", "url("+moreDiv.attr('data-src')+")")
 	  		.waitForImages(function(){},function(loaded, count, success) {
 	  			if(success){
-	  				moreDiv.children(".back-overlay").css("background-color", "rgba(0,0,0,.4)");
+	  				moreDiv.children(".back-overlay").css("background-color", "rgba(0,0,0,.5)");
 	  			}
 	  }, $.noop, true);
 
