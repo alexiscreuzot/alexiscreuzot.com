@@ -195,6 +195,8 @@
       }
     }
 
+    
+
     /**
      * Pause particle system
      */
@@ -393,6 +395,26 @@
       }
     }
 
+    function restart() {
+      // Resize the canvas
+      styleCanvas();
+
+      // Remove particles 
+      particles = [];
+
+      // Adjust particle density
+      var numParticles = Math.round((elW * elH) / options.density);
+      while (numParticles > particles.length) {
+        var p = new Particle();
+        particles.push(p);
+      }
+
+      // Re-index particles
+      for (var i = particles.length - 1; i >= 0; i--) {
+        particles[i].setStackPos(i);
+      }
+    }
+
     function hook(hookName) {
       if (options[hookName] !== undefined) {
         options[hookName].call(element);
@@ -405,7 +427,8 @@
       option: option,
       destroy: destroy,
       start: start,
-      pause: pause
+      pause: pause,
+      restart: restart
     };
   }
 

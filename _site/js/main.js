@@ -30,8 +30,7 @@ $(document).ready(function() {
     setTimeout(showparticles, 10);
 	
 	$('header .title a').click(function(event){
-	    $('#particles').particleground('destroy');
-	    setParticles();
+	    $('#particles').particleground('restart');
 	});
 
 	$("header .title a").hover(function() {
