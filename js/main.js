@@ -4,19 +4,18 @@ $(document).ready(function() {
 	attachFastClick(document.body);
 
 	function setParticles(){
-        var color1 = $('.slash').css('color');
-        var color2 = $('header').css('background-color');
+
 		$('#particles').particleground({
-	    dotColor: color1,
-	    lineColor: color2,
+	    dotColor: "#FFF",
+	    lineColor: "rgba(255,255,255, 0.1)",
 	    maxSpeedX:0,
 	    maxSpeedY:0,
 	    minSpeedX:0,
 	    minSpeedY:0,
 	    density:12000,
 	    proximity:160,
-	    lineWidth:1,
-	    particleRadius:3,
+	    lineWidth:.5,
+	    particleRadius:2.5,
 	    parallaxMultiplier:-35
 	 });
 
