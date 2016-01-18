@@ -59,7 +59,7 @@ a {
 		border:2px solid $font-color-highlight;
 		outline: 0;
 		&:hover {
-			background: transparentize($font-color-highlight,.7);
+			background: transparentize($font-color-highlight,.8);
 			color: $font-color-base;
 		}	
 	}
@@ -305,7 +305,7 @@ section {
 @media screen and(min-width: 1200px) {
 	
 	.container {
-		min-width: 880px;
+		min-width: 900px;
 	}
 
 	section#work .more.show{
