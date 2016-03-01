@@ -9,17 +9,6 @@
   website: http://vero.co
   appid: id971055041
 
-- id: fuzzie
-  name: Fuzzie
-  color: FA3E3F
-  tagline: Mobile Gifting now pawssible
-  description : >
-                Fuzzie takes gift cards to the 21st century.
-                I took the iOS technical lead on this awesome 
-                project for a company based in Singapore.
-  website: http://fuzzie.com.sg
-  appid: id969637423
-
 - id: qolor
   name: Qolor
   color: 8279C8
