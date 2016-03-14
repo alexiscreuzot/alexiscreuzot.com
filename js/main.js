@@ -1,4 +1,15 @@
 $(document).ready(function() {
+
+    $(document).scroll(function() {
+        var scrollTop = $(document).scrollTop();
+        var screenHeight = $(window).height();
+
+        if(scrollTop <  screenHeight){
+            $("header").css({
+                "background-color": "rgba(8,8,18,"+ (0.2+scrollTop/screenHeight)  +")"
+            });
+        }
+    });
     
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
