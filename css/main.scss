@@ -4,25 +4,20 @@
 @charset "utf-8";
 @import url(http://fonts.googleapis.com/css?family=Raleway:200,500,700,800);
 
-// Our variables
-$font-color-base : #FEFEFE;
-$font-color-highlight : #10BAF2;
-
-$color-background: #000C12;
-$color-background-bis: #386A8A;
-$color-nav: rgba(8,8,18,0.2);
-$color-white: #fefefe;
-$color-project-back: #080812;
-
 //fonts
 $font_0: Raleway;
 $font_1: Arial;
 $font_2: sans-serif;
 
-// Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "normalize",
+// Style commons
+$color-nav: rgba(8,8,18,0.2);
+$color-white: #fefefe;
+$color-project-back: #080812;
+
+@import "theme-blue-steel";
+
+@import "normalize",
         "skeleton",
         "icomoon",
-        "style"
-;
+        "style";
+
