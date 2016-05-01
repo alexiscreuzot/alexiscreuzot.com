@@ -30,7 +30,7 @@ body {
 
 	background: $color-background; /* fallback for old browsers */
 	background:-webkit-radial-gradient(at top, $color-background-bis, $color-background) fixed;
-	background:radial-gradient(at top, $color-background-bis, $color-background) fixed;
+	background:radial-gradient(at bottom, $color-background-bis, $color-background) fixed;
 }
 p {
 	font-size: 18px;
