@@ -53,12 +53,12 @@ a {
 		cursor: pointer;
 		background: transparent;
 		color: $font-color-base;
-		padding: 3px 10px 4px;
-		border-radius: 30px;
-		border:2px solid $font-color-highlight;
+		padding: 2px 10px 3px;
+		border-radius: 50px;
+		border:1px solid $font-color-highlight;
 		outline: 0;
 		&:hover {
-			background: transparentize($font-color-highlight,.8);
+			background: transparentize($font-color-highlight,.85);
 			color: $font-color-base;
 		}	
 	}
