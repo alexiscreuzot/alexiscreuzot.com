@@ -14,30 +14,47 @@ $(document).ready(function() {
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
 
-	function setParticles(){
+    var sky = new cbMilyWay({id: "sky",
+                    popularity: 0.15, // Per Screen Width
+                    freezedRollupSpeed: 0.005,
+                    speedMin: 0.02,
+                    maxTrailLength: 0.40
+                });
+    sky.drawStars();
+    sky.animateSky();
+    
+    $( "a.button" ).hover(
+      function() {
+        sky.freezed = true;
+      }, function() {
+        sky.freezed = false;
+      }
+    );
 
-		$('#particles').particleground({
-	    dotColor: "#FFF",
-	    lineColor: "rgba(255,255,255, 0.1)",
-	    maxSpeedX:0,
-	    maxSpeedY:0,
-	    minSpeedX:0,
-	    minSpeedY:0,
-	    density:12000,
-	    proximity:160,
-	    lineWidth:.5,
-	    particleRadius:2.5,
-	    parallaxMultiplier:-35
-	 });
+	// function setParticles(){
 
-	}
+	// 	$('#particles').particleground({
+	//     dotColor: "#FFF",
+	//     lineColor: "rgba(255,255,255, 0.1)",
+	//     maxSpeedX:0,
+	//     maxSpeedY:0,
+	//     minSpeedX:0,
+	//     minSpeedY:0,
+	//     density:12000,
+	//     proximity:160,
+	//     lineWidth:.5,
+	//     particleRadius:2.5,
+	//     parallaxMultiplier:-35
+	//  });
 
-    function showparticles() {  
-        $('#particles').addClass("show"); 
-        setParticles();
+	// }
+
+ //    function showparticles() {  
+ //        $('#particles').addClass("show"); 
+ //        setParticles();
         
-    }
-    setTimeout(showparticles, 10);
+ //    }
+ //    setTimeout(showparticles, 10);
 	
 	$('header .title a').click(function(event){
 	    $('#particles').particleground('restart');
