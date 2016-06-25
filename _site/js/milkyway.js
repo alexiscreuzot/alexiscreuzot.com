@@ -13,8 +13,12 @@ function cbMilyWay(options) {
         this.ctx = this.canvas.getContext('2d');
 
         this.stars = [];
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        var ratio = window.devicePixelRatio || 1;
+        var width = window.innerWidth * ratio;
+        var height = window.innerHeight * ratio;
+
+        this. canvas.width = width;
+        this.canvas.height = height;
         this.centerX = this.canvas.width / 2;
         this.centerY = this.canvas.height / 2;
 
@@ -139,12 +143,13 @@ function cbMilyWay(options) {
             star.trailLength = (star.angleRadEnd - star.angleRadStart);
 
             var opacityOffset = -Math.min(star.trailLength, 0.6);
+            var ratio = window.devicePixelRatio || 1;
 
             this.ctx.beginPath();
             this.ctx.strokeStyle = 'rgba(' + star.color[0] + ',' + star.color[1] + ',' + star.color[2] + ',' + Math.max(star.opacity + opacityOffset, 0.1) + ')';
             this.ctx.lineCap = "round";
-            this.ctx.lineWidth = star.width;
-            this.ctx.arc(this.centerX, this.centerY, star.radius, star.angleRadStart, star.angleRadEnd, false);
+            this.ctx.lineWidth = star.width*ratio;
+            this.ctx.arc(this.centerX, this.centerY, star.radius*ratio, star.angleRadStart, star.angleRadEnd, false);
             this.ctx.stroke();
 
             star.angle += Math.max(star.speed + this.speedOffset, options.speedMin);
@@ -152,7 +157,6 @@ function cbMilyWay(options) {
                 star.angle = 0;
             }
         }
-
     };
 
     this.paused = false;
