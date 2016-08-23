@@ -9,6 +9,9 @@
       <div class="container">
         <div class="name">
           <span>{{ project.name }}</span>
+          {% if project.isNew %}
+          <span class="newBadge">NEW</span>
+          {% endif %}
         </div>
         <div class="more-icon">
           <span>></span>

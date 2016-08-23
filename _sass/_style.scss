@@ -191,10 +191,29 @@ section {
 				.more-icon {
 					color: $color-white;
 				}
+				.name {
+					.newBadge {
+						background-color: $color-white;
+						color: $font-color-highlight;
+					}
+				}
 			}
 		}
 		.name {
 			float: left;
+
+			.newBadge {
+				padding: 2px 5px 0px;
+				font-size: 11px;
+				font-family: sans-serif;
+				font-weight: 400;
+				border-radius: 5px;
+				display: inline-block;
+  				vertical-align: middle;
+  				margin: -2px 0 0 6px;
+  				background-color: $font-color-highlight;
+				color: $color-white;
+			}
 		}
 		.more-icon {
 			float: right;

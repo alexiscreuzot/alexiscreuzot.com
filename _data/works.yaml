@@ -1,3 +1,13 @@
+- id: mapvision
+  name: MapVision
+  color: F73335
+  tagline: Buddy app for Pokemon GO
+  isNew: yes
+  description : >
+                A clean and easy to use app to get notifications and
+                locate nearby pokemons. 
+  appid: id1139412364
+
 - id: vero
   name: Vero
   color: 20788C
