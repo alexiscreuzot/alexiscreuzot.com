@@ -1,3 +1,13 @@
+- id: happywait
+  name: Happywait
+  color: FF6457
+  isNew : yes
+  tagline: Connect real estate developers to buyers
+  description : >
+                Happywait connects real estate developers and individuals 
+                who buy off plan their house or apartment
+  website: http://happywait.com
+
 - id: vero
   name: Vero
   color: 20788C
