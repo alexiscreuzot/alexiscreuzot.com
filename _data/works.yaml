@@ -1,3 +1,14 @@
+- id: cyqle
+  name: Cyqle
+  color: 32DB4F
+  tagline: Handy and esthetic app to use veloStar in Rennes
+  description : >
+                This is the second app developped under Monoqle's name. 
+                We expect to open it to more and more city in the upcoming months!
+  website: http://monoqle.fr/#project-cyqle
+  appid: id1212133334
+  isNew : yes
+
 - id: vero
   name: Vero
   color: 20788C
@@ -12,7 +23,6 @@
 - id: pilot
   name: Pilot Speech Translator
   color: 1B86FC
-  isNew : yes
   tagline: A World Without Language Barriers
   description : >
                 The Pilot speech translation app allows users to translate between languages in two ways: speaking
