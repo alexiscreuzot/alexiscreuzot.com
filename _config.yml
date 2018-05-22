@@ -8,13 +8,9 @@
 # Site settings
 title: Alexis Creuzot
 description: 
-  Personnal Website of Alexis Creuzot, iOS Developer, founder of Monoqle and Happy Hours Coworking
+  Personnal Website of Alexis Creuzot, iOS Developer, co-founder of Monoqle and Happy Hours Coworking
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://alexiscreuzot.com" # the base hostname & protocol for your site
-
-city: Rennes, France
-status: Available for freelance work
-email: alexis@monoqle.fr
 
 sass:
     style: compressed

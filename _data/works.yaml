@@ -1,3 +1,13 @@
+- id: looq
+  name: Looq
+  color: 8964BD
+  tagline: AI Powered Filters
+  description : >
+                Artificial Intelligence coupled with Apple latest technologies 
+                allows you to create captivating artworks using pictures from your iPhone.
+  appid: id1159704664
+  isNew : yes
+
 - id: flamingo
   name: Flamingo
   color: F05E32
@@ -7,7 +17,6 @@
                 Released as an Open Source project on GHithub
   website: https://github.com/kirualex/Flamingo
   appid: id817164332
-  isNew : yes
 
 - id: cyqle
   name: Cyqle
