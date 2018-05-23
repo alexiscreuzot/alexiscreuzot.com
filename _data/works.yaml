@@ -69,15 +69,15 @@
   website: http://monoqle.fr/qolor
   appid: id973492333
 
-- id: winkli
-  name: Winkli
-  color: ED3E47
-  tagline: Discover who you'll bump into
-  description : >
-                Discontinued project for a Social Network revolving around Facebook events.
-                I contributed on it as a co-founder and main iOS developer.
-  website: http://wink.li
-  appid: id913588239
+# - id: winkli
+#   name: Winkli
+#   color: ED3E47
+#   tagline: Discover who you'll bump into
+#   description : >
+#                 Discontinued project for a Social Network revolving around Facebook events.
+#                 I contributed on it as a co-founder and main iOS developer.
+#   website: http://wink.li
+#   appid: id913588239
 
 - id: follow
   name: Follow The Dot

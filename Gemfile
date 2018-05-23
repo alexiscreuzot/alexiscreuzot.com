@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '~> 3.3'
-gem 'jekyll-watch', '~> 1.3'
-gem 'kramdown', '~> 1.12'
+gem 'jekyll', '~> 3.8'
+gem 'jekyll-watch', '~> 2.0'
+gem 'kramdown', '~> 1.16'
+
+gem 'guard-jekyll'
+gem 'guard-livereload'

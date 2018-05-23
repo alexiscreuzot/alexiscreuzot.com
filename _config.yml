@@ -15,4 +15,4 @@ url: "http://alexiscreuzot.com" # the base hostname & protocol for your site
 sass:
     style: compressed
 
-exclude: ["node_modules", "gulpfile.js", "package.json"]
+exclude: ["Gemfile", "Gemfile.lock", "Guardfile"]
