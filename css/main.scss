@@ -14,7 +14,9 @@ $color-nav: rgba(8,8,18,0.2);
 $color-white: #fefefe;
 $color-project-back: #080812;
 
-@import "theme-monoqle";
+$gradient: linear-gradient(-40deg, #FC3A75 0%, #9934DB 50%, #58BAFC 100%);
+
+@import "theme-2018";
 
 @import "normalize",
         "skeleton",

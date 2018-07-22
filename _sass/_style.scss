@@ -67,7 +67,10 @@ a {
 h2 {
 	font-weight: 600;
 	font-size: 55px;
-	color: $font-color-highlight;
+	color: transparent;
+	background:$gradient;
+	-webkit-background-clip: text;
+	display:inline-block; 
 }
 
 header {
@@ -158,6 +161,9 @@ section {
 			height: 100px;
 			text-transform: uppercase;
 			line-height: 160px;
+			color: transparent;
+	background:$gradient;
+	-webkit-background-clip: text;
 		}
 		span {
 			vertical-align: middle;
