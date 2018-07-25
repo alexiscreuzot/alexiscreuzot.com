@@ -86,9 +86,9 @@ function cbMilyWay(options) {
 
             star.angle = Math.ceil(Math.random() * 360);
             star.opacity = this.random(0.15, 0.85);
-            star.width = this.randomDistribution(3, 2, 2, 2, 2, 1) + 3;
-            star.length = star.width / 200;
-            star.trailLength = 0;
+            star.width = this.randomDistribution(3, 2, 2, 2, 2, 1) + 5;
+            star.length = star.width / 150;
+            star.trailLength = 10;
             star.radius = this.randomDistribution(
                 this.randomInt(0, maxRadius),
                 this.randomInt(25, maxRadius),
@@ -119,19 +119,25 @@ function cbMilyWay(options) {
                     star.angleRadStart = star.angleRadEnd - star.trailLength;
                 }
             } else {
-                star.angleRadStart = Math.min(star.angleRadStart + (options.freezedRollupSpeed + (star.trailLength / 30)), star.angleRad) - 0.003;
-            }
+                star.angleRadStart = Math.min(star.angleRadStart + (options.freezedRollupSpeed + (star.trailLength / 30)), star.angleRad) + 0.005;
+            }  
             star.trailLength = (star.angleRadEnd - star.angleRadStart);
-
-            var opacityOffset = -Math.min(star.trailLength, 0.6);
+ 
+            var opacityOffset = -Math.min(star.trailLength, 0.1);
             var ratio = window.devicePixelRatio || 1;
 
             this.ctx.beginPath();
             this.ctx.strokeStyle = 'rgba(' + star.color[0] + ',' + star.color[1] + ',' + star.color[2] + ',' + Math.max(star.opacity + opacityOffset, 0.1) + ')';
+            this.ctx.lineWidth = 8;
             this.ctx.lineCap = "round";
-            this.ctx.lineWidth = star.width*ratio;
+            this.ctx.arc(this.centerX, this.centerY, star.radius*ratio, star.angleRadEnd+0.01, star.angleRadEnd+0.02, false);
+             
+            this.ctx.stroke(); 
+            this.ctx.closePath(); 
+            this.ctx.beginPath();
+            this.ctx.lineWidth = 2;
             this.ctx.arc(this.centerX, this.centerY, star.radius*ratio, star.angleRadStart, star.angleRadEnd, false);
-            this.ctx.stroke();
+            this.ctx.stroke(); 
 
             star.angle += Math.max(star.speed + this.speedOffset, options.speedMin);
             if (star.angle == 360) {
@@ -147,8 +153,8 @@ function cbMilyWay(options) {
 
         var self = this;
 
-        var fps = 351;
-        var now;
+        var fps = 60;
+        var now; 
         var then = Date.now();
         var interval = 1000 / fps;
         var delta;

@@ -19,7 +19,7 @@ $(document).ready(function() {
                     popularity: 0.1, // Per Screen Width
                     freezedRollupSpeed: 0.005,
                     speedMin: 0.02,
-                    maxTrailLength: 0.40});
+                    maxTrailLength: .40});
     sky.drawStars();
     sky.animateSky();
     
