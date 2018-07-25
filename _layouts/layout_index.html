@@ -13,7 +13,7 @@
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
-    <link type="text/css" rel="stylesheet" href="/assets/app.css">
+    {% stylesheet app %}
     
   </head>
   <body>
@@ -26,8 +26,8 @@
 
     {% include _contact.html %}
 
-    <script type="text/javascript" src="/assets/vendor.js"></script>
-    <script type="text/javascript" src="/assets/app.js"></script>
+    {% javascript vendor %}
+    {% javascript app %}
 
   </body>
 </html>
