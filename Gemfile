@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "rake"
 gem 'jekyll', '~> 3.8'
 gem 'jekyll-assets', '~> 2.3.2'
 gem "uglifier"      #  we want our javascripts to be minified with UglifyJS
