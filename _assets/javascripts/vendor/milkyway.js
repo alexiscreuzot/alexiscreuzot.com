@@ -44,34 +44,6 @@ function cbMilyWay(options) {
         return deg * (Math.PI / 180);
     };
 
-    /* Audio */
-    this.playAudio = function (force) {
-        var audio = this.audio;
-
-        if (force) {
-            this.audioStopped = false;
-        }
-
-        if (audio && !this.audioStopped) {
-            this.audio.play();
-            $(audio).stop().animate({volume: 0.3});
-        }
-    };
-
-    this.pauseAudio = function (force) {
-        var audio = this.audio;
-
-        if (force) {
-            this.audioStopped = true;
-        }
-
-        if (audio) {
-            $(audio).stop().animate({volume: 0}, function () {
-                audio.pause();
-            });
-        }
-    };
-
     /* Register canvas handlers */
     this.registerHandler = function (container) {
         var self = this;
@@ -213,7 +185,6 @@ function cbMilyWay(options) {
         }
 
         $(this.canvas).animate({opacity: 1});
-        this.playAudio();
     };
 
     this.pauseAnimate = function () {
@@ -223,7 +194,6 @@ function cbMilyWay(options) {
         } else {
             $(this.canvas).animate({opacity: 0.5});
         }
-        this.pauseAudio();
     };
 
     var self = this;
