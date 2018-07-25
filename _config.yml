@@ -11,6 +11,8 @@ assets:
     css:  sass
     js:   uglifier
 
+destination: "docs"
+
 # Site settings
 title: Alexis Creuzot
 description: 
