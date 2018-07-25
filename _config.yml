@@ -23,4 +23,4 @@ url: "http://alexiscreuzot.com" # the base hostname & protocol for your site
 sass:
     style: compressed
 
-exclude: ["Gemfile", "Gemfile.lock", "Guardfile"]
+exclude: ["Gemfile", "Gemfile.lock", "Guardfile"] 
