@@ -130,14 +130,14 @@ function cbMilyWay(options) {
             this.ctx.strokeStyle = 'rgba(' + star.color[0] + ',' + star.color[1] + ',' + star.color[2] + ',' + Math.max(star.opacity + opacityOffset, 0.1) + ')';
             this.ctx.lineWidth = 12 * ratio;
             this.ctx.lineCap = "round";
-            this.ctx.arc(this.centerX, this.centerY, star.radius*ratio, star.angleRadEnd, star.angleRadEnd, false);
-             
+            this.ctx.arc(this.centerX, this.centerY, star.radius*ratio, star.angleRadEnd, star.angleRadEnd + 0.001, false);
             this.ctx.stroke(); 
             this.ctx.closePath();  
             this.ctx.beginPath();
             this.ctx.lineWidth = 2 * ratio;
             this.ctx.arc(this.centerX, this.centerY, star.radius*ratio, star.angleRadStart, star.angleRadEnd, false);
             this.ctx.stroke(); 
+            this.ctx.closePath(); 
 
             star.angle += Math.max(star.speed + this.speedOffset, options.speedMin);
             if (star.angle == 360) {
