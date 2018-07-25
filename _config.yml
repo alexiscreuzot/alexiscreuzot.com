@@ -17,7 +17,7 @@ destination: "docs"
 title: Alexis Creuzot
 description: 
   Personnal Website of Alexis Creuzot, iOS Developer, co-founder of Monoqle and Happy Hours Coworking
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "docs" # the subpath of your site, e.g. /blog
 url: "http://alexiscreuzot.com" # the base hostname & protocol for your site
 
 sass:
