@@ -17,9 +17,9 @@ $(document).ready(function() {
 
     var sky = new cbMilyWay({id: "sky",
                     popularity: 0.1, // Per Screen Width
-                    freezedRollupSpeed: 0.005,
+                    freezedRollupSpeed: 0.003,
                     speedMin: 0.02,
-                    maxTrailLength: .40});
+                    maxTrailLength: .8});
     sky.drawStars();
     sky.animateSky();
     

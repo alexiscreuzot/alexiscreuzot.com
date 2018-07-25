@@ -103,6 +103,9 @@ header {
 		transition: all .3s;
 	}
 	.logo {
+		color: transparent;
+			background:$gradient;
+			-webkit-background-clip: text;
 		font-size: 24px;
 		font-weight: 600;
 	}
@@ -120,6 +123,8 @@ header {
 		}
 	}
 	a.hover {
+	
+
 		.firstname {
 			margin-left: -40px;
 			width: 50px;
@@ -162,16 +167,18 @@ section {
 			text-transform: uppercase;
 			line-height: 160px;
 			color: transparent;
-	background:$gradient;
-	-webkit-background-clip: text;
+			background:$gradient;
+			-webkit-background-clip: text;
 		}
 		span {
-			vertical-align: middle;
+			vertical-align: middle; 
 			padding: 0 20px;
 		}
 		.slash {
 			font-size: 60px;
-			color: $font-color-highlight;
+			color: transparent;
+			background:$gradient;
+			-webkit-background-clip: text;
 		}
 		.description {
 			p {
