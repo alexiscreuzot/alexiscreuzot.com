@@ -23,7 +23,6 @@
         <div class="container" >
           <div class="five columns">
             <h3>{{ project.tagline }}</h3>
-
             <div class="buttons"> 
               {% if project.website %}<a class="button" href="{{ project.website }}">Website</a>{% endif %}
               {% if project.appid %}<a class="button" href="https://itunes.apple.com/app/{{ project.appid }}">App Store</a>{% endif %}
@@ -32,7 +31,15 @@
             <p>{{ project.description }}</p>
           </div>
           <div class="seven columns screenshot">
-            <img data-src="images/{{ project.id }}.jpg"/>
+            {% if project.hasVideo %}
+            <video class="content" playsinline autoplay muted loop controls="true">
+              <source src="videos/{{ project.id }}.mp4" type="video/mp4"> 
+              <source src="videos/{{ project.id }}.webm" type="video/webm">
+              <source src="videos/{{ project.id }}.ogv" type="video/ogg"> 
+            </video>
+            {% else %}
+            <img class="content" data-src="images/{{ project.id }}.jpg"/>
+            {% endif %}
           </div>
         </div>
       </div>

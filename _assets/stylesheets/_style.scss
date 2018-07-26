@@ -32,6 +32,7 @@ body {
 	background:-webkit-radial-gradient(at top, $color-background-bis, $color-background) fixed;
 	background:radial-gradient(at bottom, $color-background-bis, $color-background) fixed;
 }
+
 p {
 	font-size: 18px;
 	margin: 20px auto 0;
@@ -278,19 +279,16 @@ section {
 			p{
 				padding-bottom: 40px;
 				color: rgba(255,255,255,.8);
-
 			}
 
 			.screenshot
 			{
-				opacity: 0;
 				text-align: center;
-				transition : all 1s;
-				img{
+				img, video{ 
 					border-radius: 10px;
 					box-shadow: 4px 4px 20px rgba(0, 0, 0, .25);
-					transform: perspective( 600px ) rotateY( -25deg ) rotateX( 5deg );
-					width:50%;
+					transform: perspective( 600px ) rotateY( -20deg ) rotateX( 5deg );
+					height:460px;
 				}
 			}
 
@@ -398,4 +396,10 @@ section {
 	
 }	
 
-
+/* Chrome 29+ - hide popup button on video */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+  and (min-resolution:.001dpcm) {
+	html > div[style] {
+	  display: none !important;
+	}
+}

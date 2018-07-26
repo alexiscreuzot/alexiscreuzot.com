@@ -7,6 +7,7 @@
                 allows you to create captivating artworks using pictures from your iPhone.
   appid: id1159704664
   isNew : yes
+  hasVideo : yes
 
 - id: flamingo
   name: Flamingo
@@ -17,6 +18,7 @@
                 Released as an Open Source project on GHithub
   website: https://github.com/kirualex/Flamingo
   appid: id817164332
+  hasVideo : yes
 
 - id: cyqle
   name: Cyqle
@@ -27,6 +29,7 @@
                 We expect to open it to more and more city in the upcoming months!
   website: http://monoqle.fr/#project-cyqle
   appid: id1212133334
+  hasVideo : yes
 
 - id: vero
   name: Vero
