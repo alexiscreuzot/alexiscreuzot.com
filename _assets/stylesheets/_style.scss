@@ -105,8 +105,8 @@ header {
 	}
 	.logo {
 		color: transparent;
-			background:$gradient;
-			-webkit-background-clip: text;
+		background:$gradient;
+		-webkit-background-clip: text;
 		font-size: 24px;
 		font-weight: 600;
 	}
@@ -124,8 +124,6 @@ header {
 		}
 	}
 	a.hover {
-	
-
 		.firstname {
 			margin-left: -40px;
 			width: 50px;
@@ -163,10 +161,9 @@ section {
 		.teaser {
 			font-weight: 600;
 			text-align: center;
-			font-size: 44px;
-			height: 100px;
+			font-size: 60px;
 			text-transform: uppercase;
-			line-height: 160px;
+			line-height: 90px;
 			color: transparent;
 			background:$gradient;
 			-webkit-background-clip: text;
@@ -176,7 +173,9 @@ section {
 			padding: 0 20px;
 		}
 		.slash {
-			font-size: 60px;
+			font-size: 100px;
+			padding:0;
+			maring:0;
 			color: transparent;
 			background:$gradient;
 			-webkit-background-clip: text;
@@ -284,11 +283,18 @@ section {
 			.screenshot
 			{
 				text-align: center;
-				img, video{ 
+				img{ 
+					width:50%;
+				}
+
+				video{ 
+					height:460px;
+				}
+
+				.content {
 					border-radius: 10px;
 					box-shadow: 4px 4px 20px rgba(0, 0, 0, .25);
 					transform: perspective( 600px ) rotateY( -20deg ) rotateX( 5deg );
-					height:460px;
 				}
 			}
 
@@ -357,6 +363,9 @@ section {
 				vertical-align: middle;
 				padding: 0 2px;
 			}
+			.slash {
+				font-size: 60px;
+			}
 			.description p {
 				margin-top: 50px;
 				font-size: 24px;
@@ -382,24 +391,19 @@ section {
 	section {
 		&#work .more.show, 
 		&#work .more .back-overlay{
-			height: 800px;
+
+			height: auto;
+
+			video, img { 
+				width:auto;
+				height:380px;
+			}
 		}
 	}
 }
 
-@media screen and(max-height: 400px) {
-
-	
+@media screen and(max-height: 400px) {	
 		.teaser {
 			line-height: 400px;
 		}
-	
-}	
-
-/* Chrome 29+ - hide popup button on video */
-@media screen and (-webkit-min-device-pixel-ratio:0)
-  and (min-resolution:.001dpcm) {
-	html > div[style] {
-	  display: none !important;
-	}
 }
