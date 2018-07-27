@@ -1,4 +1,8 @@
 
+//
+// GENERAL
+//
+
 * {
 	&:after {
 		box-sizing: border-box;
@@ -7,20 +11,11 @@
 		box-sizing: border-box;
 	}
 }
-.clearfix {
-	&:before {
-		content: '';
-		display: table;
-	}
-	&:after {
-		content: '';
-		display: table;
-		clear: both;
-	}
-}
+
 html {
 	height: 100%;
 }
+
 body {
 	height: 100%;
 	color: $font-color-base;
@@ -33,6 +28,9 @@ body {
 	background:radial-gradient(at bottom, $color-background-bis, $color-background) fixed;
 }
 
+//
+// TEXTS
+//
 p {
 	font-size: 18px;
 	margin: 20px auto 0;
@@ -74,6 +72,9 @@ h2 {
 	display:inline-block; 
 }
 
+//
+// HEADER
+//
 header {
 	padding: 20px 0 18px;
 	top: 0;
@@ -134,214 +135,228 @@ header {
 	}
 }
 
+//
+// Sections
+//
 section {
 	min-height: 100%;
-	&#intro {
-		.intro__inner {
-			margin-top: -181px;
-			position: absolute;
-			top: 50%;
-			width: 100%;
-		}
+	.container {
+		margin: 0 auto;
+	}
+}
 
-		#particles{
-			opacity:0;
-			min-height:80%;
-			min-width:80%;
-			position:absolute;
-			margin:10% ;
-			margin-top:100px ;
-			transition: opacity 3s ease-in-out;
-		}
-
-		#particles.show{
-			opacity:.8;
-		}
-
-		.teaser {
-			font-weight: 600;
-			text-align: center;
-			font-size: 60px;
-			text-transform: uppercase;
-			line-height: 90px;
-			color: transparent;
-			background:$gradient;
-			-webkit-background-clip: text;
-		}
-		span {
-			vertical-align: middle; 
-			padding: 0 20px;
-		}
-		.slash {
-			font-size: 100px;
-			padding:0;
-			maring:0;
-			color: transparent;
-			background:$gradient;
-			-webkit-background-clip: text;
-		}
-		.description {
-			p {
-				margin-top: 100px;
-				font-size: 34px;
-				text-align: justify;
-				font-weight: 200;
-			}
-		}
+//
+// INTRO
+//
+section#intro {
+	.intro__inner {
+		margin-top: -181px;
+		position: absolute;
+		top: 50%;
+		width: 100%;
 	}
 
-	&#work {
-		padding-top: 150px;
-		.abstract {
-			padding: 16px;
+	#particles{
+		opacity:0;
+		min-height:80%;
+		min-width:80%;
+		position:absolute;
+		margin:10% ;
+		margin-top:100px ;
+		transition: opacity 3s ease-in-out;
+	}
+
+	#particles.show{
+		opacity:.8;
+	}
+
+	.teaser {
+		font-weight: 600;
+		text-align: center;
+		font-size: 60px;
+		text-transform: uppercase;
+		line-height: 90px;
+		color: transparent;
+		background:$gradient;
+		-webkit-background-clip: text;
+	}
+	span {
+		vertical-align: middle; 
+		padding: 0 20px;
+	}
+	.slash {
+		font-size: 100px;
+		padding:0;
+		maring:0;
+		color: transparent;
+		background:$gradient;
+		-webkit-background-clip: text;
+	}
+	.description {
+		p {
+			margin-top: 100px;
 			font-size: 34px;
-			font-weight: 100;
-			cursor: pointer;
-			transition: all .1s;
-			&:hover, &.show {
-				background: $font-color-highlight;
-				color: $color-white;
-				.more-icon {
-					color: $color-white;
-				}
-				.name {
-					.newBadge {
-						background-color: $color-white;
-						color: $font-color-highlight;
-					}
-				}
-			}
-		}
-		.name {
-			float: left;
-
-			.newBadge {
-				padding: 2px 5px 0px;
-				font-size: 11px;
-				font-family: sans-serif;
-				font-weight: 400;
-				border-radius: 5px;
-				display: inline-block;
-  				vertical-align: middle;
-  				margin: -2px 0 0 6px;
-  				background-color: $font-color-highlight;
-				color: $color-white;
-			}
-		}
-		.more-icon {
-			float: right;
-			color: $font-color-base;
-			text-align: right;
-			transition: all .3s;
-			transform: rotate(0deg);
-			&.open {
-				transform: rotate(90deg);
-			}
-		}
-		.back-overlay{
-	      padding: 60px 0;
-	      height: 500px;
-	      background-color: $color-project-back;
-	      transition: background 3s ease-in-out;
-	    }
-		.more {
-			background-color: $color-project-back;
-			background-repeat: none;
-			background-origin: center;
-			background-attachment: fixed;
-			color: $color-white;
-			font-weight: 100;
-			height: 0;
-			overflow-y: hidden;
-
-			-webkit-background-size: cover;
-			  -moz-background-size: cover;
-			  -o-background-size: cover;
-			  background-size: cover;
-			
-			-webkit-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
-		   -moz-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
-		     -o-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
-		        transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); /* custom */
-
-			&.show {
-				height: 500px;
-				display: block;
-			}
-
-			h3 {
-				font-size: 30px;
-				font-weight: 500;
-				text-align: center;
-			}
-
-			p{
-				padding-bottom: 40px;
-				color: rgba(255,255,255,.8);
-			}
-
-			.screenshot
-			{
-				text-align: center;
-				img{ 
-					width:50%;
-				}
-
-				video{ 
-					height:460px;
-				}
-
-				.content {
-					border-radius: 10px;
-					box-shadow: 4px 4px 20px rgba(0, 0, 0, .25);
-					transform: perspective( 600px ) rotateY( -20deg ) rotateX( 5deg );
-				}
-			}
-
-			.buttons {
-				text-align: center;
-				padding: 20px 0;
-			}
-		}
-	}
-	&#contact {
-		min-height: 80%;
-		padding-top: 100px;
-
-		.e-mail:before {
-            content: attr(data-website) "\0040" attr(data-user);
-            unicode-bidi: bidi-override;
-            direction: rtl;
-        }
-
-		h2 {
-			margin-bottom: 40px;
-		}
-		small {
-			display: block;
-			font-weight: 600;
-			text-transform: uppercase;
-			font-size: 14px;
-		}
-		span {
-			display: block;
-			font-size: 45px;
+			text-align: justify;
 			font-weight: 200;
 		}
 	}
 }
-.container {
-	margin: 0 auto;
+
+//
+// WORK
+//
+section#work {
+	padding-top: 150px;
+	.abstract {
+		padding: 16px;
+		font-size: 34px;
+		font-weight: 100;
+		cursor: pointer;
+		transition: all .1s;
+		&:hover, &.show {
+			background: $font-color-highlight;
+			color: $color-white;
+			.more-icon {
+				color: $color-white;
+			}
+			.name {
+				.newBadge {
+					background-color: $color-white;
+					color: $font-color-highlight;
+				}
+			}
+		}
+	}
+	.name {
+		float: left;
+
+		.newBadge {
+			padding: 2px 5px 0px;
+			font-size: 11px;
+			font-family: sans-serif;
+			font-weight: 400;
+			border-radius: 5px;
+			display: inline-block;
+			vertical-align: middle;
+			margin: -2px 0 0 6px;
+			background-color: $font-color-highlight;
+			color: $color-white;
+		}
+	}
+	.more-icon {
+		float: right;
+		color: $font-color-base;
+		text-align: right;
+		transition: all .3s;
+		transform: rotate(0deg);
+		&.open {
+			transform: rotate(90deg);
+		}
+	}
+	.back-overlay{
+		padding: 60px 0;
+		height: auto;
+		background-color: $color-project-back;
+		transition: background 3s ease-in-out;
+	}
+
+	.more {
+		background-color: $color-project-back;
+		background-repeat: none;
+		background-origin: center;
+		background-attachment: fixed;
+		color: $color-white;
+		font-weight: 100;
+		max-height: 0;
+		overflow-y: hidden;
+
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+
+		-webkit-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
+		-moz-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
+		-o-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
+		transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); /* custom */
+
+		&.show {
+			max-height: 1000px;
+			display: block;
+		}
+
+		h3 {
+			font-size: 30px;
+			font-weight: 500;
+			text-align: center;
+		}
+
+		p{
+			padding-bottom: 40px;
+			color: rgba(255,255,255,.8);
+		}
+
+		.screenshot
+		{
+			text-align: center;
+			img{ 
+				width:50%;
+			}
+
+			video{ 
+				height:460px;
+			}
+
+			.content {
+				border-radius: 10px;
+				box-shadow: 4px 4px 20px rgba(0, 0, 0, .25);
+				transform: perspective( 600px ) rotateY( -20deg ) rotateX( 5deg );
+			}
+		}
+
+		.buttons {
+			text-align: center;
+			padding: 20px 0;
+		}
+	}
 }
 
+//
+// CONTACT
+//
+section#contact {
+	min-height: 80%;
+	padding-top: 100px;
+
+	.e-mail:before {
+		content: attr(data-website) "\0040" attr(data-user);
+		unicode-bidi: bidi-override;
+		direction: rtl;
+	}
+
+	h2 {
+		margin-bottom: 40px;
+	}
+	small {
+		display: block;
+		font-weight: 600;
+		text-transform: uppercase;
+		font-size: 14px;
+	}
+	span {
+		display: block;
+		font-size: 45px;
+		font-weight: 200;
+	}
+}
+
+//
+// RESPONSIVE
+//
 @media screen and(min-width: 1200px) {
 	
 	.container {
 		min-width: 900px;
-	}
-
-	section#work .more.show{
-		height: 600px;
 	}
 
 	section#work .more .buttons a{
@@ -353,31 +368,29 @@ section {
 	.container {
 		padding: 0 15px;
 	}
-	section {
-		&#intro {
-			.teaser {
-				font-size: 24px;
-				height: 100px;
-			}
-			span {
-				vertical-align: middle;
-				padding: 0 2px;
-			}
-			.slash {
-				font-size: 60px;
-			}
-			.description p {
-				margin-top: 50px;
-				font-size: 24px;
-			}
+	section#intro {
+		.teaser {
+			font-size: 24px;
+			height: 100px;
 		}
-		&#work .abstract {
-			font-size: 26px;
+		span {
+			vertical-align: middle;
+			padding: 0 2px;
 		}
+		.slash {
+			font-size: 60px;
+		}
+		.description p {
+			margin-top: 50px;
+			font-size: 24px;
+		}
+	}
+	section#work .abstract {
+		font-size: 26px;
+	}
 
-		&#contact span {
-			font-size: 30px;
-		}
+	section#contact span {
+		font-size: 30px;
 	}
 }
 
@@ -388,12 +401,8 @@ section {
 		font-size: 40px;
 	}
 
-	section {
-		&#work .more.show, 
-		&#work .more .back-overlay{
-
-			height: auto;
-
+	section#work .more {
+		.show, .back-overlay {
 			video, img { 
 				width:auto;
 				height:380px;
@@ -403,7 +412,7 @@ section {
 }
 
 @media screen and(max-height: 400px) {	
-		.teaser {
-			line-height: 400px;
-		}
+	.teaser {
+		line-height: 400px;
+	}
 }

@@ -27,7 +27,7 @@
   description : >
                 This is the second app developped under Monoqle's name. 
                 We expect to open it to more and more city in the upcoming months!
-  website: http://monoqle.fr/#project-cyqle
+  website: https://jeremypaul.me/works/cyqle.html
   appid: id1212133334
   hasVideo : yes
 
@@ -41,6 +41,7 @@
                 within an awesome team based all around the world!
   website: http://vero.co
   appid: id971055041
+  hasVideo : yes
 
 - id: pilot
   name: Pilot Speech Translator
