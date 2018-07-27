@@ -33,9 +33,11 @@ body {
 //
 p {
 	font-size: 18px;
+	font-weight: 300;
 	margin: 20px auto 0;
 	padding: 0;
 }
+
 a {
 	color: $font-color-base;
 	text-decoration: none;
@@ -97,9 +99,9 @@ header {
 	}
 
 	.firstname ,.lastname {
-		font-size: 15px;
+		font-size: 14px;
 		color: $font-color-base;
-		width: 10px;
+		width: 9px;
 		display: inline-block;
 		overflow: hidden;
 		transition: all .3s;
@@ -108,7 +110,7 @@ header {
 		color: transparent;
 		background:$gradient;
 		-webkit-background-clip: text;
-		font-size: 24px;
+		font-size: 16px;
 		font-weight: 600;
 	}
 	.nav {
@@ -126,7 +128,7 @@ header {
 	}
 	a.hover {
 		.firstname {
-			margin-left: -40px;
+			margin-left: -41px;
 			width: 50px;
 		}
 		.lastname {
@@ -149,6 +151,7 @@ section {
 // INTRO
 //
 section#intro {
+
 	.intro__inner {
 		margin-top: -181px;
 		position: absolute;
@@ -173,31 +176,30 @@ section#intro {
 	.teaser {
 		font-weight: 600;
 		text-align: center;
-		font-size: 60px;
-		text-transform: uppercase;
-		line-height: 90px;
+		font-size: 52px;
+		line-height: 100px;
 		color: transparent;
 		background:$gradient;
-		-webkit-background-clip: text;
+		-webkit-background-clip: text; 
 	}
 	span {
 		vertical-align: middle; 
 		padding: 0 20px;
 	}
 	.slash {
-		font-size: 100px;
+		font-size: 70px;
 		padding:0;
-		maring:0;
+		margin:0;
 		color: transparent;
 		background:$gradient;
 		-webkit-background-clip: text;
 	}
 	.description {
 		p {
-			margin-top: 100px;
+			margin-top: 60px;
 			font-size: 34px;
 			text-align: justify;
-			font-weight: 200;
+			font-weight: 300;
 		}
 	}
 }
@@ -210,20 +212,14 @@ section#work {
 	.abstract {
 		padding: 16px;
 		font-size: 34px;
-		font-weight: 100;
+		font-weight: 200;
 		cursor: pointer;
 		transition: all .1s;
 		&:hover, &.show {
-			background: $font-color-highlight;
-			color: $color-white;
+			background: lighten($color-background, 6%);
+			color: $color-white; 
 			.more-icon {
 				color: $color-white;
-			}
-			.name {
-				.newBadge {
-					background-color: $color-white;
-					color: $font-color-highlight;
-				}
 			}
 		}
 	}
@@ -266,7 +262,7 @@ section#work {
 		background-origin: center;
 		background-attachment: fixed;
 		color: $color-white;
-		font-weight: 100;
+		font-weight: 200;
 		max-height: 0;
 		overflow-y: hidden;
 
@@ -378,7 +374,7 @@ section#contact {
 			padding: 0 2px;
 		}
 		.slash {
-			font-size: 60px;
+			font-size: 32px;
 		}
 		.description p {
 			margin-top: 50px;

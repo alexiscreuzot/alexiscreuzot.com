@@ -3,23 +3,21 @@ $(document).ready(function() {
 
     $(document).scroll(function() {
         var scrollTop = $(document).scrollTop();
-        var screenHeight = $(window).height();
+    var screenHeight = $(window).height();
 
-        if(scrollTop <  screenHeight){
-            $("header").css({
-                "background-color": "rgba(8,8,18,"+ (0.2+scrollTop/screenHeight)  +")"
-            });
-        }
+        $("header").css({
+            "background-color": "rgba(8,8,18,"+ (0.2+scrollTop/screenHeight)  +")"
+        });
     });
     
 	var attachFastClick = Origami.fastclick;
 	attachFastClick(document.body);
-
+ 
     var sky = new cbMilyWay({id: "sky",
-                    popularity: 0.1, // Per Screen Width
+                    popularity: 0.07, // Per Screen Width
                     freezedRollupSpeed: 0.003,
                     speedMin: 0.02,
-                    maxTrailLength: .8});
+                    maxTrailLength: .8}); 
     sky.drawStars();
     sky.animateSky();
     
@@ -44,7 +42,7 @@ $(document).ready(function() {
 	  $(this).children().children(".more-icon").toggleClass("open");
 
 	  if( $(this).hasClass("show") ){
-	  	var textDelta = -parseInt($(this).css('font-size')) + 24;
+	  	var textDelta = -parseInt($(this).css('font-size')) + 16;
 	  	$('html, body').animate({
 	        scrollTop: ($(this).offset().top - $(this).outerHeight(false) - textDelta)
 	    }, 300);
@@ -112,5 +110,6 @@ $(document).ready(function() {
                  "transform": "perspective( 600px ) rotateY( -20deg ) rotateX( 5deg )"});
       
     });
+
 });
 

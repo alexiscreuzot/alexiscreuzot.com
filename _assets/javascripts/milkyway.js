@@ -17,7 +17,7 @@ function cbMilyWay(options) {
         var width = window.innerWidth * ratio;
         var height = window.innerHeight * ratio;
 
-        this. canvas.width = width;
+        this.canvas.width = width;
         this.canvas.height = height;
         this.centerX = this.canvas.width / 2;
         this.centerY = this.canvas.height / 2;
@@ -69,8 +69,11 @@ function cbMilyWay(options) {
     };
     this.populateSky = function () {
         var maxRadius = Math.round(Math.sqrt(Math.pow(this.centerY, 2) + Math.pow(this.centerX, 2)));
-        var num = Math.floor(this.canvas.width * options.popularity);
+        var num = Math.floor(options.popularity * Math.log2(this.canvas.width/400) * 800);
 
+        console.log("--")
+        console.log(num)
+ 
         var colors = [ 
             [252, 90, 14],
             [185, 84, 235],
