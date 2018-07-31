@@ -86,30 +86,5 @@ $(document).ready(function() {
 		event.preventDefault();
 	});
 
-    // Vals
-    var diviserX = 140;
-    var diviserY = 140;
-    var rotateMultiplier = 1;
-
-    $("project .more").mousemove(function(e){
-    	var y = -25 - (e.pageX - $(this).width()/2) / diviserX;
-    	var x = 3 +(e.pageY - $(this).offset().top - $(this).height()/2) / diviserY;
-    	
-    	var img = $(this).children().children().children().children('.screenshot .content');
-
-    	img.css({"-ms-transform": "perspective( 600px ) rotateY("+(y*rotateMultiplier)+"deg) rotateX( "+(x*rotateMultiplier)+"deg)",
-    		"-webkit-transform": "perspective( 600px ) rotateY("+(y*rotateMultiplier)+"deg) rotateX( "+(x*rotateMultiplier)+"deg)",
-    		"transform": "perspective( 600px ) rotateY("+(y*rotateMultiplier)+"deg) rotateX( "+(x*rotateMultiplier)+"deg)"});
-    	
-    });
-
-    $("project .more").mouseout(function(e){
-    	var img = $(this).children().children().children().children('.screenshot .content');
-    	img.css({"-ms-transform": "perspective( 600px ) rotateY( -20deg ) rotateX( 5deg )",
-    		"-webkit-transform": "perspective( 600px ) rotateY( -20deg ) rotateX( 5deg )",
-    		"transform": "perspective( 600px ) rotateY( -20deg ) rotateX( 5deg )"});
-    	
-    });
-
 });
 

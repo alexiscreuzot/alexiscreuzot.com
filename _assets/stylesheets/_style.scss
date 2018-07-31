@@ -85,7 +85,7 @@ header {
 	display: block;
 	position: fixed;
 	width: 100%;
-	z-index: 999;
+	z-index: 9999;
 	span {
 		vertical-align: middle;
 	}
@@ -294,19 +294,36 @@ section#work {
 
 		.screenshot
 		{
+			margin: 20px auto 0 auto;
 			text-align: center;
+
 			img{ 
 				width:50%;
 			}
 
 			video{ 
-				height:460px;
-			}
+				max-width:200px !important;
+				height: 392px;
+    			z-index: 999;
+    			display:block;
+    			margin-left:-10px;
+			} 
 
 			.content {
-				border-radius: 10px;
-				box-shadow: 4px 4px 20px rgba(0, 0, 0, .25);
-				transform: perspective( 600px ) rotateY( -20deg ) rotateX( 5deg );
+
+				margin: auto;
+    			border-radius: 10px;
+    			transform: perspective(550px) rotateY(-40deg) rotateX(0deg);
+			}
+
+			.iphonex {
+				height: 448px;
+				width: 206px;
+				position: relative;
+    			display: block;
+    			margin: -418px auto 0 auto;
+    			transform: translate(10px, 0px);
+    			z-index: 9998;
 			}
 		}
 
@@ -398,8 +415,8 @@ section#contact {
 	}
 
 	section#work .more {
-		.show, .back-overlay {
-			video, img { 
+		.back-overlay {
+			img { 
 				width:auto;
 				height:380px;
 			}
