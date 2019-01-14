@@ -1,0 +1,19 @@
+<section id="tutoring">
+  <div class="container">
+    <h2>Tutoring</h2>
+  </div>
+  <br/>
+  {% for item in site.data.tutoring %}
+  <div class="item container">
+    <div class="one columns">
+        <span>{{ item.lang }}</span>
+    </div>
+    <div class="two columns">
+        <h5>{{ item.type }}</h5>
+    </div>
+    <div class="nine columns">
+        <a href="{{ item.link }}" target="blank">{{ item.title }}</a>
+    </div>
+  </div>
+  {% endfor %}
+</section>
