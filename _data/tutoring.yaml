@@ -1,7 +1,7 @@
 - type: talk
   title: "CoreML : Everyone's an Artist"
   lang: 🇫🇷
-  link: ""
+  link: "https://www.youtube.com/watch?v=h6T29Goi-Qg"
 - type: article
   title: "Reducing Core ML 2 Model Size by 4X Using Quantization in iOS 12"
   link: "https://medium.com/@alexiscreuzot/expanding-uitableview-cells-using-only-constraints-in-swift-f40b13206ea3"
