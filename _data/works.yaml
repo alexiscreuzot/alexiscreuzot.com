@@ -1,3 +1,12 @@
+- id: qoach
+  name: Qoach
+  color: 6D21D9
+  tagline: Get fit at home
+  description : >
+                Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
+  appid: id650627810
+  hasVideo : yes
+
 - id: looq
   name: Looq
   color: 8964BD
@@ -6,7 +15,18 @@
                 Artificial Intelligence coupled with Apple latest technologies 
                 allows you to create captivating artworks using pictures from your iPhone.
   appid: id1159704664
-  website: http://looq.monoqle.fr
+  website: https://looq.monoqle.fr
+  hasVideo : yes
+
+- id: qonceal
+  name: Qonceal Smart Vault
+  color: 90D1FF
+  tagline: Protect Images & Videos
+  description : >
+                Qonceal secures private photos and videos by locking them down with PIN protection, fingerprint touch ID or Face ID.
+                Through the power of Artificil Intelligence, Qonceal can also analyse your library to automatically detect and import sensitive images.
+  appid: id1478637915
+  website: https://qonceal.monoqle.fr
   hasVideo : yes
 
 - id: flamingo
@@ -114,14 +134,14 @@
   website: http://alexiscreuzot.com/apps/nice-weather-2
   appid: id729430189
 
-- id: reddito
-  name: Reddito
-  color: 16BC9C
-  tagline: The Ultimate Reddit Browser
-  description : >
-                As a heavy user of Reddit, I felt there was a better way to browse its content
-                more visually. Reddito does just that and revolve mostly around my own use habits.
-  appid: id674736514
+# - id: reddito
+#   name: Reddito
+#   color: 16BC9C
+#   tagline: The Ultimate Reddit Browser
+#   description : >
+#                 As a heavy user of Reddit, I felt there was a better way to browse its content
+#                 more visually. Reddito does just that and revolve mostly around my own use habits.
+#   appid: id674736514
 
 - id: 7minw
   name: 7 Minutes Workout
