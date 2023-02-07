@@ -6,10 +6,6 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 livereload: true     # You no longer need to include --livereload
-assets:
-  compress:
-    css:  sass
-    js:   uglifier
 
 # Site settings
 title: Alexis Creuzot

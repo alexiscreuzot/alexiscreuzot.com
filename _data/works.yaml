@@ -1,3 +1,12 @@
+- id: forum
+  name: Forum
+  color: E0993C
+  tagline: Interpretation for standing ovations
+  appid: id1612322502
+  description : >
+                Forum app allows users to present and converse with their guests, regardless of what language they speak. 
+                Create a session, invite guests, and experience translated conversations on your mobile device or computer.
+  website: https://www.waverlylabs.com/forum
 - id: qoach
   name: Qoach
   color: 6D21D9
@@ -143,11 +152,11 @@
 #                 more visually. Reddito does just that and revolve mostly around my own use habits.
 #   appid: id674736514
 
-- id: 7minw
-  name: 7 Minutes Workout
-  color: 3498DB
-  tagline: The Perfect Coach to get Healthy
-  description : >
-                First iOS project developed in my own name.
-                I took it from the idea to launch in 2 weeks, and it was downloaded more than 100,000 times.
-  appid: id650627810
+# - id: 7minw
+#   name: 7 Minutes Workout
+#   color: 3498DB
+#   tagline: The Perfect Coach to get Healthy
+#   description : >
+#                 First iOS project developed in my own name.
+#                 I took it from the idea to launch in 2 weeks, and it was downloaded more than 100,000 times.
+#   appid: id650627810
