@@ -80,12 +80,16 @@ h2 {
 header {
 	padding: 20px 0 18px;
 	top: 0;
-	background: $color-nav;
 	margin: 0;
 	display: block;
 	position: fixed;
 	width: 100%;
 	z-index: 999;
+
+	background: $color-nav;
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+
 	span {
 		vertical-align: middle;
 	}
