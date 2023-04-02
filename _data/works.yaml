@@ -7,6 +7,7 @@
                 Forum app allows users to present and converse with their guests, regardless of what language they speak. 
                 Create a session, invite guests, and experience translated conversations on your mobile device or computer.
   website: https://www.waverlylabs.com/forum
+  hasVideo : yes
 - id: qoach
   name: Qoach
   color: 6D21D9
