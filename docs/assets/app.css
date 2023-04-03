@@ -504,18 +504,17 @@ li span.icon-stackoverflow:hover {
 
 html {
   height: 100%;
-  background: #121212; }
+  background: #121212;
+  /* fallback for old browsers */
+  background: -webkit-radial-gradient(at top, #1A1A1A, #121212) fixed;
+  background: radial-gradient(at bottom, #1A1A1A, #121212) fixed; }
 
 body {
   height: 100%;
   color: #F3F3FE;
   font-weight: 500;
   font-size: 200%;
-  font-family: "Ubuntu", Helvetica, sans-serif;
-  background: #121212;
-  /* fallback for old browsers */
-  background: -webkit-radial-gradient(at top, #1A1A1A, #121212) fixed;
-  background: radial-gradient(at bottom, #1A1A1A, #121212) fixed; }
+  font-family: "Ubuntu", Helvetica, sans-serif; }
 
 p {
   font-size: 18px;

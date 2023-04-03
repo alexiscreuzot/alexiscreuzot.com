@@ -14,7 +14,9 @@
 
 html {
 	height: 100%;
-	background: $color-background; 
+	background: $color-background; /* fallback for old browsers */
+	background:-webkit-radial-gradient(at top, $color-background-bis, $color-background) fixed;
+	background:radial-gradient(at bottom, $color-background-bis, $color-background) fixed;
 }
 
 body {
@@ -23,10 +25,6 @@ body {
 	font-weight: 500;
 	font-size: 200%;
 	font-family: $font_0, $font_1, $font_2;
-
-	background: $color-background; /* fallback for old browsers */
-	background:-webkit-radial-gradient(at top, $color-background-bis, $color-background) fixed;
-	background:radial-gradient(at bottom, $color-background-bis, $color-background) fixed;
 }
 
 //
