@@ -15,8 +15,6 @@
 html {
 	height: 100%;
 	background: $color-background; /* fallback for old browsers */
-	background:-webkit-radial-gradient(at top, $color-background-bis, $color-background) fixed;
-	background:radial-gradient(at bottom, $color-background-bis, $color-background) fixed;
 }
 
 body {
@@ -348,8 +346,23 @@ section#tutoring {
 // CONTACT
 //
 section#contact {
+
+	
 	min-height: 80%;
 	padding-top: 100px;
+
+	position: relative;
+  
+	.background-overlay {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  background: url(https://pbs.twimg.com/media/FslFXC2XoAADvsr?format=jpg&name=large) no-repeat 50% fixed / cover;
+	  opacity: 0.7;
+	  z-index: -1;
+	}
 
 	.e-mail:before {
 		content: attr(data-website) "\0040" attr(data-user);
@@ -368,7 +381,7 @@ section#contact {
 	}
 	span {
 		display: block;
-		font-size: 45px;
+		font-size: 40px;
 		font-weight: 200;
 	}
 }

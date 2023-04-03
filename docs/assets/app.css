@@ -505,9 +505,7 @@ li span.icon-stackoverflow:hover {
 html {
   height: 100%;
   background: #121212;
-  /* fallback for old browsers */
-  background: -webkit-radial-gradient(at top, #1A1A1A, #121212) fixed;
-  background: radial-gradient(at bottom, #1A1A1A, #121212) fixed; }
+  /* fallback for old browsers */ }
 
 body {
   height: 100%;
@@ -738,7 +736,17 @@ section#tutoring {
 
 section#contact {
   min-height: 80%;
-  padding-top: 100px; }
+  padding-top: 100px;
+  position: relative; }
+  section#contact .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(https://pbs.twimg.com/media/FslFXC2XoAADvsr?format=jpg&name=large) no-repeat 50% fixed/cover;
+    opacity: 0.7;
+    z-index: -1; }
   section#contact .e-mail:before {
     content: attr(data-website) "@" attr(data-user);
     unicode-bidi: bidi-override;
@@ -752,7 +760,7 @@ section#contact {
     font-size: 14px; }
   section#contact span {
     display: block;
-    font-size: 45px;
+    font-size: 40px;
     font-weight: 200; }
 
 @media screen and (min-width: 1200px) {
@@ -793,3 +801,14 @@ section#contact {
 @media screen and (max-height: 400px) {
   .teaser {
     line-height: 400px; } }
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 42px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px); }
