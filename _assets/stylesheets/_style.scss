@@ -322,7 +322,7 @@ section#work {
 // community
 //
 
-section#tutoring {
+section#community {
 	padding-top: 150px;
 
 	.item {
@@ -346,11 +346,8 @@ section#tutoring {
 // CONTACT
 //
 section#contact {
-
-	
 	min-height: 80%;
 	padding-top: 100px;
-
 	position: relative;
   
 	.background-overlay {
@@ -362,28 +359,78 @@ section#contact {
 	  background: url(../images/back.jpg) no-repeat 50% fixed / cover;
 	  opacity: 0.7;
 	}
-
+  
 	.e-mail:before {
-		content: attr(data-website) "\0040" attr(data-user);
-		unicode-bidi: bidi-override;
-		direction: rtl;
+	  content: attr(data-website) "\0040" attr(data-user);
+	  unicode-bidi: bidi-override;
+	  direction: rtl;
 	}
-
+  
 	h2 {
-		margin-bottom: 40px;
+	  margin-bottom: 40px;
 	}
+  
 	small {
-		display: block;
-		font-weight: 600;
-		text-transform: uppercase;
-		font-size: 14px;
+	  display: block;
+	  font-weight: 600;
+	  text-transform: uppercase;
+	  font-size: 14px;
 	}
+  
 	span {
-		display: block;
-		font-size: 40px;
-		font-weight: 200;
+	  display: block;
+	  font-size: 32px;
+	  font-weight: 200;
 	}
-}
+  
+	// New SCSS for the two-column layout
+	.card {
+	  display: flex;
+	  flex-direction: row;
+	  align-items: flex-start;
+	  max-width: 600px;
+	  margin: auto;
+	}
+  
+	.profile-pic {
+	 
+	  padding-right: 40px;
+
+	  ul {
+		padding: 0;
+		margin: 20px 0 0;
+		li {
+			display: inline-block;
+			padding: 0 5px;
+			margin: 0;
+			span {
+				font-size: 20px;
+			}
+
+		}
+	}
+	}
+  
+	.profile-pic img {
+		width: 140px;
+	  height: auto;
+	  border-radius: 50%;
+	}
+  
+	.info {
+	  small {
+		margin-bottom: 0.25rem;
+		font-size: 0.85rem;
+		text-transform: uppercase;
+	  }
+  
+	  span {
+		margin-bottom: 1rem;
+		overflow-wrap: break-word;
+	  }
+	}
+  }
+  
 
 //
 // RESPONSIVE
@@ -410,7 +457,7 @@ section#contact {
 		}
 		span {
 			vertical-align: middle;
-			padding: 0 2px;
+			padding:2px;
 		}
 		.slash {
 			font-size: 32px;
@@ -425,7 +472,11 @@ section#contact {
 	}
 
 	section#contact span {
-		font-size: 30px;
+		font-size: 20px;
+	}
+
+	section#contact  .profile-pic {
+		padding-right: 20px;
 	}
 }
 
@@ -443,6 +494,14 @@ section#contact {
 				height:380px;
 			}
 		}
+	}
+
+	section#contact .profile-pic img {
+		width: 80px;
+	}
+
+	section#contact span {
+		font-size: 14px;
 	}
 }
 
