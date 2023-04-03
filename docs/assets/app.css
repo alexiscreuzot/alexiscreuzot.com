@@ -744,9 +744,8 @@ section#contact {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url(https://pbs.twimg.com/media/FslFXC2XoAADvsr?format=jpg&name=large) no-repeat 50% fixed/cover;
-    opacity: 0.7;
-    z-index: -1; }
+    background: url(../images/back.jpg) no-repeat 50% fixed/cover;
+    opacity: 0.7; }
   section#contact .e-mail:before {
     content: attr(data-website) "@" attr(data-user);
     unicode-bidi: bidi-override;
