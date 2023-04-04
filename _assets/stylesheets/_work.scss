@@ -1,0 +1,134 @@
+
+//
+// WORK
+//
+section#work {
+	padding-top: 150px;
+	.abstract {
+		padding: 16px;
+		font-size: 34px;
+		font-weight: 200;
+		cursor: pointer;
+		transition: all .1s;
+		&:hover, &.show {
+			background: lighten($color-background, 6%);
+			color: $color-white; 
+			.more-icon {
+				color: $color-white;
+			}
+		}
+	}
+	.name {
+		float: left;
+
+		.newBadge {
+			padding: 2px 5px 0px;
+			font-size: 11px;
+			font-family: sans-serif;
+			font-weight: 400;
+			border-radius: 5px;
+			display: inline-block;
+			vertical-align: middle;
+			margin: -2px 0 0 6px;
+			background-color: $font-color-highlight;
+			color: $color-white;
+		}
+	}
+	.more-icon {
+		float: right;
+		color: $font-color-base;
+		text-align: right;
+		transition: all .3s;
+		transform: rotate(0deg);
+		&.open {
+			transform: rotate(90deg);
+		}
+	}
+	.back-overlay{
+		padding: 60px 0;
+		height: auto;
+		background-color: $color-project-back;
+		transition: background 3s ease-in-out;
+	}
+
+	.more {
+		background-color: $color-project-back;
+		background-repeat: none;
+		background-origin: center;
+		background-attachment: fixed;
+		color: $color-white;
+		font-weight: 200;
+		max-height: 0;
+		overflow-y: hidden;
+
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+
+		-webkit-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
+		-moz-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
+		-o-transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); 
+		transition: all 300ms cubic-bezier(0.540, 0.010, 0.020, 0.995); /* custom */
+
+		&.show {
+			max-height: 1000px;
+			display: block;
+		}
+
+		h3 {
+			font-size: 30px;
+			font-weight: 500;
+			text-align: center;
+		}
+
+		p{
+			padding-bottom: 40px;
+			color: rgba(255,255,255,.8);
+		}
+
+		.screenshot
+		{
+			text-align: center;
+			img{ 
+				width:50%;
+			}
+
+			video{ 
+				height:460px;
+			}
+
+			.content {
+				border-radius: 10px;
+				box-shadow: 4px 4px 20px rgba(0, 0, 0, .25);
+				transform: perspective( 600px ) rotateY( -20deg ) rotateX( 5deg );
+			}
+		}
+
+		.buttons {
+			text-align: center;
+			padding: 20px 0;
+		}
+	}
+}
+
+@media screen and(max-width: 800px) {
+	.container {
+		padding: 0 15px;
+	}
+
+	section#work .abstract {
+		font-size: 26px;
+	}
+}
+
+@media screen and(max-width: 550px) {
+    #work .more {
+		.show, .back-overlay {
+			video, img { 
+				width:auto;
+				height:380px;
+			}
+		}
+	}
+}

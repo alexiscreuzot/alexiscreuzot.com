@@ -1,0 +1,122 @@
+section#contact {
+  min-height: 80%;
+  padding-top: 100px;
+  position: relative;
+
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(../images/back.jpg);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-attachment: fixed;
+    background-size: cover;
+    opacity: 0.7;
+  }
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    padding: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+
+    // New SCSS for the two-column layout
+    flex-direction: row;
+    align-items: flex-start;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .e-mail:before {
+    content: attr(data-website) "\0040" attr(data-user);
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+
+  h2 {
+    margin-bottom: 40px;
+  }
+
+  small {
+    display: block;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+
+    &+span {
+      display: block;
+      font-size: 32px;
+      font-weight: 200;
+    }
+  }
+
+  .profile-pic {
+    padding-right: 40px;
+
+    img {
+      width: 140px;
+      height: auto;
+      border-radius: 50%;
+    }
+
+    ul {
+      padding: 0;
+      margin: 10px 0 0;
+
+      li {
+        display: inline-block;
+        padding: 0 5px;
+        margin: 0;
+
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .info {
+    small {
+      margin-bottom: 0.35rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    span {
+      margin-bottom: 1rem;
+      overflow-wrap: break-word;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  section#contact span {
+    font-size: 20px;
+  }
+
+  section#contact .profile-pic {
+    padding-right: 20px;
+
+    ul li {
+        padding: 2px 8px;
+      }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  section#contact .profile-pic img {
+    width: 78px;
+  }
+
+  section#contact .info span {
+    font-size: 14px;
+  }
+}
