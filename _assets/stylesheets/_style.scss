@@ -366,7 +366,11 @@ section#contact {
 	  left: 0;
 	  right: 0;
 	  bottom: 0;
-	  background: url(../images/back.jpg) no-repeat 50% fixed / cover;
+	  background-image: url(../images/back.jpg); /* path to image */
+	background-repeat: no-repeat; /* do not repeat */
+	background-position: 50%; /* center the image horizontally */
+	background-attachment: fixed; /* fix the background position */
+	background-size: cover; /* scale the image to cover the element */
 	  opacity: 0.7;
 	}
   

@@ -751,7 +751,16 @@ section#contact {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url(../images/back.jpg) no-repeat 50% fixed/cover;
+    background-image: url(../images/back.jpg);
+    /* path to image */
+    background-repeat: no-repeat;
+    /* do not repeat */
+    background-position: 50%;
+    /* center the image horizontally */
+    background-attachment: fixed;
+    /* fix the background position */
+    background-size: cover;
+    /* scale the image to cover the element */
     opacity: 0.7; }
   section#contact .e-mail:before {
     content: attr(data-website) "@" attr(data-user);
@@ -849,9 +858,9 @@ section#contact {
   flex-direction: column;
   justify-content: space-between;
   padding: 42px;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.45);
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px); }
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px); }
