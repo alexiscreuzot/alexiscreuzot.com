@@ -549,7 +549,7 @@ h2 {
   -webkit-background-clip: text;
   display: inline-block; }
 
-header {
+div#banner {
   padding: 20px 0 18px;
   top: 0;
   margin: 0;
@@ -560,46 +560,53 @@ header {
   background: rgba(8, 8, 18, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px); }
-  header span {
+  div#banner span {
     vertical-align: middle; }
-  header .title {
+  div#banner .title {
     width: auto;
     float: left; }
-    header .title a {
+    div#banner .title a {
       margin-left: 40px; }
-  header .firstname, header .lastname {
+  div#banner .firstname, div#banner .lastname {
     font-size: 14px;
     color: #F3F3FE;
     width: 9px;
     display: inline-block;
     overflow: hidden;
     transition: all .3s; }
-  header .logo {
+  div#banner .logo {
     color: transparent;
     background: linear-gradient(-40deg, #FC5A95 0%, #B954EB 50%, #78DAFC 100%);
     -webkit-background-clip: text;
     font-size: 16px;
     font-weight: 600; }
-  header .nav {
+  div#banner .nav {
     text-align: right;
     padding-right: 20px; }
-  header ul {
+  div#banner ul {
     padding: 0;
     margin: 0; }
-    header ul li {
+    div#banner ul li {
       display: inline;
       padding: 0 4px;
       font-size: 16px; }
-  header a.hover .firstname {
+  div#banner a.hover .firstname {
     margin-left: -41px;
     width: 50px; }
-  header a.hover .lastname {
+  div#banner a.hover .lastname {
     width: 70px; }
 
 section {
   min-height: 100%; }
   section .container {
     margin: 0 auto; }
+
+section#privacy {
+  margin: 120px auto 0; }
+  section#privacy .container {
+    padding-bottom: 100px; }
+  section#privacy h3 {
+    padding-top: 50px; }
 
 section#intro .intro__inner {
   margin-top: -181px;

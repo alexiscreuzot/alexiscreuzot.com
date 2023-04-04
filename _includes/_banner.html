@@ -1,13 +1,14 @@
-<header>
+<div id="banner">
   <div class="container">
     <div class="row">
       <div class="title">
-        <a id="#intro" href="#intro">
+        <a id="#intro" href="./">
           <span class="firstname">ALEXIS</span>
           <span class="logo">}{</span>
           <span class="lastname">CREUZOT</span>
         </a>
       </div>
+      {% if page.has_menu %}
       <div class="nav">
         <ul>
           <li><a href="#work">Work</a></li>
@@ -15,6 +16,7 @@
           <li><a href="#contact">Contact</span></a></li>
         </ul>
       </div>
+      {% endif %}
     </div>
   </div>
-</header>
+</div>

@@ -74,7 +74,7 @@ h2 {
 //
 // HEADER
 //
-header {
+div#banner {
 	padding: 20px 0 18px;
 	top: 0;
 	margin: 0;
@@ -145,6 +145,16 @@ section {
 	min-height: 100%;
 	.container {
 		margin: 0 auto;
+	}
+}
+
+section#privacy {
+	margin: 120px auto 0;
+	.container {
+		padding-bottom: 100px;
+	}
+	h3 {
+		padding-top: 50px;
 	}
 }
 
