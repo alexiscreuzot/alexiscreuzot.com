@@ -9,10 +9,10 @@
   <br/>
   {% for item in site.data.websites %}
   <div class="item container">
-    <div class="five columns">
-      <span><a href="{{ item.url }}" target="_blank">{{ item.url }}</a>
+    <div class="six columns">
+      <span><a href="https://{{ item.url }}" target="_blank">{{ item.url }}</a>
     </div>
-    <div class="seven columns">
+    <div class="six columns">
       <ul>
         {% for skill in item.stack %}
         <li>{{ skill }}</li>

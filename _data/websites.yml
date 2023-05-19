@@ -1,20 +1,35 @@
-- url: https://monalisacafebar.com
+- url: monalisacafebar.com
   name: Coffee place in Santiago de Querétaro
   stack: 
     - Jekyll
     - HTML
     - CSS
     - Design
-- url: https://i-macle.com
+- url: i-macle.com
   name: iMacle, language learning online school
   stack: 
     - Jekyll
     - HTML
     - SCSS
     - Design
-- url: https://qonceal.monoqle.fr
+- url: qonceal.monoqle.fr
   name: Qonceal iOS App showcase website
   stack: 
     - HTML
     - CSS
     - Design
+- url: looq.monoqle.fr
+  name: Looq iOS App showcase website
+  stack: 
+    - HTML
+    - CSS
+- url: cyqle.monoqle.fr
+  name: Cyqle iOS App showcase website
+  stack: 
+    - HTML
+    - CSS
+- url: qolor.monoqle.fr
+  name: Cyqle iOS App showcase website
+  stack: 
+    - HTML
+    - CSS
