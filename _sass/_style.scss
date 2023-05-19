@@ -84,19 +84,19 @@ section {
 //
 // RESPONSIVE
 //
-@media screen and(min-width: 1200px) {
+@media screen and (min-width: 1200px) {
 	.container {
 		min-width: 900px;
 	}
 }
 
-@media screen and(max-width: 800px) {
+@media screen and (max-width: 800px) {
 	.container {
 		padding: 0 15px;
 	}
 }
 
-@media screen and(max-width: 550px) {
+@media screen and (max-width: 550px) {
 	h2 {
 		font-weight: 600;
 		font-size: 40px;

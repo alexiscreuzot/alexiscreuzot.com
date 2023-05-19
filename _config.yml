@@ -5,8 +5,10 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'jekyll serve'. If you change this file, please restart the server process.
 
-livereload: true     # You no longer need to include --livereload
-
+# Set the Sass partials directory, as we're using @imports
+sass:
+  style: :compressed # You might prefer to minify using :compressed
+  
 # Site settings
 title: Alexis Creuzot
 description: 

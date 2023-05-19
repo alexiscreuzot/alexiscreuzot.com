@@ -1,0 +1,24 @@
+<section id="websites">
+  <div class="container">
+    <h2>Websites</h2>
+    <h4>
+      I also build websites for fun and profit. Here are some of my favorites.
+    </h4>
+  </div>
+  
+  <br/>
+  {% for item in site.data.websites %}
+  <div class="item container">
+    <div class="five columns">
+      <span>🌐</span>&emsp;<a href="{{ item.url }}" target="_blank">{{ item.url }}</a>
+    </div>
+    <div class="seven columns">
+      <ul>
+        {% for skill in item.stack %}
+        <li>{{ skill }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endfor %}
+</section>

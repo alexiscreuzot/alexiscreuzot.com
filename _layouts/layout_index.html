@@ -13,10 +13,16 @@
 
     {% include _community.html %}
 
+    {% include _websites.html %}
+
     {% include _contact.html %}
 
-    {% javascript vendor %}
-    {% javascript app %}
+    <script src="{{ "/scripts/vendor/jquery/jquery-3.0.0-alpha1.js" | prepend: site.baseurl_root }}" defer></script>
+    <script src="{{ "/scripts/vendor/jquery/jquery.backstretch.js" | prepend: site.baseurl_root }}" defer></script>
+    <script src="{{ "/scripts/vendor/jquery/jquery.particleground.js" | prepend: site.baseurl_root }}" defer></script>
+    <script src="{{ "/scripts/vendor/fastclick.js" | prepend: site.baseurl_root }}" defer></script>
+    <script src="{{ "/scripts/vendor/milkyway.js" | prepend: site.baseurl_root }}" defer></script>
+    <script src="{{ "/main.js" | prepend: site.baseurl_root }}" defer></script>
 
   </body>
 </html>
