@@ -1,3 +1,10 @@
+- url: magicform.at
+  name: Data Manipulation Made Simple
+  stack: 
+    - Flask
+    - MongoDB
+    - TailwindCSS
+    - Design
 - url: monalisacafebar.com
   name: Coffee place in Santiago de Querétaro
   stack: 
