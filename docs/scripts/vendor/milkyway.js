@@ -69,9 +69,6 @@ function cbMilyWay(options) {
     this.populateSky = function () {
         var maxRadius = Math.round(Math.sqrt(Math.pow(this.centerY, 2) + Math.pow(this.centerX, 2)));
         var num = Math.floor(options.popularity * Math.log2(this.canvas.width/400) * 800);
-
-        console.log("--")
-        console.log(num)
  
         var colors = [ 
             [252, 90, 14],
