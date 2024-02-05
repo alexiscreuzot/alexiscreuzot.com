@@ -1,3 +1,12 @@
+- id: qoach
+  name: Qoach
+  color: 6D21D9
+  tagline: Get fit at home
+  description : >
+                Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
+  appid: id650627810
+  hasVideo : yes
+
 - id: forum
   name: Forum
   color: E0993C
@@ -7,14 +16,6 @@
                 Forum app allows users to present and converse with their guests, regardless of what language they speak. 
                 Create a session, invite guests, and experience translated conversations on your mobile device or computer.
   website: https://www.waverlylabs.com/forum
-  hasVideo : yes
-- id: qoach
-  name: Qoach
-  color: 6D21D9
-  tagline: Get fit at home
-  description : >
-                Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
-  appid: id650627810
   hasVideo : yes
 
 - id: looq
@@ -143,21 +144,3 @@
                 It generated more than 250,000 downloads.
   website: http://alexiscreuzot.com/apps/nice-weather-2
   appid: id729430189
-
-# - id: reddito
-#   name: Reddito
-#   color: 16BC9C
-#   tagline: The Ultimate Reddit Browser
-#   description : >
-#                 As a heavy user of Reddit, I felt there was a better way to browse its content
-#                 more visually. Reddito does just that and revolve mostly around my own use habits.
-#   appid: id674736514
-
-# - id: 7minw
-#   name: 7 Minutes Workout
-#   color: 3498DB
-#   tagline: The Perfect Coach to get Healthy
-#   description : >
-#                 First iOS project developed in my own name.
-#                 I took it from the idea to launch in 2 weeks, and it was downloaded more than 100,000 times.
-#   appid: id650627810
