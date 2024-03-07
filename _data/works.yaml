@@ -26,7 +26,6 @@
                 Artificial Intelligence coupled with Apple latest technologies 
                 allows you to create captivating artworks using pictures from your iPhone.
   appid: id1159704664
-  website: https://looq.monoqle.fr
   hasVideo : yes
 
 - id: qonceal
@@ -37,7 +36,6 @@
                 Qonceal secures private photos and videos by locking them down with PIN protection, fingerprint touch ID or Face ID.
                 Through the power of Artificil Intelligence, Qonceal can also analyse your library to automatically detect and import sensitive images.
   appid: id1478637915
-  website: https://qonceal.monoqle.fr
   hasVideo : yes
 
 - id: flamingo
@@ -58,7 +56,6 @@
   description : >
                 This is the second app developped under Monoqle's name. 
                 We expect to open it to more and more city in the upcoming months!
-  website: https://jeremypaul.me/works/cyqle.html
   appid: id1212133334
   hasVideo : yes
 
@@ -101,7 +98,6 @@
                 This was the first project edited through my company Monoqle.<br/> The design was
                 handled by my associate and friend Jeremy Paul. We manage to get it from the idea
                 to the App Store in under a month.
-  website: http://monoqle.fr/qolor
   appid: id973492333
 
 # - id: winkli
@@ -121,7 +117,6 @@
   description : >
                 Another app developed for Utopia Web.<br/>
                 It's fun and adictive game based on visual agility.
-  website: http://followdot.net/
   appid: id888642859
 
 - id: dailycig
@@ -131,7 +126,6 @@
   description : >
                 One of the App I developed for Utopia Web as an employee.<br/>
                 It's a cool iPhone app to measure, visualize and control your smoking consumption (tobacco & e-cigarettes).
-  website: http://dailycig.com
   appid: id725447590
 
 - id: nw2
