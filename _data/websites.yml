@@ -19,3 +19,24 @@
     - HTML
     - SCSS
     - Design
+- url: qoach.alexiscreuzot.com
+  name: Qoach, Fitness Trainer
+  stack: 
+    - Jekyll
+    - HTML
+    - SCSS
+    - Design
+- url: qolor.alexiscreuzot.com
+  name: Qolor - Fast Color Grabber
+  stack: 
+    - Jekyll
+    - HTML
+    - SCSS
+    - Design
+- url: qonceal.alexiscreuzot.com
+  name: Qonceal - Smart Vault
+  stack: 
+    - Jekyll
+    - HTML
+    - SCSS
+    - Design
