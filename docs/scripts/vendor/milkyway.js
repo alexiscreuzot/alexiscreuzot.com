@@ -203,8 +203,13 @@ function cbMilyWay(options) {
 
     var self = this;
 
+    var resizeTimeout;
+
     window.onresize = function () {
-        self.init();
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            self.init();
+        }, 50); // Wait 300ms before redrawing
     };
 
     this.init();
