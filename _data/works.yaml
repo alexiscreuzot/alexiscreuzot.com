@@ -1,12 +1,3 @@
-- id: qoach
-  name: Qoach
-  color: 6D21D9
-  tagline: Get fit at home
-  description : >
-                Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
-  appid: id650627810
-  hasVideo : yes
-
 - id: forum
   name: Forum
   color: E0993C
@@ -16,6 +7,15 @@
                 Forum app allows users to present and converse with their guests, regardless of what language they speak. 
                 Create a session, invite guests, and experience translated conversations on your mobile device or computer.
   website: https://www.waverlylabs.com/forum
+  hasVideo : yes
+
+- id: qoach
+  name: Qoach
+  color: 6D21D9
+  tagline: Get fit at home
+  description : >
+                Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
+  appid: id650627810
   hasVideo : yes
 
 - id: looq
