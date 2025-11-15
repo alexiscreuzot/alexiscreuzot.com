@@ -1,105 +1,74 @@
-
 //
-// GENERAL
+// GENERAL STYLES
 //
 
 * {
-	&:after {
-		box-sizing: border-box;
-	}
-	&:before {
-		box-sizing: border-box;
-	}
+  &::after,
+  &::before {
+    box-sizing: border-box;
+  }
 }
 
 html {
-	height: 100%;
-	background: $color-background; /* fallback for old browsers */
+  height: 100%;
+  background: $color-background;
+  scroll-behavior: smooth;
 }
 
 body {
-	height: 100%;
-	color: $font-color-base;
-	font-weight: 500;
-	font-size: 200%;
-	font-family: $font_0, $font_1, $font_2;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: $color-background;
+  overflow-x: hidden;
+  position: relative;
+  
+  // Subtle gradient overlay for depth
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at top, rgba(88, 186, 252, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(185, 84, 235, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 //
-// TEXTS
-//
-p {
-	font-size: 18px;
-	font-weight: 300;
-	margin: 20px auto 0;
-	padding: 0;
-}
-
-a {
-	color: $font-color-base;
-	text-decoration: none;
-	outline: none;
-	transition: all .3s;
-	&:hover {
-		color: $font-color-highlight;
-	}
-	&:focus {
-		color: $font-color-highlight;
-	}
-
-	&.button{
-		cursor: pointer;
-		background: transparent;
-		color: $font-color-base;
-		padding: 3px 10px 4px;
-		border-radius: 30px;
-		border:2px solid $font-color-highlight;
-		outline: 0;
-		&:hover {
-			background: transparentize($font-color-highlight,.8);
-			color: $font-color-base;
-		}	
-	}
-}
-
-h2 {
-	font-weight: 600;
-	font-size: 55px;
-	color: transparent;
-	background:$gradient;
-	-webkit-background-clip: text;
-	display:inline-block; 
-}
-
-//
-// Sections
+// SECTIONS
 //
 section {
-	padding-top: 100px;
-	min-height: 100%;
-	.container {
-		margin: 0 auto;
-	}
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  
+  .container {
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
 }
 
 //
-// RESPONSIVE
+// RESPONSIVE CONTAINER
 //
 @media screen and (min-width: 1200px) {
-	.container {
-		min-width: 900px;
-	}
+  .container {
+    max-width: 1200px;
+  }
 }
 
 @media screen and (max-width: 800px) {
-	.container {
-		padding: 0 15px;
-	}
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
 @media screen and (max-width: 550px) {
-	h2 {
-		font-weight: 600;
-		font-size: 40px;
-	}
+  .container {
+    padding: 0 1.25rem;
+  }
 }

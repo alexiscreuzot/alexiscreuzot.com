@@ -1,77 +1,50 @@
 //
-// BANNER
+// BANNER / HEADER
 //
+
 div#banner {
-	padding: 20px 0 18px;
-	top: 0;
-	margin: 0;
-	display: block;
-	position: fixed;
-	width: 100%;
-	z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 0;
+  z-index: 1000;
+  background: rgba($color-background, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba($font-color-base, 0.05);
+  transition: all 0.3s ease;
 
-	background: $color-nav;
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
+  .banner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-	// .title a:hover {
-	// 	.firstname {
-	// 		margin-left: -41px;
-	// 		width: 50px;
-	// 	}
-	// 	.lastname {
-	// 		width: 70px;
-	// 	}
-	// }
+  .banner__logo {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 
-	span {
-		vertical-align: middle;
-	}
-
-	.title {
-		width: auto;
-		float: left;
-		a {
-			margin-left: 40px;
-		}
-	}
-
-	.firstname ,.lastname {
-		font-size: 14px;
-		color: $font-color-base;
-		width: 9px;
-		display: inline-block;
-		overflow: hidden;
-		transition: all .3s;
-	}
-	.logo {
-		color: transparent;
-		background:$gradient;
-		-webkit-background-clip: text;
-		font-size: 16px;
-		font-weight: 600;
-	}
-	.nav {
-		text-align: right;
-		padding-right: 20px;
-	}
-	ul {
-		padding: 0;
-		margin: 0;
-		li {
-			display: inline;
-			padding: 0 4px;
-			font-size: 16px;
-		}
-	}
+  .banner__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $font-color-base;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
 }
 
-@media screen and (max-width: 600px){
-	div#banner .title a {
-		margin-left: 8px;
-	}
-
-	div#banner .nav {
-		padding-right: 8px;
-	}
+@media screen and (max-width: 800px) {
+  div#banner {
+    padding: 1.25rem 0;
+    
+    .banner__name {
+      font-size: 0.85rem;
+    }
+  }
 }

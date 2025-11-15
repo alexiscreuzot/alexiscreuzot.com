@@ -1,22 +1,21 @@
 <section id="community">
   <div class="container">
-    <h2>Community</h2>
-    <h4>
-      I'm invested in the tech community. Here are some of the things I'm involved in.
-    </h4>
+    <h2 class="section__title">Community</h2>
+    <p class="section__subtitle">Open source, talks, and articles</p>
+    <div class="community__list">
+      {% for item in site.data.community %}
+      <a href="{{ item.link }}" 
+         class="community__item" 
+         target="_blank">
+        <div class="community__item-content">
+          <div class="community__item-header">
+            <span class="community__item-type">{{ item.type }}</span>
+            <span class="community__item-emoji">{{ item.emoji }}</span>
+          </div>
+          <h3 class="community__item-title">{{ item.title }}</h3>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
   </div>
-  <br/>
-  {% for item in site.data.community %}
-  <div class="item container">
-    <div class="one columns">
-        <span>{{ item.emoji }}</span>
-    </div>
-    <div class="two columns">
-        <h5>{{ item.type }}</h5>
-    </div>
-    <div class="nine columns">
-        <a href="{{ item.link }}" target="blank">{{ item.title }}</a>
-    </div>
-  </div>
-  {% endfor %}
 </section>

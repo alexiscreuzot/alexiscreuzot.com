@@ -1,52 +1,39 @@
 <section id="work">
   <div class="container">
-    <h2>Selected Apps</h2>
-    <h4>
-      I specialize in iOS development, here are some of my favorite projects.
-    </h4>
-  </div>
-
-  {% for project in site.data.works %}
-  <project>
-    <div class="abstract">
-      <div class="container">
-        <div class="name">
-          <span>{{ project.name }}</span>
-          {% if project.isNew %}
-          <span class="newBadge">NEW</span>
-          {% endif %}
-        </div>
-        <div class="more-icon">
-          <span>›</span>
-        </div>
-      </div>
-    </div>
-    <div class="more">
-      <div class="back-overlay">
-        <div class="container" >
-          <div class="five columns">
-            <h3>{{ project.tagline }}</h3>
-            <div class="buttons"> 
-              {% if project.website %}<a class="button" href="{{ project.website }}">Website</a>{% endif %}
-              {% if project.appid %}<a class="button" href="https://itunes.apple.com/app/{{ project.appid }}">App Store</a>{% endif %}
+    <h2 class="section__title">Apps</h2>
+    <p class="section__subtitle">This is what keeps the lights on</p>
+    <div class="work__list">
+      {% comment %} Active apps first {% endcomment %}
+      {% for project in site.data.works %}
+        {% unless project.id == "dailycig" or project.id == "pilot" or project.id == "follow" %}
+          {% if project.appid %}
+          <a href="https://itunes.apple.com/app/{{ project.appid }}" 
+             class="work__item work__item--active" 
+             target="_blank"
+             style="--project-color: #{{ project.color }};">
+            <div class="work__item-content">
+              <h3 class="work__item-name">{{ project.name }}<span class="work__item-arrow">→</span></h3>
+              <p class="work__item-tagline">{{ project.tagline }}</p>
             </div>
-
-            <p>{{ project.description }}</p>
+          </a>
+          {% endif %}
+        {% endunless %}
+      {% endfor %}
+      
+      {% comment %} Discontinued apps last {% endcomment %}
+      {% for project in site.data.works %}
+        {% if project.id == "dailycig" or project.id == "pilot" or project.id == "follow" %}
+          {% if project.appid %}
+          <div class="work__item work__item--discontinued">
+            <div class="work__item-content">
+              <h3 class="work__item-name">{{ project.name }}</h3>
+              <p class="work__item-tagline">{{ project.tagline }}</p>
+              <span class="work__item-discontinued">Discontinued</span>
+            </div>
           </div>
-          <div class="seven columns screenshot">
-            {% if project.hasVideo %}
-            <video class="content" playsinline autoplay muted loop controls="true">
-              <source src="videos/{{ project.id }}.mp4" type="video/mp4"> 
-              <!-- <source src="videos/{{ project.id }}.webm" type="video/webm">
-              <source src="videos/{{ project.id }}.ogv" type="video/ogg">  -->
-            </video>
-            {% else %}
-            <img class="content" data-src="images/{{ project.id }}.jpg"/>
-            {% endif %}
-          </div>
-        </div>
-      </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
     </div>
-  </project>
-  {% endfor %}
+  </div>
 </section>
