@@ -4,7 +4,7 @@
 
 section#intro {
   min-height: auto;
-  padding: 6rem 0 4rem 0;
+  padding: 5rem 0 4rem 0;
   position: relative;
   transition: filter 0.1s ease-out;
   
@@ -16,9 +16,9 @@ section#intro {
 
   .intro__content {
     text-align: left;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 3rem;
   }
 
   .intro__avatar {
@@ -39,9 +39,9 @@ section#intro {
   }
 
   .intro__greeting {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.15;
     font-size: 3.5rem;
     color: $font-color-base;
     letter-spacing: -0.03em;
@@ -60,7 +60,7 @@ section#intro {
     p {
       font-size: 1.4rem;
       font-weight: 300;
-      line-height: 1.7;
+      line-height: 1.6;
       color: rgba($font-color-base, 0.85);
       margin: 0;
       
