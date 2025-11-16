@@ -299,23 +299,34 @@ $(document).ready(function() {
     function goToCard(targetIndex) {
       if (isTransitioning) return;
       
-      // Find the actual index in the allCards array
-      // targetIndex is the index in the original cards array (0-based)
-      // We need to find it in allCards (which includes clones)
       const originalStartIndex = cardsPerView;
-      const targetCardInAllCards = originalStartIndex + targetIndex;
-      
+      const originalEndIndex = originalStartIndex + totalCards;
       const isMobile = window.innerWidth <= 550;
       
+      // Calculate what the current card index is (0-based in original cards array)
+      let currentCardIndex;
       if (isMobile) {
-        // On mobile, center the clicked card directly
-        currentIndex = targetCardInAllCards;
+        currentCardIndex = currentIndex - originalStartIndex;
       } else {
-        // On desktop, set currentIndex so that targetIndex becomes the center (currentIndex + 1)
-        // We want the card at targetCardInAllCards to be at position currentIndex + 1
-        currentIndex = targetCardInAllCards - 1;
+        // On desktop, center card is at currentIndex + 1
+        currentCardIndex = (currentIndex + 1) - originalStartIndex;
       }
       
+      // Normalize currentCardIndex to be within 0 to totalCards-1
+      if (currentCardIndex < 0) currentCardIndex += totalCards;
+      if (currentCardIndex >= totalCards) currentCardIndex -= totalCards;
+      
+      // Calculate the difference (how many cards to move)
+      let diff = targetIndex - currentCardIndex;
+      
+      // Find the shortest path (forward or backward)
+      if (Math.abs(diff) > totalCards / 2) {
+        // Go the other way (shorter)
+        diff = diff > 0 ? diff - totalCards : diff + totalCards;
+      }
+      
+      // Move by the difference
+      currentIndex += diff;
       isTransitioning = true;
       
       // Use requestAnimationFrame to ensure layout is complete
@@ -326,7 +337,32 @@ $(document).ready(function() {
         updatePagination();
         
         setTimeout(() => {
-          isTransitioning = false;
+          // Check if we need to loop after animation
+          if (currentIndex < originalStartIndex) {
+            // We went before the originals, reset to original range
+            carouselTrack.style.transition = 'none';
+            currentIndex = currentIndex + totalCards;
+            updateCarouselPosition();
+            updateCenterCard();
+            updatePagination();
+            setTimeout(() => {
+              carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+              isTransitioning = false;
+            }, 50);
+          } else if (currentIndex >= originalEndIndex) {
+            // We went after the originals, reset to original range
+            carouselTrack.style.transition = 'none';
+            currentIndex = currentIndex - totalCards;
+            updateCarouselPosition();
+            updateCenterCard();
+            updatePagination();
+            setTimeout(() => {
+              carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+              isTransitioning = false;
+            }, 50);
+          } else {
+            isTransitioning = false;
+          }
         }, 500);
       });
     }
