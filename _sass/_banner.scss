@@ -12,8 +12,12 @@ div#banner {
   background: rgba($color-background, 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba($font-color-base, 0.05);
   transition: all 0.3s ease;
+  
+  // iPhone safe area insets - ensure banner doesn't go under notch
+  padding-top: calc(1.5rem + env(safe-area-inset-top));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 
   .banner__inner {
     display: flex;
@@ -41,10 +45,29 @@ div#banner {
 
 @media screen and (max-width: 800px) {
   div#banner {
-    padding: 1.25rem 0;
+    padding-top: calc(1.25rem + env(safe-area-inset-top));
+    padding-bottom: 1.25rem;
     
     .banner__name {
       font-size: 0.85rem;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  div#banner {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+    padding-bottom: 1rem;
+    
+    .banner__name {
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+    }
+    
+    .banner__logo {
+      min-height: 44px; // Touch-friendly target
+      display: flex;
+      align-items: center;
     }
   }
 }

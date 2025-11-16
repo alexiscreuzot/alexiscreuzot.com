@@ -2,38 +2,47 @@
   <div class="container">
     <h2 class="section__title">Apps</h2>
     <p class="section__subtitle">This is what keeps the lights on</p>
-    <div class="work__list">
-      {% comment %} Active apps first {% endcomment %}
-      {% for project in site.data.works %}
-        {% unless project.id == "dailycig" or project.id == "pilot" or project.id == "follow" %}
-          {% if project.appid %}
-          <a href="https://itunes.apple.com/app/{{ project.appid }}" 
-             class="work__item work__item--active" 
-             target="_blank"
-             style="--project-color: #{{ project.color }};">
-            <div class="work__item-content">
-              <h3 class="work__item-name">{{ project.name }}<span class="work__item-arrow">→</span></h3>
-              <p class="work__item-tagline">{{ project.tagline }}</p>
-            </div>
-          </a>
-          {% endif %}
-        {% endunless %}
-      {% endfor %}
-      
-      {% comment %} Discontinued apps last {% endcomment %}
-      {% for project in site.data.works %}
-        {% if project.id == "dailycig" or project.id == "pilot" or project.id == "follow" %}
-          {% if project.appid %}
-          <div class="work__item work__item--discontinued">
-            <div class="work__item-content">
-              <h3 class="work__item-name">{{ project.name }}</h3>
-              <p class="work__item-tagline">{{ project.tagline }}</p>
-              <span class="work__item-discontinued">Discontinued</span>
-            </div>
-          </div>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
+    <div class="work__carousel-wrapper">
+      <button class="work__carousel-arrow work__carousel-arrow--prev" aria-label="Previous app">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <div class="work__carousel-container">
+        <div class="work__carousel-gradient work__carousel-gradient--left"></div>
+        <div class="work__carousel-track">
+          {% comment %} Active apps first {% endcomment %}
+          {% for project in site.data.works %}
+            {% unless project.id == "dailycig" or project.id == "pilot" or project.id == "follow" or project.id == "cycle" or project.id == "cyqle" %}
+              {% if project.appid %}
+              <a href="https://itunes.apple.com/app/{{ project.appid }}" 
+                 class="work__card work__card--active" 
+                 target="_blank"
+                 style="--project-color: #{{ project.color }};"
+                 data-appid="{{ project.appid }}">
+                <div class="work__card-content">
+                  <div class="work__card-image-wrapper">
+                    <img class="work__card-icon" src="" alt="{{ project.name }} icon" style="display: none;">
+                    <img class="work__card-screenshot" src="" alt="{{ project.name }} screenshot" style="display: none;">
+                  </div>
+                  <div class="work__card-info">
+                    <h3 class="work__card-name">{{ project.name }}</h3>
+                    <p class="work__card-tagline">{{ project.tagline }}</p>
+                  </div>
+                </div>
+              </a>
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
+        </div>
+        <div class="work__carousel-gradient work__carousel-gradient--right"></div>
+      </div>
+      <button class="work__carousel-arrow work__carousel-arrow--next" aria-label="Next app">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
     </div>
+    <div class="work__carousel-pagination"></div>
   </div>
 </section>

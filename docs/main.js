@@ -59,8 +59,8 @@ $(document).ready(function() {
     });
   }, observerOptions);
 
-  // Observe all work, websites, and community items
-  document.querySelectorAll('.work__item, .websites__item, .community__item').forEach(item => {
+  // Observe all websites and community items
+  document.querySelectorAll('.websites__item, .community__item').forEach(item => {
     item.style.opacity = '0';
     item.style.transform = 'translateY(20px)';
     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -72,4 +72,390 @@ $(document).ready(function() {
 		return this.split("").reverse().join("");
 	};
 
+  // Carousel functionality
+  function initCarousel() {
+    const carouselTrack = document.querySelector('.work__carousel-track');
+    const carouselContainer = document.querySelector('.work__carousel-container');
+    const cards = Array.from(document.querySelectorAll('.work__card:not(.work__card--clone)'));
+    const prevButton = document.querySelector('.work__carousel-arrow--prev');
+    const nextButton = document.querySelector('.work__carousel-arrow--next');
+    
+    if (!carouselTrack || !cards.length) return;
+    
+    let currentIndex = 0;
+    let isTransitioning = false;
+    
+    function getCardsPerView() {
+      return window.innerWidth <= 550 ? 1 : 3;
+    }
+    
+    let cardsPerView = getCardsPerView();
+    const totalCards = cards.length;
+    
+    // Clone cards for infinite scroll
+    const clonesBefore = cards.slice(-cardsPerView);
+    const clonesAfter = cards.slice(0, cardsPerView);
+    
+    clonesBefore.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.classList.add('work__card--clone');
+      carouselTrack.insertBefore(clone, cards[0]);
+    });
+    
+    clonesAfter.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.classList.add('work__card--clone');
+      carouselTrack.appendChild(clone);
+    });
+    
+    const allCards = carouselTrack.querySelectorAll('.work__card');
+    const paginationContainer = document.querySelector('.work__carousel-pagination');
+    
+    // Create pagination dots
+    let paginationDots = [];
+    if (paginationContainer) {
+      for (let i = 0; i < totalCards; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'work__carousel-dot';
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.setAttribute('data-index', i);
+        paginationContainer.appendChild(dot);
+        paginationDots.push(dot);
+        
+        dot.addEventListener('click', function() {
+          goToCard(i);
+        });
+      }
+    }
+    
+    function updatePagination() {
+      const isMobile = window.innerWidth <= 550;
+      let activeIndex;
+      
+      if (isMobile) {
+        // On mobile, active index is based on currentIndex
+        const originalStartIndex = cardsPerView;
+        activeIndex = currentIndex - originalStartIndex;
+      } else {
+        // On desktop, active index is based on the center card (currentIndex + 1)
+        const originalStartIndex = cardsPerView;
+        const centerCardIndex = currentIndex + 1;
+        activeIndex = centerCardIndex - originalStartIndex;
+      }
+      
+      // Handle wrapping for infinite scroll
+      if (activeIndex < 0) {
+        activeIndex = totalCards + activeIndex;
+      } else if (activeIndex >= totalCards) {
+        activeIndex = activeIndex - totalCards;
+      }
+      
+      paginationDots.forEach((dot, index) => {
+        if (index === activeIndex) {
+          dot.classList.add('work__carousel-dot--active');
+        } else {
+          dot.classList.remove('work__carousel-dot--active');
+        }
+      });
+    }
+    
+    function getCardWidth() {
+      if (cards.length === 0) return 0;
+      const card = cards[0];
+      const cardWidth = card.offsetWidth;
+      // Get gap from parent container (work__carousel-track)
+      const trackStyle = window.getComputedStyle(carouselTrack);
+      const gap = parseFloat(trackStyle.gap) || 24; // 1.5rem = 24px
+      return cardWidth + gap;
+    }
+    
+    function getCenterOffset() {
+      // Calculate offset to center the middle card
+      const cardWidth = getCardWidth();
+      const containerWidth = carouselContainer ? carouselContainer.offsetWidth : window.innerWidth;
+      const isMobile = window.innerWidth <= 550;
+      
+      if (isMobile) {
+        // On mobile, center the current card
+        return (containerWidth / 2) - (cardWidth / 2);
+      } else {
+        // On desktop, center the middle card of 3
+        // The middle card is at currentIndex + 1
+        const centerCardIndex = currentIndex + 1;
+        const centerCardPosition = centerCardIndex * cardWidth;
+        return (containerWidth / 2) - (cardWidth / 2) - centerCardPosition;
+      }
+    }
+    
+    // Set initial position - start at the first real card after clones
+    currentIndex = cardsPerView;
+    updateCarouselPosition();
+    updateCenterCard();
+    updatePagination();
+    
+    function updateCarouselPosition() {
+      const cardWidth = getCardWidth();
+      const isMobile = window.innerWidth <= 550;
+      
+      if (isMobile) {
+        // On mobile, center the current card
+        const containerWidth = carouselContainer ? carouselContainer.offsetWidth : window.innerWidth;
+        const centerOffset = (containerWidth / 2) - (cardWidth / 2);
+        const cardPosition = currentIndex * cardWidth;
+        const offset = centerOffset - cardPosition;
+        carouselTrack.style.transform = `translateX(${offset}px)`;
+      } else {
+        // On desktop, center the middle card (currentIndex + 1)
+        const containerWidth = carouselContainer ? carouselContainer.offsetWidth : window.innerWidth;
+        const centerCardIndex = currentIndex + 1;
+        const centerCardPosition = centerCardIndex * cardWidth;
+        const centerOffset = (containerWidth / 2) - (cardWidth / 2);
+        const offset = centerOffset - centerCardPosition;
+        carouselTrack.style.transform = `translateX(${offset}px)`;
+      }
+    }
+    
+    function updateCenterCard() {
+      const isMobile = window.innerWidth <= 550;
+      allCards.forEach((card, index) => {
+        card.classList.remove('work__card--center');
+        if (isMobile) {
+          // On mobile, center card is the current one
+          if (index === currentIndex) {
+            card.classList.add('work__card--center');
+          }
+        } else {
+          // On desktop, center card is the middle of 3 visible cards
+          const centerIndex = currentIndex + 1;
+          if (index === centerIndex) {
+            card.classList.add('work__card--center');
+          }
+        }
+      });
+    }
+    
+    function goToNext() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex++;
+      
+      carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+      updateCarouselPosition();
+      updateCenterCard();
+      updatePagination();
+      
+      setTimeout(() => {
+        // Check if we've reached the end and need to loop
+        const originalCards = Array.from(allCards).filter(card => !card.classList.contains('work__card--clone'));
+        const originalStartIndex = cardsPerView;
+        const originalEndIndex = originalStartIndex + totalCards;
+        
+        if (currentIndex >= originalEndIndex) {
+          carouselTrack.style.transition = 'none';
+          currentIndex = originalStartIndex;
+          updateCarouselPosition();
+          updateCenterCard();
+          updatePagination();
+          setTimeout(() => {
+            carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            isTransitioning = false;
+          }, 50);
+        } else {
+          isTransitioning = false;
+        }
+      }, 500);
+    }
+    
+    function goToPrev() {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex--;
+      
+      carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+      updateCarouselPosition();
+      updateCenterCard();
+      updatePagination();
+      
+      setTimeout(() => {
+        // Check if we've reached the beginning and need to loop
+        const originalStartIndex = cardsPerView;
+        
+        if (currentIndex < originalStartIndex) {
+          carouselTrack.style.transition = 'none';
+          currentIndex = originalStartIndex + totalCards - 1;
+          updateCarouselPosition();
+          updateCenterCard();
+          updatePagination();
+          setTimeout(() => {
+            carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            isTransitioning = false;
+          }, 50);
+        } else {
+          isTransitioning = false;
+        }
+      }, 500);
+    }
+    
+    function goToCard(targetIndex) {
+      if (isTransitioning) return;
+      
+      // Find the actual index in the allCards array
+      // targetIndex is the index in the original cards array (0-based)
+      // We need to find it in allCards (which includes clones)
+      const originalStartIndex = cardsPerView;
+      const targetCardInAllCards = originalStartIndex + targetIndex;
+      
+      const isMobile = window.innerWidth <= 550;
+      
+      if (isMobile) {
+        // On mobile, center the clicked card directly
+        currentIndex = targetCardInAllCards;
+      } else {
+        // On desktop, set currentIndex so that targetIndex becomes the center (currentIndex + 1)
+        // We want the card at targetCardInAllCards to be at position currentIndex + 1
+        currentIndex = targetCardInAllCards - 1;
+      }
+      
+      isTransitioning = true;
+      
+      // Use requestAnimationFrame to ensure layout is complete
+      requestAnimationFrame(() => {
+        carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        updateCarouselPosition();
+        updateCenterCard();
+        updatePagination();
+        
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 500);
+      });
+    }
+    
+    if (nextButton) {
+      nextButton.addEventListener('click', goToNext);
+    }
+    
+    if (prevButton) {
+      prevButton.addEventListener('click', goToPrev);
+    }
+    
+    // Add click handlers to cards to center them when clicked
+    allCards.forEach((card, index) => {
+      card.addEventListener('click', function(e) {
+        const isMobile = window.innerWidth <= 550;
+        let isCenterCard = false;
+        
+        if (isMobile) {
+          isCenterCard = (index === currentIndex);
+        } else {
+          isCenterCard = (index === currentIndex + 1);
+        }
+        
+        // If card is already centered, allow navigation
+        if (isCenterCard) {
+          return; // Let the link work normally
+        }
+        
+        // Otherwise, prevent navigation and center the card
+        e.preventDefault();
+        
+        // Check if this is a clone or original card
+        const isClone = card.classList.contains('work__card--clone');
+        
+        if (isClone) {
+          // Find which original card this clone represents
+          const originalStartIndex = cardsPerView;
+          const originalEndIndex = originalStartIndex + totalCards;
+          
+          if (index < originalStartIndex) {
+            // This is a clone from the beginning, map to end
+            const originalIndex = totalCards - (originalStartIndex - index);
+            goToCard(originalIndex);
+          } else if (index >= originalEndIndex) {
+            // This is a clone from the end, map to beginning
+            const originalIndex = index - originalEndIndex;
+            goToCard(originalIndex);
+          }
+        } else {
+          // This is an original card
+          const originalIndex = index - cardsPerView;
+          goToCard(originalIndex);
+        }
+        });
+    });
+    
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function() {
+        const newCardsPerView = getCardsPerView();
+        if (newCardsPerView !== cardsPerView) {
+          // Reload to reinitialize with new card count
+          location.reload();
+        } else {
+          // Just update position and center card
+          updateCarouselPosition();
+          updateCenterCard();
+          updatePagination();
+        }
+      }, 250);
+    });
+  }
+
+  // Fetch and display app icons and screenshots from App Store
+  function fetchAppData() {
+    const appCards = document.querySelectorAll('.work__card[data-appid]');
+    
+    appCards.forEach(function(card) {
+      const appId = card.getAttribute('data-appid');
+      // Extract numeric ID from format like "id650627810"
+      const numericId = appId.replace(/^id/, '');
+      const iconImg = card.querySelector('.work__card-icon');
+      const screenshotImg = card.querySelector('.work__card-screenshot');
+      
+      if (!numericId) return;
+      
+      // Use iTunes Search API to get app data
+      fetch('https://itunes.apple.com/lookup?id=' + numericId)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          if (data.results && data.results.length > 0) {
+            const appData = data.results[0];
+            
+            // Set icon
+            if (iconImg) {
+              const iconUrl = appData.artworkUrl512 || appData.artworkUrl100 || appData.artworkUrl60;
+            if (iconUrl) {
+              iconImg.src = iconUrl;
+              iconImg.style.display = 'block';
+              }
+            }
+            
+            // Set first screenshot
+            if (screenshotImg && appData.screenshotUrls && appData.screenshotUrls.length > 0) {
+              // Get the first screenshot (usually the largest)
+              const screenshotUrl = appData.screenshotUrls[0];
+              screenshotImg.src = screenshotUrl;
+              screenshotImg.style.display = 'block';
+            }
+          }
+        })
+        .catch(function(error) {
+          console.log('Failed to fetch app data:', appId, error);
+        });
+    });
+  }
+  
+  // Initialize carousel and fetch app data after page load
+  setTimeout(function() {
+    initCarousel();
+    fetchAppData();
+  }, 100);
+
 });
+
+
+

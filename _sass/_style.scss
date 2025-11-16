@@ -69,6 +69,29 @@ section {
 
 @media screen and (max-width: 550px) {
   .container {
-    padding: 0 1.25rem;
+    padding-left: max(1.25rem, env(safe-area-inset-left));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+  
+  // Improve touch targets and readability on mobile
+  a {
+    -webkit-tap-highlight-color: rgba($font-color-highlight, 0.2);
+    touch-action: manipulation; // Improve tap responsiveness
+  }
+  
+  // Ensure interactive elements are touch-friendly
+  button, 
+  .work__item,
+  .websites__item,
+  .community__item {
+    -webkit-tap-highlight-color: rgba($font-color-highlight, 0.2);
+    touch-action: manipulation;
+  }
+  
+  // Better text rendering on mobile
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }

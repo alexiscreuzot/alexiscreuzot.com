@@ -1,12 +1,11 @@
 - id: forum
-  name: Forum
-  color: E0993C
+  name: Sorenson Forum
+  color: 7FBEFA
   tagline: Interpretation for standing ovations
   appid: id1612322502
   description : >
                 Forum app allows users to present and converse with their guests, regardless of what language they speak. 
                 Create a session, invite guests, and experience translated conversations on your mobile device or computer.
-  website: https://www.waverlylabs.com/forum
   hasVideo : yes
 
 - id: qoach

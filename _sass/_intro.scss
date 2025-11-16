@@ -104,18 +104,36 @@ section#intro {
   section#intro {
     padding: 4rem 0 3rem 0;
     
-    .intro__avatar img {
-      width: 100px;
-      height: 100px;
+    .intro__content {
+      padding: 0 2rem;
+    }
+    
+    .intro__avatar {
+      margin-bottom: 1.75rem;
+      
+      img {
+        width: 100px;
+        height: 100px;
+      }
     }
     
     .intro__greeting {
       font-size: 2.5rem;
       margin-bottom: 1.5rem;
+      line-height: 1.2;
     }
     
-    .intro__bio p {
-      font-size: 1.2rem;
+    .intro__bio {
+      margin-bottom: 2rem;
+      
+      p {
+        font-size: 1.2rem;
+        line-height: 1.65;
+      }
+    }
+    
+    .intro__links {
+      font-size: 0.9rem;
     }
   }
 }
@@ -123,6 +141,10 @@ section#intro {
 @media screen and (max-width: 550px) {
   section#intro {
     padding: 3rem 0 2rem 0;
+    
+    .intro__content {
+      padding: 0 1.5rem;
+    }
     
     .intro__avatar {
       margin-bottom: 1.5rem;
@@ -134,16 +156,41 @@ section#intro {
     }
     
     .intro__greeting {
-      font-size: 2rem;
+      font-size: 1.85rem;
       margin-bottom: 1.25rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
     }
     
-    .intro__bio p {
-      font-size: 1.1rem;
+    .intro__bio {
+      margin-bottom: 1.75rem;
+      
+      p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: rgba($font-color-base, 0.9);
+      }
     }
     
     .intro__links {
       font-size: 0.85rem;
+      line-height: 1.6;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.25rem;
+      
+      a {
+        padding: 0.5rem 0;
+        min-height: 44px; // Touch-friendly
+        display: inline-flex;
+        align-items: center;
+      }
+      
+      .separator {
+        margin: 0 0.5rem;
+        color: rgba($font-color-base, 0.4);
+      }
     }
   }
 }
