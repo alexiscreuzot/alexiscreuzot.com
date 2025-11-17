@@ -665,67 +665,83 @@ $(document).ready(function() {
       }
       
       // Always fetch icon from API (even if we have manual screenshot)
-      const params = new URLSearchParams({ id: numericId, country: 'us' });
-      fetch('https://itunes.apple.com/lookup?' + params.toString())
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          if (!data.resultCount || !data.results || data.results.length === 0) {
-            return;
-          }
-          
-          const appData = data.results[0];
-          
-          // Set icon
-          if (iconImg) {
-            const iconUrl = appData.artworkUrl512 || appData.artworkUrl100 || appData.artworkUrl60;
-            if (iconUrl) {
-              iconImg.src = iconUrl;
-              iconImg.style.display = 'block';
-              // Sync to clones - handle both cached and loading images
-              if (iconImg.complete) {
-                // Image is already loaded (cached)
+      // Use JSONP to avoid CORS issues
+      const callbackName = 'itunesCallback_' + numericId + '_' + Date.now();
+      const params = new URLSearchParams({ id: numericId, country: 'us', callback: callbackName });
+      
+      // Create callback function
+      window[callbackName] = function(data) {
+        // Clean up callback and script tag
+        delete window[callbackName];
+        const script = document.getElementById('itunes-script-' + numericId);
+        if (script) {
+          script.remove();
+        }
+        
+        if (!data || !data.resultCount || !data.results || data.results.length === 0) {
+          return;
+        }
+        
+        const appData = data.results[0];
+        
+        // Set icon
+        if (iconImg) {
+          const iconUrl = appData.artworkUrl512 || appData.artworkUrl100 || appData.artworkUrl60;
+          if (iconUrl) {
+            iconImg.src = iconUrl;
+            iconImg.style.display = 'block';
+            // Sync to clones - handle both cached and loading images
+            if (iconImg.complete) {
+              // Image is already loaded (cached)
+              syncImagesToClones(card);
+            } else {
+              // Image is loading, sync when it loads
+              iconImg.onload = function() {
                 syncImagesToClones(card);
-              } else {
-                // Image is loading, sync when it loads
-                iconImg.onload = function() {
-                  syncImagesToClones(card);
-                };
-                // Also sync after a short delay as a fallback
-                setTimeout(function() {
-                  syncImagesToClones(card);
-                }, 100);
-              }
+              };
+              // Also sync after a short delay as a fallback
+              setTimeout(function() {
+                syncImagesToClones(card);
+              }, 100);
             }
           }
-          
-          // Set screenshot from API only if we don't have a manual one
-          if (!manualScreenshot && screenshotImg) {
-            const screenshotUrls = appData.screenshotUrls || [];
-            if (screenshotUrls.length > 0) {
-              screenshotImg.src = screenshotUrls[0];
-              screenshotImg.style.display = 'block';
-              // Sync to clones - handle both cached and loading images
-              if (screenshotImg.complete) {
-                // Image is already loaded (cached)
+        }
+        
+        // Set screenshot from API only if we don't have a manual one
+        if (!manualScreenshot && screenshotImg) {
+          const screenshotUrls = appData.screenshotUrls || [];
+          if (screenshotUrls.length > 0) {
+            screenshotImg.src = screenshotUrls[0];
+            screenshotImg.style.display = 'block';
+            // Sync to clones - handle both cached and loading images
+            if (screenshotImg.complete) {
+              // Image is already loaded (cached)
+              syncImagesToClones(card);
+            } else {
+              // Image is loading, sync when it loads
+              screenshotImg.onload = function() {
                 syncImagesToClones(card);
-              } else {
-                // Image is loading, sync when it loads
-                screenshotImg.onload = function() {
-                  syncImagesToClones(card);
-                };
-                // Also sync after a short delay as a fallback
-                setTimeout(function() {
-                  syncImagesToClones(card);
-                }, 100);
-              }
+              };
+              // Also sync after a short delay as a fallback
+              setTimeout(function() {
+                syncImagesToClones(card);
+              }, 100);
             }
           }
-        })
-        .catch(function(error) {
-          console.log('Failed to fetch app data:', appId, error);
-        });
+        }
+      };
+      
+      // Create and append script tag for JSONP
+      const script = document.createElement('script');
+      script.id = 'itunes-script-' + numericId;
+      script.src = 'https://itunes.apple.com/lookup?' + params.toString();
+      script.onerror = function() {
+        // Clean up on error
+        delete window[callbackName];
+        script.remove();
+        console.log('Failed to fetch app data:', appId);
+      };
+      document.head.appendChild(script);
     });
   }
   
