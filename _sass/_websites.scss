@@ -173,6 +173,8 @@ section#websites {
     .container {
       padding-top: 1.25rem;
       padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
     }
     
     .section__title {
@@ -186,11 +188,11 @@ section#websites {
     }
     
     .websites__list {
-      gap: 0.5rem;
+      gap: 1rem;
     }
     
     .websites__item {
-      padding: 0.85rem 1rem;
+      padding: 0.6rem 1rem;
       flex-direction: column;
       align-items: flex-start;
       border-radius: 12px;
@@ -220,8 +222,12 @@ section#websites {
     }
     
     .websites__item-stack {
+      width: 100%;
+      max-width: 100%;
       gap: 0.3rem;
       flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-left: 0;
     }
     
     .websites__item-tag {

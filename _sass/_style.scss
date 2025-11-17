@@ -69,8 +69,8 @@ section {
 
 @media screen and (max-width: 550px) {
   .container {
-    padding-left: max(1.25rem, env(safe-area-inset-left));
-    padding-right: max(1.25rem, env(safe-area-inset-right));
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
   }
   
   // Improve touch targets and readability on mobile

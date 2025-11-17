@@ -50,7 +50,6 @@ section#community {
     background: rgba($font-color-base, 0.02);
     transition: opacity 3s ease-out, transform 3s ease-out, all 0.3s ease;
     position: relative;
-    outline: none;
     
     // Initial state for animation
     opacity: 0;
@@ -60,11 +59,6 @@ section#community {
     &.is-visible {
       opacity: 1;
       transform: translateY(0);
-    }
-    
-    &:focus,
-    &:active {
-      outline: none;
     }
     
     &:hover {
@@ -79,6 +73,15 @@ section#community {
 
   .community__item-content {
     position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+    
+    &:focus,
+    &:active {
+      outline: none;
+    }
   }
 
   .community__item-header {
@@ -139,6 +142,8 @@ section#community {
     .container {
       padding-top: 1.25rem;
       padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
     }
     
     .section__title {
@@ -153,17 +158,20 @@ section#community {
     
     .community__list {
       grid-template-columns: 1fr;
-      gap: 0.4rem;
+      gap: 1rem;
     }
     
     .community__item {
-      padding: 0.75rem 0.85rem;
+      padding-top: 0;
+      padding-bottom: 0.75rem;
+      padding-left: 0.85rem;
+      padding-right: 0.85rem;
       border-radius: 12px;
       min-height: 50px; // Better touch target
     }
     
     .community__item-header {
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
     }
     
     .community__item-type {

@@ -4,17 +4,17 @@
     <p class="section__subtitle">Open source, talks, and articles</p>
     <div class="community__list">
       {% for item in site.data.community %}
-      <a href="{{ item.link }}" 
-         class="community__item" 
-         target="_blank">
-        <div class="community__item-content">
+      <div class="community__item">
+        <a href="{{ item.link }}" 
+           target="_blank"
+           class="community__item-content">
           <div class="community__item-header">
             <span class="community__item-type">{{ item.type }}</span>
             <span class="community__item-emoji">{{ item.emoji }}</span>
           </div>
           <h3 class="community__item-title">{{ item.title }}</h3>
-        </div>
-      </a>
+        </a>
+      </div>
       {% endfor %}
     </div>
   </div>
