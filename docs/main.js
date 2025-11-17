@@ -742,38 +742,6 @@ $(document).ready(function() {
         console.log('Failed to fetch app data:', appId);
       };
       document.head.appendChild(script);
-            }
-          }
-        }
-      };
-      
-      // Create and append script tag for JSONP
-      const script = document.createElement('script');
-      script.id = 'itunes-script-' + numericId;
-      script.src = 'https://itunes.apple.com/lookup?' + params.toString();
-      script.onerror = function() {
-        // Clean up on error
-        delete window[callbackName];
-        script.remove();
-        console.log('Failed to fetch app data:', appId);
-      };
-      document.head.appendChild(script);
-            }
-          }
-        }
-      };
-      
-      // Create and append script tag for JSONP
-      const script = document.createElement('script');
-      script.id = 'itunes-script-' + numericId;
-      script.src = 'https://itunes.apple.com/lookup?' + params.toString();
-      script.onerror = function() {
-        // Clean up on error
-        delete window[callbackName];
-        script.remove();
-        console.log('Failed to fetch app data:', appId);
-      };
-      document.head.appendChild(script);
     });
   }
   
