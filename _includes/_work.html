@@ -15,9 +15,7 @@
           {% for project in site.data.works %}
             {% unless project.id == "dailycig" or project.id == "pilot" or project.id == "follow" or project.id == "cycle" or project.id == "cyqle" %}
               {% if project.appid %}
-              <a href="https://itunes.apple.com/app/{{ project.appid }}" 
-                 class="work__card work__card--active" 
-                 target="_blank"
+              <div class="work__card work__card--active" 
                  style="--project-color: #{{ project.color }};"
                  data-appid="{{ project.appid }}">
                 <div class="work__card-content">
@@ -30,7 +28,17 @@
                     <p class="work__card-tagline">{{ project.tagline }}</p>
                   </div>
                 </div>
-              </a>
+                <a href="https://itunes.apple.com/app/{{ project.appid }}" 
+                   class="work__card-link" 
+                   target="_blank"
+                   aria-label="View {{ project.name }} on App Store">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
               {% endif %}
             {% endunless %}
           {% endfor %}

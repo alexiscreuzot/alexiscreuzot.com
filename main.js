@@ -375,9 +375,14 @@ $(document).ready(function() {
       prevButton.addEventListener('click', goToPrev);
     }
     
-    // Add click handlers to cards to center them when clicked
+    // Add click handlers to cards to center them when clicked (but not on the link)
     allCards.forEach((card, index) => {
       card.addEventListener('click', function(e) {
+        // Don't handle clicks on the link - let it work normally
+        if (e.target.closest('.work__card-link')) {
+          return;
+        }
+        
         const isMobile = window.innerWidth <= 550;
         let isCenterCard = false;
         
@@ -387,13 +392,14 @@ $(document).ready(function() {
           isCenterCard = (index === currentIndex + 1);
         }
         
-        // If card is already centered, allow navigation
+        // If card is already centered, don't do anything
         if (isCenterCard) {
-          return; // Let the link work normally
+          return;
         }
         
-        // Otherwise, prevent navigation and center the card
+        // Otherwise, center the card
         e.preventDefault();
+        e.stopPropagation();
         
         // Check if this is a clone or original card
         const isClone = card.classList.contains('work__card--clone');

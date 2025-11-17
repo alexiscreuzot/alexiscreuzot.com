@@ -63,6 +63,7 @@ section#work {
     text-decoration: none;
     outline: none; // Remove default focus outline
     -webkit-tap-highlight-color: transparent; // Remove tap highlight on mobile
+    cursor: pointer; // Pointer cursor for cards
     
     &::before {
       content: '';
@@ -80,19 +81,30 @@ section#work {
     &.work__card--center {
       opacity: 1;
       transform: scale(1);
-      border-color: rgba($font-color-base, 0.15);
-      background: rgba($font-color-base, 0.03);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      border-color: var(--project-color, $font-color-highlight);
+      background: rgba($font-color-base, 0.04);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
       
       &::before {
-        opacity: 0.05;
+        opacity: 0.1;
+      }
+      
+      .work__card-name {
+        color: var(--project-color, $font-color-highlight);
+      }
+      
+      &:hover {
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+        
+        &::before {
+          opacity: 0.15;
+        }
       }
     }
     
     &--active {
-      &:hover,
-      &:focus {
-        transform: scale(1.02);
+      &:hover:not(.work__card--center),
+      &:focus:not(.work__card--center) {
         border-color: var(--project-color, $font-color-highlight);
         background: rgba($font-color-base, 0.04);
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
@@ -183,6 +195,53 @@ section#work {
     color: rgba($font-color-base, 0.65);
     margin: 0;
     line-height: 1.4;
+  }
+
+  .work__card-link {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($font-color-base, 0.08);
+    border: none;
+    border-radius: 50%;
+    color: rgba($font-color-base, 0.5);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    z-index: 10;
+    opacity: 0.4;
+    
+    &:hover {
+      background: var(--project-color, $font-color-highlight);
+      color: $color-background;
+      opacity: 1;
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    
+    &:active {
+      transform: scale(1.05);
+    }
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  .work__card--center .work__card-link {
+    opacity: 0.5;
+    background: rgba($font-color-base, 0.12);
+    
+    &:hover {
+      opacity: 1;
+      background: var(--project-color, $font-color-highlight);
+      color: $color-background;
+    }
   }
 
   .work__carousel-arrow {
@@ -384,6 +443,18 @@ section#work {
       
       &.work__carousel-dot--active {
         width: 20px;
+      }
+    }
+    
+    .work__card-link {
+      width: 36px;
+      height: 36px;
+      bottom: 1rem;
+      right: 0.75rem;
+      
+      svg {
+        width: 18px;
+        height: 18px;
       }
     }
   }
