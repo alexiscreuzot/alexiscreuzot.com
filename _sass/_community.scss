@@ -28,10 +28,11 @@ section#community {
   .section__subtitle {
     text-align: left;
     font-size: 1.1rem;
-    font-weight: 300;
-    color: rgba($font-color-base, 0.6);
+    font-weight: 500;
+    color: rgba(var(--font-color-base-rgb), 0.7);
     margin-bottom: 2rem;
     margin-top: 0;
+    transition: color 0.3s ease;
   }
 
   .community__list {
@@ -47,7 +48,7 @@ section#community {
     padding: 1rem 1.5rem;
     border: 1px solid transparent;
     border-radius: 16px;
-    background: rgba($font-color-base, 0.02);
+    background: rgba(var(--font-color-base-rgb), 0.02);
     transition: opacity 3s ease-out, transform 3s ease-out, all 0.3s ease;
     position: relative;
     
@@ -62,11 +63,11 @@ section#community {
     }
     
     &:hover {
-      border-color: rgba($font-color-highlight, 0.3);
-      background: rgba($font-color-base, 0.04);
+      border-color: rgba(var(--font-color-highlight-rgb), 0.3);
+      background: rgba(var(--font-color-base-rgb), 0.04);
       
       .community__item-title {
-        color: $font-color-highlight;
+        color: var(--font-color-highlight, #{$font-color-highlight});
       }
     }
   }
@@ -93,10 +94,11 @@ section#community {
 
   .community__item-type {
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    color: rgba($font-color-base, 0.35);
+    color: rgba(var(--font-color-base-rgb), 0.35);
     letter-spacing: 0.1em;
+    transition: color 0.3s ease;
   }
 
   .community__item-emoji {
@@ -106,8 +108,8 @@ section#community {
 
   .community__item-title {
     font-size: 1rem;
-    font-weight: 400;
-    color: $font-color-base;
+    font-weight: 600;
+    color: var(--font-color-base, #{$font-color-base});
     margin: 0;
     transition: all 0.3s ease;
     line-height: 1.5;

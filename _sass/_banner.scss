@@ -9,7 +9,7 @@ div#banner {
   right: 0;
   padding: 1.5rem 0;
   z-index: 1000;
-  background: rgba($color-background, 0.7);
+  background: rgba(var(--color-background-rgb), 0.7);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   transition: all 0.3s ease;
@@ -37,9 +37,10 @@ div#banner {
   .banner__name {
     font-size: 0.9rem;
     font-weight: 600;
-    color: $font-color-base;
+    color: var(--font-color-base, #{$font-color-base});
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    transition: color 0.3s ease;
   }
 }
 

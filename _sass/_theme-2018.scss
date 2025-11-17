@@ -2,6 +2,35 @@
 
 $gradient: linear-gradient(-40deg, #FC5A95 0%, #B954EB 50%, #78DAFC 100%);
 
+// Dark theme (default)
 $font-color-base : #F3F3FE;
 $font-color-highlight : #58BAFC;
 $color-background: #121212;
+
+// Light theme - higher contrast
+$font-color-base-light : #000000;
+$font-color-highlight-light : #0052a3;
+$color-background-light: #ffffff;
+
+// CSS Custom Properties for theme switching
+:root {
+  --font-color-base: #{$font-color-base};
+  --font-color-highlight: #{$font-color-highlight};
+  --color-background: #{$color-background};
+  --gradient: #{$gradient};
+  // RGB values for rgba() usage
+  --font-color-base-rgb: 243, 243, 254;
+  --font-color-highlight-rgb: 88, 186, 252;
+  --color-background-rgb: 18, 18, 18;
+}
+
+// Light theme
+body.light-theme {
+  --font-color-base: #{$font-color-base-light};
+  --font-color-highlight: #{$font-color-highlight-light};
+  --color-background: #{$color-background-light};
+  // RGB values for light theme - higher contrast
+  --font-color-base-rgb: 0, 0, 0;
+  --font-color-highlight-rgb: 0, 82, 163;
+  --color-background-rgb: 255, 255, 255;
+}

@@ -1,5 +1,72 @@
 // Minimalist Website - Simplified JavaScript
 
+// Theme Toggle Functionality
+(function() {
+  // Get theme from localStorage or default to dark
+  function getTheme() {
+    return localStorage.getItem('theme') || 'dark';
+  }
+  
+  // Update CSS variables based on theme
+  function updateCSSVariables(theme) {
+    if (theme === 'light') {
+      document.documentElement.style.setProperty('--font-color-base', '#000000');
+      document.documentElement.style.setProperty('--font-color-highlight', '#0052a3');
+      document.documentElement.style.setProperty('--color-background', '#ffffff');
+      document.documentElement.style.setProperty('--font-color-base-rgb', '0, 0, 0');
+      document.documentElement.style.setProperty('--font-color-highlight-rgb', '0, 82, 163');
+      document.documentElement.style.setProperty('--color-background-rgb', '255, 255, 255');
+    } else {
+      // Reset to default dark theme values
+      document.documentElement.style.setProperty('--font-color-base', '#F3F3FE');
+      document.documentElement.style.setProperty('--font-color-highlight', '#58BAFC');
+      document.documentElement.style.setProperty('--color-background', '#121212');
+      document.documentElement.style.setProperty('--font-color-base-rgb', '243, 243, 254');
+      document.documentElement.style.setProperty('--font-color-highlight-rgb', '88, 186, 252');
+      document.documentElement.style.setProperty('--color-background-rgb', '18, 18, 18');
+    }
+  }
+  
+  // Set theme
+  function setTheme(theme) {
+    localStorage.setItem('theme', theme);
+    updateCSSVariables(theme);
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
+  }
+  
+  // Apply saved theme immediately (before DOM ready to prevent flash)
+  const savedTheme = getTheme();
+  updateCSSVariables(savedTheme);
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+  }
+  
+  // Initialize theme toggle button
+  function initThemeToggle() {
+    const toggleButton = document.querySelector('.theme-toggle');
+    if (!toggleButton) return;
+    
+    toggleButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const currentTheme = getTheme();
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+  }
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  } else {
+    initThemeToggle();
+  }
+})();
+
 $(document).ready(function() {
 
   // Smooth scrolling for anchor links

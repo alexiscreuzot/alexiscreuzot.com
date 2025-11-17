@@ -15,8 +15,9 @@
   .footer__text {
     margin: 0;
     font-size: 0.85rem;
-    color: rgba($font-color-base, 0.5);
-    font-weight: 300;
+    color: rgba(var(--font-color-base-rgb), 0.6);
+    font-weight: 500;
+    transition: color 0.3s ease;
   }
 }
 

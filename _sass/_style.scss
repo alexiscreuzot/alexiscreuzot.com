@@ -33,7 +33,7 @@ a, button, input, select, textarea, [tabindex] {
 
 html {
   height: 100%;
-  background: $color-background;
+  background: var(--color-background, #{$color-background});
   scroll-behavior: smooth;
 }
 
@@ -41,9 +41,10 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: $color-background;
+  background: var(--color-background, #{$color-background});
   overflow-x: hidden;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
   
   // Subtle gradient overlay for depth
   &::before {
@@ -57,6 +58,14 @@ body {
                 radial-gradient(ellipse at bottom, rgba(185, 84, 235, 0.03) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  &.light-theme::before {
+    opacity: 0.2;
+    background: radial-gradient(ellipse at top, rgba(0, 102, 204, 0.02) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(185, 84, 235, 0.02) 0%, transparent 50%);
   }
 }
 

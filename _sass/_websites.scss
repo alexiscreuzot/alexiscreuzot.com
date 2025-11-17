@@ -27,10 +27,11 @@ section#websites {
   .section__subtitle {
     text-align: left;
     font-size: 1.1rem;
-    font-weight: 300;
-    color: rgba($font-color-base, 0.6);
+    font-weight: 500;
+    color: rgba(var(--font-color-base-rgb), 0.7);
     margin-bottom: 2rem;
     margin-top: 0;
+    transition: color 0.3s ease;
   }
 
   .websites__list {
@@ -47,7 +48,7 @@ section#websites {
     justify-content: space-between;
     padding: 1.2rem 1.75rem;
     border: 1px solid transparent;
-    background: rgba($font-color-base, 0.01);
+    background: rgba(var(--font-color-base-rgb), 0.01);
     border-radius: 16px;
     transition: opacity 3s ease-out, transform 3s ease-out, all 0.3s ease;
     position: relative;
@@ -69,20 +70,20 @@ section#websites {
     }
     
     &:hover {
-      border-color: rgba($font-color-highlight, 0.3);
-      background: rgba($font-color-base, 0.04);
+      border-color: rgba(var(--font-color-highlight-rgb), 0.3);
+      background: rgba(var(--font-color-base-rgb), 0.04);
       
       .websites__item-name {
-        color: $font-color-highlight;
+        color: var(--font-color-highlight, #{$font-color-highlight});
       }
       
       .websites__item-url {
-        color: rgba($font-color-base, 0.7);
+        color: rgba(var(--font-color-base-rgb), 0.7);
       }
       
       .websites__item-tag {
-        background: rgba($font-color-highlight, 0.15);
-        border-color: rgba($font-color-highlight, 0.25);
+        background: rgba(var(--font-color-highlight-rgb), 0.15);
+        border-color: rgba(var(--font-color-highlight-rgb), 0.25);
       }
     }
   }
@@ -104,8 +105,8 @@ section#websites {
 
   .websites__item-name {
     font-size: 1.25rem;
-    font-weight: 500;
-    color: $font-color-base;
+    font-weight: 700;
+    color: var(--font-color-base, #{$font-color-base});
     margin: 0;
     transition: color 0.3s ease;
     letter-spacing: -0.01em;
@@ -114,8 +115,8 @@ section#websites {
 
   .websites__item-url {
     font-size: 0.85rem;
-    font-weight: 400;
-    color: rgba($font-color-base, 0.5);
+    font-weight: 600;
+    color: rgba(var(--font-color-base-rgb), 0.6);
     font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', monospace;
     transition: color 0.3s ease;
   }
@@ -133,12 +134,12 @@ section#websites {
 
   .websites__item-tag {
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 600;
     padding: 0.25rem 0.6rem;
-    background: rgba($font-color-highlight, 0.1);
-    color: rgba($font-color-highlight, 0.8);
+    background: rgba(var(--font-color-highlight-rgb), 0.1);
+    color: rgba(var(--font-color-highlight-rgb), 0.8);
     border-radius: 6px;
-    border: 1px solid rgba($font-color-highlight, 0.15);
+    border: 1px solid rgba(var(--font-color-highlight-rgb), 0.15);
     transition: all 0.3s ease;
   }
 }

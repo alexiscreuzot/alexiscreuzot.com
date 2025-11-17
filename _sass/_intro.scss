@@ -54,12 +54,12 @@ section#intro {
 
   .intro__greeting {
     margin-bottom: 1.5rem;
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.15;
     font-size: 4.2rem;
-    color: $font-color-base;
+    color: var(--font-color-base, #{$font-color-base});
     letter-spacing: -0.03em;
-    transition: opacity 3s ease-out, transform 3s ease-out;
+    transition: opacity 3s ease-out, transform 3s ease-out, color 0.3s ease;
     
     // Initial state for animation
     opacity: 0;
@@ -73,7 +73,7 @@ section#intro {
     
     .intro__name-highlight {
       color: transparent;
-      background: $gradient;
+      background: var(--gradient, #{$gradient});
       -webkit-background-clip: text;
       background-clip: text;
     }
@@ -95,20 +95,21 @@ section#intro {
     
     p {
       font-size: 1.4rem;
-      font-weight: 300;
+      font-weight: 500;
       line-height: 1.65;
-      color: rgba($font-color-base, 0.85);
+      color: rgba(var(--font-color-base-rgb), 0.9);
       margin: 0;
+      transition: color 0.3s ease;
       
       a {
-        color: $font-color-highlight;
+        color: var(--font-color-highlight, #{$font-color-highlight});
         text-decoration: underline;
         text-decoration-thickness: 1px;
         text-underline-offset: 3px;
         transition: all 0.3s ease;
         
         &:hover {
-          color: $font-color-base;
+          color: var(--font-color-base, #{$font-color-base});
           text-decoration-thickness: 2px;
         }
       }
@@ -117,8 +118,9 @@ section#intro {
 
   .intro__links {
     font-size: 0.95rem;
-    color: rgba($font-color-base, 0.6);
-    transition: opacity 3s ease-out, transform 3s ease-out;
+    font-weight: 500;
+    color: rgba(var(--font-color-base-rgb), 0.7);
+    transition: opacity 3s ease-out, transform 3s ease-out, color 0.3s ease;
     
     // Initial state for animation
     opacity: 0;
@@ -131,18 +133,19 @@ section#intro {
     }
     
     a {
-      color: rgba($font-color-base, 0.7);
+      color: rgba(var(--font-color-base-rgb), 0.8);
+      font-weight: 600;
       transition: all 0.3s ease;
       position: relative;
       
       &:hover {
-        color: $font-color-highlight;
+        color: var(--font-color-highlight, #{$font-color-highlight});
       }
     }
     
     .separator {
       margin: 0 0.75rem;
-      color: rgba($font-color-base, 0.3);
+      color: rgba(var(--font-color-base-rgb), 0.3);
     }
   }
 }
@@ -223,7 +226,7 @@ section#intro {
       p {
         font-size: 1.2rem;
         line-height: 1.7;
-        color: rgba($font-color-base, 0.9);
+        color: rgba(var(--font-color-base-rgb), 0.9);
       }
     }
     
@@ -244,7 +247,7 @@ section#intro {
       
       .separator {
         margin: 0 0.5rem;
-        color: rgba($font-color-base, 0.4);
+        color: rgba(var(--font-color-base-rgb), 0.4);
       }
     }
   }

@@ -29,9 +29,9 @@ html {
 
 body {
   font-family: $font-family-primary;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.6;
-  color: $font-color-base;
+  color: var(--font-color-base, #{$font-color-base});
 }
 
 // Headings
@@ -71,13 +71,13 @@ p {
 
 // Links
 a {
-  color: $font-color-base;
+  color: var(--font-color-base, #{$font-color-base});
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   
   &:hover {
-    color: $font-color-highlight;
+    color: var(--font-color-highlight, #{$font-color-highlight});
   }
   
   &:focus {

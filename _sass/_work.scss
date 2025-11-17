@@ -38,11 +38,11 @@ section#work {
   .section__subtitle {
     text-align: left;
     font-size: 1.1rem;
-    font-weight: 300;
-    color: rgba($font-color-base, 0.6);
+    font-weight: 500;
+    color: rgba(var(--font-color-base-rgb), 0.7);
     margin-bottom: 2rem;
     margin-top: 0;
-    transition: opacity 3s ease-out, transform 3s ease-out;
+    transition: opacity 3s ease-out, transform 3s ease-out, color 0.3s ease;
     
     // Initial state for animation
     opacity: 0;
@@ -78,7 +78,8 @@ section#work {
     flex: 1;
     overflow: hidden;
     position: relative;
-    padding: 2rem 0; // Add vertical padding to allow cards to scale without clipping
+    padding-top: 3rem;
+    padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
     
     @media screen and (max-width: 550px) {
       overflow: hidden; // Ensure only one card is visible on mobile
@@ -97,9 +98,9 @@ section#work {
     flex: 0 0 calc(33.333% - 1rem);
     display: block;
     padding: 1.5rem;
-    border: 1px solid rgba($font-color-base, 0.08);
+    border: 1px solid rgba(var(--font-color-base-rgb), 0.08);
     border-radius: 16px;
-    background: rgba($font-color-base, 0.02);
+    background: rgba(var(--font-color-base-rgb), 0.02);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -117,7 +118,7 @@ section#work {
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, var(--project-color, $font-color-highlight), transparent);
+      background: linear-gradient(135deg, var(--project-color, var(--font-color-highlight)), transparent);
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: 0;
@@ -126,20 +127,20 @@ section#work {
     &.work__card--center {
       opacity: 1;
       transform: scale(1);
-      border-color: var(--project-color, $font-color-highlight);
-      background: rgba($font-color-base, 0.04);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      border-color: var(--project-color, var(--font-color-highlight));
+      background: rgba(var(--font-color-base-rgb), 0.04);
+      box-shadow: 0 12px 32px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 30%, transparent);
       
       &::before {
         opacity: 0.1;
       }
       
       .work__card-name {
-        color: var(--project-color, $font-color-highlight);
+        color: var(--project-color, var(--font-color-highlight));
       }
       
       &:hover {
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 16px 40px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 40%, transparent);
         
         &::before {
           opacity: 0.15;
@@ -150,16 +151,16 @@ section#work {
     &--active {
       &:hover:not(.work__card--center),
       &:focus:not(.work__card--center) {
-        border-color: var(--project-color, $font-color-highlight);
-        background: rgba($font-color-base, 0.04);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+        border-color: var(--project-color, var(--font-color-highlight));
+        background: rgba(var(--font-color-base-rgb), 0.04);
+        box-shadow: 0 12px 32px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 30%, transparent);
         
         &::before {
           opacity: 0.1;
         }
         
         .work__card-name {
-          color: var(--project-color, $font-color-highlight);
+          color: var(--project-color, var(--font-color-highlight));
         }
       }
       
@@ -183,10 +184,11 @@ section#work {
     aspect-ratio: 9 / 16;
     border-radius: 12px;
     overflow: hidden;
-    background: rgba($font-color-base, 0.05);
+    background: rgba(var(--font-color-base-rgb), 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background 0.3s ease;
   }
 
   .work__card-screenshot {
@@ -213,8 +215,9 @@ section#work {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     z-index: 2;
     position: relative;
-    background: rgba($color-background, 0.8);
+    background: rgba(var(--color-background-rgb), 0.8);
     backdrop-filter: blur(10px);
+    transition: background 0.3s ease;
   }
 
   .work__card-info {
@@ -225,8 +228,8 @@ section#work {
 
   .work__card-name {
     font-size: 1.3rem;
-    font-weight: 600;
-    color: $font-color-base;
+    font-weight: 700;
+    color: var(--font-color-base, #{$font-color-base});
     margin: 0;
     transition: color 0.3s ease;
     letter-spacing: -0.01em;
@@ -235,10 +238,11 @@ section#work {
 
   .work__card-tagline {
     font-size: 1rem;
-    font-weight: 300;
-    color: rgba($font-color-base, 0.65);
+    font-weight: 500;
+    color: rgba(var(--font-color-base-rgb), 0.7);
     margin: 0;
     line-height: 1.4;
+    transition: color 0.3s ease;
   }
 
   .work__card-link {
@@ -250,18 +254,18 @@ section#work {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba($font-color-base, 0.08);
+    background: rgba(var(--font-color-base-rgb), 0.08);
     border: none;
     border-radius: 50%;
-    color: rgba($font-color-base, 0.5);
+    color: rgba(var(--font-color-base-rgb), 0.5);
     text-decoration: none;
     transition: all 0.3s ease;
     z-index: 10;
     opacity: 0.4;
     
     &:hover {
-      background: var(--project-color, $font-color-highlight);
-      color: $color-background;
+      background: var(--project-color, var(--font-color-highlight));
+      color: var(--color-background, #{$color-background});
       opacity: 1;
       transform: scale(1.1);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
@@ -279,12 +283,12 @@ section#work {
   
   .work__card--center .work__card-link {
     opacity: 0.5;
-    background: rgba($font-color-base, 0.12);
+    background: rgba(var(--font-color-base-rgb), 0.12);
     
     &:hover {
       opacity: 1;
-      background: var(--project-color, $font-color-highlight);
-      color: $color-background;
+      background: var(--project-color, var(--font-color-highlight));
+      color: var(--color-background, #{$color-background});
     }
   }
 
@@ -293,9 +297,9 @@ section#work {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba($font-color-base, 0.15);
-    background: rgba($font-color-base, 0.03);
-    color: $font-color-base;
+    border: 1px solid rgba(var(--font-color-base-rgb), 0.15);
+    background: rgba(var(--font-color-base-rgb), 0.03);
+    color: var(--font-color-base, #{$font-color-base});
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -305,8 +309,8 @@ section#work {
     position: relative;
     
     &:hover {
-      background: rgba($font-color-base, 0.06);
-      border-color: rgba($font-color-base, 0.25);
+      background: rgba(var(--font-color-base-rgb), 0.06);
+      border-color: rgba(var(--font-color-base-rgb), 0.25);
       transform: scale(1.1);
     }
     
@@ -322,20 +326,21 @@ section#work {
 
   .work__carousel-gradient {
     position: absolute;
-    top: 2rem; // Match container padding
-    bottom: 2rem; // Match container padding
+    top: 3rem; // Match container top padding
+    bottom: 3rem; // Match container bottom padding
     width: 120px;
     pointer-events: none;
     z-index: 5;
+    transition: background 0.3s ease;
     
     &--left {
       left: 0;
-      background: linear-gradient(to right, $color-background, transparent);
+      background: linear-gradient(to right, var(--color-background, #{$color-background}), transparent);
     }
     
     &--right {
       right: 0;
-      background: linear-gradient(to left, $color-background, transparent);
+      background: linear-gradient(to left, var(--color-background, #{$color-background}), transparent);
     }
   }
 
@@ -344,7 +349,6 @@ section#work {
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1.5rem;
     padding: 0 1rem;
   }
 
@@ -352,7 +356,7 @@ section#work {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba($font-color-base, 0.2);
+    background: rgba(var(--font-color-base-rgb), 0.2);
     border: none;
     cursor: pointer;
     padding: 0;
@@ -360,12 +364,12 @@ section#work {
     flex-shrink: 0;
     
     &:hover {
-      background: rgba($font-color-base, 0.4);
+      background: rgba(var(--font-color-base-rgb), 0.4);
       transform: scale(1.2);
     }
     
     &.work__carousel-dot--active {
-      background: rgba($font-color-base, 0.6);
+      background: rgba(var(--font-color-base-rgb), 0.6);
       width: 24px;
       border-radius: 4px;
     }
@@ -384,12 +388,13 @@ section#work {
     }
     
     .work__carousel-container {
-      padding: 1.5rem 0; // Slightly less padding on tablet
+      padding-top: 2rem;
+      padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
     }
     
     .work__carousel-gradient {
-      top: 1.5rem;
-      bottom: 1.5rem;
+      top: 2rem;
+      bottom: 3rem; // Match container bottom padding
     }
     
     .work__carousel-arrow {
@@ -479,7 +484,8 @@ section#work {
     }
     
     .work__carousel-container {
-      padding: 1rem 0; // Less padding on mobile
+      padding-top: 1.5rem;
+      padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
     }
     
     .work__carousel-gradient {
@@ -487,7 +493,6 @@ section#work {
     }
     
     .work__carousel-pagination {
-      margin-top: 1rem;
       gap: 0.4rem;
     }
     
