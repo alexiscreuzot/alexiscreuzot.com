@@ -44,7 +44,7 @@ $(document).ready(function() {
     }
   });
 
-  // Intersection Observer for fade-in animations
+  // Intersection Observer for fade-in animations with stagger
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -53,17 +53,23 @@ $(document).ready(function() {
   const observer = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  // Observe all websites and community items
-  document.querySelectorAll('.websites__item, .community__item').forEach(item => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateY(20px)';
-    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  // Observe all websites items with stagger animation
+  document.querySelectorAll('.websites__item').forEach((item, index) => {
+    const delay = index * 0.05; // Stagger delay: 0ms, 50ms, 100ms, etc.
+    item.style.transition = `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`;
+    observer.observe(item);
+  });
+
+  // Observe community items with stagger animation
+  document.querySelectorAll('.community__item').forEach((item, index) => {
+    const delay = index * 0.05; // Stagger delay: 0ms, 50ms, 100ms, etc.
+    item.style.transition = `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`;
     observer.observe(item);
   });
 
@@ -212,29 +218,64 @@ $(document).ready(function() {
       }
     }
     
-    function updateCenterCard() {
+    function updateCenterCard(suppressTransitions = false) {
       const isMobile = window.innerWidth <= 550;
+      
+      if (suppressTransitions) {
+        // Temporarily disable transitions on all cards and force GPU acceleration
+        allCards.forEach(card => {
+          card.style.transition = 'none';
+          card.style.willChange = 'transform, opacity';
+        });
+      }
+      
       allCards.forEach((card, index) => {
+        const wasCenter = card.classList.contains('work__card--center');
         card.classList.remove('work__card--center');
+        let isCenter = false;
+        
         if (isMobile) {
           // On mobile, center card is the current one
           if (index === currentIndex) {
             card.classList.add('work__card--center');
+            isCenter = true;
           }
         } else {
           // On desktop, center card is the middle of 3 visible cards
           const centerIndex = currentIndex + 1;
           if (index === centerIndex) {
             card.classList.add('work__card--center');
+            isCenter = true;
           }
         }
+        
+        // If center state changed and we're suppressing transitions, force immediate update
+        if (suppressTransitions && wasCenter !== isCenter) {
+          // Force a reflow to apply styles immediately
+          card.offsetHeight;
+        }
       });
+      
+      if (suppressTransitions) {
+        // Re-enable transitions after browser has processed the changes
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            allCards.forEach(card => {
+              card.style.transition = '';
+              card.style.willChange = '';
+            });
+          });
+        });
+      }
     }
     
     function goToNext() {
       if (isTransitioning) return;
       isTransitioning = true;
       currentIndex++;
+      
+      const originalStartIndex = cardsPerView;
+      const originalEndIndex = originalStartIndex + totalCards;
       
       carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
       updateCarouselPosition();
@@ -243,20 +284,20 @@ $(document).ready(function() {
       
       setTimeout(() => {
         // Check if we've reached the end and need to loop
-        const originalCards = Array.from(allCards).filter(card => !card.classList.contains('work__card--clone'));
-        const originalStartIndex = cardsPerView;
-        const originalEndIndex = originalStartIndex + totalCards;
-        
         if (currentIndex >= originalEndIndex) {
+          // Reset immediately without transition
           carouselTrack.style.transition = 'none';
           currentIndex = originalStartIndex;
           updateCarouselPosition();
-          updateCenterCard();
+          updateCenterCard(true);
           updatePagination();
-          setTimeout(() => {
+          // Force a reflow
+          carouselTrack.offsetHeight;
+          // Re-enable transitions in next frame
+          requestAnimationFrame(() => {
             carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             isTransitioning = false;
-          }, 50);
+          });
         } else {
           isTransitioning = false;
         }
@@ -268,6 +309,8 @@ $(document).ready(function() {
       isTransitioning = true;
       currentIndex--;
       
+      const originalStartIndex = cardsPerView;
+      
       carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
       updateCarouselPosition();
       updateCenterCard();
@@ -275,18 +318,20 @@ $(document).ready(function() {
       
       setTimeout(() => {
         // Check if we've reached the beginning and need to loop
-        const originalStartIndex = cardsPerView;
-        
         if (currentIndex < originalStartIndex) {
+          // Reset immediately without transition
           carouselTrack.style.transition = 'none';
           currentIndex = originalStartIndex + totalCards - 1;
           updateCarouselPosition();
-          updateCenterCard();
+          updateCenterCard(true);
           updatePagination();
-          setTimeout(() => {
+          // Force a reflow
+          carouselTrack.offsetHeight;
+          // Re-enable transitions in next frame
+          requestAnimationFrame(() => {
             carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
             isTransitioning = false;
-          }, 50);
+          });
         } else {
           isTransitioning = false;
         }
@@ -340,23 +385,25 @@ $(document).ready(function() {
             carouselTrack.style.transition = 'none';
             currentIndex = currentIndex + totalCards;
             updateCarouselPosition();
-            updateCenterCard();
+            updateCenterCard(true); // Suppress card transitions during reset
             updatePagination();
-            setTimeout(() => {
+            carouselTrack.offsetHeight; // Force reflow
+            requestAnimationFrame(() => {
               carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
               isTransitioning = false;
-            }, 50);
+            });
           } else if (currentIndex >= originalEndIndex) {
             // We went after the originals, reset to original range
             carouselTrack.style.transition = 'none';
             currentIndex = currentIndex - totalCards;
             updateCarouselPosition();
-            updateCenterCard();
+            updateCenterCard(true); // Suppress card transitions during reset
             updatePagination();
-            setTimeout(() => {
+            carouselTrack.offsetHeight; // Force reflow
+            requestAnimationFrame(() => {
               carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
               isTransitioning = false;
-            }, 50);
+            });
           } else {
             isTransitioning = false;
           }
@@ -442,6 +489,35 @@ $(document).ready(function() {
     });
   }
 
+  // Copy image sources from original card to its clones
+  function syncImagesToClones(originalCard) {
+    const appId = originalCard.getAttribute('data-appid');
+    if (!appId) return;
+    
+    const originalIcon = originalCard.querySelector('.work__card-icon');
+    const originalScreenshot = originalCard.querySelector('.work__card-screenshot');
+    
+    // Find all clones of this card (they have the same data-appid)
+    const clones = document.querySelectorAll('.work__card--clone[data-appid="' + appId + '"]');
+    
+    clones.forEach(function(clone) {
+      const cloneIcon = clone.querySelector('.work__card-icon');
+      const cloneScreenshot = clone.querySelector('.work__card-screenshot');
+      
+      // Copy icon if it exists and has a src
+      if (cloneIcon && originalIcon && originalIcon.src) {
+        cloneIcon.src = originalIcon.src;
+        cloneIcon.style.display = originalIcon.style.display;
+      }
+      
+      // Copy screenshot if it exists and has a src
+      if (cloneScreenshot && originalScreenshot && originalScreenshot.src) {
+        cloneScreenshot.src = originalScreenshot.src;
+        cloneScreenshot.style.display = originalScreenshot.style.display;
+      }
+    });
+  }
+
   // Fetch and display app icons and screenshots from App Store
   function fetchAppData() {
     // Only select original cards, not clones (to avoid duplicate API calls)
@@ -461,6 +537,8 @@ $(document).ready(function() {
       if (manualScreenshot && screenshotImg) {
         screenshotImg.src = manualScreenshot;
         screenshotImg.style.display = 'block';
+        // Sync to clones immediately
+        syncImagesToClones(card);
       }
       
       // Always fetch icon from API (even if we have manual screenshot)
@@ -482,6 +560,20 @@ $(document).ready(function() {
             if (iconUrl) {
               iconImg.src = iconUrl;
               iconImg.style.display = 'block';
+              // Sync to clones - handle both cached and loading images
+              if (iconImg.complete) {
+                // Image is already loaded (cached)
+                syncImagesToClones(card);
+              } else {
+                // Image is loading, sync when it loads
+                iconImg.onload = function() {
+                  syncImagesToClones(card);
+                };
+                // Also sync after a short delay as a fallback
+                setTimeout(function() {
+                  syncImagesToClones(card);
+                }, 100);
+              }
             }
           }
           
@@ -491,6 +583,20 @@ $(document).ready(function() {
             if (screenshotUrls.length > 0) {
               screenshotImg.src = screenshotUrls[0];
               screenshotImg.style.display = 'block';
+              // Sync to clones - handle both cached and loading images
+              if (screenshotImg.complete) {
+                // Image is already loaded (cached)
+                syncImagesToClones(card);
+              } else {
+                // Image is loading, sync when it loads
+                screenshotImg.onload = function() {
+                  syncImagesToClones(card);
+                };
+                // Also sync after a short delay as a fallback
+                setTimeout(function() {
+                  syncImagesToClones(card);
+                }, 100);
+              }
             }
           }
         })

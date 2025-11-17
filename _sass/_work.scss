@@ -13,12 +13,12 @@ section#work {
     background: $gradient;
     -webkit-background-clip: text;
     background-clip: text;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   .section__subtitle {
     text-align: left;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     font-weight: 300;
     color: rgba($font-color-base, 0.6);
     margin-bottom: 2rem;
@@ -184,7 +184,7 @@ section#work {
   }
 
   .work__card-name {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: $font-color-base;
     margin: 0;
@@ -194,7 +194,7 @@ section#work {
   }
 
   .work__card-tagline {
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 300;
     color: rgba($font-color-base, 0.65);
     margin: 0;
@@ -365,11 +365,11 @@ section#work {
     }
     
     .work__card-name {
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
     
     .work__card-tagline {
-      font-size: 0.8rem;
+      font-size: 0.95rem;
     }
   }
 }
@@ -380,12 +380,12 @@ section#work {
     padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
     
     .section__title {
-      font-size: 1.35rem;
+      font-size: 1.6rem;
       margin-bottom: 0.4rem;
     }
     
     .section__subtitle {
-      font-size: 0.85rem;
+      font-size: 1rem;
       margin-bottom: 1.5rem;
     }
     
@@ -425,11 +425,11 @@ section#work {
     }
     
     .work__card-name {
-      font-size: 0.9rem; // Slightly smaller
+      font-size: 1.05rem; // Slightly smaller
     }
     
     .work__card-tagline {
-      font-size: 0.7rem; // Slightly smaller
+      font-size: 0.85rem; // Slightly smaller
     }
     
     .work__carousel-container {
