@@ -309,7 +309,10 @@ $(document).ready(function() {
     }
     
     // Set initial position - start at the first real card after clones
-    currentIndex = cardsPerView;
+    // On desktop, center card is at currentIndex + 1, so we need currentIndex = cardsPerView - 1
+    // On mobile, center card is at currentIndex, so we need currentIndex = cardsPerView
+    const isMobile = window.innerWidth <= 550;
+    currentIndex = isMobile ? cardsPerView : cardsPerView - 1;
     updateCarouselPosition();
     updateCenterCard();
     updatePagination();

@@ -46,11 +46,30 @@ section#community {
   .community__item {
     display: block;
     padding: 1rem 1.5rem;
-    border: 1px solid transparent;
+    border: 1px solid rgba(var(--font-color-base-rgb), 0.08);
     border-radius: 16px;
     background: rgba(var(--font-color-base-rgb), 0.02);
-    transition: opacity 3s ease-out, transform 3s ease-out, all 0.3s ease;
+    transition: opacity 3s ease-out, transform 3s ease-out, 
+                background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
+    
+    // Border animation using pseudo-element
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 16px;
+      border: 1px solid rgba(var(--font-color-highlight-rgb), 0.4);
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+      z-index: 1;
+    }
     
     // Initial state for animation
     opacity: 0;
@@ -63,11 +82,19 @@ section#community {
     }
     
     &:hover {
-      border-color: rgba(var(--font-color-highlight-rgb), 0.3);
-      background: rgba(var(--font-color-base-rgb), 0.04);
+      background: rgba(var(--font-color-base-rgb), 0.05);
+      box-shadow: 0 4px 16px rgba(var(--font-color-highlight-rgb), 0.12);
+      
+      &::before {
+        opacity: 1;
+      }
       
       .community__item-title {
         color: var(--font-color-highlight, #{$font-color-highlight});
+      }
+      
+      .community__item-type {
+        color: rgba(var(--font-color-base-rgb), 0.5);
       }
     }
   }
@@ -78,6 +105,7 @@ section#community {
     text-decoration: none;
     color: inherit;
     outline: none;
+    z-index: 2;
     
     &:focus,
     &:active {
@@ -98,7 +126,7 @@ section#community {
     text-transform: uppercase;
     color: rgba(var(--font-color-base-rgb), 0.35);
     letter-spacing: 0.1em;
-    transition: color 0.3s ease;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .community__item-emoji {
@@ -111,7 +139,7 @@ section#community {
     font-weight: 600;
     color: var(--font-color-base, #{$font-color-base});
     margin: 0;
-    transition: all 0.3s ease;
+    transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     line-height: 1.5;
     display: block;
   }
