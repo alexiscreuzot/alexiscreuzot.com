@@ -95,8 +95,7 @@ a {
   }
   
   &:focus {
-    outline: 2px solid $font-color-highlight;
-    outline-offset: 2px;
+    outline: none;
   }
 }
 

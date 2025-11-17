@@ -9,6 +9,28 @@
   }
 }
 
+//
+// REMOVE ALL OUTLINES
+//
+* {
+  &:focus,
+  &:active,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+// Remove outlines from all interactive elements
+a, button, input, select, textarea, [tabindex] {
+  &:focus,
+  &:active,
+  &:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
 html {
   height: 100%;
   background: $color-background;
