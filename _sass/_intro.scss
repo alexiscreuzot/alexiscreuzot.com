@@ -3,15 +3,18 @@
 //
 
 section#intro {
-  min-height: auto;
-  padding: 5rem 0 4rem 0;
+  min-height: 100vh;
+  padding: 0;
   position: relative;
-  transition: filter 0.1s ease-out;
+  transition: filter 0.3s ease-out, opacity 0.3s ease-out;
+  display: flex;
+  align-items: center;
   
   .intro__inner {
     width: 100%;
     position: relative;
     z-index: 1;
+    padding: 2rem 0;
   }
 
   .intro__content {
@@ -23,6 +26,17 @@ section#intro {
 
   .intro__avatar {
     margin-bottom: 2rem;
+    transition: opacity 3s ease-out, transform 3s ease-out;
+    
+    // Initial state for animation
+    opacity: 0;
+    transform: translateY(10px);
+    
+    // Animated state
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     
     img {
       width: 120px;
@@ -45,6 +59,17 @@ section#intro {
     font-size: 4.2rem;
     color: $font-color-base;
     letter-spacing: -0.03em;
+    transition: opacity 3s ease-out, transform 3s ease-out;
+    
+    // Initial state for animation
+    opacity: 0;
+    transform: translateY(10px);
+    
+    // Animated state
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     
     .intro__name-highlight {
       color: transparent;
@@ -55,12 +80,23 @@ section#intro {
   }
 
   .intro__bio {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    transition: opacity 3s ease-out, transform 3s ease-out;
+    
+    // Initial state for animation
+    opacity: 0;
+    transform: translateY(10px);
+    
+    // Animated state
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     
     p {
-      font-size: 1.65rem;
+      font-size: 1.4rem;
       font-weight: 300;
-      line-height: 1.6;
+      line-height: 1.65;
       color: rgba($font-color-base, 0.85);
       margin: 0;
       
@@ -82,6 +118,17 @@ section#intro {
   .intro__links {
     font-size: 0.95rem;
     color: rgba($font-color-base, 0.6);
+    transition: opacity 3s ease-out, transform 3s ease-out;
+    
+    // Initial state for animation
+    opacity: 0;
+    transform: translateY(10px);
+    
+    // Animated state
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     
     a {
       color: rgba($font-color-base, 0.7);
@@ -102,7 +149,11 @@ section#intro {
 
 @media screen and (max-width: 800px) {
   section#intro {
-    padding: 4rem 0 3rem 0;
+    min-height: 100vh;
+    
+    .intro__inner {
+      padding: 1.5rem 0;
+    }
     
     .intro__content {
       padding: 0 2rem;
@@ -127,7 +178,7 @@ section#intro {
       margin-bottom: 2rem;
       
       p {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
         line-height: 1.65;
       }
     }
@@ -140,7 +191,11 @@ section#intro {
 
 @media screen and (max-width: 550px) {
   section#intro {
-    padding: 3rem 0 2rem 0;
+    min-height: 100vh;
+    
+    .intro__inner {
+      padding: 1rem 0;
+    }
     
     .intro__content {
       padding: 0 1.5rem;
@@ -163,10 +218,10 @@ section#intro {
     }
     
     .intro__bio {
-      margin-bottom: 1.75rem;
+      margin-bottom: 2rem;
       
       p {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
         line-height: 1.7;
         color: rgba($font-color-base, 0.9);
       }

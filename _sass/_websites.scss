@@ -3,8 +3,15 @@
 //
 
 section#websites {
-  padding: 2rem 0;
-  min-height: auto;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+
+  .container {
+    width: 100%;
+    padding: 2rem 0;
+  }
 
   .section__title {
     text-align: left;
@@ -42,7 +49,7 @@ section#websites {
     border: 1px solid transparent;
     background: rgba($font-color-base, 0.01);
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: opacity 3s ease-out, transform 3s ease-out, all 0.3s ease;
     position: relative;
     outline: none;
     
@@ -134,7 +141,9 @@ section#websites {
 
 @media screen and (max-width: 800px) {
   section#websites {
-    padding: 1.5rem 0;
+    .container {
+      padding: 1.5rem 0;
+    }
     
     .websites__list {
       grid-template-columns: 1fr;
@@ -157,8 +166,10 @@ section#websites {
 
 @media screen and (max-width: 550px) {
   section#websites {
-    padding-top: 1.25rem;
-    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    .container {
+      padding-top: 1.25rem;
+      padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    }
     
     .section__title {
       font-size: 1.6rem;

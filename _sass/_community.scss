@@ -3,9 +3,16 @@
 //
 
 section#community {
-  padding: 2rem 0;
-  min-height: auto;
-  padding-bottom: 4rem;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+
+  .container {
+    width: 100%;
+    padding: 2rem 0;
+    padding-bottom: 4rem;
+  }
 
   .section__title {
     text-align: left;
@@ -41,7 +48,7 @@ section#community {
     border: 1px solid transparent;
     border-radius: 12px;
     background: rgba($font-color-base, 0.02);
-    transition: all 0.3s ease;
+    transition: opacity 3s ease-out, transform 3s ease-out, all 0.3s ease;
     position: relative;
     outline: none;
     
@@ -107,8 +114,10 @@ section#community {
 
 @media screen and (max-width: 800px) {
   section#community {
-    padding: 1.5rem 0;
-    padding-bottom: 3rem;
+    .container {
+      padding: 1.5rem 0;
+      padding-bottom: 3rem;
+    }
     
     .community__list {
       grid-template-columns: repeat(2, 1fr);
@@ -127,8 +136,10 @@ section#community {
 
 @media screen and (max-width: 550px) {
   section#community {
-    padding-top: 1.25rem;
-    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+    .container {
+      padding-top: 1.25rem;
+      padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+    }
     
     .section__title {
       font-size: 1.6rem;

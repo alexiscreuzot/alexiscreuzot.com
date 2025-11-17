@@ -3,8 +3,15 @@
 //
 
 section#work {
-  padding: 2rem 0;
-  min-height: auto;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+
+  .container {
+    width: 100%;
+    padding: 2rem 0;
+  }
 
   .section__title {
     text-align: left;
@@ -15,6 +22,17 @@ section#work {
     background-clip: text;
     font-size: 1.8rem;
     display: inline-block;
+    transition: opacity 3s ease-out, transform 3s ease-out;
+    
+    // Initial state for animation
+    opacity: 0;
+    transform: translateY(10px);
+    
+    // Animated state
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .section__subtitle {
@@ -24,6 +42,17 @@ section#work {
     color: rgba($font-color-base, 0.6);
     margin-bottom: 2rem;
     margin-top: 0;
+    transition: opacity 3s ease-out, transform 3s ease-out;
+    
+    // Initial state for animation
+    opacity: 0;
+    transform: translateY(10px);
+    
+    // Animated state
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .work__carousel-wrapper {
@@ -32,6 +61,17 @@ section#work {
     align-items: center;
     gap: 1rem;
     padding: 0 3rem;
+    transition: opacity 3s ease-out, transform 3s ease-out;
+    
+    // Initial state for animation
+    opacity: 0;
+    transform: translateY(10px);
+    
+    // Animated state
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .work__carousel-container {
@@ -335,7 +375,9 @@ section#work {
 
 @media screen and (max-width: 800px) {
   section#work {
-    padding: 1.5rem 0;
+    .container {
+      padding: 1.5rem 0;
+    }
     
     .work__carousel-wrapper {
       padding: 0 2.5rem;
@@ -377,8 +419,10 @@ section#work {
 
 @media screen and (max-width: 550px) {
   section#work {
-    padding-top: 1.25rem;
-    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    .container {
+      padding-top: 1.25rem;
+      padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    }
     
     .section__title {
       font-size: 1.6rem;

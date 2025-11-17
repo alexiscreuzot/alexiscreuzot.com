@@ -41,6 +41,13 @@ $(document).ready(function() {
         '-webkit-filter': 'blur(0px)',
         'opacity': 1
       });
+    } else {
+      // Scrolled past intro section - keep it blurred
+      introSection.css({
+        'filter': 'blur(' + maxBlur + 'px)',
+        '-webkit-filter': 'blur(' + maxBlur + 'px)',
+        'opacity': 0.7
+      });
     }
   });
 
@@ -59,19 +66,65 @@ $(document).ready(function() {
     });
   }, observerOptions);
 
+  // Observe intro section elements with stagger animation
+  const introAvatar = document.querySelector('#intro .intro__avatar');
+  const introGreeting = document.querySelector('#intro .intro__greeting');
+  const introBio = document.querySelector('#intro .intro__bio');
+  const introLinks = document.querySelector('#intro .intro__links');
+  
+  if (introAvatar) {
+    introAvatar.style.transition = 'opacity 3s ease-out 0s, transform 3s ease-out 0s';
+    observer.observe(introAvatar);
+  }
+  
+  if (introGreeting) {
+    introGreeting.style.transition = 'opacity 3s ease-out 0.2s, transform 3s ease-out 0.2s';
+    observer.observe(introGreeting);
+  }
+  
+  if (introBio) {
+    introBio.style.transition = 'opacity 3s ease-out 0.4s, transform 3s ease-out 0.4s';
+    observer.observe(introBio);
+  }
+  
+  if (introLinks) {
+    introLinks.style.transition = 'opacity 3s ease-out 0.6s, transform 3s ease-out 0.6s';
+    observer.observe(introLinks);
+  }
+
   // Observe all websites items with stagger animation
   document.querySelectorAll('.websites__item').forEach((item, index) => {
-    const delay = index * 0.05; // Stagger delay: 0ms, 50ms, 100ms, etc.
-    item.style.transition = `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`;
+    const delay = index * 0.15; // Stagger delay: 0ms, 150ms, 300ms, etc.
+    item.style.transition = `opacity 3s ease-out ${delay}s, transform 3s ease-out ${delay}s`;
     observer.observe(item);
   });
 
   // Observe community items with stagger animation
   document.querySelectorAll('.community__item').forEach((item, index) => {
-    const delay = index * 0.05; // Stagger delay: 0ms, 50ms, 100ms, etc.
-    item.style.transition = `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s`;
+    const delay = index * 0.15; // Stagger delay: 0ms, 150ms, 300ms, etc.
+    item.style.transition = `opacity 3s ease-out ${delay}s, transform 3s ease-out ${delay}s`;
     observer.observe(item);
   });
+
+  // Observe work section elements with stagger animation
+  const workTitle = document.querySelector('#work .section__title');
+  const workSubtitle = document.querySelector('#work .section__subtitle');
+  const workCarousel = document.querySelector('#work .work__carousel-wrapper');
+  
+  if (workTitle) {
+    workTitle.style.transition = 'opacity 3s ease-out 0s, transform 3s ease-out 0s';
+    observer.observe(workTitle);
+  }
+  
+  if (workSubtitle) {
+    workSubtitle.style.transition = 'opacity 3s ease-out 0.3s, transform 3s ease-out 0.3s';
+    observer.observe(workSubtitle);
+  }
+  
+  if (workCarousel) {
+    workCarousel.style.transition = 'opacity 3s ease-out 0.6s, transform 3s ease-out 0.6s';
+    observer.observe(workCarousel);
+  }
 
   // Carousel functionality
   function initCarousel() {
