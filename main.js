@@ -200,9 +200,11 @@ $(document).ready(function() {
       if (isMobile) {
         // On mobile, center the current card
         const containerWidth = carouselContainer ? carouselContainer.offsetWidth : window.innerWidth;
-        const centerOffset = (containerWidth / 2) - (cardWidth / 2);
+        // Get actual card width without gap for centering
+        const actualCardWidth = cards[0] ? cards[0].offsetWidth : cardWidth;
         const cardPosition = currentIndex * cardWidth;
-        const offset = centerOffset - cardPosition;
+        // Center the card: container center - card left edge - half card width
+        const offset = (containerWidth / 2) - cardPosition - (actualCardWidth / 2);
         carouselTrack.style.transform = `translateX(${offset}px)`;
       } else {
         // On desktop, center the middle card (currentIndex + 1)

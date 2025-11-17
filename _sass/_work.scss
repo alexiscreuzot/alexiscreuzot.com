@@ -38,6 +38,10 @@ section#work {
     overflow: hidden;
     position: relative;
     padding: 2rem 0; // Add vertical padding to allow cards to scale without clipping
+    
+    @media screen and (max-width: 550px) {
+      overflow: hidden; // Ensure only one card is visible on mobile
+    }
   }
 
   .work__carousel-track {
@@ -386,7 +390,7 @@ section#work {
     }
     
     .work__carousel-wrapper {
-      padding: 0 0.75rem; // Reduced from 2rem to 0.75rem (12px) for less side padding
+      padding: 0 0.125rem; // Very minimal padding
       gap: 0.5rem;
     }
     
@@ -401,9 +405,13 @@ section#work {
     }
     
     .work__card {
-      flex: 0 0 calc(85% - 0.5rem); // Smaller card width (85% instead of 100%)
-      padding: 0.85rem; // Reduced padding
+      flex: 0 0 calc(80% - 0.5rem); // Smaller card width (80% instead of 85%)
+      padding: 0.75rem; // Further reduced padding
       border-radius: 12px; // Slightly smaller border radius
+      
+      &:not(.work__card--center) {
+        opacity: 0.2; // Very low opacity for non-center cards on mobile
+      }
     }
     
     .work__card-image-wrapper {
