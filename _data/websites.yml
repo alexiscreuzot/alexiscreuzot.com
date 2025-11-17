@@ -3,7 +3,7 @@
   stack: 
     - Next.js 15
     - TypeScript
-    - Tailwind CSS
+    - Tailwind
     - Prisma
 - url: monalisacafebar.com
   name: Coffee place in Santiago de Querétaro
