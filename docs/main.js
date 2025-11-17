@@ -67,11 +67,6 @@ $(document).ready(function() {
     observer.observe(item);
   });
 
-  // Email obfuscation (if needed in future)
-  String.prototype.reverse = function() {
-		return this.split("").reverse().join("");
-	};
-
   // Carousel functionality
   function initCarousel() {
     const carouselTrack = document.querySelector('.work__carousel-track');
