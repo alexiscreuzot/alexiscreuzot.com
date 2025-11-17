@@ -444,40 +444,52 @@ $(document).ready(function() {
 
   // Fetch and display app icons and screenshots from App Store
   function fetchAppData() {
-    const appCards = document.querySelectorAll('.work__card[data-appid]');
+    // Only select original cards, not clones (to avoid duplicate API calls)
+    const appCards = document.querySelectorAll('.work__card[data-appid]:not(.work__card--clone)');
     
     appCards.forEach(function(card) {
       const appId = card.getAttribute('data-appid');
+      const manualScreenshot = card.getAttribute('data-screenshot');
       // Extract numeric ID from format like "id650627810"
-      const numericId = appId.replace(/^id/, '');
+      const numericId = appId ? appId.replace(/^id/, '') : null;
       const iconImg = card.querySelector('.work__card-icon');
       const screenshotImg = card.querySelector('.work__card-screenshot');
       
       if (!numericId) return;
       
-      // Use iTunes Search API to get app data
-      fetch('https://itunes.apple.com/lookup?id=' + numericId)
+      // If manual screenshot URL is provided, use it directly
+      if (manualScreenshot && screenshotImg) {
+        screenshotImg.src = manualScreenshot;
+        screenshotImg.style.display = 'block';
+      }
+      
+      // Always fetch icon from API (even if we have manual screenshot)
+      const params = new URLSearchParams({ id: numericId, country: 'us' });
+      fetch('https://itunes.apple.com/lookup?' + params.toString())
         .then(function(response) {
           return response.json();
         })
         .then(function(data) {
-          if (data.results && data.results.length > 0) {
-            const appData = data.results[0];
-            
-            // Set icon
-            if (iconImg) {
-              const iconUrl = appData.artworkUrl512 || appData.artworkUrl100 || appData.artworkUrl60;
+          if (!data.resultCount || !data.results || data.results.length === 0) {
+            return;
+          }
+          
+          const appData = data.results[0];
+          
+          // Set icon
+          if (iconImg) {
+            const iconUrl = appData.artworkUrl512 || appData.artworkUrl100 || appData.artworkUrl60;
             if (iconUrl) {
               iconImg.src = iconUrl;
               iconImg.style.display = 'block';
-              }
             }
-            
-            // Set first screenshot
-            if (screenshotImg && appData.screenshotUrls && appData.screenshotUrls.length > 0) {
-              // Get the first screenshot (usually the largest)
-              const screenshotUrl = appData.screenshotUrls[0];
-              screenshotImg.src = screenshotUrl;
+          }
+          
+          // Set screenshot from API only if we don't have a manual one
+          if (!manualScreenshot && screenshotImg) {
+            const screenshotUrls = appData.screenshotUrls || [];
+            if (screenshotUrls.length > 0) {
+              screenshotImg.src = screenshotUrls[0];
               screenshotImg.style.display = 'block';
             }
           }

@@ -1,8 +1,9 @@
-- id: forum
+- id: sorenson-forum
   name: Sorenson Forum
   color: 7FBEFA
   tagline: Interpretation for standing ovations
   appid: id1612322502
+  screenshot: https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b3/6c/ff/b36cff0b-6c76-995c-934c-173018079a1d/6_7-1.jpg/600x1300bb.jpg
   description : >
                 Forum app allows users to present and converse with their guests, regardless of what language they speak. 
                 Create a session, invite guests, and experience translated conversations on your mobile device or computer.
