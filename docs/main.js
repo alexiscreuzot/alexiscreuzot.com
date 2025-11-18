@@ -69,52 +69,268 @@
 
 $(document).ready(function() {
 
-  // Smooth scrolling for anchor links
-  $('a[href^="#"]').on('click', function(event) {
-    var target = $(this.getAttribute('href'));
-    if (target.length) {
-      event.preventDefault();
-      $('html, body').stop().animate({
-        scrollTop: target.offset().top - 20
-      }, 600, 'swing');
-    }
-  });
-
-  // Progressive blur on intro section when scrolling
-  var introSection = $('#intro');
-  var introHeight = introSection.outerHeight();
-  var maxBlur = 8; // Maximum blur in pixels
-  
-  $(window).on('scroll', function() {
-    var scrollTop = $(window).scrollTop();
-    var introOffset = introSection.offset().top;
-    var introBottom = introOffset + introHeight;
+  // Simple navigation dots
+  function initNavigationDots() {
+    var sections = ['#intro', '#work', '#websites', '#community'];
+    var tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
+    var navContainer = $('<div id="page-nav"></div>');
+    var navList = $('<ul></ul>');
     
-    // Only apply blur when scrolling past the intro section
-    if (scrollTop > introOffset && scrollTop < introBottom) {
-      var scrollProgress = (scrollTop - introOffset) / introHeight;
-      scrollProgress = Math.min(scrollProgress, 1); // Clamp between 0 and 1
-      var blurAmount = scrollProgress * maxBlur;
+    sections.forEach(function(sectionId, index) {
+      var navItem = $('<li></li>');
+      var navLink = $('<a href="' + sectionId + '" data-section="' + index + '"><span></span></a>');
+      var tooltip = $('<span class="page-nav-tooltip">' + tooltips[index] + '</span>');
       
-      introSection.css({
-        'filter': 'blur(' + blurAmount + 'px)',
-        '-webkit-filter': 'blur(' + blurAmount + 'px)',
-        'opacity': 1 - (scrollProgress * 0.3) // Slight fade as well
+      navLink.append(tooltip);
+      navItem.append(navLink);
+      navList.append(navItem);
+    });
+    
+    navContainer.append(navList);
+    $('body').append(navContainer);
+    
+    // Handle navigation clicks - smooth animated scroll
+    navContainer.on('click', 'a', function(event) {
+      event.preventDefault();
+      var clickedLink = $(this);
+      var targetId = clickedLink.attr('href');
+      var targetElement = $(targetId);
+      
+      if (targetElement.length) {
+        var targetOffset = targetElement.offset().top;
+        
+        $('html, body').animate({
+          scrollTop: targetOffset
+        }, 800, 'swing', function() {
+          // Show tooltip when scroll completes
+          var tooltip = clickedLink.find('.page-nav-tooltip');
+          tooltip.css('opacity', '1');
+          
+          // Fade out tooltip after 1 second
+          setTimeout(function() {
+            tooltip.css('opacity', '0');
+          }, 1000);
+        });
+      }
+    });
+    
+    // Update active dot on scroll
+    var tooltipTimeout;
+    function updateActiveDot() {
+      var scrollTop = $(window).scrollTop();
+      var windowHeight = $(window).height();
+      var scrollMiddle = scrollTop + (windowHeight / 2);
+      
+      // Clear any existing timeout
+      if (tooltipTimeout) {
+        clearTimeout(tooltipTimeout);
+      }
+      
+      sections.forEach(function(sectionId, index) {
+        var section = $(sectionId);
+        if (section.length) {
+          var sectionTop = section.offset().top;
+          var sectionHeight = section.outerHeight();
+          var sectionBottom = sectionTop + sectionHeight;
+          
+          var navLink = navContainer.find('a[data-section="' + index + '"]');
+          var tooltip = navLink.find('.page-nav-tooltip');
+          
+          if (scrollMiddle >= sectionTop && scrollMiddle <= sectionBottom) {
+            navLink.addClass('active');
+            // Show tooltip when section becomes active
+            tooltip.css('opacity', '0.9');
+            // Fade out after 1 second
+            tooltipTimeout = setTimeout(function() {
+              tooltip.css('opacity', '0');
+            }, 1000);
+          } else {
+            navLink.removeClass('active');
+            // Hide tooltip when not active
+            tooltip.css('opacity', '0');
+          }
+        }
       });
-    } else if (scrollTop <= introOffset) {
-      // Reset when scrolled back to top
-      introSection.css({
-        'filter': 'blur(0px)',
-        '-webkit-filter': 'blur(0px)',
-        'opacity': 1
+    }
+    
+    $(window).on('scroll', updateActiveDot);
+    setTimeout(updateActiveDot, 100);
+  }
+  
+  initNavigationDots();
+
+  // Progressive blur based on scroll position (for free scrolling)
+  function initProgressiveBlur() {
+    var introSection = $('#intro');
+    if (!introSection.length) return;
+    
+    var introHeight = introSection.outerHeight();
+    var maxBlur = 8;
+    
+    function updateBlur() {
+      var scrollTop = $(window).scrollTop();
+      var introOffset = introSection.offset().top;
+      var introBottom = introOffset + introHeight;
+      
+      // Calculate blur based on scroll position
+      if (scrollTop > introOffset && scrollTop < introBottom) {
+        // Scrolling through intro section - progressive blur
+        var scrollProgress = (scrollTop - introOffset) / introHeight;
+        scrollProgress = Math.min(Math.max(scrollProgress, 0), 1);
+        var blurAmount = scrollProgress * maxBlur;
+        var opacity = 1 - (scrollProgress * 0.3);
+        
+        introSection.css({
+          'filter': 'blur(' + blurAmount + 'px)',
+          '-webkit-filter': 'blur(' + blurAmount + 'px)',
+          'opacity': opacity
+        });
+      } else if (scrollTop <= introOffset) {
+        // Above intro section - no blur
+        introSection.css({
+          'filter': 'blur(0px)',
+          '-webkit-filter': 'blur(0px)',
+          'opacity': 1
+        });
+      } else {
+        // Past intro section - full blur
+        introSection.css({
+          'filter': 'blur(' + maxBlur + 'px)',
+          '-webkit-filter': 'blur(' + maxBlur + 'px)',
+          'opacity': 0.7
+        });
+      }
+    }
+    
+    // Update on scroll
+    $(window).on('scroll', updateBlur);
+    
+    // Initial update
+    updateBlur();
+  }
+  
+  // Initialize progressive blur for free scrolling
+  initProgressiveBlur();
+
+  // Mobile Menu Toggle
+  function initMobileMenu() {
+    var menuToggle = document.querySelector('.mobile-menu-toggle');
+    var mobileMenu = document.querySelector('.mobile-menu');
+    var menuLinks = document.querySelectorAll('.mobile-menu__link');
+    
+    if (!menuToggle || !mobileMenu) return;
+    
+    // Toggle menu
+    menuToggle.addEventListener('click', function() {
+      var isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.setAttribute('aria-hidden', isExpanded);
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!mobileMenu.contains(event.target) && 
+          !menuToggle.contains(event.target) && 
+          mobileMenu.getAttribute('aria-hidden') === 'false') {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      }
+    });
+    
+    // Handle menu link clicks - instant scroll
+    menuLinks.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        var targetId = this.getAttribute('href');
+        var targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          // Smooth animated scroll
+          var targetOffset = $(targetElement).offset().top;
+          
+          $('html, body').animate({
+            scrollTop: targetOffset
+          }, 800, 'swing', function() {
+            // Update active state after scroll completes
+            menuLinks.forEach(function(l) {
+              l.classList.remove('active');
+            });
+            link.classList.add('active');
+          });
+        }
+        
+        // Close menu
+        menuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
       });
-    } else {
-      // Scrolled past intro section - keep it blurred
-      introSection.css({
-        'filter': 'blur(' + maxBlur + 'px)',
-        '-webkit-filter': 'blur(' + maxBlur + 'px)',
-        'opacity': 0.7
-      });
+    });
+    
+  }
+  
+  // Initialize mobile menu
+  initMobileMenu();
+  
+  // Update active menu item based on scroll position (for free scrolling)
+  function updateActiveMenuOnScroll() {
+    var menuLinks = document.querySelectorAll('.mobile-menu__link');
+    if (menuLinks.length === 0) return;
+    
+    var scrollTop = $(window).scrollTop();
+    var windowHeight = $(window).height();
+    var scrollMiddle = scrollTop + (windowHeight / 2);
+    
+    menuLinks.forEach(function(link) {
+      var targetId = link.getAttribute('href');
+      var targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        var elementTop = $(targetElement).offset().top;
+        var elementHeight = $(targetElement).outerHeight();
+        var elementBottom = elementTop + elementHeight;
+        
+        // Check if scroll position is within this section
+        if (scrollMiddle >= elementTop && scrollMiddle <= elementBottom) {
+          menuLinks.forEach(function(l) {
+            l.classList.remove('active');
+          });
+          link.classList.add('active');
+        }
+      }
+    });
+  }
+  
+  // Update active menu item on scroll
+  $(window).on('scroll', updateActiveMenuOnScroll);
+  
+  // Initial update
+  setTimeout(updateActiveMenuOnScroll, 100);
+  
+  // Handle anchor links - instant scroll
+  $('a[href^="#"]').on('click', function(event) {
+    var href = $(this).attr('href');
+    if (href === '#' || href === '#!') {
+      return;
+    }
+    
+    // Skip if it's a mobile menu link (already handled)
+    if ($(this).hasClass('mobile-menu__link')) {
+      return;
+    }
+    
+    // Skip if it's a navigation dot (already handled)
+    if ($(this).closest('#page-nav').length) {
+      return;
+    }
+    
+    // Check if it's a section anchor
+    var targetSection = $(href);
+    if (targetSection.length) {
+      event.preventDefault();
+      var targetOffset = targetSection.offset().top;
+      
+      $('html, body').animate({
+        scrollTop: targetOffset
+      }, 800, 'swing');
     }
   });
 

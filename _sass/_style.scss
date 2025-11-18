@@ -34,7 +34,6 @@ a, button, input, select, textarea, [tabindex] {
 html {
   height: 100%;
   background: var(--color-background, #{$color-background});
-  scroll-behavior: smooth;
 }
 
 body {
@@ -42,7 +41,8 @@ body {
   margin: 0;
   padding: 0;
   background: var(--color-background, #{$color-background});
-  overflow-x: hidden;
+  overflow-x: hidden; // Prevent horizontal scroll
+  overflow-y: auto; // Allow vertical scrolling
   position: relative;
   transition: background-color 0.3s ease, color 0.3s ease;
   
@@ -124,5 +124,150 @@ section {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+}
+
+// Footer
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+// Custom Navigation Dots - Enhanced Design
+#page-nav {
+  position: fixed;
+  right: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9999;
+  
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+  
+  @media screen and (max-width: 550px) {
+    right: 3.5rem;
+  }
+  
+  ul {
+    margin: 0;
+    padding: 0.4rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(var(--color-background-rgb), 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    
+    li {
+      margin: 0;
+      padding: 0;
+      position: relative;
+      display: block;
+      
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        position: relative;
+        text-decoration: none;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        
+        // Larger clickable area with hover effect
+        &:hover {
+          background: rgba(var(--font-color-base-rgb), 0.1);
+          transform: scale(1.1);
+        }
+        
+        &:active {
+          transform: scale(0.95);
+        }
+        
+        > span:first-child {
+          display: block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: var(--font-color-base, #{$font-color-base});
+          opacity: 0.5;
+          transition: all 0.3s ease;
+          position: relative;
+          
+          // Add a subtle ring on hover
+          &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--font-color-base, #{$font-color-base});
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          }
+        }
+        
+        &.active > span:first-child {
+          opacity: 1;
+          background: var(--font-color-highlight, #{$font-color-highlight});
+          width: 14px;
+          height: 14px;
+          
+          &::before {
+            border-color: var(--font-color-highlight, #{$font-color-highlight});
+            opacity: 0.3;
+            width: 24px;
+            height: 24px;
+          }
+        }
+        
+        &:hover > span:first-child {
+          opacity: 0.8;
+          
+          &::before {
+            opacity: 0.2;
+          }
+        }
+        
+        .page-nav-tooltip {
+          position: absolute;
+          right: 3rem;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: var(--font-color-base, #{$font-color-base});
+          white-space: nowrap;
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.3s ease;
+          padding: 0.5rem 1rem;
+          background: rgba(var(--color-background-rgb), 0.95);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border-radius: 0.5rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        &:hover .page-nav-tooltip {
+          opacity: 1;
+          transform: translateY(-50%) translateX(-5px);
+        }
+        
+        &.active .page-nav-tooltip {
+          opacity: 0.9;
+        }
+      }
+    }
   }
 }
