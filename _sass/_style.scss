@@ -136,7 +136,7 @@ section {
 // Custom Navigation Dots - Enhanced Design
 #page-nav {
   position: fixed;
-  right: 4rem;
+  right: 2rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 9999;
@@ -146,22 +146,17 @@ section {
   }
   
   @media screen and (max-width: 550px) {
-    right: 3.5rem;
+    right: 1.5rem;
   }
   
   ul {
     margin: 0;
-    padding: 0.4rem;
+    padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.8rem;
-    background: rgba(var(--color-background-rgb), 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     
     li {
       margin: 0;
@@ -178,65 +173,28 @@ section {
         position: relative;
         text-decoration: none;
         cursor: pointer;
-        border-radius: 50%;
         transition: all 0.3s ease;
-        
-        // Larger clickable area with hover effect
-        &:hover {
-          background: rgba(var(--font-color-base-rgb), 0.1);
-          transform: scale(1.1);
-        }
-        
-        &:active {
-          transform: scale(0.95);
-        }
         
         > span:first-child {
           display: block;
-          width: 12px;
-          height: 12px;
+          width: 10px;
+          height: 10px;
           border-radius: 50%;
           background: var(--font-color-base, #{$font-color-base});
-          opacity: 0.5;
+          opacity: 0.3;
           transition: all 0.3s ease;
           position: relative;
-          
-          // Add a subtle ring on hover
-          &::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid var(--font-color-base, #{$font-color-base});
-            opacity: 0;
-            transition: opacity 0.3s ease;
-          }
         }
         
         &.active > span:first-child {
-          opacity: 1;
+          opacity: 0.7;
           background: var(--font-color-highlight, #{$font-color-highlight});
-          width: 14px;
-          height: 14px;
-          
-          &::before {
-            border-color: var(--font-color-highlight, #{$font-color-highlight});
-            opacity: 0.3;
-            width: 24px;
-            height: 24px;
-          }
+          width: 12px;
+          height: 12px;
         }
         
         &:hover > span:first-child {
-          opacity: 0.8;
-          
-          &::before {
-            opacity: 0.2;
-          }
+          opacity: 0.5;
         }
         
         .page-nav-tooltip {
