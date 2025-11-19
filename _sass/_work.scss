@@ -82,9 +82,25 @@ section#work {
     position: relative;
     padding-top: 3rem;
     padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 200px,
+      black calc(100% - 200px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black 200px,
+      black calc(100% - 200px),
+      transparent 100%
+    );
     
     @media screen and (max-width: 550px) {
       overflow: hidden; // Ensure only one card is visible on mobile
+      mask-image: none;
+      -webkit-mask-image: none;
     }
   }
 
@@ -99,71 +115,35 @@ section#work {
   .work__card {
     flex: 0 0 calc(33.333% - 1rem);
     display: block;
-    padding: 1.5rem;
+    padding: 0;
     border: 1px solid rgba(var(--font-color-base-rgb), 0.08);
     border-radius: 16px;
     background: rgba(var(--font-color-base-rgb), 0.02);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    opacity: 0.5;
+    opacity: 0.25;
     transform: scale(0.95);
     text-decoration: none;
     outline: none; // Remove default focus outline
     -webkit-tap-highlight-color: transparent; // Remove tap highlight on mobile
     cursor: pointer; // Pointer cursor for cards
-    
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--project-color, var(--font-color-highlight)), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 0;
-    }
+    aspect-ratio: 9 / 16;
 
     &.work__card--center {
       opacity: 1;
       transform: scale(1);
-      border-color: var(--project-color, var(--font-color-highlight));
-      background: rgba(var(--font-color-base-rgb), 0.04);
-      box-shadow: 0 12px 32px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 30%, transparent);
-      
-      &::before {
-        opacity: 0.1;
-      }
-      
-      .work__card-name {
-        color: var(--project-color, var(--font-color-highlight));
-      }
+      box-shadow: 0 0 32px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 50%, transparent);
       
       &:hover {
-        box-shadow: 0 16px 40px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 40%, transparent);
-        
-        &::before {
-          opacity: 0.15;
-        }
+        box-shadow: 0 0 40px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 60%, transparent);
       }
     }
     
     &--active {
       &:hover:not(.work__card--center),
       &:focus:not(.work__card--center) {
-        border-color: var(--project-color, var(--font-color-highlight));
-        background: rgba(var(--font-color-base-rgb), 0.04);
-        box-shadow: 0 12px 32px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 30%, transparent);
-        
-        &::before {
-          opacity: 0.1;
-        }
-        
-        .work__card-name {
-          color: var(--project-color, var(--font-color-highlight));
-        }
+        box-shadow: 0 0 32px color-mix(in srgb, var(--project-color, var(--font-color-highlight)) 50%, transparent);
       }
       
       &:focus-visible {
@@ -172,25 +152,17 @@ section#work {
     }
   }
 
-  .work__card-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
   .work__card-image-wrapper {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 9 / 16;
-    border-radius: 12px;
+    height: 100%;
     overflow: hidden;
     background: rgba(var(--font-color-base-rgb), 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease;
   }
 
   .work__card-screenshot {
@@ -201,12 +173,6 @@ section#work {
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    opacity: 0.3;
-    transition: opacity 0.3s ease;
-  }
-  
-  .work__card--center .work__card-screenshot {
-    opacity: 0.5;
   }
 
   .work__card-icon {
@@ -222,10 +188,29 @@ section#work {
     transition: background 0.3s ease;
   }
 
+  .work__card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: rgba(var(--color-background-rgb), 0.55);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border-top: 1px solid rgba(var(--font-color-base-rgb), 0.1);
+    z-index: 3;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
   .work__card-info {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    flex: 1;
   }
 
   .work__card-name {
@@ -248,9 +233,6 @@ section#work {
   }
 
   .work__card-link {
-    position: absolute;
-    bottom: 1.5rem;
-    right: 1rem;
     width: 40px;
     height: 40px;
     display: flex;
@@ -262,7 +244,8 @@ section#work {
     color: rgba(var(--font-color-base-rgb), 0.5);
     text-decoration: none;
     transition: all 0.3s ease;
-    z-index: 10;
+    flex-shrink: 0;
+    align-self: flex-end;
     opacity: 0.4;
     
     &:hover {
@@ -327,23 +310,7 @@ section#work {
   }
 
   .work__carousel-gradient {
-    position: absolute;
-    top: 3rem; // Match container top padding
-    bottom: 3rem; // Match container bottom padding
-    width: 120px;
-    pointer-events: none;
-    z-index: 5;
-    transition: background 0.3s ease;
-    
-    &--left {
-      left: 0;
-      background: linear-gradient(to right, var(--color-background, #{$color-background}), transparent);
-    }
-    
-    &--right {
-      right: 0;
-      background: linear-gradient(to left, var(--color-background, #{$color-background}), transparent);
-    }
+    display: none; // Using mask instead
   }
 
   .work__carousel-pagination {
@@ -392,11 +359,20 @@ section#work {
     .work__carousel-container {
       padding-top: 2rem;
       padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
-    }
-    
-    .work__carousel-gradient {
-      top: 2rem;
-      bottom: 3rem; // Match container bottom padding
+      mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 160px,
+        black calc(100% - 160px),
+        transparent 100%
+      );
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 160px,
+        black calc(100% - 160px),
+        transparent 100%
+      );
     }
     
     .work__carousel-arrow {
@@ -410,6 +386,10 @@ section#work {
     }
     
     .work__card {
+      // padding removed since image fills the space
+    }
+    
+    .work__card-overlay {
       padding: 1.25rem;
     }
     
@@ -459,7 +439,6 @@ section#work {
     
     .work__card {
       flex: 0 0 calc(80% - 0.5rem); // Smaller card width (80% instead of 85%)
-      padding: 0.75rem; // Further reduced padding
       border-radius: 12px; // Slightly smaller border radius
       
       &:not(.work__card--center) {
@@ -467,9 +446,14 @@ section#work {
       }
     }
     
-    .work__card-image-wrapper {
-      aspect-ratio: 9 / 16;
-      border-radius: 10px; // Smaller border radius
+    .work__card-overlay {
+      padding: 0.75rem;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .work__card-link {
+      align-self: flex-end;
     }
     
     .work__card-icon {
@@ -510,8 +494,6 @@ section#work {
     .work__card-link {
       width: 28px;
       height: 28px;
-      bottom: 1.75rem;
-      right: 0.75rem;
       
       svg {
         width: 14px;

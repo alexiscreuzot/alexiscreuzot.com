@@ -19,26 +19,26 @@
                  style="--project-color: #{{ project.color }};"
                  data-appid="{{ project.appid }}"
                  {% if project.screenshot %}data-screenshot="{{ project.screenshot }}"{% endif %}>
-                <div class="work__card-content">
-                  <div class="work__card-image-wrapper">
-                    <img class="work__card-icon" src="" alt="{{ project.name }} icon" style="display: none;">
-                    <img class="work__card-screenshot" src="" alt="{{ project.name }} screenshot" style="display: none;">
-                  </div>
+                <div class="work__card-image-wrapper">
+                  <img class="work__card-icon" src="" alt="{{ project.name }} icon" style="display: none;">
+                  <img class="work__card-screenshot" src="" alt="{{ project.name }} screenshot" style="display: none;">
+                </div>
+                <div class="work__card-overlay">
                   <div class="work__card-info">
                     <h3 class="work__card-name">{{ project.name }}</h3>
                     <p class="work__card-tagline">{{ project.tagline }}</p>
                   </div>
+                  <a href="https://itunes.apple.com/app/{{ project.appid }}" 
+                     class="work__card-link" 
+                     target="_blank"
+                     aria-label="View {{ project.name }} on App Store">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
                 </div>
-                <a href="https://itunes.apple.com/app/{{ project.appid }}" 
-                   class="work__card-link" 
-                   target="_blank"
-                   aria-label="View {{ project.name }} on App Store">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
-                </a>
               </div>
               {% endif %}
             {% endunless %}
