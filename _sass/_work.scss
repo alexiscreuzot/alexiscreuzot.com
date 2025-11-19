@@ -80,8 +80,8 @@ section#work {
     flex: 1;
     overflow: hidden;
     position: relative;
-    padding-top: 3rem;
-    padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
+    padding-top: 4rem;
+    padding-bottom: 4rem; // Extra bottom padding to prevent shadow clipping on hover
     mask-image: linear-gradient(
       to right,
       transparent 0,
@@ -357,8 +357,8 @@ section#work {
     }
     
     .work__carousel-container {
-      padding-top: 2rem;
-      padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
+      padding-top: 3rem;
+      padding-bottom: 4rem; // Extra bottom padding to prevent shadow clipping on hover
       mask-image: linear-gradient(
         to right,
         transparent 0,
@@ -383,10 +383,6 @@ section#work {
         width: 18px;
         height: 18px;
       }
-    }
-    
-    .work__card {
-      // padding removed since image fills the space
     }
     
     .work__card-overlay {
@@ -438,7 +434,7 @@ section#work {
     }
     
     .work__card {
-      flex: 0 0 calc(80% - 0.5rem); // Smaller card width (80% instead of 85%)
+      flex: 0 0 calc(90% - 0.5rem); // Larger card width on mobile
       border-radius: 12px; // Slightly smaller border radius
       
       &:not(.work__card--center) {
@@ -470,8 +466,22 @@ section#work {
     }
     
     .work__carousel-container {
-      padding-top: 1.5rem;
-      padding-bottom: 3rem; // Extra bottom padding to prevent shadow clipping on hover
+      padding-top: 2.5rem;
+      padding-bottom: 4rem; // Extra bottom padding to prevent shadow clipping on hover
+      mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 40px,
+        black calc(100% - 40px),
+        transparent 100%
+      );
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0,
+        black 40px,
+        black calc(100% - 40px),
+        transparent 100%
+      );
     }
     
     .work__carousel-gradient {
