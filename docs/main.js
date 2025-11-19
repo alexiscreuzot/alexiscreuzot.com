@@ -32,8 +32,10 @@
     localStorage.setItem('theme', theme);
     updateCSSVariables(theme);
     if (theme === 'light') {
+      document.documentElement.classList.add('light-theme');
       document.body.classList.add('light-theme');
     } else {
+      document.documentElement.classList.remove('light-theme');
       document.body.classList.remove('light-theme');
     }
   }
@@ -42,6 +44,7 @@
   const savedTheme = getTheme();
   updateCSSVariables(savedTheme);
   if (savedTheme === 'light') {
+    document.documentElement.classList.add('light-theme');
     document.body.classList.add('light-theme');
   }
   
@@ -147,7 +150,8 @@ $(document).ready(function() {
   // Progressive blur based on scroll position (for free scrolling)
   function initProgressiveBlur() {
     var introSection = $('#intro');
-    if (!introSection.length) return;
+    var introContent = $('.intro__inner');
+    if (!introSection.length || !introContent.length) return;
     
     var introHeight = introSection.outerHeight();
     var maxBlur = 8;
@@ -165,21 +169,22 @@ $(document).ready(function() {
         var blurAmount = scrollProgress * maxBlur;
         var opacity = 1 - (scrollProgress * 0.3);
         
-        introSection.css({
+        // Apply blur only to content, not the background
+        introContent.css({
           'filter': 'blur(' + blurAmount + 'px)',
           '-webkit-filter': 'blur(' + blurAmount + 'px)',
           'opacity': opacity
         });
       } else if (scrollTop <= introOffset) {
         // Above intro section - no blur
-        introSection.css({
+        introContent.css({
           'filter': 'blur(0px)',
           '-webkit-filter': 'blur(0px)',
           'opacity': 1
         });
       } else {
         // Past intro section - full blur
-        introSection.css({
+        introContent.css({
           'filter': 'blur(' + maxBlur + 'px)',
           '-webkit-filter': 'blur(' + maxBlur + 'px)',
           'opacity': 0.7
