@@ -41,7 +41,7 @@ section#work {
     text-align: left;
     font-size: 1.1rem;
     font-weight: 500;
-    color: rgba(var(--font-color-base-rgb), 0.7);
+    color: var(--text-tertiary);
     margin-bottom: 2rem;
     margin-top: 0;
     transition: opacity 3s ease-out, transform 3s ease-out, color 0.3s ease;
@@ -216,7 +216,7 @@ section#work {
   .work__card-name {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--font-color-base, #{$font-color-base});
+    color: var(--text-primary);
     margin: 0;
     transition: color 0.3s ease;
     letter-spacing: -0.01em;
@@ -226,34 +226,37 @@ section#work {
   .work__card-tagline {
     font-size: 1rem;
     font-weight: 500;
-    color: rgba(var(--font-color-base-rgb), 0.7);
+    color: var(--text-tertiary);
     margin: 0;
     line-height: 1.4;
     transition: color 0.3s ease;
   }
 
   .work__card-link {
-    width: 40px;
-    height: 40px;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(var(--font-color-base-rgb), 0.08);
-    border: none;
+    background: rgba(var(--color-background-rgb), 0.85);
+    border: 1px solid rgba(var(--font-color-base-rgb), 0.15);
     border-radius: 50%;
-    color: rgba(var(--font-color-base-rgb), 0.5);
+    color: var(--text-primary);
     text-decoration: none;
     transition: all 0.3s ease;
-    flex-shrink: 0;
-    align-self: flex-end;
-    opacity: 0.4;
+    opacity: 1;
+    z-index: 4;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     
     &:hover {
       background: var(--project-color, var(--font-color-highlight));
       color: var(--color-background, #{$color-background});
-      opacity: 1;
+      border-color: var(--project-color, var(--font-color-highlight));
       transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
     
     &:active {
@@ -267,13 +270,13 @@ section#work {
   }
   
   .work__card--center .work__card-link {
-    opacity: 0.5;
-    background: rgba(var(--font-color-base-rgb), 0.12);
+    opacity: 1;
+    background: rgba(var(--color-background-rgb), 0.9);
     
     &:hover {
-      opacity: 1;
       background: var(--project-color, var(--font-color-highlight));
       color: var(--color-background, #{$color-background});
+      border-color: var(--project-color, var(--font-color-highlight));
     }
   }
 
@@ -284,7 +287,7 @@ section#work {
     border-radius: 50%;
     border: 1px solid rgba(var(--font-color-base-rgb), 0.15);
     background: rgba(var(--font-color-base-rgb), 0.03);
-    color: var(--font-color-base, #{$font-color-base});
+    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -449,7 +452,15 @@ section#work {
     }
     
     .work__card-link {
-      align-self: flex-end;
+      width: 36px;
+      height: 36px;
+      top: 0.75rem;
+      right: 0.75rem;
+      
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
     
     .work__card-icon {
@@ -498,16 +509,6 @@ section#work {
       
       &.work__carousel-dot--active {
         width: 20px;
-      }
-    }
-    
-    .work__card-link {
-      width: 28px;
-      height: 28px;
-      
-      svg {
-        width: 14px;
-        height: 14px;
       }
     }
   }

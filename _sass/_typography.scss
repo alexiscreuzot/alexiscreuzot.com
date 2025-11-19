@@ -31,7 +31,7 @@ body {
   font-family: $font-family-primary;
   font-weight: 600;
   line-height: 1.6;
-  color: var(--font-color-base, #{$font-color-base});
+  color: var(--text-primary);
 }
 
 // Headings
@@ -71,7 +71,7 @@ p {
 
 // Links
 a {
-  color: var(--font-color-base, #{$font-color-base});
+  color: var(--text-primary);
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
