@@ -95,10 +95,24 @@ section {
   position: relative;
   width: 100%;
   z-index: 1;
+  padding-bottom: 4rem; // Minimum padding between sections to prevent overlap
   
   .container {
     margin: 0 auto;
     padding: 0 2rem;
+  }
+}
+
+// Responsive section padding
+@media screen and (max-width: 800px) {
+  section {
+    padding-bottom: 3rem; // Reduced padding on tablets
+  }
+}
+
+@media screen and (max-width: 550px) {
+  section {
+    padding-bottom: calc(3rem + env(safe-area-inset-bottom)); // Padding on mobile with safe area
   }
 }
 

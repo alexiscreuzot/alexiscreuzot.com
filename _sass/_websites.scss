@@ -4,6 +4,7 @@
 
 section#websites {
   padding: 0;
+  // padding-bottom handled by global section padding in _style.scss
   min-height: 100vh;
   height: 100%;
   display: flex;
@@ -174,6 +175,8 @@ section#websites {
 
 @media screen and (max-width: 800px) {
   section#websites {
+    // padding-bottom handled by global section padding in _style.scss
+    
     .container {
       padding: 1.5rem 0;
     }
@@ -192,13 +195,15 @@ section#websites {
     }
     
     .websites__item-url {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
     }
   }
 }
 
 @media screen and (max-width: 550px) {
   section#websites {
+    // padding-bottom handled by global section padding in _style.scss
+    
     .container {
       padding-top: 1.25rem;
       padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
@@ -240,12 +245,12 @@ section#websites {
     }
     
     .websites__item-name {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       line-height: 1.4;
     }
     
     .websites__item-url {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       margin-top: 0.25rem;
       word-break: break-all;
     }
@@ -260,8 +265,8 @@ section#websites {
     }
     
     .websites__item-tag {
-      font-size: 0.65rem;
-      padding: 0.15rem 0.4rem;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
     }
   }
 }

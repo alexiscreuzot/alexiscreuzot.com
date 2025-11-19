@@ -88,7 +88,7 @@ a {
 // Responsive Typography
 @media screen and (max-width: 800px) {
   html {
-    font-size: 15px;
+    font-size: 16px; // Slightly reduced for better balance
   }
   
   h1 {
@@ -106,7 +106,7 @@ a {
 
 @media screen and (max-width: 550px) {
   html {
-    font-size: 14px;
+    font-size: 16px; // Reduced from 18px for better balance
   }
   
   h1 {
@@ -115,6 +115,16 @@ a {
   
   h2 {
     font-size: map-get($type-scale, h4);
+  }
+  
+  h3 {
+    font-size: map-get($type-scale, h4);
+  }
+  
+  // Body text on mobile
+  p {
+    font-size: 1rem; // Standard body text
+    line-height: 1.7;
   }
 }
 
