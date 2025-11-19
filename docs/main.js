@@ -97,34 +97,28 @@ $(document).ready(function() {
       var targetElement = $(targetId);
       
       if (targetElement.length) {
+        // Show tooltip immediately when clicked
+        var tooltip = clickedLink.find('.page-nav-tooltip');
+        tooltip.css('opacity', '1');
+        
+        // Fade out tooltip after 3 seconds
+        setTimeout(function() {
+          tooltip.css('opacity', '0');
+        }, 1000);
+        
         var targetOffset = targetElement.offset().top;
         
         $('html, body').animate({
           scrollTop: targetOffset
-        }, 800, 'swing', function() {
-          // Show tooltip when scroll completes
-          var tooltip = clickedLink.find('.page-nav-tooltip');
-          tooltip.css('opacity', '1');
-          
-          // Fade out tooltip after 1 second
-          setTimeout(function() {
-            tooltip.css('opacity', '0');
-          }, 1000);
-        });
+        }, 800);
       }
     });
     
     // Update active dot on scroll
-    var tooltipTimeout;
     function updateActiveDot() {
       var scrollTop = $(window).scrollTop();
       var windowHeight = $(window).height();
       var scrollMiddle = scrollTop + (windowHeight / 2);
-      
-      // Clear any existing timeout
-      if (tooltipTimeout) {
-        clearTimeout(tooltipTimeout);
-      }
       
       sections.forEach(function(sectionId, index) {
         var section = $(sectionId);
@@ -134,20 +128,11 @@ $(document).ready(function() {
           var sectionBottom = sectionTop + sectionHeight;
           
           var navLink = navContainer.find('a[data-section="' + index + '"]');
-          var tooltip = navLink.find('.page-nav-tooltip');
           
           if (scrollMiddle >= sectionTop && scrollMiddle <= sectionBottom) {
             navLink.addClass('active');
-            // Show tooltip when section becomes active
-            tooltip.css('opacity', '0.9');
-            // Fade out after 1 second
-            tooltipTimeout = setTimeout(function() {
-              tooltip.css('opacity', '0');
-            }, 1000);
           } else {
             navLink.removeClass('active');
-            // Hide tooltip when not active
-            tooltip.css('opacity', '0');
           }
         }
       });
