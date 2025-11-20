@@ -339,30 +339,145 @@ $(document).ready(function() {
     });
   }, observerOptions);
 
-  // Observe intro section elements with stagger animation
+  // Function to wrap words in spans for word-by-word animation
+  function wrapWords(element) {
+    if (!element) return;
+    
+    const walker = document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      if (node.textContent.trim()) {
+        textNodes.push(node);
+      }
+    }
+    
+    textNodes.forEach(textNode => {
+      const text = textNode.textContent;
+      const words = text.split(/(\s+)/);
+      const fragment = document.createDocumentFragment();
+      
+      words.forEach(word => {
+        if (word.trim()) {
+          const span = document.createElement('span');
+          span.className = 'word';
+          span.textContent = word;
+          fragment.appendChild(span);
+        } else if (word) {
+          // Preserve whitespace
+          fragment.appendChild(document.createTextNode(word));
+        }
+      });
+      
+      textNode.parentNode.replaceChild(fragment, textNode);
+    });
+  }
+  
+  // Observe intro section elements with word-by-word animation
   const introAvatar = document.querySelector('#intro .intro__avatar');
   const introGreeting = document.querySelector('#intro .intro__greeting');
   const introBio = document.querySelector('#intro .intro__bio');
   const introLinks = document.querySelector('#intro .intro__links');
   
-  if (introAvatar) {
-    introAvatar.style.transition = 'opacity 3s ease-out 0s, transform 3s ease-out 0s';
-    observer.observe(introAvatar);
-  }
-  
+  // Wrap words in greeting and bio
   if (introGreeting) {
-    introGreeting.style.transition = 'opacity 3s ease-out 0.2s, transform 3s ease-out 0.2s';
-    observer.observe(introGreeting);
+    wrapWords(introGreeting);
   }
   
   if (introBio) {
-    introBio.style.transition = 'opacity 3s ease-out 0.4s, transform 3s ease-out 0.4s';
-    observer.observe(introBio);
+    wrapWords(introBio);
   }
   
+  // Wrap links and separators for left-to-right animation
   if (introLinks) {
-    introLinks.style.transition = 'opacity 3s ease-out 0.6s, transform 3s ease-out 0.6s';
-    observer.observe(introLinks);
+    const linksChildren = Array.from(introLinks.childNodes);
+    linksChildren.forEach(child => {
+      if (child.nodeType === Node.ELEMENT_NODE && (child.tagName === 'A' || child.classList.contains('separator'))) {
+        const wrapper = document.createElement('span');
+        wrapper.className = 'link-item';
+        child.parentNode.insertBefore(wrapper, child);
+        wrapper.appendChild(child);
+      }
+    });
+  }
+  
+  // Sequential animation timing with 0.8 second offset between steps
+  const avatarDuration = 3.0; // Avatar fade duration
+  const wordStagger = 0.04; // Delay between words (40ms)
+  const wordBlurDuration = 1.1; // Blur animation duration
+  const wordTransformDuration = 1.6; // Transform animation duration
+  const stepOffset = 0.8; // 0.8 second offset between each step
+  const initialDelay = 0.5; // Initial delay before first animation
+  
+  // Step start times
+  const avatarStartTime = initialDelay; // 0.5s
+  const greetingStartTime = initialDelay + stepOffset; // 1.3s
+  const bioStartTime = initialDelay + stepOffset * 2; // 2.1s
+  const linksStartTime = initialDelay + stepOffset * 4; 
+  
+  // Observe avatar
+  if (introAvatar) {
+    introAvatar.style.transition = `opacity ${avatarDuration}s ease-out ${avatarStartTime}s, transform ${avatarDuration}s ease-out ${avatarStartTime}s`;
+    observer.observe(introAvatar);
+  }
+  
+  // Observe words in greeting with stagger (starts at 1.3s)
+  // Each word is observed individually to ensure word-by-word animation
+  if (introGreeting) {
+    const greetingWords = Array.from(introGreeting.querySelectorAll('.word'));
+    // Ensure words are in document order (left to right)
+    greetingWords.sort((a, b) => {
+      const position = a.compareDocumentPosition(b);
+      if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
+      if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
+      return 0;
+    });
+    
+    // Set up transitions and observe each word individually
+    greetingWords.forEach((word, index) => {
+      const delay = greetingStartTime + (index * wordStagger);
+      word.style.transition = `opacity ${wordBlurDuration}s ease-out ${delay}s, filter ${wordBlurDuration}s ease-out ${delay}s, transform ${wordTransformDuration}s ease-out ${delay}s`;
+      observer.observe(word);
+    });
+  }
+  
+  // Observe words in bio with stagger (starts at 2.1s)
+  if (introBio) {
+    const bioWords = introBio.querySelectorAll('.word');
+    bioWords.forEach((word, index) => {
+      const delay = bioStartTime + (index * wordStagger);
+      word.style.transition = `opacity ${wordBlurDuration}s ease-out ${delay}s, filter ${wordBlurDuration}s ease-out ${delay}s, transform ${wordTransformDuration}s ease-out ${delay}s`;
+      observer.observe(word);
+    });
+  }
+  
+  // Observe links with left-to-right stagger (starts at linksStartTime)
+  if (introLinks) {
+    const linkItems = Array.from(introLinks.querySelectorAll('.link-item'));
+    linkItems.forEach((item, index) => {
+      const delay = linksStartTime + (index * wordStagger);
+      item.style.transition = `opacity ${wordBlurDuration}s ease-out ${delay}s, filter ${wordBlurDuration}s ease-out ${delay}s, transform ${wordTransformDuration}s ease-out ${delay}s`;
+    });
+    
+    // Observe the links container, then trigger all link items at once
+    const linksObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          linkItems.forEach(item => {
+            item.classList.add('is-visible');
+          });
+          linksObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    linksObserver.observe(introLinks);
   }
 
   // Observe all websites items with stagger animation
