@@ -6,7 +6,13 @@
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{{ site.description }}">
 
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ "/images/favicon.ico" | prepend: site.baseurl_root }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ "/images/favicon-16x16.png" | prepend: site.baseurl_root }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ "/images/favicon-32x32.png" | prepend: site.baseurl_root }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ "/images/apple-touch-icon.png" | prepend: site.baseurl_root }}">
+    <link rel="manifest" href="{{ "/images/site.webmanifest" | prepend: site.baseurl_root }}">
+    
     <link rel="canonical" href="{% if site.url %}{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}{% else %}{{ page.url | replace:'index.html','' | prepend: site.baseurl }}{% endif %}">
 
     <link rel="stylesheet" href="{{ "/main.css" | prepend: site.baseurl_root }}"/>
