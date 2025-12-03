@@ -82,6 +82,9 @@ section#work {
     position: relative;
     padding-top: 4rem;
     padding-bottom: 4rem; // Extra bottom padding to prevent shadow clipping on hover
+    cursor: grab; // Indicate draggable on desktop
+    user-select: none; // Prevent text selection during drag
+    -webkit-user-select: none;
     mask-image: linear-gradient(
       to right,
       transparent 0,
@@ -97,10 +100,15 @@ section#work {
       transparent 100%
     );
     
+    &:active {
+      cursor: grabbing; // Show grabbing cursor when actively dragging
+    }
+    
     @media screen and (max-width: 550px) {
       overflow: hidden; // Ensure only one card is visible on mobile
       mask-image: none;
       -webkit-mask-image: none;
+      cursor: default; // Default cursor on mobile (touch)
     }
   }
 
@@ -127,7 +135,7 @@ section#work {
     text-decoration: none;
     outline: none; // Remove default focus outline
     -webkit-tap-highlight-color: transparent; // Remove tap highlight on mobile
-    cursor: pointer; // Pointer cursor for cards
+    cursor: inherit; // Inherit cursor from container (grab/grabbing)
     aspect-ratio: 9 / 16;
 
     &.work__card--center {

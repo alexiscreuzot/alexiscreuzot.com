@@ -866,6 +866,11 @@ $(document).ready(function() {
     // Add click handlers to cards to center them when clicked (but not on the link)
     allCards.forEach((card, index) => {
       card.addEventListener('click', function(e) {
+        // Don't handle clicks if we just finished dragging
+        if (justFinishedDragging) {
+          return;
+        }
+        
         // Don't handle clicks on the link - let it work normally
         if (e.target.closest('.work__card-link')) {
           return;
@@ -913,6 +918,162 @@ $(document).ready(function() {
         }
         });
     });
+    
+    // Panning functionality for desktop (mouse) and mobile (touch)
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startTransform = 0;
+    let dragOffset = 0;
+    let hasMoved = false;
+    let justFinishedDragging = false;
+    
+    function getTransformX() {
+      const transform = carouselTrack.style.transform || 'translateX(0px)';
+      const match = transform.match(/translateX\(([^)]+)\)/);
+      return match ? parseFloat(match[1]) : 0;
+    }
+    
+    function handleDragStart(clientX, clientY) {
+      if (isTransitioning) return;
+      
+      isDragging = true;
+      hasMoved = false;
+      justFinishedDragging = false;
+      startX = clientX;
+      startY = clientY;
+      startTransform = getTransformX();
+      dragOffset = 0;
+      
+      // Disable transitions during drag
+      carouselTrack.style.transition = 'none';
+      
+      // Update cursor
+      if (carouselContainer) {
+        carouselContainer.style.cursor = 'grabbing';
+      }
+    }
+    
+    function handleDragMove(clientX, clientY) {
+      if (!isDragging) return;
+      
+      const deltaX = clientX - startX;
+      const deltaY = Math.abs(clientY - startY);
+      
+      // Only start dragging if horizontal movement is greater than vertical (to avoid conflicts with scrolling)
+      if (!hasMoved && Math.abs(deltaX) > 10 && Math.abs(deltaX) > deltaY) {
+        hasMoved = true;
+      }
+      
+      if (hasMoved) {
+        dragOffset = deltaX;
+        const newTransform = startTransform + dragOffset;
+        carouselTrack.style.transform = `translateX(${newTransform}px)`;
+      }
+    }
+    
+    function handleDragEnd() {
+      if (!isDragging) return;
+      
+      const wasDragging = hasMoved;
+      isDragging = false;
+      
+      // Update cursor
+      if (carouselContainer) {
+        carouselContainer.style.cursor = 'grab';
+      }
+      
+      // Re-enable transitions
+      carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+      
+      if (!wasDragging) {
+        return;
+      }
+      
+      // Mark that we just finished dragging to prevent click events
+      justFinishedDragging = true;
+      setTimeout(() => {
+        justFinishedDragging = false;
+      }, 100);
+      
+      // Determine if we should snap to next/prev card based on drag distance
+      const cardWidth = getCardWidth();
+      const threshold = cardWidth * 0.3; // 30% of card width to trigger snap
+      
+      if (Math.abs(dragOffset) > threshold) {
+        if (dragOffset > 0) {
+          // Dragged right, go to previous
+          goToPrev();
+        } else {
+          // Dragged left, go to next
+          goToNext();
+        }
+      } else {
+        // Snap back to current position
+        updateCarouselPosition();
+        updateCenterCard();
+      }
+      
+      dragOffset = 0;
+      hasMoved = false;
+    }
+    
+    // Mouse events for desktop
+    if (carouselContainer) {
+      carouselContainer.style.cursor = 'grab';
+      carouselContainer.style.userSelect = 'none';
+      
+      carouselContainer.addEventListener('mousedown', function(e) {
+        // Don't start drag on link clicks
+        if (e.target.closest('.work__card-link')) {
+          return;
+        }
+        handleDragStart(e.clientX, e.clientY);
+        e.preventDefault();
+      });
+      
+      document.addEventListener('mousemove', function(e) {
+        handleDragMove(e.clientX, e.clientY);
+      });
+      
+      document.addEventListener('mouseup', function(e) {
+        handleDragEnd();
+      });
+    }
+    
+    // Touch events for mobile
+    if (carouselContainer) {
+      carouselContainer.addEventListener('touchstart', function(e) {
+        // Don't start drag on link touches
+        if (e.target.closest('.work__card-link')) {
+          return;
+        }
+        const touch = e.touches[0];
+        if (touch) {
+          handleDragStart(touch.clientX, touch.clientY);
+        }
+      }, { passive: true });
+      
+      carouselContainer.addEventListener('touchmove', function(e) {
+        const touch = e.touches[0];
+        if (touch) {
+          handleDragMove(touch.clientX, touch.clientY);
+          // Prevent scrolling if we're dragging horizontally
+          if (hasMoved) {
+            e.preventDefault();
+          }
+        }
+      }, { passive: false });
+      
+      carouselContainer.addEventListener('touchend', function(e) {
+        handleDragEnd();
+      }, { passive: true });
+      
+      carouselContainer.addEventListener('touchcancel', function(e) {
+        handleDragEnd();
+      }, { passive: true });
+    }
+    
     
     // Handle window resize
     let resizeTimeout;
