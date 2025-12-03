@@ -33,8 +33,10 @@ a, button, input, select, textarea, [tabindex] {
 
 html {
   height: 100%;
+  // Base background color for rubber banding/overscroll (dark theme)
+  background-color: #0f0f1a;
   // Elegant gradient background - dark theme (on html so it's behind everything)
-  background: 
+  background-image: 
     radial-gradient(ellipse 150% 100% at 15% 10%, rgba(88, 186, 252, 0.08) 0%, transparent 55%),
     radial-gradient(ellipse 150% 100% at 85% 90%, rgba(185, 84, 235, 0.08) 0%, transparent 55%),
     linear-gradient(180deg, #0f0f1a 0%, #121212 50%, #0f0f1a 100%);
@@ -61,7 +63,9 @@ html {
   
   // Light theme - elegant warm gradient
   &.light-theme {
-    background: 
+    // Base background color for rubber banding/overscroll (light theme)
+    background-color: #fafafa;
+    background-image: 
       radial-gradient(ellipse 150% 100% at 15% 10%, rgba(88, 186, 252, 0.18) 0%, transparent 55%),
       radial-gradient(ellipse 150% 100% at 85% 90%, rgba(185, 84, 235, 0.18) 0%, transparent 55%),
       linear-gradient(180deg, #fafafa 0%, #ffffff 50%, #f8f8f8 100%);
