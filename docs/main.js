@@ -388,10 +388,12 @@ $(document).ready(function() {
   // Wrap words in greeting and bio
   if (introGreeting) {
     wrapWords(introGreeting);
+    introGreeting.classList.add('js-ready');
   }
   
   if (introBio) {
     wrapWords(introBio);
+    introBio.classList.add('js-ready');
   }
   
   // Wrap links and separators for left-to-right animation
@@ -405,6 +407,7 @@ $(document).ready(function() {
         wrapper.appendChild(child);
       }
     });
+    introLinks.classList.add('js-ready');
   }
   
   // Sequential animation timing with 0.8 second offset between steps
@@ -501,16 +504,19 @@ $(document).ready(function() {
   
   if (workTitle) {
     workTitle.style.transition = 'opacity 3s ease-out 0s, transform 3s ease-out 0s';
+    workTitle.classList.add('js-ready');
     observer.observe(workTitle);
   }
   
   if (workSubtitle) {
     workSubtitle.style.transition = 'opacity 3s ease-out 0.3s, transform 3s ease-out 0.3s';
+    workSubtitle.classList.add('js-ready');
     observer.observe(workSubtitle);
   }
   
   if (workCarousel) {
     workCarousel.style.transition = 'opacity 3s ease-out 0.6s, transform 3s ease-out 0.6s';
+    workCarousel.classList.add('js-ready');
     observer.observe(workCarousel);
   }
 

@@ -2,6 +2,18 @@
 // INTRO SECTION
 //
 
+// Hide animated elements by default to prevent flash before JS initializes
+.intro__greeting,
+.intro__bio,
+.intro__links {
+  visibility: hidden;
+  
+  // Show when JS has prepared the animations
+  &.js-ready {
+    visibility: visible;
+  }
+}
+
 section#intro {
   min-height: 100vh;
   height: 100%;

@@ -2,6 +2,18 @@
 // WORK / APPS SECTION
 //
 
+// Hide animated elements by default to prevent flash before JS initializes
+#work .section__title,
+#work .section__subtitle,
+#work .work__carousel-wrapper {
+  visibility: hidden;
+  
+  // Show when JS has prepared the animations
+  &.js-ready {
+    visibility: visible;
+  }
+}
+
 section#work {
   padding: 0;
   min-height: 100vh;
