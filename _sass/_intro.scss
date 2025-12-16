@@ -172,10 +172,13 @@ section#intro {
   }
 
   .intro__links {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: var(--text-secondary);
     margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
     
     // Link items animate left-to-right
     .link-item {
@@ -197,15 +200,17 @@ section#intro {
       font-weight: 600;
       transition: all 0.3s ease;
       position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      
+      i {
+        font-size: 1.1em;
+      }
       
       &:hover {
         color: var(--font-color-highlight, #{$font-color-highlight});
       }
-    }
-    
-    .separator {
-      margin: 0 0.75rem;
-      color: var(--text-quaternary);
     }
   }
 }
@@ -247,8 +252,9 @@ section#intro {
     }
     
     .intro__links {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       margin-top: 0.5rem;
+      gap: 1.5rem;
     }
   }
 }
@@ -292,24 +298,23 @@ section#intro {
     }
     
     .intro__links {
-      font-size: 0.85rem;
+      font-size: 1rem;
       line-height: 1.5;
       margin-top: 0.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.15rem;
+      gap: 1.5rem;
       
       a {
         padding: 0.4rem 0;
         min-height: 40px; // Touch-friendly
-        display: inline-flex;
-        align-items: center;
-      }
-      
-      .separator {
-        margin: 0 0.35rem;
-        color: var(--text-quaternary);
+        
+        // Hide text labels on mobile, show only icons
+        .link-text {
+          display: none;
+        }
+        
+        i {
+          font-size: 1.2rem;
+        }
       }
     }
   }
