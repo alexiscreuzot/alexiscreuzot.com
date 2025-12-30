@@ -1,6 +1,12 @@
 # Set the Sass partials directory, as we're using @imports
 sass:
   style: :compressed # You might prefer to minify using :compressed
+  # Silence deprecation warnings for @import and global built-ins
+  # These will be addressed when migrating to Dart Sass 3.0
+  quiet_deps: true
+  silence_deprecations:
+    - import
+    - global-builtin
   
 # Site settings
 title: Alexis Creuzot
@@ -8,4 +14,4 @@ description:
   Personnal Website of Alexis Creuzot, iOS Developer, co-founder of Monoqle and Happy Hours Coworking
 baseurl: "" # the subpath of your site, e.g. /blog
 destination: docs
-exclude: ["Gemfile", "Gemfile.lock", "Guardfile", "README.md"] 
+exclude: ["Gemfile", "Gemfile.lock", "Guardfile", "README.md"]
