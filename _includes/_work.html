@@ -18,7 +18,8 @@
               <div class="work__card work__card--active" 
                  style="--project-color: #{{ project.color }};"
                  data-appid="{{ project.appid }}"
-                 {% if project.screenshot %}data-screenshot="{{ project.screenshot }}"{% endif %}>
+                 {% if project.screenshot %}data-screenshot="{{ project.screenshot }}"{% endif %}
+                 {% if project.country %}data-country="{{ project.country }}"{% endif %}>
                 <div class="work__card-image-wrapper">
                   <img class="work__card-icon" src="" alt="{{ project.name }} icon" style="display: none;">
                   <img class="work__card-screenshot" src="" alt="{{ project.name }} screenshot" style="display: none;">

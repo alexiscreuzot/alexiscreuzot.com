@@ -137,3 +137,17 @@
                 was featured multiple times by Apple and praised for it's unique design.
                 It generated more than 250,000 downloads.
   appid: id729430189
+
+- id: mk2
+  name: mk2
+  color: 1A1A2E
+  tagline: Une autre idée du cinéma
+  description : >
+                The mk2 app allows you to quickly and easily check the programming of the entire mk2 cinema network 
+                and purchase your movie tickets in just a few seconds. Book tickets online with credit card, 
+                mk2 card or UGC/mk2 unlimited card. View current movies and events, use geolocation to find 
+                nearby screenings, and receive notifications about premieres and cultural activities.
+  appid: id515951296
+  country: fr
+  screenshot: https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/22/72/4a/22724ad7-31ce-84c4-96af-3e4deeb82086/pr_source.png/600x1300bb.png
+  website: https://www.mk2.com

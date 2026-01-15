@@ -534,7 +534,7 @@ $(document).ready(function() {
     let isTransitioning = false;
     
     function getCardsPerView() {
-      return window.innerWidth <= 550 ? 1 : 3;
+      return window.innerWidth <= 550 ? 1 : 2;
     }
     
     let cardsPerView = getCardsPerView();
@@ -558,6 +558,14 @@ $(document).ready(function() {
     
     const allCards = carouselTrack.querySelectorAll('.work__card');
     const paginationContainer = document.querySelector('.work__carousel-pagination');
+    
+    // Create pagination counter
+    let paginationCounter = null;
+    if (paginationContainer) {
+      paginationCounter = document.createElement('span');
+      paginationCounter.className = 'work__carousel-counter';
+      paginationContainer.appendChild(paginationCounter);
+    }
     
     // Create pagination dots
     let paginationDots = [];
@@ -596,6 +604,11 @@ $(document).ready(function() {
         activeIndex = totalCards + activeIndex;
       } else if (activeIndex >= totalCards) {
         activeIndex = activeIndex - totalCards;
+      }
+      
+      // Update counter
+      if (paginationCounter) {
+        paginationCounter.textContent = `${activeIndex + 1}/${totalCards}`;
       }
       
       paginationDots.forEach((dot, index) => {
@@ -1137,6 +1150,7 @@ $(document).ready(function() {
     appCards.forEach(function(card) {
       const appId = card.getAttribute('data-appid');
       const manualScreenshot = card.getAttribute('data-screenshot');
+      const country = card.getAttribute('data-country') || 'us'; // Default to 'us' if not specified
       // Extract numeric ID from format like "id650627810"
       const numericId = appId ? appId.replace(/^id/, '') : null;
       const iconImg = card.querySelector('.work__card-icon');
@@ -1155,7 +1169,7 @@ $(document).ready(function() {
       // Always fetch icon from API (even if we have manual screenshot)
       // Use JSONP to avoid CORS issues
       const callbackName = 'itunesCallback_' + numericId + '_' + Date.now();
-      const params = new URLSearchParams({ id: numericId, country: 'us', callback: callbackName });
+      const params = new URLSearchParams({ id: numericId, country: country, callback: callbackName });
       
       // Create callback function
       window[callbackName] = function(data) {

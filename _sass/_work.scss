@@ -133,7 +133,7 @@ section#work {
   }
 
   .work__card {
-    flex: 0 0 calc(33.333% - 1rem);
+    flex: 0 0 calc(40% - 1rem);
     display: block;
     padding: 0;
     border: 1px solid rgba(var(--font-color-base-rgb), 0.08);
@@ -341,6 +341,13 @@ section#work {
     padding: 0 1rem;
   }
 
+  .work__carousel-counter {
+    font-size: 0.75rem;
+    color: rgba(var(--font-color-base-rgb), 0.5);
+    font-weight: 400;
+    margin-right: 0.5rem;
+  }
+
   .work__carousel-dot {
     width: 8px;
     height: 8px;
@@ -518,6 +525,11 @@ section#work {
     
     .work__carousel-pagination {
       gap: 0.4rem;
+    }
+    
+    .work__carousel-counter {
+      font-size: 0.7rem;
+      margin-right: 0.4rem;
     }
     
     .work__carousel-dot {
