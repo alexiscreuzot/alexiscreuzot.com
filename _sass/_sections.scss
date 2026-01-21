@@ -5,11 +5,68 @@
 // Shared animation classes
 .js-ready { visibility: visible; }
 
-// Animated elements - initial state
-.intro__avatar,
+// Word-by-word animation for intro
+.intro__greeting,
+.intro__bio {
+  .word {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(30px);
+    transform: translateY(20px);
+    transition: opacity 1.1s ease-out, filter 1.1s ease-out, transform 1.6s ease-out;
+    
+    &.is-visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+}
+
+// Special handling for gradient text in name highlight
+.intro__greeting .intro__name-highlight .word {
+  color: transparent;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+// Link items animation
+.intro__links .link-item {
+  display: inline-flex;
+  opacity: 0;
+  filter: blur(30px);
+  transform: translateY(20px);
+  transition: opacity 1.1s ease-out, filter 1.1s ease-out, transform 1.6s ease-out;
+  
+  &.is-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+// Avatar animation
+.intro__avatar {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 3s ease-out, transform 3s ease-out;
+  
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Visibility hidden before JS init (prevents flash)
 .intro__greeting,
 .intro__bio,
-.intro__links,
+.intro__links {
+  visibility: hidden;
+  &.js-ready { visibility: visible; }
+}
+
+// Other animated elements
 .section__title,
 .section__subtitle,
 .work__carousel-wrapper,
@@ -25,10 +82,7 @@
   }
 }
 
-// Visibility hidden before JS init
-.intro__greeting,
-.intro__bio,
-.intro__links,
+// Work section visibility
 #work .section__title,
 #work .section__subtitle,
 #work .work__carousel-wrapper {

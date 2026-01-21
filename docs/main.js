@@ -1,275 +1,385 @@
-// KISS Website - Simplified Vanilla JavaScript
+// Website - jQuery Implementation
+// Uses jQuery slim (no ajax) + native fetch for API calls
 
-(function() {
+$(function() {
   'use strict';
 
   // ===================
-  // Theme Toggle
+  // Theme Management
   // ===================
   const getTheme = () => localStorage.getItem('theme') || 'dark';
   
   const setTheme = (theme) => {
     localStorage.setItem('theme', theme);
-    document.documentElement.classList.toggle('light-theme', theme === 'light');
-    document.body.classList.toggle('light-theme', theme === 'light');
+    $('html, body').toggleClass('light-theme', theme === 'light');
   };
 
-  // Apply saved theme immediately to prevent flash
+  // Apply saved theme
   setTheme(getTheme());
 
-  // ===================
-  // DOM Ready
-  // ===================
-  document.addEventListener('DOMContentLoaded', () => {
-    initThemeToggle();
-    initNavigationDots();
-    initMobileMenu();
-    initSmoothScroll();
-    initScrollAnimations();
-    initCarousel();
-    fetchAppData();
+  // Theme toggle button
+  $('.theme-toggle').on('click', (e) => {
+    e.preventDefault();
+    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
   });
 
   // ===================
-  // Theme Toggle Button
+  // Smooth Scrolling
   // ===================
-  function initThemeToggle() {
-    const toggleBtn = document.querySelector('.theme-toggle');
-    if (!toggleBtn) return;
-    
-    toggleBtn.addEventListener('click', (e) => {
+  $('a[href^="#"]').on('click', function(e) {
+    const target = $(this.getAttribute('href'));
+    if (target.length) {
       e.preventDefault();
-      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
-    });
-  }
+      $('html, body').stop().animate({
+        scrollTop: target.offset().top - 20
+      }, 600, 'swing');
+    }
+  });
+
+  // ===================
+  // Progressive Blur on Intro
+  // ===================
+  const $intro = $('#intro');
+  const introHeight = $intro.outerHeight();
+  const maxBlur = 8;
+
+  $(window).on('scroll', function() {
+    const scrollTop = $(window).scrollTop();
+    const introTop = $intro.offset().top;
+    
+    if (scrollTop > introTop && scrollTop < introTop + introHeight) {
+      const progress = Math.min((scrollTop - introTop) / introHeight, 1);
+      const blur = progress * maxBlur;
+      $intro.css({
+        filter: `blur(${blur}px)`,
+        opacity: 1 - (progress * 0.3)
+      });
+    } else if (scrollTop <= introTop) {
+      $intro.css({ filter: 'blur(0)', opacity: 1 });
+    }
+  });
 
   // ===================
   // Navigation Dots
   // ===================
-  function initNavigationDots() {
-    const sections = ['intro', 'work', 'websites', 'community'];
-    const tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
-    
-    const nav = document.createElement('div');
-    nav.id = 'page-nav';
-    nav.innerHTML = `<ul>${sections.map((id, i) => `
+  const sections = ['intro', 'work', 'websites', 'community'];
+  const tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
+
+  const $nav = $('<div id="page-nav"><ul></ul></div>');
+  sections.forEach((id, i) => {
+    $nav.find('ul').append(`
       <li>
         <a href="#${id}" data-section="${i}">
           <span></span>
           <span class="page-nav-tooltip">${tooltips[i]}</span>
         </a>
       </li>
-    `).join('')}</ul>`;
-    
-    document.body.appendChild(nav);
-    
-    // Update active dot on scroll
-    const updateActiveDot = () => {
-      const scrollMiddle = window.scrollY + window.innerHeight / 2;
-      
-      sections.forEach((id, i) => {
-        const section = document.getElementById(id);
-        if (!section) return;
-        
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
-        const link = nav.querySelector(`a[data-section="${i}"]`);
-        
-        link.classList.toggle('active', scrollMiddle >= top && scrollMiddle <= bottom);
-      });
-    };
-    
-    window.addEventListener('scroll', updateActiveDot, { passive: true });
-    updateActiveDot();
-  }
+    `);
+  });
+  $('body').append($nav);
+
+  // Update active dot
+  const updateActiveDot = () => {
+    const scrollMiddle = $(window).scrollTop() + $(window).height() / 2;
+    sections.forEach((id, i) => {
+      const $section = $(`#${id}`);
+      if (!$section.length) return;
+      const top = $section.offset().top;
+      const bottom = top + $section.outerHeight();
+      $nav.find(`a[data-section="${i}"]`).toggleClass('active', scrollMiddle >= top && scrollMiddle <= bottom);
+    });
+  };
+
+  $(window).on('scroll', updateActiveDot);
+  updateActiveDot();
 
   // ===================
   // Mobile Menu
   // ===================
-  function initMobileMenu() {
-    const toggle = document.querySelector('.mobile-menu-toggle');
-    const menu = document.querySelector('.mobile-menu');
-    if (!toggle || !menu) return;
+  const $menuToggle = $('.mobile-menu-toggle');
+  const $menu = $('.mobile-menu');
 
-    const closeMenu = () => {
-      toggle.setAttribute('aria-expanded', 'false');
-      menu.setAttribute('aria-hidden', 'true');
-    };
+  $menuToggle.on('click', function() {
+    const isOpen = $(this).attr('aria-expanded') === 'true';
+    $(this).attr('aria-expanded', !isOpen);
+    $menu.attr('aria-hidden', isOpen);
+  });
 
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', !isOpen);
-      menu.setAttribute('aria-hidden', isOpen);
+  $(document).on('click', (e) => {
+    if (!$menu.is(e.target) && !$menu.has(e.target).length && 
+        !$menuToggle.is(e.target) && !$menuToggle.has(e.target).length) {
+      $menuToggle.attr('aria-expanded', 'false');
+      $menu.attr('aria-hidden', 'true');
+    }
+  });
+
+  $('.mobile-menu__link').on('click', function(e) {
+    e.preventDefault();
+    $menuToggle.attr('aria-expanded', 'false');
+    $menu.attr('aria-hidden', 'true');
+    const target = $($(this).attr('href'));
+    if (target.length) {
+      $('html, body').stop().animate({ scrollTop: target.offset().top }, 600);
+    }
+  });
+
+  // Update active menu item
+  $(window).on('scroll', function() {
+    const scrollMiddle = $(window).scrollTop() + $(window).height() / 2;
+    $('.mobile-menu__link').each(function() {
+      const target = $($(this).attr('href'));
+      if (!target.length) return;
+      const top = target.offset().top;
+      const bottom = top + target.outerHeight();
+      $(this).toggleClass('active', scrollMiddle >= top && scrollMiddle <= bottom);
     });
+  });
 
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-        closeMenu();
+  // ===================
+  // Scroll Animations with Word-by-Word Effect
+  // ===================
+  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        $(entry.target).addClass('is-visible');
+        observer.unobserve(entry.target);
       }
     });
+  }, observerOptions);
 
-    // Close and scroll on link click
-    menu.querySelectorAll('.mobile-menu__link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        closeMenu();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    // Update active menu item on scroll
-    const updateActiveMenu = () => {
-      const scrollMiddle = window.scrollY + window.innerHeight / 2;
-      
-      menu.querySelectorAll('.mobile-menu__link').forEach(link => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (!target) return;
-        
-        const top = target.offsetTop;
-        const bottom = top + target.offsetHeight;
-        link.classList.toggle('active', scrollMiddle >= top && scrollMiddle <= bottom);
-      });
-    };
-
-    window.addEventListener('scroll', updateActiveMenu, { passive: true });
-    updateActiveMenu();
-  }
-
-  // ===================
-  // Smooth Scroll for Anchor Links
-  // ===================
-  function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      // Skip mobile menu links (handled separately)
-      if (link.classList.contains('mobile-menu__link')) return;
-      // Skip page-nav links (handled by CSS scroll-behavior)
-      if (link.closest('#page-nav')) return;
-      
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href === '#' || href === '#!') return;
-        
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-  }
-
-  // ===================
-  // Scroll Animations (Intersection Observer)
-  // ===================
-  function initScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    // Observe intro elements
-    document.querySelectorAll('.intro__avatar, .intro__greeting, .intro__bio, .intro__links').forEach(el => {
-      el.classList.add('js-ready');
-      observer.observe(el);
-    });
-
-    // Observe section titles and subtitles
-    document.querySelectorAll('.section__title, .section__subtitle').forEach(el => {
-      el.classList.add('js-ready');
-      observer.observe(el);
-    });
-
-    // Observe work carousel
-    const carousel = document.querySelector('.work__carousel-wrapper');
-    if (carousel) {
-      carousel.classList.add('js-ready');
-      observer.observe(carousel);
+  // Word wrapper function for progressive text animation
+  function wrapWords(element) {
+    if (!element) return;
+    
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    let node;
+    
+    while (node = walker.nextNode()) {
+      if (node.textContent.trim()) {
+        textNodes.push(node);
+      }
     }
-
-    // Observe websites and community items with stagger
-    document.querySelectorAll('.websites__item, .community__item').forEach((el, i) => {
-      el.style.transitionDelay = `${i * 0.1}s`;
-      observer.observe(el);
+    
+    textNodes.forEach(textNode => {
+      const words = textNode.textContent.split(/(\s+)/);
+      const fragment = document.createDocumentFragment();
+      
+      words.forEach(word => {
+        if (word.trim()) {
+          const span = document.createElement('span');
+          span.className = 'word';
+          span.textContent = word;
+          fragment.appendChild(span);
+        } else if (word) {
+          fragment.appendChild(document.createTextNode(word));
+        }
+      });
+      
+      textNode.parentNode.replaceChild(fragment, textNode);
     });
   }
 
+  // Animation timing
+  const wordStagger = 0.04;  // 40ms between words
+  const stepOffset = 0.8;    // Offset between animation steps
+  const initialDelay = 0.5;  // Initial delay before first animation
+
+  const $avatar = $('.intro__avatar');
+  const $greeting = $('.intro__greeting');
+  const $bio = $('.intro__bio');
+  const $links = $('.intro__links');
+
+  // Wrap words in greeting and bio for word-by-word animation
+  wrapWords($greeting[0]);
+  wrapWords($bio[0]);
+
+  // Wrap links in spans for animation
+  $links.children('a').each(function() {
+    $(this).wrap('<span class="link-item"></span>');
+  });
+
+  // Mark elements as ready (makes them visible via CSS)
+  $greeting.addClass('js-ready');
+  $bio.addClass('js-ready');
+  $links.addClass('js-ready');
+
+  // Set staggered transition delays for each word/element
+  // Avatar
+  $avatar.css('transition-delay', `${initialDelay}s`);
+
+  // Greeting words
+  const greetingStart = initialDelay + stepOffset;
+  $greeting.find('.word').each(function(i) {
+    $(this).css('transition-delay', `${greetingStart + (i * wordStagger)}s`);
+  });
+
+  // Bio words
+  const bioStart = initialDelay + stepOffset * 2;
+  $bio.find('.word').each(function(i) {
+    $(this).css('transition-delay', `${bioStart + (i * wordStagger)}s`);
+  });
+
+  // Link items
+  const linksStart = initialDelay + stepOffset * 4;
+  $links.find('.link-item').each(function(i) {
+    $(this).css('transition-delay', `${linksStart + (i * wordStagger)}s`);
+  });
+
+  // Trigger intro animations immediately (intro is visible on page load)
+  setTimeout(() => {
+    $avatar.addClass('is-visible');
+    $greeting.find('.word').addClass('is-visible');
+    $bio.find('.word').addClass('is-visible');
+    $links.find('.link-item').addClass('is-visible');
+  }, 50);
+
+  // Other sections - use observer since they're below fold
+  $('.section__title, .section__subtitle').addClass('js-ready').each((_, el) => observer.observe(el));
+  $('.work__carousel-wrapper').addClass('js-ready').each((_, el) => observer.observe(el));
+  $('.websites__item, .community__item').each((i, el) => {
+    $(el).css('transition-delay', `${i * 0.1}s`);
+    observer.observe(el);
+  });
+
   // ===================
-  // Carousel (CSS Scroll-Snap based)
+  // Infinite Carousel
   // ===================
   function initCarousel() {
-    const track = document.querySelector('.work__carousel-track');
-    const container = document.querySelector('.work__carousel-container');
-    const cards = document.querySelectorAll('.work__card');
-    const prevBtn = document.querySelector('.work__carousel-arrow--prev');
-    const nextBtn = document.querySelector('.work__carousel-arrow--next');
-    const pagination = document.querySelector('.work__carousel-pagination');
+    const $track = $('.work__carousel-track');
+    const $container = $('.work__carousel-container');
+    const $cards = $track.find('.work__card:not(.work__card--clone)');
+    const $pagination = $('.work__carousel-pagination');
     
-    if (!track || !cards.length) return;
+    if (!$track.length || !$cards.length) return;
 
-    const totalCards = cards.length;
+    const totalCards = $cards.length;
     let currentIndex = 0;
+    let isTransitioning = false;
+
+    // Clone cards for infinite scroll
+    const clonesNeeded = 3;
+    $cards.slice(-clonesNeeded).clone().addClass('work__card--clone').prependTo($track);
+    $cards.slice(0, clonesNeeded).clone().addClass('work__card--clone').appendTo($track);
+
+    const $allCards = $track.find('.work__card');
+    currentIndex = clonesNeeded; // Start at first real card
 
     // Create pagination
-    if (pagination) {
-      const counter = document.createElement('span');
-      counter.className = 'work__carousel-counter';
-      pagination.appendChild(counter);
-
-      cards.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'work__carousel-dot';
-        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-        dot.addEventListener('click', () => goToCard(i));
-        pagination.appendChild(dot);
-      });
+    const $counter = $('<span class="work__carousel-counter"></span>');
+    $pagination.append($counter);
+    
+    for (let i = 0; i < totalCards; i++) {
+      const $dot = $(`<button class="work__carousel-dot" aria-label="Go to slide ${i + 1}"></button>`);
+      $dot.on('click', () => goToCard(i));
+      $pagination.append($dot);
     }
 
-    const updatePagination = () => {
-      const counter = pagination?.querySelector('.work__carousel-counter');
-      if (counter) counter.textContent = `${currentIndex + 1}/${totalCards}`;
+    const getCardWidth = () => {
+      const cardWidth = $cards.first().outerWidth();
+      const gap = parseFloat($track.css('gap')) || 24;
+      return cardWidth + gap;
+    };
 
-      pagination?.querySelectorAll('.work__carousel-dot').forEach((dot, i) => {
-        dot.classList.toggle('work__carousel-dot--active', i === currentIndex);
+    const updatePosition = (animate = true) => {
+      const cardWidth = getCardWidth();
+      const containerWidth = $container.width();
+      const centerOffset = (containerWidth / 2) - (cardWidth / 2) + (parseFloat($track.css('gap')) || 24) / 2;
+      const offset = centerOffset - (currentIndex * cardWidth);
+
+      $track.css({
+        transition: animate ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+        transform: `translateX(${offset}px)`
       });
     };
 
     const updateCenterCard = () => {
-      cards.forEach((card, i) => {
-        card.classList.toggle('work__card--center', i === currentIndex);
-      });
+      $allCards.removeClass('work__card--center');
+      $allCards.eq(currentIndex).addClass('work__card--center');
     };
 
-    const getCardWidth = () => {
-      const card = cards[0];
-      const gap = parseFloat(getComputedStyle(track).gap) || 24;
-      return card.offsetWidth + gap;
-    };
-
-    const goToCard = (index) => {
-      currentIndex = Math.max(0, Math.min(index, totalCards - 1));
-      const cardWidth = getCardWidth();
-      const containerWidth = container.offsetWidth;
-      const offset = (containerWidth / 2) - (cards[currentIndex].offsetWidth / 2) - (currentIndex * cardWidth);
+    const updatePagination = () => {
+      let realIndex = currentIndex - clonesNeeded;
+      if (realIndex < 0) realIndex = totalCards + realIndex;
+      if (realIndex >= totalCards) realIndex = realIndex - totalCards;
       
-      track.style.transform = `translateX(${offset}px)`;
+      $counter.text(`${realIndex + 1}/${totalCards}`);
+      $pagination.find('.work__carousel-dot').removeClass('work__carousel-dot--active')
+        .eq(realIndex).addClass('work__carousel-dot--active');
+    };
+
+    const goToCard = (targetIndex) => {
+      if (isTransitioning) return;
+      currentIndex = clonesNeeded + targetIndex;
+      isTransitioning = true;
+      updatePosition();
       updateCenterCard();
       updatePagination();
+      setTimeout(() => { isTransitioning = false; }, 500);
     };
 
-    const goToNext = () => goToCard((currentIndex + 1) % totalCards);
-    const goToPrev = () => goToCard((currentIndex - 1 + totalCards) % totalCards);
+    const goToNext = () => {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex++;
+      updatePosition();
+      updateCenterCard();
+      updatePagination();
+
+      setTimeout(() => {
+        if (currentIndex >= clonesNeeded + totalCards) {
+          currentIndex = clonesNeeded;
+          updatePosition(false);
+          updateCenterCard();
+        }
+        isTransitioning = false;
+      }, 500);
+    };
+
+    const goToPrev = () => {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      currentIndex--;
+      updatePosition();
+      updateCenterCard();
+      updatePagination();
+
+      setTimeout(() => {
+        if (currentIndex < clonesNeeded) {
+          currentIndex = clonesNeeded + totalCards - 1;
+          updatePosition(false);
+          updateCenterCard();
+        }
+        isTransitioning = false;
+      }, 500);
+    };
 
     // Arrow buttons
-    prevBtn?.addEventListener('click', goToPrev);
-    nextBtn?.addEventListener('click', goToNext);
+    $('.work__carousel-arrow--prev').on('click', goToPrev);
+    $('.work__carousel-arrow--next').on('click', goToNext);
+
+    // Card click to center
+    $allCards.on('click', function(e) {
+      if ($(e.target).closest('.work__card-link').length) return;
+      
+      const clickedIndex = $allCards.index(this);
+      if (clickedIndex === currentIndex) return;
+      
+      e.preventDefault();
+      
+      // Handle clone clicks
+      if ($(this).hasClass('work__card--clone')) {
+        if (clickedIndex < clonesNeeded) {
+          goToCard(totalCards - (clonesNeeded - clickedIndex));
+        } else {
+          goToCard(clickedIndex - clonesNeeded - totalCards);
+        }
+      } else {
+        goToCard(clickedIndex - clonesNeeded);
+      }
+    });
 
     // Drag/swipe support
     let isDragging = false;
@@ -277,137 +387,107 @@
     let startTransform = 0;
 
     const getTransformX = () => {
-      const match = track.style.transform?.match(/translateX\(([^)]+)\)/);
-      return match ? parseFloat(match[1]) : 0;
+      const match = $track.css('transform').match(/matrix.*\((.+)\)/);
+      return match ? parseFloat(match[1].split(', ')[4]) : 0;
     };
 
-    const handleDragStart = (clientX) => {
+    $container.on('mousedown touchstart', function(e) {
+      if ($(e.target).closest('.work__card-link').length) return;
       isDragging = true;
-      startX = clientX;
+      startX = e.type === 'touchstart' ? e.originalEvent.touches[0].clientX : e.clientX;
       startTransform = getTransformX();
-      track.style.transition = 'none';
-    };
+      $track.css('transition', 'none');
+    });
 
-    const handleDragMove = (clientX) => {
+    $(document).on('mousemove touchmove', function(e) {
       if (!isDragging) return;
+      const clientX = e.type === 'touchmove' ? e.originalEvent.touches[0].clientX : e.clientX;
       const delta = clientX - startX;
-      track.style.transform = `translateX(${startTransform + delta}px)`;
-    };
+      $track.css('transform', `translateX(${startTransform + delta}px)`);
+    });
 
-    const handleDragEnd = (clientX) => {
+    $(document).on('mouseup touchend', function(e) {
       if (!isDragging) return;
       isDragging = false;
-      track.style.transition = '';
       
+      const clientX = e.type === 'touchend' ? e.originalEvent.changedTouches[0].clientX : e.clientX;
       const delta = clientX - startX;
       const threshold = getCardWidth() * 0.3;
-      
+
       if (Math.abs(delta) > threshold) {
         delta > 0 ? goToPrev() : goToNext();
       } else {
-        goToCard(currentIndex); // Snap back
+        updatePosition();
       }
-    };
-
-    // Mouse events
-    container.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.work__card-link')) return;
-      e.preventDefault();
-      handleDragStart(e.clientX);
-    });
-    document.addEventListener('mousemove', (e) => handleDragMove(e.clientX));
-    document.addEventListener('mouseup', (e) => handleDragEnd(e.clientX));
-
-    // Touch events
-    container.addEventListener('touchstart', (e) => {
-      if (e.target.closest('.work__card-link')) return;
-      handleDragStart(e.touches[0].clientX);
-    }, { passive: true });
-    container.addEventListener('touchmove', (e) => {
-      handleDragMove(e.touches[0].clientX);
-    }, { passive: true });
-    container.addEventListener('touchend', (e) => {
-      handleDragEnd(e.changedTouches[0].clientX);
-    }, { passive: true });
-
-    // Card click to center
-    cards.forEach((card, i) => {
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.work__card-link')) return;
-        if (i !== currentIndex) {
-          e.preventDefault();
-          goToCard(i);
-        }
-      });
     });
 
-    // Handle resize
+    // Resize handler
     let resizeTimer;
-    window.addEventListener('resize', () => {
+    $(window).on('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => goToCard(currentIndex), 100);
+      resizeTimer = setTimeout(() => updatePosition(), 100);
     });
 
     // Initialize
-    goToCard(0);
+    updatePosition(false);
+    updateCenterCard();
+    updatePagination();
   }
 
   // ===================
-  // App Store Data Fetching
+  // App Store Data
   // ===================
   function fetchAppData() {
-    const cards = document.querySelectorAll('.work__card[data-appid]');
+    const fetchedIds = new Set();
     
-    cards.forEach(card => {
-      const appId = card.dataset.appid;
-      const manualScreenshot = card.dataset.screenshot;
-      const country = card.dataset.country || 'us';
-      const numericId = appId?.replace(/^id/, '');
-      
-      if (!numericId) return;
+    $('.work__card[data-appid]').each(function() {
+      const $card = $(this);
+      const appId = $card.data('appid');
+      const manualScreenshot = $card.data('screenshot');
+      const country = $card.data('country') || 'us';
+      const numericId = String(appId).replace(/^id/, '');
 
-      const iconImg = card.querySelector('.work__card-icon');
-      const screenshotImg = card.querySelector('.work__card-screenshot');
+      if (!numericId || fetchedIds.has(numericId)) return;
+      fetchedIds.add(numericId);
 
-      // Use manual screenshot if provided
-      if (manualScreenshot && screenshotImg) {
-        screenshotImg.src = manualScreenshot;
-        screenshotImg.style.display = 'block';
+      const $icon = $card.find('.work__card-icon');
+      const $screenshot = $card.find('.work__card-screenshot');
+
+      // Manual screenshot
+      if (manualScreenshot && $screenshot.length) {
+        $screenshot.attr('src', manualScreenshot).show();
       }
 
-      // Fetch from iTunes API using JSONP
-      const callbackName = `itunesCallback_${numericId}_${Date.now()}`;
-      
-      window[callbackName] = (data) => {
-        delete window[callbackName];
-        document.getElementById(`itunes-${numericId}`)?.remove();
-        
-        if (!data?.results?.[0]) return;
-        const app = data.results[0];
+      // Fetch from iTunes API
+      fetch(`https://itunes.apple.com/lookup?id=${numericId}&country=${country}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.results?.[0]) return;
+          const app = data.results[0];
 
-        if (iconImg) {
-          const iconUrl = app.artworkUrl512 || app.artworkUrl100;
-          if (iconUrl) {
-            iconImg.src = iconUrl;
-            iconImg.style.display = 'block';
-          }
-        }
+          // Update all cards with this appId (including clones)
+          $(`.work__card[data-appid="${appId}"]`).each(function() {
+            const $c = $(this);
+            const $i = $c.find('.work__card-icon');
+            const $s = $c.find('.work__card-screenshot');
 
-        if (!manualScreenshot && screenshotImg && app.screenshotUrls?.[0]) {
-          screenshotImg.src = app.screenshotUrls[0];
-          screenshotImg.style.display = 'block';
-        }
-      };
+            if ($i.length && (app.artworkUrl512 || app.artworkUrl100)) {
+              $i.attr('src', app.artworkUrl512 || app.artworkUrl100).show();
+            }
 
-      const script = document.createElement('script');
-      script.id = `itunes-${numericId}`;
-      script.src = `https://itunes.apple.com/lookup?id=${numericId}&country=${country}&callback=${callbackName}`;
-      script.onerror = () => {
-        delete window[callbackName];
-        script.remove();
-      };
-      document.head.appendChild(script);
+            if (!manualScreenshot && $s.length && app.screenshotUrls?.[0]) {
+              $s.attr('src', app.screenshotUrls[0]).show();
+            }
+          });
+        })
+        .catch(() => {});
     });
   }
 
-})();
+  // Initialize after short delay to ensure DOM is ready
+  setTimeout(() => {
+    initCarousel();
+    fetchAppData();
+  }, 100);
+
+});
