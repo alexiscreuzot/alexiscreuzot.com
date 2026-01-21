@@ -1,19 +1,23 @@
 ---
-# Front matter comment to ensure Jekyll properly reads file.
+# KISS Refactored - Consolidated SCSS
 ---
 
 @charset "utf-8";
-@import "theme-2018",
-		"normalize",
-        "skeleton",
-        "typography",
-        "style",
-        "banner",
-        "intro",
-        "work",
-        "websites",
-        "community",
-        "privacy",
-        "footer",
-        "theme-toggle",
-        "mobile-menu";
+
+// 1. Variables (theme colors, CSS custom properties)
+@import "variables";
+
+// 2. Base (normalize, container, typography)
+@import "base";
+
+// 3. Layout (html/body styles, sections, banner, footer)
+@import "layout";
+
+// 4. Components (theme toggle, mobile menu, page nav)
+@import "components";
+
+// 5. Sections (intro, work, websites, community)
+@import "sections";
+
+// 6. Pages (privacy, terms - kept separate)
+@import "privacy";

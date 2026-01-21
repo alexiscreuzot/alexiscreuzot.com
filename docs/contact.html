@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Contact</title>
+    <meta name="description" content="Personnal Website of Alexis Creuzot, iOS Developer, co-founder of Monoqle and Happy Hours Coworking">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=2">
+    <link rel="manifest" href="/images/site.webmanifest?v=2">
+    
+    <link rel="canonical" href="/contact.html">
+
+    <link rel="stylesheet" href="/main.css"/>
+    
+  </head>
+
+  <body>
+
+    <div id="banner">
+  <div class="container">
+    <div class="banner__inner">
+      <a href="/" class="banner__logo">
+        <span class="banner__name">Alexis Creuzot</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+    <section id="contact">
+   <div class="container">
+      <div class="page-header">
+         <h2>Contact</h2>
+         <p class="page-intro">Have a question, project idea, or need app support? Let's talk.</p>
+      </div>
+
+      <div class="support-content">
+         <div class="faq-section">
+            <h3>App Support</h3>
+            
+            <div class="faq-item">
+               <input type="checkbox" id="faq-1" class="faq-toggle">
+               <label for="faq-1" class="faq-question">How do I restore my purchases?</label>
+               <div class="faq-answer">
+                  <p>Make sure you're signed in with the same Apple ID used for the original purchase, then look for "Restore Purchases" in the app's settings or purchase screen.</p>
+               </div>
+            </div>
+            
+            <div class="faq-item">
+               <input type="checkbox" id="faq-2" class="faq-toggle">
+               <label for="faq-2" class="faq-question">The app is crashing or not working</label>
+               <div class="faq-answer">
+                  <p>Try these steps: update to the latest version, restart the app, restart your device, or reinstall the app. If the issue persists, use the form below.</p>
+               </div>
+            </div>
+            
+            <div class="faq-item">
+               <input type="checkbox" id="faq-3" class="faq-toggle">
+               <label for="faq-3" class="faq-question">How do I request a feature?</label>
+               <div class="faq-answer">
+                  <p>I love hearing your ideas! Use the contact form below and select "Feature Request" as the subject.</p>
+               </div>
+            </div>
+         </div>
+
+         <div class="contact-section">
+            <h3>Get in Touch</h3>
+            <p>I typically respond within 48 hours.</p>
+            
+            <form class="support-form" action="https://formspree.io/f/xnjjwzbv" method="POST">
+               <div class="form-row">
+                  <div class="form-group">
+                     <label for="email">Email <span class="required">*</span></label>
+                     <input type="email" id="email" name="email" required placeholder="your@email.com">
+                  </div>
+                  
+                  <div class="form-group">
+                     <label for="subject">Subject <span class="required">*</span></label>
+                     <select id="subject" name="subject" required>
+                        <option value="">Select a topic...</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="Project / Collaboration">Project / Collaboration</option>
+                        <option value="Bug Report">App: Bug Report</option>
+                        <option value="Feature Request">App: Feature Request</option>
+                        <option value="Purchase Issue">App: Purchase Issue</option>
+                     </select>
+                  </div>
+               </div>
+
+               <div class="form-row">
+                  <div class="form-group">
+                     <label for="app">Related App <span class="optional">(if applicable)</span></label>
+                     <select id="app" name="app">
+                        <option value="">None / Not applicable</option>
+                        
+                        
+                        <option value="Sorenson Forum">Sorenson Forum</option>
+                        
+                        
+                        
+                        <option value="Qoach">Qoach</option>
+                        
+                        
+                        
+                        <option value="Looq">Looq</option>
+                        
+                        
+                        
+                        <option value="Qonceal Smart Vault">Qonceal Smart Vault</option>
+                        
+                        
+                        
+                        <option value="Flamingo">Flamingo</option>
+                        
+                        
+                        
+                        <option value="Cyqle">Cyqle</option>
+                        
+                        
+                        
+                        <option value="Vero">Vero</option>
+                        
+                        
+                        
+                        <option value="Pilot Speech Translator">Pilot Speech Translator</option>
+                        
+                        
+                        
+                        
+                        
+                        <option value="Qolor">Qolor</option>
+                        
+                        
+                        
+                        <option value="Follow The Dot">Follow The Dot</option>
+                        
+                        
+                        
+                        <option value="DailyCig">DailyCig</option>
+                        
+                        
+                        
+                        <option value="Nice Weather 2">Nice Weather 2</option>
+                        
+                        
+                        
+                        <option value="mk2">mk2</option>
+                        
+                        
+                     </select>
+                  </div>
+                  
+                  <div class="form-group">
+                     <label for="device">Device & iOS <span class="optional">(for app issues)</span></label>
+                     <input type="text" id="device" name="device" placeholder="iPhone 15, iOS 17">
+                  </div>
+               </div>
+               
+               <div class="form-group">
+                  <label for="message">Message <span class="required">*</span></label>
+                  <textarea id="message" name="message" rows="4" required placeholder="How can I help?"></textarea>
+               </div>
+               
+               <button type="submit" class="form-submit">Send Message</button>
+            </form>
+         </div>
+      </div>
+   </div>
+</section>
+
+
+
+    <footer class="site-footer">
+  <div class="container">
+    <p class="footer__text">
+      &copy; 2026 Alexis Creuzot
+    </p>
+    <nav class="footer__links">
+      <a href="/contact.html">Contact</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+
+
+  </body>
+</html>

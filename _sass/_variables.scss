@@ -1,18 +1,21 @@
-// Theme Variables
+// ===================
+// THEME VARIABLES - KISS Consolidated
+// ===================
 
+// Gradient
 $gradient: linear-gradient(-40deg, #FC5A95 0%, #B954EB 50%, #78DAFC 100%);
 
 // Dark theme (default)
-$font-color-base : #F3F3FE;
-$font-color-highlight : #58BAFC;
+$font-color-base: #F3F3FE;
+$font-color-highlight: #58BAFC;
 $color-background: #121212;
 
-// Light theme - higher contrast
-$font-color-base-light : #000000;
-$font-color-highlight-light : #0052a3;
+// Light theme
+$font-color-base-light: #000000;
+$font-color-highlight-light: #0052a3;
 $color-background-light: #ffffff;
 
-// CSS Custom Properties for theme switching
+// CSS Custom Properties
 :root {
   --font-color-base: #{$font-color-base};
   --font-color-highlight: #{$font-color-highlight};
@@ -24,34 +27,19 @@ $color-background-light: #ffffff;
   --font-color-highlight-rgb: 88, 186, 252;
   --color-background-rgb: 18, 18, 18;
   
-  // Typography Color System - Primary, Secondary, Tertiary, Quaternary
-  // Primary: Main headings and important text (95-100% opacity)
+  // Typography hierarchy
   --text-primary: rgba(var(--font-color-base-rgb), 0.95);
-  
-  // Secondary: Body text and supporting content (85-90% opacity)
   --text-secondary: rgba(var(--font-color-base-rgb), 0.85);
-  
-  // Tertiary: Muted text, subtitles, less important content (60-70% opacity)
   --text-tertiary: rgba(var(--font-color-base-rgb), 0.65);
-  
-  // Quaternary: Very subtle text, separators, disabled states (30-40% opacity)
   --text-quaternary: rgba(var(--font-color-base-rgb), 0.35);
 }
 
-// Light theme
-body.light-theme {
+// Light theme - just toggle the class, CSS handles the rest
+.light-theme {
   --font-color-base: #{$font-color-base-light};
   --font-color-highlight: #{$font-color-highlight-light};
   --color-background: #{$color-background-light};
-  
-  // RGB values for light theme - higher contrast
   --font-color-base-rgb: 0, 0, 0;
   --font-color-highlight-rgb: 0, 82, 163;
   --color-background-rgb: 255, 255, 255;
-  
-  // Typography Color System - Light theme (same opacity values)
-  --text-primary: rgba(var(--font-color-base-rgb), 0.95);
-  --text-secondary: rgba(var(--font-color-base-rgb), 0.85);
-  --text-tertiary: rgba(var(--font-color-base-rgb), 0.65);
-  --text-quaternary: rgba(var(--font-color-base-rgb), 0.35);
 }

@@ -1,8 +1,13 @@
 <footer class="site-footer">
   <div class="container">
     <p class="footer__text">
-      &copy; {{ 'now' | date: "%Y" }} Alexis Creuzot. All rights reserved.
+      &copy; {{ 'now' | date: "%Y" }} Alexis Creuzot
     </p>
+    <nav class="footer__links">
+      <a href="{{ "/contact.html" | relative_url }}">Contact</a>
+      <a href="{{ "/privacy.html" | relative_url }}">Privacy</a>
+      <a href="{{ "/terms.html" | relative_url }}">Terms</a>
+    </nav>
   </div>
 </footer>
 

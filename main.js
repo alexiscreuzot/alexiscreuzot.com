@@ -1,1259 +1,413 @@
-// Minimalist Website - Simplified JavaScript
+// KISS Website - Simplified Vanilla JavaScript
 
-// Theme Toggle Functionality
 (function() {
-  // Get theme from localStorage or default to dark
-  function getTheme() {
-    return localStorage.getItem('theme') || 'dark';
-  }
+  'use strict';
+
+  // ===================
+  // Theme Toggle
+  // ===================
+  const getTheme = () => localStorage.getItem('theme') || 'dark';
   
-  // Update CSS variables based on theme
-  function updateCSSVariables(theme) {
-    if (theme === 'light') {
-      document.documentElement.style.setProperty('--font-color-base', '#000000');
-      document.documentElement.style.setProperty('--font-color-highlight', '#0052a3');
-      document.documentElement.style.setProperty('--color-background', '#ffffff');
-      document.documentElement.style.setProperty('--font-color-base-rgb', '0, 0, 0');
-      document.documentElement.style.setProperty('--font-color-highlight-rgb', '0, 82, 163');
-      document.documentElement.style.setProperty('--color-background-rgb', '255, 255, 255');
-    } else {
-      // Reset to default dark theme values
-      document.documentElement.style.setProperty('--font-color-base', '#F3F3FE');
-      document.documentElement.style.setProperty('--font-color-highlight', '#58BAFC');
-      document.documentElement.style.setProperty('--color-background', '#121212');
-      document.documentElement.style.setProperty('--font-color-base-rgb', '243, 243, 254');
-      document.documentElement.style.setProperty('--font-color-highlight-rgb', '88, 186, 252');
-      document.documentElement.style.setProperty('--color-background-rgb', '18, 18, 18');
-    }
-  }
-  
-  // Set theme
-  function setTheme(theme) {
+  const setTheme = (theme) => {
     localStorage.setItem('theme', theme);
-    updateCSSVariables(theme);
-    if (theme === 'light') {
-      document.documentElement.classList.add('light-theme');
-      document.body.classList.add('light-theme');
-    } else {
-      document.documentElement.classList.remove('light-theme');
-      document.body.classList.remove('light-theme');
-    }
-  }
-  
-  // Apply saved theme immediately (before DOM ready to prevent flash)
-  const savedTheme = getTheme();
-  updateCSSVariables(savedTheme);
-  if (savedTheme === 'light') {
-    document.documentElement.classList.add('light-theme');
-    document.body.classList.add('light-theme');
-  }
-  
-  // Initialize theme toggle button
-  function initThemeToggle() {
-    const toggleButton = document.querySelector('.theme-toggle');
-    if (!toggleButton) return;
-    
-    toggleButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const currentTheme = getTheme();
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
-    });
-  }
-  
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initThemeToggle);
-  } else {
-    initThemeToggle();
-  }
-})();
-
-$(document).ready(function() {
-
-  // Simple navigation dots
-  function initNavigationDots() {
-    var sections = ['#intro', '#work', '#websites', '#community'];
-    var tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
-    var navContainer = $('<div id="page-nav"></div>');
-    var navList = $('<ul></ul>');
-    
-    sections.forEach(function(sectionId, index) {
-      var navItem = $('<li></li>');
-      var navLink = $('<a href="' + sectionId + '" data-section="' + index + '"><span></span></a>');
-      var tooltip = $('<span class="page-nav-tooltip">' + tooltips[index] + '</span>');
-      
-      navLink.append(tooltip);
-      navItem.append(navLink);
-      navList.append(navItem);
-    });
-    
-    navContainer.append(navList);
-    $('body').append(navContainer);
-    
-    // Handle navigation clicks - smooth animated scroll
-    navContainer.on('click', 'a', function(event) {
-      event.preventDefault();
-      var clickedLink = $(this);
-      var targetId = clickedLink.attr('href');
-      var targetElement = $(targetId);
-      
-      if (targetElement.length) {
-        // Show tooltip immediately when clicked
-        var tooltip = clickedLink.find('.page-nav-tooltip');
-        tooltip.css('opacity', '1');
-        
-        // Fade out tooltip after 3 seconds
-        setTimeout(function() {
-          tooltip.css('opacity', '0');
-        }, 1000);
-        
-        var targetOffset = targetElement.offset().top;
-        
-        $('html, body').animate({
-          scrollTop: targetOffset
-        }, 800);
-      }
-    });
-    
-    // Update active dot on scroll
-    function updateActiveDot() {
-      var scrollTop = $(window).scrollTop();
-      var windowHeight = $(window).height();
-      var scrollMiddle = scrollTop + (windowHeight / 2);
-      
-      sections.forEach(function(sectionId, index) {
-        var section = $(sectionId);
-        if (section.length) {
-          var sectionTop = section.offset().top;
-          var sectionHeight = section.outerHeight();
-          var sectionBottom = sectionTop + sectionHeight;
-          
-          var navLink = navContainer.find('a[data-section="' + index + '"]');
-          
-          if (scrollMiddle >= sectionTop && scrollMiddle <= sectionBottom) {
-            navLink.addClass('active');
-          } else {
-            navLink.removeClass('active');
-          }
-        }
-      });
-    }
-    
-    $(window).on('scroll', updateActiveDot);
-    setTimeout(updateActiveDot, 100);
-  }
-  
-  initNavigationDots();
-
-  // Progressive blur based on scroll position (for free scrolling)
-  function initProgressiveBlur() {
-    var introSection = $('#intro');
-    var introContent = $('.intro__inner');
-    if (!introSection.length || !introContent.length) return;
-    
-    var introHeight = introSection.outerHeight();
-    var maxBlur = 8;
-    
-    function updateBlur() {
-      var scrollTop = $(window).scrollTop();
-      var introOffset = introSection.offset().top;
-      var introBottom = introOffset + introHeight;
-      
-      // Calculate blur based on scroll position
-      if (scrollTop > introOffset && scrollTop < introBottom) {
-        // Scrolling through intro section - progressive blur
-        var scrollProgress = (scrollTop - introOffset) / introHeight;
-        scrollProgress = Math.min(Math.max(scrollProgress, 0), 1);
-        var blurAmount = scrollProgress * maxBlur;
-        var opacity = 1 - (scrollProgress * 0.3);
-        
-        // Apply blur only to content, not the background
-        introContent.css({
-          'filter': 'blur(' + blurAmount + 'px)',
-          '-webkit-filter': 'blur(' + blurAmount + 'px)',
-          'opacity': opacity
-        });
-      } else if (scrollTop <= introOffset) {
-        // Above intro section - no blur
-        introContent.css({
-          'filter': 'blur(0px)',
-          '-webkit-filter': 'blur(0px)',
-          'opacity': 1
-        });
-      } else {
-        // Past intro section - full blur
-        introContent.css({
-          'filter': 'blur(' + maxBlur + 'px)',
-          '-webkit-filter': 'blur(' + maxBlur + 'px)',
-          'opacity': 0.7
-        });
-      }
-    }
-    
-    // Update on scroll
-    $(window).on('scroll', updateBlur);
-    
-    // Initial update
-    updateBlur();
-  }
-  
-  // Initialize progressive blur for free scrolling
-  initProgressiveBlur();
-
-  // Mobile Menu Toggle
-  function initMobileMenu() {
-    var menuToggle = document.querySelector('.mobile-menu-toggle');
-    var mobileMenu = document.querySelector('.mobile-menu');
-    var menuLinks = document.querySelectorAll('.mobile-menu__link');
-    
-    if (!menuToggle || !mobileMenu) return;
-    
-    // Toggle menu
-    menuToggle.addEventListener('click', function() {
-      var isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', !isExpanded);
-      mobileMenu.setAttribute('aria-hidden', isExpanded);
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-      if (!mobileMenu.contains(event.target) && 
-          !menuToggle.contains(event.target) && 
-          mobileMenu.getAttribute('aria-hidden') === 'false') {
-        menuToggle.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-      }
-    });
-    
-    // Handle menu link clicks - instant scroll
-    menuLinks.forEach(function(link) {
-      link.addEventListener('click', function(event) {
-        event.preventDefault();
-        var targetId = this.getAttribute('href');
-        var targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-          // Smooth animated scroll
-          var targetOffset = $(targetElement).offset().top;
-          
-          $('html, body').animate({
-            scrollTop: targetOffset
-          }, 800, 'swing', function() {
-            // Update active state after scroll completes
-            menuLinks.forEach(function(l) {
-              l.classList.remove('active');
-            });
-            link.classList.add('active');
-          });
-        }
-        
-        // Close menu
-        menuToggle.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-      });
-    });
-    
-  }
-  
-  // Initialize mobile menu
-  initMobileMenu();
-  
-  // Update active menu item based on scroll position (for free scrolling)
-  function updateActiveMenuOnScroll() {
-    var menuLinks = document.querySelectorAll('.mobile-menu__link');
-    if (menuLinks.length === 0) return;
-    
-    var scrollTop = $(window).scrollTop();
-    var windowHeight = $(window).height();
-    var scrollMiddle = scrollTop + (windowHeight / 2);
-    
-    menuLinks.forEach(function(link) {
-      var targetId = link.getAttribute('href');
-      var targetElement = document.querySelector(targetId);
-      
-      if (targetElement) {
-        var elementTop = $(targetElement).offset().top;
-        var elementHeight = $(targetElement).outerHeight();
-        var elementBottom = elementTop + elementHeight;
-        
-        // Check if scroll position is within this section
-        if (scrollMiddle >= elementTop && scrollMiddle <= elementBottom) {
-          menuLinks.forEach(function(l) {
-            l.classList.remove('active');
-          });
-          link.classList.add('active');
-        }
-      }
-    });
-  }
-  
-  // Update active menu item on scroll
-  $(window).on('scroll', updateActiveMenuOnScroll);
-  
-  // Initial update
-  setTimeout(updateActiveMenuOnScroll, 100);
-  
-  // Handle anchor links - instant scroll
-  $('a[href^="#"]').on('click', function(event) {
-    var href = $(this).attr('href');
-    if (href === '#' || href === '#!') {
-      return;
-    }
-    
-    // Skip if it's a mobile menu link (already handled)
-    if ($(this).hasClass('mobile-menu__link')) {
-      return;
-    }
-    
-    // Skip if it's a navigation dot (already handled)
-    if ($(this).closest('#page-nav').length) {
-      return;
-    }
-    
-    // Check if it's a section anchor
-    var targetSection = $(href);
-    if (targetSection.length) {
-      event.preventDefault();
-      var targetOffset = targetSection.offset().top;
-      
-      $('html, body').animate({
-        scrollTop: targetOffset
-      }, 800, 'swing');
-    }
-  });
-
-  // Intersection Observer for fade-in animations with stagger
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    document.documentElement.classList.toggle('light-theme', theme === 'light');
+    document.body.classList.toggle('light-theme', theme === 'light');
   };
 
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+  // Apply saved theme immediately to prevent flash
+  setTheme(getTheme());
+
+  // ===================
+  // DOM Ready
+  // ===================
+  document.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
+    initNavigationDots();
+    initMobileMenu();
+    initSmoothScroll();
+    initScrollAnimations();
+    initCarousel();
+    fetchAppData();
+  });
+
+  // ===================
+  // Theme Toggle Button
+  // ===================
+  function initThemeToggle() {
+    const toggleBtn = document.querySelector('.theme-toggle');
+    if (!toggleBtn) return;
+    
+    toggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  // ===================
+  // Navigation Dots
+  // ===================
+  function initNavigationDots() {
+    const sections = ['intro', 'work', 'websites', 'community'];
+    const tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
+    
+    const nav = document.createElement('div');
+    nav.id = 'page-nav';
+    nav.innerHTML = `<ul>${sections.map((id, i) => `
+      <li>
+        <a href="#${id}" data-section="${i}">
+          <span></span>
+          <span class="page-nav-tooltip">${tooltips[i]}</span>
+        </a>
+      </li>
+    `).join('')}</ul>`;
+    
+    document.body.appendChild(nav);
+    
+    // Update active dot on scroll
+    const updateActiveDot = () => {
+      const scrollMiddle = window.scrollY + window.innerHeight / 2;
+      
+      sections.forEach((id, i) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+        
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        const link = nav.querySelector(`a[data-section="${i}"]`);
+        
+        link.classList.toggle('active', scrollMiddle >= top && scrollMiddle <= bottom);
+      });
+    };
+    
+    window.addEventListener('scroll', updateActiveDot, { passive: true });
+    updateActiveDot();
+  }
+
+  // ===================
+  // Mobile Menu
+  // ===================
+  function initMobileMenu() {
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const menu = document.querySelector('.mobile-menu');
+    if (!toggle || !menu) return;
+
+    const closeMenu = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+    };
+
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !isOpen);
+      menu.setAttribute('aria-hidden', isOpen);
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+        closeMenu();
       }
     });
-  }, observerOptions);
 
-  // Function to wrap words in spans for word-by-word animation
-  function wrapWords(element) {
-    if (!element) return;
-    
-    const walker = document.createTreeWalker(
-      element,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    const textNodes = [];
-    let node;
-    while (node = walker.nextNode()) {
-      if (node.textContent.trim()) {
-        textNodes.push(node);
-      }
-    }
-    
-    textNodes.forEach(textNode => {
-      const text = textNode.textContent;
-      const words = text.split(/(\s+)/);
-      const fragment = document.createDocumentFragment();
-      
-      words.forEach(word => {
-        if (word.trim()) {
-          const span = document.createElement('span');
-          span.className = 'word';
-          span.textContent = word;
-          fragment.appendChild(span);
-        } else if (word) {
-          // Preserve whitespace
-          fragment.appendChild(document.createTextNode(word));
+    // Close and scroll on link click
+    menu.querySelectorAll('.mobile-menu__link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMenu();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
         }
       });
+    });
+
+    // Update active menu item on scroll
+    const updateActiveMenu = () => {
+      const scrollMiddle = window.scrollY + window.innerHeight / 2;
       
-      textNode.parentNode.replaceChild(fragment, textNode);
+      menu.querySelectorAll('.mobile-menu__link').forEach(link => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        
+        const top = target.offsetTop;
+        const bottom = top + target.offsetHeight;
+        link.classList.toggle('active', scrollMiddle >= top && scrollMiddle <= bottom);
+      });
+    };
+
+    window.addEventListener('scroll', updateActiveMenu, { passive: true });
+    updateActiveMenu();
+  }
+
+  // ===================
+  // Smooth Scroll for Anchor Links
+  // ===================
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      // Skip mobile menu links (handled separately)
+      if (link.classList.contains('mobile-menu__link')) return;
+      // Skip page-nav links (handled by CSS scroll-behavior)
+      if (link.closest('#page-nav')) return;
+      
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href === '#' || href === '#!') return;
+        
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     });
   }
-  
-  // Observe intro section elements with word-by-word animation
-  const introAvatar = document.querySelector('#intro .intro__avatar');
-  const introGreeting = document.querySelector('#intro .intro__greeting');
-  const introBio = document.querySelector('#intro .intro__bio');
-  const introLinks = document.querySelector('#intro .intro__links');
-  
-  // Wrap words in greeting and bio
-  if (introGreeting) {
-    wrapWords(introGreeting);
-    introGreeting.classList.add('js-ready');
-  }
-  
-  if (introBio) {
-    wrapWords(introBio);
-    introBio.classList.add('js-ready');
-  }
-  
-  // Wrap links and separators for left-to-right animation
-  if (introLinks) {
-    const linksChildren = Array.from(introLinks.childNodes);
-    linksChildren.forEach(child => {
-      if (child.nodeType === Node.ELEMENT_NODE && (child.tagName === 'A' || child.classList.contains('separator'))) {
-        const wrapper = document.createElement('span');
-        wrapper.className = 'link-item';
-        child.parentNode.insertBefore(wrapper, child);
-        wrapper.appendChild(child);
-      }
-    });
-    introLinks.classList.add('js-ready');
-  }
-  
-  // Sequential animation timing with 0.8 second offset between steps
-  const avatarDuration = 3.0; // Avatar fade duration
-  const wordStagger = 0.04; // Delay between words (40ms)
-  const wordBlurDuration = 1.1; // Blur animation duration
-  const wordTransformDuration = 1.6; // Transform animation duration
-  const stepOffset = 0.8; // 0.8 second offset between each step
-  const initialDelay = 0.5; // Initial delay before first animation
-  
-  // Step start times
-  const avatarStartTime = initialDelay; // 0.5s
-  const greetingStartTime = initialDelay + stepOffset; // 1.3s
-  const bioStartTime = initialDelay + stepOffset * 2; // 2.1s
-  const linksStartTime = initialDelay + stepOffset * 4; 
-  
-  // Observe avatar
-  if (introAvatar) {
-    introAvatar.style.transition = `opacity ${avatarDuration}s ease-out ${avatarStartTime}s, transform ${avatarDuration}s ease-out ${avatarStartTime}s`;
-    observer.observe(introAvatar);
-  }
-  
-  // Observe words in greeting with stagger (starts at 1.3s)
-  // Each word is observed individually to ensure word-by-word animation
-  if (introGreeting) {
-    const greetingWords = Array.from(introGreeting.querySelectorAll('.word'));
-    // Ensure words are in document order (left to right)
-    greetingWords.sort((a, b) => {
-      const position = a.compareDocumentPosition(b);
-      if (position & Node.DOCUMENT_POSITION_FOLLOWING) return -1;
-      if (position & Node.DOCUMENT_POSITION_PRECEDING) return 1;
-      return 0;
-    });
-    
-    // Set up transitions and observe each word individually
-    greetingWords.forEach((word, index) => {
-      const delay = greetingStartTime + (index * wordStagger);
-      word.style.transition = `opacity ${wordBlurDuration}s ease-out ${delay}s, filter ${wordBlurDuration}s ease-out ${delay}s, transform ${wordTransformDuration}s ease-out ${delay}s`;
-      observer.observe(word);
-    });
-  }
-  
-  // Observe words in bio with stagger (starts at 2.1s)
-  if (introBio) {
-    const bioWords = introBio.querySelectorAll('.word');
-    bioWords.forEach((word, index) => {
-      const delay = bioStartTime + (index * wordStagger);
-      word.style.transition = `opacity ${wordBlurDuration}s ease-out ${delay}s, filter ${wordBlurDuration}s ease-out ${delay}s, transform ${wordTransformDuration}s ease-out ${delay}s`;
-      observer.observe(word);
-    });
-  }
-  
-  // Observe links with left-to-right stagger (starts at linksStartTime)
-  if (introLinks) {
-    const linkItems = Array.from(introLinks.querySelectorAll('.link-item'));
-    linkItems.forEach((item, index) => {
-      const delay = linksStartTime + (index * wordStagger);
-      item.style.transition = `opacity ${wordBlurDuration}s ease-out ${delay}s, filter ${wordBlurDuration}s ease-out ${delay}s, transform ${wordTransformDuration}s ease-out ${delay}s`;
-    });
-    
-    // Observe the links container, then trigger all link items at once
-    const linksObserver = new IntersectionObserver(function(entries) {
+
+  // ===================
+  // Scroll Animations (Intersection Observer)
+  // ===================
+  function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          linkItems.forEach(item => {
-            item.classList.add('is-visible');
-          });
-          linksObserver.unobserve(entry.target);
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, observerOptions);
-    
-    linksObserver.observe(introLinks);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    // Observe intro elements
+    document.querySelectorAll('.intro__avatar, .intro__greeting, .intro__bio, .intro__links').forEach(el => {
+      el.classList.add('js-ready');
+      observer.observe(el);
+    });
+
+    // Observe section titles and subtitles
+    document.querySelectorAll('.section__title, .section__subtitle').forEach(el => {
+      el.classList.add('js-ready');
+      observer.observe(el);
+    });
+
+    // Observe work carousel
+    const carousel = document.querySelector('.work__carousel-wrapper');
+    if (carousel) {
+      carousel.classList.add('js-ready');
+      observer.observe(carousel);
+    }
+
+    // Observe websites and community items with stagger
+    document.querySelectorAll('.websites__item, .community__item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(el);
+    });
   }
 
-  // Observe all websites items with stagger animation
-  document.querySelectorAll('.websites__item').forEach((item, index) => {
-    const delay = index * 0.15; // Stagger delay: 0ms, 150ms, 300ms, etc.
-    item.style.transition = `opacity 3s ease-out ${delay}s, transform 3s ease-out ${delay}s`;
-    observer.observe(item);
-  });
-
-  // Observe community items with stagger animation
-  document.querySelectorAll('.community__item').forEach((item, index) => {
-    const delay = index * 0.15; // Stagger delay: 0ms, 150ms, 300ms, etc.
-    item.style.transition = `opacity 3s ease-out ${delay}s, transform 3s ease-out ${delay}s`;
-    observer.observe(item);
-  });
-
-  // Observe work section elements with stagger animation
-  const workTitle = document.querySelector('#work .section__title');
-  const workSubtitle = document.querySelector('#work .section__subtitle');
-  const workCarousel = document.querySelector('#work .work__carousel-wrapper');
-  
-  if (workTitle) {
-    workTitle.style.transition = 'opacity 3s ease-out 0s, transform 3s ease-out 0s';
-    workTitle.classList.add('js-ready');
-    observer.observe(workTitle);
-  }
-  
-  if (workSubtitle) {
-    workSubtitle.style.transition = 'opacity 3s ease-out 0.3s, transform 3s ease-out 0.3s';
-    workSubtitle.classList.add('js-ready');
-    observer.observe(workSubtitle);
-  }
-  
-  if (workCarousel) {
-    workCarousel.style.transition = 'opacity 3s ease-out 0.6s, transform 3s ease-out 0.6s';
-    workCarousel.classList.add('js-ready');
-    observer.observe(workCarousel);
-  }
-
-  // Carousel functionality
+  // ===================
+  // Carousel (CSS Scroll-Snap based)
+  // ===================
   function initCarousel() {
-    const carouselTrack = document.querySelector('.work__carousel-track');
-    const carouselContainer = document.querySelector('.work__carousel-container');
-    const cards = Array.from(document.querySelectorAll('.work__card:not(.work__card--clone)'));
-    const prevButton = document.querySelector('.work__carousel-arrow--prev');
-    const nextButton = document.querySelector('.work__carousel-arrow--next');
+    const track = document.querySelector('.work__carousel-track');
+    const container = document.querySelector('.work__carousel-container');
+    const cards = document.querySelectorAll('.work__card');
+    const prevBtn = document.querySelector('.work__carousel-arrow--prev');
+    const nextBtn = document.querySelector('.work__carousel-arrow--next');
+    const pagination = document.querySelector('.work__carousel-pagination');
     
-    if (!carouselTrack || !cards.length) return;
-    
-    let currentIndex = 0;
-    let isTransitioning = false;
-    
-    function getCardsPerView() {
-      return window.innerWidth <= 550 ? 1 : 2;
-    }
-    
-    let cardsPerView = getCardsPerView();
+    if (!track || !cards.length) return;
+
     const totalCards = cards.length;
-    
-    // Clone cards for infinite scroll
-    const clonesBefore = cards.slice(-cardsPerView);
-    const clonesAfter = cards.slice(0, cardsPerView);
-    
-    clonesBefore.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.classList.add('work__card--clone');
-      carouselTrack.insertBefore(clone, cards[0]);
-    });
-    
-    clonesAfter.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.classList.add('work__card--clone');
-      carouselTrack.appendChild(clone);
-    });
-    
-    const allCards = carouselTrack.querySelectorAll('.work__card');
-    const paginationContainer = document.querySelector('.work__carousel-pagination');
-    
-    // Create pagination counter
-    let paginationCounter = null;
-    if (paginationContainer) {
-      paginationCounter = document.createElement('span');
-      paginationCounter.className = 'work__carousel-counter';
-      paginationContainer.appendChild(paginationCounter);
-    }
-    
-    // Create pagination dots
-    let paginationDots = [];
-    if (paginationContainer) {
-      for (let i = 0; i < totalCards; i++) {
+    let currentIndex = 0;
+
+    // Create pagination
+    if (pagination) {
+      const counter = document.createElement('span');
+      counter.className = 'work__carousel-counter';
+      pagination.appendChild(counter);
+
+      cards.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = 'work__carousel-dot';
         dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-        dot.setAttribute('data-index', i);
-        paginationContainer.appendChild(dot);
-        paginationDots.push(dot);
-        
-        dot.addEventListener('click', function() {
-          goToCard(i);
-        });
-      }
-    }
-    
-    function updatePagination() {
-      const isMobile = window.innerWidth <= 550;
-      let activeIndex;
-      
-      if (isMobile) {
-        // On mobile, active index is based on currentIndex
-        const originalStartIndex = cardsPerView;
-        activeIndex = currentIndex - originalStartIndex;
-      } else {
-        // On desktop, active index is based on the center card (currentIndex + 1)
-        const originalStartIndex = cardsPerView;
-        const centerCardIndex = currentIndex + 1;
-        activeIndex = centerCardIndex - originalStartIndex;
-      }
-      
-      // Handle wrapping for infinite scroll
-      if (activeIndex < 0) {
-        activeIndex = totalCards + activeIndex;
-      } else if (activeIndex >= totalCards) {
-        activeIndex = activeIndex - totalCards;
-      }
-      
-      // Update counter
-      if (paginationCounter) {
-        paginationCounter.textContent = `${activeIndex + 1}/${totalCards}`;
-      }
-      
-      paginationDots.forEach((dot, index) => {
-        if (index === activeIndex) {
-          dot.classList.add('work__carousel-dot--active');
-        } else {
-          dot.classList.remove('work__carousel-dot--active');
-        }
+        dot.addEventListener('click', () => goToCard(i));
+        pagination.appendChild(dot);
       });
     }
-    
-    function getCardWidth() {
-      if (cards.length === 0) return 0;
+
+    const updatePagination = () => {
+      const counter = pagination?.querySelector('.work__carousel-counter');
+      if (counter) counter.textContent = `${currentIndex + 1}/${totalCards}`;
+
+      pagination?.querySelectorAll('.work__carousel-dot').forEach((dot, i) => {
+        dot.classList.toggle('work__carousel-dot--active', i === currentIndex);
+      });
+    };
+
+    const updateCenterCard = () => {
+      cards.forEach((card, i) => {
+        card.classList.toggle('work__card--center', i === currentIndex);
+      });
+    };
+
+    const getCardWidth = () => {
       const card = cards[0];
-      const cardWidth = card.offsetWidth;
-      // Get gap from parent container (work__carousel-track)
-      const trackStyle = window.getComputedStyle(carouselTrack);
-      const gap = parseFloat(trackStyle.gap) || 24; // 1.5rem = 24px
-      return cardWidth + gap;
-    }
-    
-    function getCenterOffset() {
-      // Calculate offset to center the middle card
+      const gap = parseFloat(getComputedStyle(track).gap) || 24;
+      return card.offsetWidth + gap;
+    };
+
+    const goToCard = (index) => {
+      currentIndex = Math.max(0, Math.min(index, totalCards - 1));
       const cardWidth = getCardWidth();
-      const containerWidth = carouselContainer ? carouselContainer.offsetWidth : window.innerWidth;
-      const isMobile = window.innerWidth <= 550;
+      const containerWidth = container.offsetWidth;
+      const offset = (containerWidth / 2) - (cards[currentIndex].offsetWidth / 2) - (currentIndex * cardWidth);
       
-      if (isMobile) {
-        // On mobile, center the current card
-        return (containerWidth / 2) - (cardWidth / 2);
-      } else {
-        // On desktop, center the middle card of 3
-        // The middle card is at currentIndex + 1
-        const centerCardIndex = currentIndex + 1;
-        const centerCardPosition = centerCardIndex * cardWidth;
-        return (containerWidth / 2) - (cardWidth / 2) - centerCardPosition;
-      }
-    }
-    
-    // Set initial position - start at the first real card after clones
-    // On desktop, center card is at currentIndex + 1, so we need currentIndex = cardsPerView - 1
-    // On mobile, center card is at currentIndex, so we need currentIndex = cardsPerView
-    const isMobile = window.innerWidth <= 550;
-    currentIndex = isMobile ? cardsPerView : cardsPerView - 1;
-    updateCarouselPosition();
-    updateCenterCard();
-    updatePagination();
-    
-    function updateCarouselPosition() {
-      const cardWidth = getCardWidth();
-      const isMobile = window.innerWidth <= 550;
-      
-      if (isMobile) {
-        // On mobile, center the current card
-        const containerWidth = carouselContainer ? carouselContainer.offsetWidth : window.innerWidth;
-        // Get actual card width without gap for centering
-        const actualCardWidth = cards[0] ? cards[0].offsetWidth : cardWidth;
-        const cardPosition = currentIndex * cardWidth;
-        // Center the card: container center - card left edge - half card width
-        const offset = (containerWidth / 2) - cardPosition - (actualCardWidth / 2);
-        carouselTrack.style.transform = `translateX(${offset}px)`;
-      } else {
-        // On desktop, center the middle card (currentIndex + 1)
-        const containerWidth = carouselContainer ? carouselContainer.offsetWidth : window.innerWidth;
-        const centerCardIndex = currentIndex + 1;
-        const centerCardPosition = centerCardIndex * cardWidth;
-        const centerOffset = (containerWidth / 2) - (cardWidth / 2);
-        const offset = centerOffset - centerCardPosition;
-        carouselTrack.style.transform = `translateX(${offset}px)`;
-      }
-    }
-    
-    function updateCenterCard(suppressTransitions = false) {
-      const isMobile = window.innerWidth <= 550;
-      
-      if (suppressTransitions) {
-        // Temporarily disable transitions on all cards and force GPU acceleration
-        allCards.forEach(card => {
-          card.style.transition = 'none';
-          card.style.willChange = 'transform, opacity';
-        });
-      }
-      
-      allCards.forEach((card, index) => {
-        const wasCenter = card.classList.contains('work__card--center');
-        card.classList.remove('work__card--center');
-        let isCenter = false;
-        
-        if (isMobile) {
-          // On mobile, center card is the current one
-          if (index === currentIndex) {
-            card.classList.add('work__card--center');
-            isCenter = true;
-          }
-        } else {
-          // On desktop, center card is the middle of 3 visible cards
-          const centerIndex = currentIndex + 1;
-          if (index === centerIndex) {
-            card.classList.add('work__card--center');
-            isCenter = true;
-          }
-        }
-        
-        // If center state changed and we're suppressing transitions, force immediate update
-        if (suppressTransitions && wasCenter !== isCenter) {
-          // Force a reflow to apply styles immediately
-          card.offsetHeight;
-        }
-      });
-      
-      if (suppressTransitions) {
-        // Re-enable transitions after browser has processed the changes
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            allCards.forEach(card => {
-              card.style.transition = '';
-              card.style.willChange = '';
-            });
-          });
-        });
-      }
-    }
-    
-    function goToNext() {
-      if (isTransitioning) return;
-      isTransitioning = true;
-      currentIndex++;
-      
-      const originalStartIndex = cardsPerView;
-      const originalEndIndex = originalStartIndex + totalCards;
-      
-      carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-      updateCarouselPosition();
+      track.style.transform = `translateX(${offset}px)`;
       updateCenterCard();
       updatePagination();
-      
-      setTimeout(() => {
-        // Check if we've reached the end and need to loop
-        if (currentIndex >= originalEndIndex) {
-          // Reset immediately without transition
-          carouselTrack.style.transition = 'none';
-          currentIndex = originalStartIndex;
-          updateCarouselPosition();
-          updateCenterCard(true);
-          updatePagination();
-          // Force a reflow
-          carouselTrack.offsetHeight;
-          // Re-enable transitions in next frame
-          requestAnimationFrame(() => {
-            carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-            isTransitioning = false;
-          });
-        } else {
-          isTransitioning = false;
-        }
-      }, 500);
-    }
-    
-    function goToPrev() {
-      if (isTransitioning) return;
-      isTransitioning = true;
-      currentIndex--;
-      
-      const originalStartIndex = cardsPerView;
-      
-      carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-      updateCarouselPosition();
-      updateCenterCard();
-      updatePagination();
-      
-      setTimeout(() => {
-        // Check if we've reached the beginning and need to loop
-        if (currentIndex < originalStartIndex) {
-          // Reset immediately without transition
-          carouselTrack.style.transition = 'none';
-          currentIndex = originalStartIndex + totalCards - 1;
-          updateCarouselPosition();
-          updateCenterCard(true);
-          updatePagination();
-          // Force a reflow
-          carouselTrack.offsetHeight;
-          // Re-enable transitions in next frame
-          requestAnimationFrame(() => {
-            carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-            isTransitioning = false;
-          });
-        } else {
-          isTransitioning = false;
-        }
-      }, 500);
-    }
-    
-    function goToCard(targetIndex) {
-      if (isTransitioning) return;
-      
-      const originalStartIndex = cardsPerView;
-      const originalEndIndex = originalStartIndex + totalCards;
-      const isMobile = window.innerWidth <= 550;
-      
-      // Calculate what the current card index is (0-based in original cards array)
-      let currentCardIndex;
-      if (isMobile) {
-        currentCardIndex = currentIndex - originalStartIndex;
-      } else {
-        // On desktop, center card is at currentIndex + 1
-        currentCardIndex = (currentIndex + 1) - originalStartIndex;
-      }
-      
-      // Normalize currentCardIndex to be within 0 to totalCards-1
-      if (currentCardIndex < 0) currentCardIndex += totalCards;
-      if (currentCardIndex >= totalCards) currentCardIndex -= totalCards;
-      
-      // Calculate the difference (how many cards to move)
-      let diff = targetIndex - currentCardIndex;
-      
-      // Find the shortest path (forward or backward)
-      if (Math.abs(diff) > totalCards / 2) {
-        // Go the other way (shorter)
-        diff = diff > 0 ? diff - totalCards : diff + totalCards;
-      }
-      
-      // Move by the difference
-      currentIndex += diff;
-      isTransitioning = true;
-      
-      // Use requestAnimationFrame to ensure layout is complete
-      requestAnimationFrame(() => {
-        carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        updateCarouselPosition();
-        updateCenterCard();
-        updatePagination();
-        
-        setTimeout(() => {
-          // Check if we need to loop after animation
-          if (currentIndex < originalStartIndex) {
-            // We went before the originals, reset to original range
-            carouselTrack.style.transition = 'none';
-            currentIndex = currentIndex + totalCards;
-            updateCarouselPosition();
-            updateCenterCard(true); // Suppress card transitions during reset
-            updatePagination();
-            carouselTrack.offsetHeight; // Force reflow
-            requestAnimationFrame(() => {
-              carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-              isTransitioning = false;
-            });
-          } else if (currentIndex >= originalEndIndex) {
-            // We went after the originals, reset to original range
-            carouselTrack.style.transition = 'none';
-            currentIndex = currentIndex - totalCards;
-            updateCarouselPosition();
-            updateCenterCard(true); // Suppress card transitions during reset
-            updatePagination();
-            carouselTrack.offsetHeight; // Force reflow
-            requestAnimationFrame(() => {
-              carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-              isTransitioning = false;
-            });
-          } else {
-            isTransitioning = false;
-          }
-        }, 500);
-      });
-    }
-    
-    if (nextButton) {
-      nextButton.addEventListener('click', goToNext);
-    }
-    
-    if (prevButton) {
-      prevButton.addEventListener('click', goToPrev);
-    }
-    
-    // Add click handlers to cards to center them when clicked (but not on the link)
-    allCards.forEach((card, index) => {
-      card.addEventListener('click', function(e) {
-        // Don't handle clicks if we just finished dragging
-        if (justFinishedDragging) {
-          return;
-        }
-        
-        // Don't handle clicks on the link - let it work normally
-        if (e.target.closest('.work__card-link')) {
-          return;
-        }
-        
-        const isMobile = window.innerWidth <= 550;
-        let isCenterCard = false;
-        
-        if (isMobile) {
-          isCenterCard = (index === currentIndex);
-        } else {
-          isCenterCard = (index === currentIndex + 1);
-        }
-        
-        // If card is already centered, don't do anything
-        if (isCenterCard) {
-          return;
-        }
-        
-        // Otherwise, center the card
-        e.preventDefault();
-        e.stopPropagation();
-        
-        // Check if this is a clone or original card
-        const isClone = card.classList.contains('work__card--clone');
-        
-        if (isClone) {
-          // Find which original card this clone represents
-          const originalStartIndex = cardsPerView;
-          const originalEndIndex = originalStartIndex + totalCards;
-          
-          if (index < originalStartIndex) {
-            // This is a clone from the beginning, map to end
-            const originalIndex = totalCards - (originalStartIndex - index);
-            goToCard(originalIndex);
-          } else if (index >= originalEndIndex) {
-            // This is a clone from the end, map to beginning
-            const originalIndex = index - originalEndIndex;
-            goToCard(originalIndex);
-          }
-        } else {
-          // This is an original card
-          const originalIndex = index - cardsPerView;
-          goToCard(originalIndex);
-        }
-        });
-    });
-    
-    // Panning functionality for desktop (mouse) and mobile (touch)
+    };
+
+    const goToNext = () => goToCard((currentIndex + 1) % totalCards);
+    const goToPrev = () => goToCard((currentIndex - 1 + totalCards) % totalCards);
+
+    // Arrow buttons
+    prevBtn?.addEventListener('click', goToPrev);
+    nextBtn?.addEventListener('click', goToNext);
+
+    // Drag/swipe support
     let isDragging = false;
     let startX = 0;
-    let startY = 0;
     let startTransform = 0;
-    let dragOffset = 0;
-    let hasMoved = false;
-    let justFinishedDragging = false;
-    
-    function getTransformX() {
-      const transform = carouselTrack.style.transform || 'translateX(0px)';
-      const match = transform.match(/translateX\(([^)]+)\)/);
+
+    const getTransformX = () => {
+      const match = track.style.transform?.match(/translateX\(([^)]+)\)/);
       return match ? parseFloat(match[1]) : 0;
-    }
-    
-    function handleDragStart(clientX, clientY) {
-      if (isTransitioning) return;
-      
+    };
+
+    const handleDragStart = (clientX) => {
       isDragging = true;
-      hasMoved = false;
-      justFinishedDragging = false;
       startX = clientX;
-      startY = clientY;
       startTransform = getTransformX();
-      dragOffset = 0;
-      
-      // Disable transitions during drag
-      carouselTrack.style.transition = 'none';
-      
-      // Update cursor
-      if (carouselContainer) {
-        carouselContainer.style.cursor = 'grabbing';
-      }
-    }
-    
-    function handleDragMove(clientX, clientY) {
+      track.style.transition = 'none';
+    };
+
+    const handleDragMove = (clientX) => {
       if (!isDragging) return;
-      
-      const deltaX = clientX - startX;
-      const deltaY = Math.abs(clientY - startY);
-      
-      // Only start dragging if horizontal movement is greater than vertical (to avoid conflicts with scrolling)
-      if (!hasMoved && Math.abs(deltaX) > 10 && Math.abs(deltaX) > deltaY) {
-        hasMoved = true;
-      }
-      
-      if (hasMoved) {
-        dragOffset = deltaX;
-        const newTransform = startTransform + dragOffset;
-        carouselTrack.style.transform = `translateX(${newTransform}px)`;
-      }
-    }
-    
-    function handleDragEnd() {
+      const delta = clientX - startX;
+      track.style.transform = `translateX(${startTransform + delta}px)`;
+    };
+
+    const handleDragEnd = (clientX) => {
       if (!isDragging) return;
-      
-      const wasDragging = hasMoved;
       isDragging = false;
+      track.style.transition = '';
       
-      // Update cursor
-      if (carouselContainer) {
-        carouselContainer.style.cursor = 'grab';
-      }
+      const delta = clientX - startX;
+      const threshold = getCardWidth() * 0.3;
       
-      // Re-enable transitions
-      carouselTrack.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-      
-      if (!wasDragging) {
-        return;
-      }
-      
-      // Mark that we just finished dragging to prevent click events
-      justFinishedDragging = true;
-      setTimeout(() => {
-        justFinishedDragging = false;
-      }, 100);
-      
-      // Determine if we should snap to next/prev card based on drag distance
-      const cardWidth = getCardWidth();
-      const threshold = cardWidth * 0.3; // 30% of card width to trigger snap
-      
-      if (Math.abs(dragOffset) > threshold) {
-        if (dragOffset > 0) {
-          // Dragged right, go to previous
-          goToPrev();
-        } else {
-          // Dragged left, go to next
-          goToNext();
-        }
+      if (Math.abs(delta) > threshold) {
+        delta > 0 ? goToPrev() : goToNext();
       } else {
-        // Snap back to current position
-        updateCarouselPosition();
-        updateCenterCard();
+        goToCard(currentIndex); // Snap back
       }
-      
-      dragOffset = 0;
-      hasMoved = false;
-    }
-    
-    // Mouse events for desktop
-    if (carouselContainer) {
-      carouselContainer.style.cursor = 'grab';
-      carouselContainer.style.userSelect = 'none';
-      
-      carouselContainer.addEventListener('mousedown', function(e) {
-        // Don't start drag on link clicks
-        if (e.target.closest('.work__card-link')) {
-          return;
-        }
-        handleDragStart(e.clientX, e.clientY);
-        e.preventDefault();
-      });
-      
-      document.addEventListener('mousemove', function(e) {
-        handleDragMove(e.clientX, e.clientY);
-      });
-      
-      document.addEventListener('mouseup', function(e) {
-        handleDragEnd();
-      });
-    }
-    
-    // Touch events for mobile
-    if (carouselContainer) {
-      carouselContainer.addEventListener('touchstart', function(e) {
-        // Don't start drag on link touches
-        if (e.target.closest('.work__card-link')) {
-          return;
-        }
-        const touch = e.touches[0];
-        if (touch) {
-          handleDragStart(touch.clientX, touch.clientY);
-        }
-      }, { passive: true });
-      
-      carouselContainer.addEventListener('touchmove', function(e) {
-        const touch = e.touches[0];
-        if (touch) {
-          handleDragMove(touch.clientX, touch.clientY);
-          // Prevent scrolling if we're dragging horizontally
-          if (hasMoved) {
-            e.preventDefault();
-          }
-        }
-      }, { passive: false });
-      
-      carouselContainer.addEventListener('touchend', function(e) {
-        handleDragEnd();
-      }, { passive: true });
-      
-      carouselContainer.addEventListener('touchcancel', function(e) {
-        handleDragEnd();
-      }, { passive: true });
-    }
-    
-    
-    // Handle window resize
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(function() {
-        const newCardsPerView = getCardsPerView();
-        if (newCardsPerView !== cardsPerView) {
-          // Reload to reinitialize with new card count
-          location.reload();
-        } else {
-          // Just update position and center card
-          updateCarouselPosition();
-          updateCenterCard();
-          updatePagination();
-        }
-      }, 250);
+    };
+
+    // Mouse events
+    container.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.work__card-link')) return;
+      e.preventDefault();
+      handleDragStart(e.clientX);
     });
+    document.addEventListener('mousemove', (e) => handleDragMove(e.clientX));
+    document.addEventListener('mouseup', (e) => handleDragEnd(e.clientX));
+
+    // Touch events
+    container.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.work__card-link')) return;
+      handleDragStart(e.touches[0].clientX);
+    }, { passive: true });
+    container.addEventListener('touchmove', (e) => {
+      handleDragMove(e.touches[0].clientX);
+    }, { passive: true });
+    container.addEventListener('touchend', (e) => {
+      handleDragEnd(e.changedTouches[0].clientX);
+    }, { passive: true });
+
+    // Card click to center
+    cards.forEach((card, i) => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.work__card-link')) return;
+        if (i !== currentIndex) {
+          e.preventDefault();
+          goToCard(i);
+        }
+      });
+    });
+
+    // Handle resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => goToCard(currentIndex), 100);
+    });
+
+    // Initialize
+    goToCard(0);
   }
 
-  // Copy image sources from original card to its clones
-  function syncImagesToClones(originalCard) {
-    const appId = originalCard.getAttribute('data-appid');
-    if (!appId) return;
-    
-    const originalIcon = originalCard.querySelector('.work__card-icon');
-    const originalScreenshot = originalCard.querySelector('.work__card-screenshot');
-    
-    // Find all clones of this card (they have the same data-appid)
-    const clones = document.querySelectorAll('.work__card--clone[data-appid="' + appId + '"]');
-    
-    clones.forEach(function(clone) {
-      const cloneIcon = clone.querySelector('.work__card-icon');
-      const cloneScreenshot = clone.querySelector('.work__card-screenshot');
-      
-      // Copy icon if it exists and has a src
-      if (cloneIcon && originalIcon && originalIcon.src) {
-        cloneIcon.src = originalIcon.src;
-        cloneIcon.style.display = originalIcon.style.display;
-      }
-      
-      // Copy screenshot if it exists and has a src
-      if (cloneScreenshot && originalScreenshot && originalScreenshot.src) {
-        cloneScreenshot.src = originalScreenshot.src;
-        cloneScreenshot.style.display = originalScreenshot.style.display;
-      }
-    });
-  }
-
-  // Fetch and display app icons and screenshots from App Store
+  // ===================
+  // App Store Data Fetching
+  // ===================
   function fetchAppData() {
-    // Only select original cards, not clones (to avoid duplicate API calls)
-    const appCards = document.querySelectorAll('.work__card[data-appid]:not(.work__card--clone)');
+    const cards = document.querySelectorAll('.work__card[data-appid]');
     
-    appCards.forEach(function(card) {
-      const appId = card.getAttribute('data-appid');
-      const manualScreenshot = card.getAttribute('data-screenshot');
-      const country = card.getAttribute('data-country') || 'us'; // Default to 'us' if not specified
-      // Extract numeric ID from format like "id650627810"
-      const numericId = appId ? appId.replace(/^id/, '') : null;
-      const iconImg = card.querySelector('.work__card-icon');
-      const screenshotImg = card.querySelector('.work__card-screenshot');
+    cards.forEach(card => {
+      const appId = card.dataset.appid;
+      const manualScreenshot = card.dataset.screenshot;
+      const country = card.dataset.country || 'us';
+      const numericId = appId?.replace(/^id/, '');
       
       if (!numericId) return;
-      
-      // If manual screenshot URL is provided, use it directly
+
+      const iconImg = card.querySelector('.work__card-icon');
+      const screenshotImg = card.querySelector('.work__card-screenshot');
+
+      // Use manual screenshot if provided
       if (manualScreenshot && screenshotImg) {
         screenshotImg.src = manualScreenshot;
         screenshotImg.style.display = 'block';
-        // Sync to clones immediately
-        syncImagesToClones(card);
       }
+
+      // Fetch from iTunes API using JSONP
+      const callbackName = `itunesCallback_${numericId}_${Date.now()}`;
       
-      // Always fetch icon from API (even if we have manual screenshot)
-      // Use JSONP to avoid CORS issues
-      const callbackName = 'itunesCallback_' + numericId + '_' + Date.now();
-      const params = new URLSearchParams({ id: numericId, country: country, callback: callbackName });
-      
-      // Create callback function
-      window[callbackName] = function(data) {
-        // Clean up callback and script tag
+      window[callbackName] = (data) => {
         delete window[callbackName];
-        const script = document.getElementById('itunes-script-' + numericId);
-        if (script) {
-          script.remove();
-        }
+        document.getElementById(`itunes-${numericId}`)?.remove();
         
-        if (!data || !data.resultCount || !data.results || data.results.length === 0) {
-          return;
-        }
-        
-        const appData = data.results[0];
-        
-        // Set icon
+        if (!data?.results?.[0]) return;
+        const app = data.results[0];
+
         if (iconImg) {
-          const iconUrl = appData.artworkUrl512 || appData.artworkUrl100 || appData.artworkUrl60;
+          const iconUrl = app.artworkUrl512 || app.artworkUrl100;
           if (iconUrl) {
             iconImg.src = iconUrl;
             iconImg.style.display = 'block';
-            // Sync to clones - handle both cached and loading images
-            if (iconImg.complete) {
-              // Image is already loaded (cached)
-              syncImagesToClones(card);
-            } else {
-              // Image is loading, sync when it loads
-              iconImg.onload = function() {
-                syncImagesToClones(card);
-              };
-              // Also sync after a short delay as a fallback
-              setTimeout(function() {
-                syncImagesToClones(card);
-              }, 100);
-            }
           }
         }
-        
-        // Set screenshot from API only if we don't have a manual one
-        if (!manualScreenshot && screenshotImg) {
-          const screenshotUrls = appData.screenshotUrls || [];
-          if (screenshotUrls.length > 0) {
-            screenshotImg.src = screenshotUrls[0];
-            screenshotImg.style.display = 'block';
-            // Sync to clones - handle both cached and loading images
-            if (screenshotImg.complete) {
-              // Image is already loaded (cached)
-              syncImagesToClones(card);
-            } else {
-              // Image is loading, sync when it loads
-              screenshotImg.onload = function() {
-                syncImagesToClones(card);
-              };
-              // Also sync after a short delay as a fallback
-              setTimeout(function() {
-                syncImagesToClones(card);
-              }, 100);
-            }
-          }
+
+        if (!manualScreenshot && screenshotImg && app.screenshotUrls?.[0]) {
+          screenshotImg.src = app.screenshotUrls[0];
+          screenshotImg.style.display = 'block';
         }
       };
-      
-      // Create and append script tag for JSONP
+
       const script = document.createElement('script');
-      script.id = 'itunes-script-' + numericId;
-      script.src = 'https://itunes.apple.com/lookup?' + params.toString();
-      script.onerror = function() {
-        // Clean up on error
+      script.id = `itunes-${numericId}`;
+      script.src = `https://itunes.apple.com/lookup?id=${numericId}&country=${country}&callback=${callbackName}`;
+      script.onerror = () => {
         delete window[callbackName];
         script.remove();
-        console.log('Failed to fetch app data:', appId);
       };
       document.head.appendChild(script);
     });
   }
-  
-  // Initialize carousel and fetch app data after page load
-  setTimeout(function() {
-    initCarousel();
-    fetchAppData();
-  }, 100);
 
-});
-
-
-
+})();

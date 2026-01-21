@@ -1,8 +1,44 @@
-//
-// TYPOGRAPHY SYSTEM
-//
+// ===================
+// BASE STYLES - Normalize + Skeleton + Typography
+// ===================
 
-// Import Space Grotesk font (similar to Hanken Grotesk)
+// Minimal Normalize
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}
+audio,canvas,video{display:inline-block;}
+[hidden]{display:none;}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+body{margin:0;}
+a:active,a:hover{outline:0;}
+b,strong{font-weight:bold;}
+img{border:0;}
+svg:not(:root){overflow:hidden;}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}
+button,input{line-height:normal;}
+button,select{text-transform:none;}
+button{cursor:pointer;}
+
+// Container
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 400px) {
+  .container { width: 100%; padding: 0; }
+}
+
+@media (min-width: 1200px) {
+  .container { max-width: 1200px; }
+}
+
+// ===================
+// TYPOGRAPHY
+// ===================
+
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 // Icon Font
@@ -36,23 +72,12 @@
 .icon-linkedin:before { content: "\eac9"; }
 .icon-stackoverflow:before { content: "\ead0"; }
 
-// Typography Scale (Modular Scale - Major Third: 1.25)
-// Only keeping values that are actually used
-$type-scale: (
-  h1: 4.768rem,  // ~76px
-  h2: 3.815rem,  // ~61px
-  h3: 3.052rem,  // ~49px
-  h4: 2.441rem,  // ~39px
-  body: 1rem     // ~16px
-);
-
-// Font Stack
+// Font Stacks
 $font-family-primary: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-$font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', monospace;
+$font-family-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
 
-// Typography Base
 html {
-  font-size: 16px; // Base font size
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -65,7 +90,6 @@ body {
   color: var(--text-primary);
 }
 
-// Headings
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-family-primary;
   font-weight: 600;
@@ -74,88 +98,35 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-h1 {
-  font-size: map-get($type-scale, h1);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
+h1 { font-size: 4.768rem; font-weight: 700; letter-spacing: -0.03em; }
+h2 { font-size: 3.815rem; }
+h3 { font-size: 3.052rem; }
+h4 { font-size: 2.441rem; font-weight: 500; }
 
-h2 {
-  font-size: map-get($type-scale, h2);
-}
-
-h3 {
-  font-size: map-get($type-scale, h3);
-}
-
-h4 {
-  font-size: map-get($type-scale, h4);
-  font-weight: 500;
-}
-
-// Body Text
 p {
-  font-size: map-get($type-scale, body);
+  font-size: 1rem;
   line-height: 1.7;
   margin: 0 0 1.5rem 0;
 }
 
-// Links
 a {
   color: var(--text-primary);
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+  transition: all 0.3s ease;
   
-  &:hover {
-    color: var(--font-color-highlight, #{$font-color-highlight});
-  }
-  
-  &:focus {
-    outline: none;
-  }
+  &:hover { color: var(--font-color-highlight); }
+  &:focus { outline: none; }
 }
 
 // Responsive Typography
 @media screen and (max-width: 800px) {
-  html {
-    font-size: 16px; // Slightly reduced for better balance
-  }
-  
-  h1 {
-    font-size: map-get($type-scale, h2);
-  }
-  
-  h2 {
-    font-size: map-get($type-scale, h3);
-  }
-  
-  h3 {
-    font-size: map-get($type-scale, h4);
-  }
+  h1 { font-size: 3.815rem; }
+  h2 { font-size: 3.052rem; }
+  h3 { font-size: 2.441rem; }
 }
 
 @media screen and (max-width: 550px) {
-  html {
-    font-size: 16px; // Reduced from 18px for better balance
-  }
-  
-  h1 {
-    font-size: map-get($type-scale, h3);
-  }
-  
-  h2 {
-    font-size: map-get($type-scale, h4);
-  }
-  
-  h3 {
-    font-size: map-get($type-scale, h4);
-  }
-  
-  // Body text on mobile
-  p {
-    font-size: 1rem; // Standard body text
-    line-height: 1.7;
-  }
+  h1 { font-size: 3.052rem; }
+  h2 { font-size: 2.441rem; }
+  h3 { font-size: 2.441rem; }
 }
-

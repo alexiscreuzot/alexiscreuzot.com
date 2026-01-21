@@ -1,0 +1,185 @@
+// ===================
+// LAYOUT - General styles, banner, footer
+// ===================
+
+// Remove outlines globally
+* {
+  &::after, &::before { box-sizing: border-box; }
+  &:focus, &:active, &:focus-visible { outline: none !important; box-shadow: none !important; }
+}
+
+// HTML Background (gradient + theme support)
+html {
+  height: 100%;
+  background-color: #0f0f1a;
+  background-image: 
+    radial-gradient(ellipse 150% 100% at 15% 10%, rgba(88, 186, 252, 0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 150% 100% at 85% 90%, rgba(185, 84, 235, 0.08) 0%, transparent 55%),
+    linear-gradient(180deg, #0f0f1a 0%, #121212 50%, #0f0f1a 100%);
+  background-attachment: fixed;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 10% 15%, rgba(88, 186, 252, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 90% 85%, rgba(185, 84, 235, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  &.light-theme {
+    background-color: #fafafa;
+    background-image: 
+      radial-gradient(ellipse 150% 100% at 15% 10%, rgba(88, 186, 252, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 150% 100% at 85% 90%, rgba(185, 84, 235, 0.18) 0%, transparent 55%),
+      linear-gradient(180deg, #fafafa 0%, #ffffff 50%, #f8f8f8 100%);
+    
+    &::before {
+      background: 
+        radial-gradient(circle at 10% 15%, rgba(88, 186, 252, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 90% 85%, rgba(185, 84, 235, 0.12) 0%, transparent 50%);
+    }
+  }
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: color 0.3s ease;
+}
+
+// Sections
+section {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  padding-bottom: 4rem;
+  
+  .container {
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  section { padding-bottom: 3rem; }
+  .container { padding: 0 1.5rem; }
+}
+
+@media screen and (max-width: 550px) {
+  section { padding-bottom: calc(3rem + env(safe-area-inset-bottom)); }
+  .container {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+  
+  a, button { 
+    -webkit-tap-highlight-color: rgba(88, 186, 252, 0.2);
+    touch-action: manipulation;
+  }
+}
+
+// ===================
+// BANNER / HEADER
+// ===================
+div#banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 0;
+  padding-top: calc(1.5rem + env(safe-area-inset-top));
+  z-index: 1000;
+  background: rgba(var(--color-background-rgb), 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.3s ease;
+
+  .banner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .banner__logo {
+    text-decoration: none;
+    &:hover { opacity: 0.8; }
+  }
+
+  .banner__name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--font-color-base);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  div#banner {
+    padding-top: calc(1rem + env(safe-area-inset-top));
+    padding-bottom: 1rem;
+    .banner__name { font-size: 0.85rem; }
+    .banner__logo { min-height: 44px; display: flex; align-items: center; }
+  }
+}
+
+// ===================
+// FOOTER
+// ===================
+.site-footer {
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+
+  .container { text-align: center; }
+
+  .footer__text {
+    margin: 0 0 8px 0;
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .footer__links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    
+    a {
+      font-size: 0.8rem;
+      color: var(--text-quaternary);
+      font-weight: 400;
+      transition: color 0.2s ease;
+      
+      &:hover {
+        color: var(--text-secondary);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .site-footer {
+    padding: 1.5rem 0;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    margin-top: 2rem;
+    
+    .footer__links {
+      gap: 16px;
+      
+      a {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
