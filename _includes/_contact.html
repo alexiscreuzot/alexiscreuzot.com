@@ -64,7 +64,7 @@
                      <select id="app" name="app">
                         <option value="">None / Not applicable</option>
                         {% for work in site.data.works %}
-                        {% if work.appid %}
+                        {% if work.personal %}
                         <option value="{{ work.name }}">{{ work.name }}</option>
                         {% endif %}
                         {% endfor %}

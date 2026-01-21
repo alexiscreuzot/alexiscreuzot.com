@@ -17,6 +17,7 @@
                 Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
   appid: id650627810
   hasVideo : yes
+  personal: yes
 
 - id: looq
   name: Looq
@@ -27,6 +28,7 @@
                 allows you to create captivating artworks using pictures from your iPhone.
   appid: id1159704664
   hasVideo : yes
+  personal: yes
 
 - id: qonceal
   name: Qonceal Smart Vault
@@ -37,6 +39,7 @@
                 Through the power of Artificil Intelligence, Qonceal can also analyse your library to automatically detect and import sensitive images.
   appid: id1478637915
   hasVideo : yes
+  personal: yes
 
 - id: flamingo
   name: Flamingo
@@ -48,6 +51,7 @@
   website: https://github.com/kirualex/Flamingo
   appid: id817164332
   hasVideo : yes
+  personal: yes
 
 - id: cyqle
   name: Cyqle
@@ -99,24 +103,7 @@
                 handled by my associate and friend Jeremy Paul. We manage to get it from the idea
                 to the App Store in under a month.
   appid: id973492333
-
-- id: follow
-  name: Follow The Dot
-  color: 1091B3
-  tagline: One Dot. One Rule.
-  description : >
-                Another app developed for Utopia Web.<br/>
-                It's fun and adictive game based on visual agility.
-  appid: id888642859
-
-- id: dailycig
-  name: DailyCig
-  color: 1B234E
-  tagline: Smokin'hot app!
-  description : >
-                One of the App I developed for Utopia Web as an employee.<br/>
-                It's a cool iPhone app to measure, visualize and control your smoking consumption (tobacco & e-cigarettes).
-  appid: id725447590
+  personal: yes
 
 - id: nw2
   name: Nice Weather 2
@@ -127,6 +114,7 @@
                 was featured multiple times by Apple and praised for it's unique design.
                 It generated more than 250,000 downloads.
   appid: id729430189
+  personal: yes
 
 - id: mk2
   name: mk2
