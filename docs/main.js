@@ -490,4 +490,76 @@ $(function() {
     fetchAppData();
   }, 100);
 
+  // ===================
+  // Contact Form AJAX
+  // ===================
+  const $contactForm = $('.support-form');
+  const $formWrapper = $('.form-wrapper');
+  const MIN_LOADING_TIME = 800; // Minimum time to show loader (ms)
+  const isLocalhost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+  
+  if ($contactForm.length) {
+    $contactForm.on('submit', function(e) {
+      e.preventDefault();
+      
+      const $form = $(this);
+      const $submitBtn = $form.find('.form-submit');
+      const startTime = Date.now();
+      
+      // Add loading state
+      $submitBtn.addClass('is-loading').prop('disabled', true);
+      
+      // Get form data
+      const formData = new FormData(this);
+      
+      // On localhost, fake the submission
+      const submitPromise = isLocalhost
+        ? new Promise(resolve => {
+            console.log('🧪 Localhost: faking form submission', Object.fromEntries(formData));
+            setTimeout(resolve, 300); // Simulate network delay
+          }).then(() => ({ ok: true }))
+        : fetch($form.attr('action'), {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+      
+      submitPromise
+      .then(response => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, MIN_LOADING_TIME - elapsed);
+        
+        // Wait for minimum time before showing result
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (response.ok) {
+              resolve();
+            } else {
+              reject(new Error('Form submission failed'));
+            }
+          }, remaining);
+        });
+      })
+      .then(() => {
+        // Success - show success state
+        $formWrapper.addClass('is-success');
+        $form[0].reset();
+        $submitBtn.removeClass('is-loading').prop('disabled', false);
+      })
+      .catch(error => {
+        // Error - show alert and reset button
+        alert('Oops! There was a problem sending your message. Please try again.');
+        console.error('Form error:', error);
+        $submitBtn.removeClass('is-loading').prop('disabled', false);
+      });
+    });
+    
+    // Reset form handler
+    $('.form-success__reset').on('click', function() {
+      $formWrapper.removeClass('is-success');
+    });
+  }
+
 });

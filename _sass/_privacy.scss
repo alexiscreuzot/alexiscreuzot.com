@@ -235,6 +235,132 @@ section#contact {
    }
 }
 
+// Support Form Wrapper (for success state transition)
+.form-wrapper {
+   position: relative;
+   
+   .support-form {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+   }
+   
+   .form-success {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      opacity: 0;
+      transform: scale(0.9);
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+   }
+   
+   &.is-success {
+      .support-form {
+         opacity: 0;
+         transform: scale(0.95);
+         pointer-events: none;
+      }
+      
+      .form-success {
+         opacity: 1;
+         transform: scale(1);
+         pointer-events: auto;
+      }
+   }
+}
+
+.form-success {
+   &__icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(88, 186, 252, 0.2), rgba(185, 84, 235, 0.2));
+      border: 2px solid rgba(88, 186, 252, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      animation: successPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      
+      svg {
+         width: 32px;
+         height: 32px;
+         color: var(--font-color-highlight);
+         stroke-dasharray: 24;
+         stroke-dashoffset: 24;
+         animation: checkDraw 0.4s ease 0.3s forwards;
+      }
+   }
+   
+   &__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.5rem;
+      animation: fadeSlideUp 0.4s ease 0.2s both;
+   }
+   
+   &__text {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin: 0 0 1.5rem;
+      animation: fadeSlideUp 0.4s ease 0.3s both;
+   }
+   
+   &__reset {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      font-family: inherit;
+      color: var(--text-tertiary);
+      background: transparent;
+      border: 1px solid rgba(var(--font-color-base-rgb), 0.15);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      animation: fadeSlideUp 0.4s ease 0.4s both;
+      
+      &:hover {
+         color: var(--text-primary);
+         border-color: rgba(var(--font-color-base-rgb), 0.3);
+      }
+   }
+}
+
+@keyframes successPop {
+   0% {
+      transform: scale(0);
+      opacity: 0;
+   }
+   100% {
+      transform: scale(1);
+      opacity: 1;
+   }
+}
+
+@keyframes checkDraw {
+   to {
+      stroke-dashoffset: 0;
+   }
+}
+
+@keyframes fadeSlideUp {
+   from {
+      opacity: 0;
+      transform: translateY(10px);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
 // Support Form
 .support-form {
    .form-row {
@@ -329,21 +455,61 @@ section#contact {
       border: 1px solid rgba(var(--font-color-base-rgb), 0.2);
       border-radius: 6px;
       cursor: pointer;
-      transition: border-color 0.2s ease, gap 0.2s ease;
+      transition: all 0.2s ease;
+      position: relative;
+      min-width: 160px;
+      justify-content: center;
       
-      &::after {
-         content: "→";
-         font-size: 1rem;
-         transition: transform 0.2s ease;
-      }
-      
-      &:hover {
-         border-color: var(--font-color-highlight);
-         gap: 10px;
+      &__text {
+         transition: opacity 0.2s ease;
          
          &::after {
-            transform: translateX(2px);
+            content: " →";
+            transition: transform 0.2s ease;
+            display: inline-block;
          }
       }
+      
+      &__loader {
+         position: absolute;
+         width: 18px;
+         height: 18px;
+         border: 2px solid rgba(var(--font-color-base-rgb), 0.2);
+         border-top-color: var(--font-color-highlight);
+         border-radius: 50%;
+         opacity: 0;
+         transition: opacity 0.2s ease;
+      }
+      
+      &:hover:not(.is-loading) {
+         border-color: var(--font-color-highlight);
+         
+         .form-submit__text::after {
+            transform: translateX(3px);
+         }
+      }
+      
+      &.is-loading {
+         cursor: wait;
+         
+         .form-submit__text {
+            opacity: 0;
+         }
+         
+         .form-submit__loader {
+            opacity: 1;
+            animation: spin 0.8s linear infinite;
+         }
+      }
+      
+      &:disabled {
+         cursor: wait;
+      }
+   }
+}
+
+@keyframes spin {
+   to {
+      transform: rotate(360deg);
    }
 }
