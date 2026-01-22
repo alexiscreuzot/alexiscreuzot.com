@@ -1,6 +1,55 @@
 // ===================
-// COMPONENTS - Theme toggle, mobile menu, page nav
+// COMPONENTS - Theme toggle, mobile menu, page nav, back button
 // ===================
+
+// ===================
+// BACK BUTTON (for secondary pages)
+// ===================
+.back-button {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 10000;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover {
+    color: var(--font-color-highlight);
+    
+    svg {
+      transform: translateX(-3px);
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .back-button {
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.8rem;
+    min-height: 44px;
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
 
 // ===================
 // THEME TOGGLE
