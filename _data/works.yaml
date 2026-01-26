@@ -1,131 +1,133 @@
+- id: callguard
+  name: CallGuard
+  color: 0F172A
+  tagline: Block spam calls
+  appid: id6757877028
+  description: >
+    CallGuard helps you stop unwanted calls with a clean, simple blocking experience.
+    Add numbers, create smart ranges, and keep your contacts safe from accidental blocks.
+    Designed for speed, clarity, and peace of mind.
+
+- id: aurastudio
+  name: AuraStudio
+  color: FF4D8D
+  tagline: AI Portraits
+  appid: id6757937783
+  description: >
+    AuraStudio transforms a few reference photos into stunning AI-generated portraits.
+    Pick a style, generate studio-quality results, and build a consistent look across every moment.
+    Minimal, fast, and crafted for premium photo creation.
+
 - id: sorenson-forum
   name: Sorenson Forum
   color: 7FBEFA
   tagline: Interpretation for standing ovations
   appid: id1612322502
   screenshot: https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b3/6c/ff/b36cff0b-6c76-995c-934c-173018079a1d/6_7-1.jpg/600x1300bb.jpg
-  description : >
-                Forum app allows users to present and converse with their guests, regardless of what language they speak. 
-                Create a session, invite guests, and experience translated conversations on your mobile device or computer.
-  hasVideo : yes
+  description: >
+    Forum app allows users to present and converse with their guests, regardless of what language they speak. 
+    Create a session, invite guests, and experience translated conversations on your mobile device or computer.
 
 - id: qoach
   name: Qoach
   color: 6D21D9
   tagline: Get fit at home
-  description : >
-                Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
   appid: id650627810
-  hasVideo : yes
-  personal: yes
+  description: >
+    Inspired by the HIIT (High Intensity Interval Training) Qoach programs target maximum result in the shortest timespan.
 
 - id: looq
   name: Looq
   color: 8964BD
   tagline: AI Powered Filters
-  description : >
-                Artificial Intelligence coupled with Apple latest technologies 
-                allows you to create captivating artworks using pictures from your iPhone.
   appid: id1159704664
-  hasVideo : yes
-  personal: yes
+  description: >
+    Artificial Intelligence coupled with Apple latest technologies 
+    allows you to create captivating artworks using pictures from your iPhone.
 
 - id: qonceal
   name: Qonceal Smart Vault
   color: 90D1FF
   tagline: Protect Images & Videos
-  description : >
-                Qonceal secures private photos and videos by locking them down with PIN protection, fingerprint touch ID or Face ID.
-                Through the power of Artificil Intelligence, Qonceal can also analyse your library to automatically detect and import sensitive images.
   appid: id1478637915
-  hasVideo : yes
-  personal: yes
+  description: >
+    Qonceal secures private photos and videos by locking them down with PIN protection, fingerprint touch ID or Face ID.
+    Through the power of Artificil Intelligence, Qonceal can also analyse your library to automatically detect and import sensitive images.
 
 - id: flamingo
   name: Flamingo
   color: F05E32
-  tagline: Minimalist Hacker News Reader 
-  description : >
-                A Minimalist Hacker News Reader 
-                Released as an Open Source project on GHithub
-  website: https://github.com/kirualex/Flamingo
+  tagline: Minimalist Hacker News Reader
   appid: id817164332
-  hasVideo : yes
-  personal: yes
+  description: >
+    A Minimalist Hacker News Reader 
+    Released as an Open Source project on GHithub
 
 - id: cyqle
   name: Cyqle
   color: 32DB4F
   tagline: Handy and esthetic app to use veloStar in Rennes
-  description : >
-                This is the second app developped under Monoqle's name. 
-                We expect to open it to more and more city in the upcoming months!
   appid: id1212133334
-  hasVideo : yes
+  description: >
+    This is the second app developped under Monoqle's name. 
+    We expect to open it to more and more city in the upcoming months!
 
 - id: vero
   name: Vero
   color: 20788C
   tagline: True Social
-  description : >
-                Vero is a relationship-first social network. 
-                I contributed to this project as an iOS developer, 
-                within an awesome team based all around the world!
-  website: http://vero.co
   appid: id971055041
-  hasVideo : yes
+  description: >
+    Vero is a relationship-first social network. 
+    I contributed to this project as an iOS developer, 
+    within an awesome team based all around the world!
 
 - id: pilot
   name: Pilot Speech Translator
   color: 1B86FC
   tagline: A World Without Language Barriers
-  description : >
-                The Pilot speech translation app allows users to translate between languages in two ways: speaking
-                or texting, depending on the languages
-  website: http://www.waverlylabs.com/
   appid: id1179122763
+  description: >
+    The Pilot speech translation app allows users to translate between languages in two ways: speaking
+    or texting, depending on the languages
 
 - id: happywait
   name: Happywait
   color: FF6457
   tagline: Connect real estate developers to buyers
-  description : >
-                Happywait connects real estate developers and individuals 
-                who buy off plan their house or apartment
-  website: http://happywait.com
+  description: >
+    Happywait connects real estate developers and individuals 
+    who buy off plan their house or apartment
 
 - id: qolor
   name: Qolor
   color: 8279C8
   tagline: Fast & Fun Color Grabber
-  description : >
-                This was the first project edited through my company Monoqle.<br/> The design was
-                handled by my associate and friend Jeremy Paul. We manage to get it from the idea
-                to the App Store in under a month.
   appid: id973492333
-  personal: yes
+  description: >
+    This was the first project edited through my company Monoqle.<br/> The design was
+    handled by my associate and friend Jeremy Paul. We manage to get it from the idea
+    to the App Store in under a month.
 
 - id: nw2
   name: Nice Weather 2
   color: C6A0B7
   tagline: The Weather, simply gorgeous
-  description : >
-                Inspired by the Android app of my friend Aurélien Hubert, this weather app
-                was featured multiple times by Apple and praised for it's unique design.
-                It generated more than 250,000 downloads.
   appid: id729430189
-  personal: yes
+  description: >
+    Inspired by the Android app of my friend Aurélien Hubert, this weather app
+    was featured multiple times by Apple and praised for it's unique design.
+    It generated more than 250,000 downloads.
 
 - id: mk2
   name: mk2
   color: 1A1A2E
   tagline: Une autre idée du cinéma
-  description : >
-                The mk2 app allows you to quickly and easily check the programming of the entire mk2 cinema network 
-                and purchase your movie tickets in just a few seconds. Book tickets online with credit card, 
-                mk2 card or UGC/mk2 unlimited card. View current movies and events, use geolocation to find 
-                nearby screenings, and receive notifications about premieres and cultural activities.
   appid: id515951296
   country: fr
   screenshot: https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/22/72/4a/22724ad7-31ce-84c4-96af-3e4deeb82086/pr_source.png/600x1300bb.png
-  website: https://www.mk2.com
+  description: >
+    The mk2 app allows you to quickly and easily check the programming of the entire mk2 cinema network 
+    and purchase your movie tickets in just a few seconds. Book tickets online with credit card, 
+    mk2 card or UGC/mk2 unlimited card. View current movies and events, use geolocation to find 
+    nearby screenings, and receive notifications about premieres and cultural activities.
