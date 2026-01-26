@@ -1,22 +1,24 @@
-- id: callguard
-  name: CallGuard
-  color: 0F172A
-  tagline: Block spam calls
-  appid: id6757877028
-  description: >
-    CallGuard helps you stop unwanted calls with a clean, simple blocking experience.
-    Add numbers, create smart ranges, and keep your contacts safe from accidental blocks.
-    Designed for speed, clarity, and peace of mind.
-
 - id: aurastudio
   name: AuraStudio
   color: FF4D8D
   tagline: AI Portraits
   appid: id6757937783
+  screenshot: https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e6/4d/23/e64d2342-2c5b-9396-77ae-53c955d10292/Simulator_Screenshot_-_iPhone_Air_-_2026-01-19_at_11.05.45.png/460x998bb.webp
   description: >
     AuraStudio transforms a few reference photos into stunning AI-generated portraits.
     Pick a style, generate studio-quality results, and build a consistent look across every moment.
     Minimal, fast, and crafted for premium photo creation.
+
+- id: callguard
+  name: CallGuard
+  color: 0F172A
+  tagline: Block spam calls
+  appid: id6757877028
+  screenshot: https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a1/16/56/a116561a-c39b-7a11-0e09-01100ff53462/iPhone_17_Pro_Max-01_HomeScreen.png/460x998bb.webp
+  description: >
+    CallGuard helps you stop unwanted calls with a clean, simple blocking experience.
+    Add numbers, create smart ranges, and keep your contacts safe from accidental blocks.
+    Designed for speed, clarity, and peace of mind.
 
 - id: sorenson-forum
   name: Sorenson Forum

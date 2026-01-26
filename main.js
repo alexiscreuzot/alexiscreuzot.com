@@ -435,8 +435,65 @@ $(function() {
   }
 
   // ===================
-  // App Store Data
+  // App Store Data (using JSONP to avoid CORS)
   // ===================
+  function fetchAppDataJsonp(numericId, country, appId, manualScreenshot) {
+    return new Promise((resolve) => {
+      const callbackName = `itunesCallback_${numericId}_${Date.now()}`;
+      const script = document.createElement('script');
+      
+      // Define the callback
+      window[callbackName] = function(data) {
+        // Cleanup
+        delete window[callbackName];
+        script.remove();
+        
+        if (!data.results?.[0]) {
+          resolve();
+          return;
+        }
+        
+        const app = data.results[0];
+        
+        // Update all cards with this appId (including clones)
+        $(`.work__card[data-appid="${appId}"]`).each(function() {
+          const $c = $(this);
+          const $i = $c.find('.work__card-icon');
+          const $s = $c.find('.work__card-screenshot');
+
+          if ($i.length && (app.artworkUrl512 || app.artworkUrl100)) {
+            $i.attr('src', app.artworkUrl512 || app.artworkUrl100).show();
+          }
+
+          if (!manualScreenshot && $s.length && app.screenshotUrls?.[0]) {
+            $s.attr('src', app.screenshotUrls[0]).show();
+          }
+        });
+        
+        resolve();
+      };
+      
+      // Handle errors
+      script.onerror = function() {
+        delete window[callbackName];
+        script.remove();
+        resolve();
+      };
+      
+      // Set timeout for cleanup
+      setTimeout(() => {
+        if (window[callbackName]) {
+          delete window[callbackName];
+          script.remove();
+          resolve();
+        }
+      }, 10000);
+      
+      script.src = `https://itunes.apple.com/lookup?id=${numericId}&country=${country}&callback=${callbackName}`;
+      document.head.appendChild(script);
+    });
+  }
+
   function fetchAppData() {
     const fetchedIds = new Set();
     
@@ -450,37 +507,17 @@ $(function() {
       if (!numericId || fetchedIds.has(numericId)) return;
       fetchedIds.add(numericId);
 
-      const $icon = $card.find('.work__card-icon');
       const $screenshot = $card.find('.work__card-screenshot');
 
-      // Manual screenshot
+      // Manual screenshot - set immediately
       if (manualScreenshot && $screenshot.length) {
-        $screenshot.attr('src', manualScreenshot).show();
+        $(`.work__card[data-appid="${appId}"]`).each(function() {
+          $(this).find('.work__card-screenshot').attr('src', manualScreenshot).show();
+        });
       }
 
-      // Fetch from iTunes API
-      fetch(`https://itunes.apple.com/lookup?id=${numericId}&country=${country}`)
-        .then(res => res.json())
-        .then(data => {
-          if (!data.results?.[0]) return;
-          const app = data.results[0];
-
-          // Update all cards with this appId (including clones)
-          $(`.work__card[data-appid="${appId}"]`).each(function() {
-            const $c = $(this);
-            const $i = $c.find('.work__card-icon');
-            const $s = $c.find('.work__card-screenshot');
-
-            if ($i.length && (app.artworkUrl512 || app.artworkUrl100)) {
-              $i.attr('src', app.artworkUrl512 || app.artworkUrl100).show();
-            }
-
-            if (!manualScreenshot && $s.length && app.screenshotUrls?.[0]) {
-              $s.attr('src', app.screenshotUrls[0]).show();
-            }
-          });
-        })
-        .catch(() => {});
+      // Fetch from iTunes API using JSONP
+      fetchAppDataJsonp(numericId, country, appId, manualScreenshot);
     });
   }
 
