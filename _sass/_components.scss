@@ -6,14 +6,10 @@
 // BACK BUTTON (for secondary pages)
 // ===================
 .back-button {
-  position: fixed;
-  top: 2rem;
-  left: 2rem;
-  z-index: 10000;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.5rem 0;
+  padding: 2rem;
   color: var(--text-tertiary);
   font-size: 0.85rem;
   font-weight: 500;
@@ -37,9 +33,6 @@
 
 @media screen and (max-width: 550px) {
   .back-button {
-    top: 0;
-    left: 0;
-    right: 0;
     padding: 1.25rem 1.5rem;
     font-size: 0.8rem;
     min-height: 44px;
