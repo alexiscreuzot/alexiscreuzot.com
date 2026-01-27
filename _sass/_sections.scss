@@ -293,6 +293,16 @@ section#work {
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    // Darken overlay on screenshot to make icon more visible
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+      z-index: 1;
+    }
   }
 
   .work__card-screenshot {
@@ -301,7 +311,7 @@ section#work {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1;
+    z-index: 0;
   }
 
   .work__card-icon {
@@ -321,7 +331,9 @@ section#work {
     left: 0;
     right: 0;
     padding: 1.5rem;
-    background: rgba(var(--color-background-rgb), 0.85);
+    background: rgba(var(--color-background-rgb), 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-top: 1px solid rgba(var(--font-color-base-rgb), 0.1);
     z-index: 3;
     display: flex;
