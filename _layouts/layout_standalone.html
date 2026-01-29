@@ -7,5 +7,14 @@
 
     {{ content }}
 
+    <script src="{{ "/js/telemetry.min.js" | prepend: site.baseurl_root }}"></script>
+    <script>
+      Telemetry.init({
+        appId: 'alexiscreuzot-com',
+        apiKey: 'tlm_7olje0t90r3',
+        baseURL: 'https://telemetry-three.vercel.app'
+      });
+    </script>
+
   </body>
 </html>
