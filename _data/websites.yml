@@ -17,15 +17,18 @@
 - url: i-macle.com
   name: iMacle, language learning online school
   description: An online language learning school platform providing intuitive and engaging educational experiences.
+  discontinued: true
+  archive_url: https://web.archive.org/web/20250223141717id_/https://i-macle.com/
   stack: 
     - Jekyll
     - HTML
     - SCSS
     - Design
-- url: magiform.at
+- url: magicform.at
   name: MagicFormat
   description: A discontinued AI-driven workflow tool that creates and transforms data using a powerful formula system.
   discontinued: true
+  archive_url: https://web.archive.org/web/20250615211922id_/https://magicform.at/
   stack: 
     - Jekyll
     - HTML
@@ -35,6 +38,7 @@
   name: Monoqle
   description: A discontinued company website for Monoqle, a mobile app development studio specializing in native iOS and Android.
   discontinued: true
+  archive_url: https://web.archive.org/web/20231128194606id_/http://monoqle.fr/
   stack: 
     - Jekyll
     - HTML

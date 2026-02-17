@@ -557,9 +557,6 @@ section#websites {
 
     &--discontinued {
       opacity: 0.7;
-      cursor: default;
-      pointer-events: none;
-      &:hover { transform: none; box-shadow: none; }
     }
   }
 

@@ -5,7 +5,9 @@
     <div class="websites__list">
       {% for item in site.data.websites %}
       {% if item.discontinued %}
-      <div class="websites__item websites__item--discontinued">
+      <a href="{{ item.archive_url }}" 
+         class="websites__item websites__item--discontinued" 
+         target="_blank">
       {% else %}
       <a href="http://{{ item.url }}" 
          class="websites__item" 
@@ -24,7 +26,7 @@
               <span class="websites__item-badge websites__item-badge--discontinued">Discontinued</span>
               {% endif %}
             </div>
-            <span class="websites__item-url">{{ item.url }}</span>
+            <span class="websites__item-url">{{ item.url }}{% if item.archive_url %} · <em>Web Archive</em>{% endif %}</span>
             {% if item.description %}
             <p class="websites__item-description">{{ item.description }}</p>
             {% endif %}
@@ -37,11 +39,7 @@
           </div>
           {% endif %}
         </div>
-      {% if item.discontinued %}
-      </div>
-      {% else %}
       </a>
-      {% endif %}
       {% endfor %}
     </div>
   </div>
