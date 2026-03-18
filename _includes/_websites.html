@@ -21,6 +21,9 @@
         <div class="websites__item-content">
           <div class="websites__item-header">
             <div class="websites__item-title-row">
+              {% unless item.discontinued %}
+              <img class="websites__item-icon" src="{% if item.icon %}{{ item.icon }}{% else %}https://www.google.com/s2/favicons?domain={{ item.url }}&sz=128{% endif %}" alt="" loading="lazy">
+              {% endunless %}
               <h3 class="websites__item-name">{{ item.name }}</h3>
               {% if item.discontinued %}
               <span class="websites__item-badge websites__item-badge--discontinued">Discontinued</span>
