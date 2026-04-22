@@ -1,3 +1,20 @@
+- url: surfacestudio.ai
+  name: Surface Studio
+  description: AI brand visibility consultancy that surfaces where your brand drops out of multi-turn AI conversations across ChatGPT, Claude, and Gemini.
+  icon: https://surfacestudio.ai/icon-512.png
+  stack:
+    - Next.js
+    - TypeScript
+    - Tailwind
+    - Motion
+- url: withaurastudio.com
+  name: AuraStudio - AI Portraits, Perfected
+  description: Landing page for an iOS app that turns a single selfie into cinematic AI portraits across 30+ styles, powered by Gemini 2.5.
+  icon: https://withaurastudio.com/app-icon.png
+  stack:
+    - Next.js
+    - TypeScript
+    - Tailwind
 - url: airglowai.com
   name: airglow ai
   description: AI photo enhancer for Airbnb listings. Import listing photos, edit with generative AI, and download polished versions ready to boost bookings.
@@ -18,36 +35,6 @@
 - url: monalisacafebar.com
   name: Coffee place in Santiago de Querétaro
   description: A beautiful website for a local coffee shop in Santiago de Querétaro with elegant design.
-  stack: 
-    - Jekyll
-    - HTML
-    - CSS
-    - Design
-- url: i-macle.com
-  name: iMacle, language learning online school
-  description: An online language learning school platform providing intuitive and engaging educational experiences.
-  discontinued: true
-  archive_url: https://web.archive.org/web/20250223141717id_/https://i-macle.com/
-  stack: 
-    - Jekyll
-    - HTML
-    - SCSS
-    - Design
-- url: magicform.at
-  name: MagicFormat
-  description: A discontinued AI-driven workflow tool that creates and transforms data using a powerful formula system.
-  discontinued: true
-  archive_url: https://web.archive.org/web/20250615211922id_/https://magicform.at/
-  stack: 
-    - Jekyll
-    - HTML
-    - CSS
-    - Design
-- url: monoqle.fr
-  name: Monoqle
-  description: A discontinued company website for Monoqle, a mobile app development studio specializing in native iOS and Android.
-  discontinued: true
-  archive_url: https://web.archive.org/web/20231128194606id_/http://monoqle.fr/
   stack: 
     - Jekyll
     - HTML
