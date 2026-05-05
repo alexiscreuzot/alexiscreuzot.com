@@ -3,4 +3,5 @@ node_modules/
 .sass-cache*
 .asset-cache*
 .jekyll-metadata
+Gemfile.lock
 
