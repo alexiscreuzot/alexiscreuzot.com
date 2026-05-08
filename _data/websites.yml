@@ -1,7 +1,7 @@
-- url: surfacestudio.ai
-  name: Surface Studio
+- url: surfaceable.ai
+  name: Surfaceable
   description: AI brand visibility consultancy that surfaces where your brand drops out of multi-turn AI conversations across ChatGPT, Claude, and Gemini.
-  icon: https://surfacestudio.ai/icon-512.png
+  icon: https://surfaceable.ai/icon-512.png
   stack:
     - Next.js
     - TypeScript
