@@ -3,11 +3,22 @@
   "framework": "jekyll",
   "buildCommand": "JEKYLL_ENV=production bundle exec jekyll build",
   "outputDirectory": "_site",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/:path*",
+      "src": "/horizonte33/(.*)",
       "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
-      "destination": "/horizonte33/:path*"
-    }
+      "dest": "/horizonte33/$1"
+    },
+    {
+      "src": "/",
+      "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
+      "dest": "/horizonte33/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
+      "dest": "/horizonte33/$1"
+    },
+    { "handle": "filesystem" }
   ]
 }
