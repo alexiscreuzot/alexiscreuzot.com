@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Guide">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="34%" r="80%">
+      <stop offset="0%" stop-color="#2c2820"/>
+      <stop offset="48%" stop-color="#211d16"/>
+      <stop offset="100%" stop-color="#15110b"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e7cf9f"/>
+      <stop offset="55%" stop-color="#c8a868"/>
+      <stop offset="100%" stop-color="#9a7a40"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <!-- hairline medallion frame -->
+  <rect x="34" y="34" width="444" height="444" rx="78" fill="none"
+        stroke="#dcc08c" stroke-opacity="0.26" stroke-width="3"/>
+
+  <!-- Lucide "book-open" (ISC) -->
+  <g transform="translate(256 256) scale(13.5) translate(-12 -12.2)"
+     fill="none" stroke="url(#gold)" stroke-width="1.35"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 7v14"/>
+    <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
+  </g>
+</svg>
