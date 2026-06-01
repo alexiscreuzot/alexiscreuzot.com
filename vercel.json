@@ -5,9 +5,9 @@
   "outputDirectory": "_site",
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
-      "destination": "/Horizonte33/:path*"
+      "destination": "/Horizonte33/index.html"
     }
   ]
 }
