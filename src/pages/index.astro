@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Work from '../components/Work.astro';
+import Websites from '../components/Websites.astro';
+import Community from '../components/Community.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base>
+  <button class="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+    <span class="theme-toggle__icon theme-toggle__icon--light">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </span>
+    <span class="theme-toggle__icon theme-toggle__icon--dark">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </span>
+  </button>
+
+  <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span class="mobile-menu-toggle__icon">
+      <span class="mobile-menu-toggle__line"></span>
+      <span class="mobile-menu-toggle__line"></span>
+      <span class="mobile-menu-toggle__line"></span>
+    </span>
+  </button>
+
+  <nav class="mobile-menu" aria-label="Main navigation" aria-hidden="true">
+    <ul class="mobile-menu__list">
+      <li class="mobile-menu__item">
+        <a href="#intro" class="mobile-menu__link" data-section="1">Intro</a>
+      </li>
+      <li class="mobile-menu__item">
+        <a href="#work" class="mobile-menu__link" data-section="2">Apps</a>
+      </li>
+      <li class="mobile-menu__item">
+        <a href="#websites" class="mobile-menu__link" data-section="3">Websites</a>
+      </li>
+      <li class="mobile-menu__item">
+        <a href="#community" class="mobile-menu__link" data-section="4">Community</a>
+      </li>
+    </ul>
+  </nav>
+
+  <Intro />
+  <Work />
+  <Websites />
+  <Community />
+
+  <Footer />
+
+  <script is:inline src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script is:inline src="/main.js"></script>
+</Base>

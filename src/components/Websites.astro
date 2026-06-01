@@ -1,0 +1,62 @@
+---
+import { websites } from '../data/websites';
+---
+
+<section id="websites">
+  <div class="container">
+    <h2 class="section__title">Web Things</h2>
+    <p class="section__subtitle">Pixels I've pushed for clients</p>
+    <div class="websites__list">
+      {
+        websites.map((item) => (
+          <a
+            href={item.discontinued ? item.archive_url : `http://${item.url}`}
+            class={item.discontinued ? 'websites__item websites__item--discontinued' : 'websites__item'}
+            target="_blank"
+          >
+            {item.image && (
+              <div class="websites__item-image-wrapper">
+                <img class="websites__item-image" src={item.image} alt={`${item.name} screenshot`} loading="lazy" />
+              </div>
+            )}
+            <div class="websites__item-content">
+              <div class="websites__item-header">
+                <div class="websites__item-title-row">
+                  {!item.discontinued && (
+                    <img
+                      class="websites__item-icon"
+                      src={item.icon ? item.icon : `https://www.google.com/s2/favicons?domain=${item.url}&sz=128`}
+                      alt=""
+                      loading="lazy"
+                    />
+                  )}
+                  <h3 class="websites__item-name">{item.name}</h3>
+                  {item.discontinued && (
+                    <span class="websites__item-badge websites__item-badge--discontinued">Discontinued</span>
+                  )}
+                </div>
+                <span class="websites__item-url">
+                  {item.url}
+                  {item.archive_url && (
+                    <>
+                      {' · '}
+                      <em>Web Archive</em>
+                    </>
+                  )}
+                </span>
+                {item.description && <p class="websites__item-description">{item.description}</p>}
+              </div>
+              {item.stack && (
+                <div class="websites__item-stack">
+                  {item.stack.map((skill) => (
+                    <span class="websites__item-tag">{skill}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+{
+  "name": "Zen in Rennes",
+  "short_name": "Zen in Rennes",
+  "description": "Zen in Rennes · Guide — Rennes, Bretagne",
+  "theme_color": "#101c1c",
+  "background_color": "#101c1c",
+  "display": "standalone",
+  "start_url": "../../",
+  "scope": "../../",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon.svg", "type": "image/svg+xml", "sizes": "any" }
+  ]
+}

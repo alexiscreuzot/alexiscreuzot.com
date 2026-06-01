@@ -1,0 +1,25 @@
+---
+import { community } from '../data/community';
+---
+
+<section id="community">
+  <div class="container">
+    <h2 class="section__title">Giving Back</h2>
+    <p class="section__subtitle">Stuff I've shared with the world</p>
+    <div class="community__list">
+      {
+        community.map((item) => (
+          <div class="community__item">
+            <a href={item.link} target="_blank" class="community__item-content">
+              <div class="community__item-header">
+                <span class="community__item-type">{item.type}</span>
+                <span class="community__item-emoji">{item.emoji}</span>
+              </div>
+              <h3 class="community__item-title">{item.title}</h3>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

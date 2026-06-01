@@ -1,6 +1,4 @@
 .DS_Store
 node_modules/
-.sass-cache*
-.asset-cache*
-.jekyll-metadata
-_site/
+dist/
+.astro/
