@@ -1,602 +1,628 @@
-// Website - jQuery Implementation
-// Uses jQuery slim (no ajax) + native fetch for API calls
+// Website - vanilla JS (no dependencies)
 
-$(function() {
+(function () {
   'use strict';
 
-  // ===================
-  // Theme Management
-  // ===================
-  const getTheme = () => localStorage.getItem('theme') || 'dark';
-  
-  const setTheme = (theme) => {
-    localStorage.setItem('theme', theme);
-    $('html, body').toggleClass('light-theme', theme === 'light');
-  };
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+  const offsetTop = (el) => el.getBoundingClientRect().top + window.scrollY;
+  const ready = (fn) =>
+    document.readyState === 'loading'
+      ? document.addEventListener('DOMContentLoaded', fn)
+      : fn();
 
-  // Apply saved theme
-  setTheme(getTheme());
+  ready(init);
 
-  // Theme toggle button
-  $('.theme-toggle').on('click', (e) => {
-    e.preventDefault();
-    setTheme(getTheme() === 'dark' ? 'light' : 'dark');
-  });
+  function init() {
+    // ===================
+    // Theme Management
+    // ===================
+    const getTheme = () => localStorage.getItem('theme') || 'dark';
 
-  // ===================
-  // Smooth Scrolling
-  // ===================
-  $('a[href^="#"]').on('click', function(e) {
-    const target = $(this.getAttribute('href'));
-    if (target.length) {
-      e.preventDefault();
-      $('html, body').stop().animate({
-        scrollTop: target.offset().top - 20
-      }, 600, 'swing');
-    }
-  });
-
-  // ===================
-  // Progressive Blur on Intro
-  // ===================
-  const $intro = $('#intro');
-  const introHeight = $intro.outerHeight();
-  const maxBlur = 8;
-
-  $(window).on('scroll', function() {
-    const scrollTop = $(window).scrollTop();
-    const introTop = $intro.offset().top;
-    
-    if (scrollTop > introTop && scrollTop < introTop + introHeight) {
-      const progress = Math.min((scrollTop - introTop) / introHeight, 1);
-      const blur = progress * maxBlur;
-      $intro.css({
-        filter: `blur(${blur}px)`,
-        opacity: 1 - (progress * 0.3)
-      });
-    } else if (scrollTop <= introTop) {
-      $intro.css({ filter: 'blur(0)', opacity: 1 });
-    }
-  });
-
-  // ===================
-  // Navigation Dots
-  // ===================
-  const sections = ['intro', 'work', 'websites', 'community'];
-  const tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
-
-  const $nav = $('<div id="page-nav"><ul></ul></div>');
-  sections.forEach((id, i) => {
-    $nav.find('ul').append(`
-      <li>
-        <a href="#${id}" data-section="${i}">
-          <span></span>
-          <span class="page-nav-tooltip">${tooltips[i]}</span>
-        </a>
-      </li>
-    `);
-  });
-  $('body').append($nav);
-
-  // Update active dot
-  const updateActiveDot = () => {
-    const scrollMiddle = $(window).scrollTop() + $(window).height() / 2;
-    sections.forEach((id, i) => {
-      const $section = $(`#${id}`);
-      if (!$section.length) return;
-      const top = $section.offset().top;
-      const bottom = top + $section.outerHeight();
-      $nav.find(`a[data-section="${i}"]`).toggleClass('active', scrollMiddle >= top && scrollMiddle <= bottom);
-    });
-  };
-
-  $(window).on('scroll', updateActiveDot);
-  updateActiveDot();
-
-  // ===================
-  // Mobile Menu
-  // ===================
-  const $menuToggle = $('.mobile-menu-toggle');
-  const $menu = $('.mobile-menu');
-
-  $menuToggle.on('click', function() {
-    const isOpen = $(this).attr('aria-expanded') === 'true';
-    $(this).attr('aria-expanded', !isOpen);
-    $menu.attr('aria-hidden', isOpen);
-  });
-
-  $(document).on('click', (e) => {
-    if (!$menu.is(e.target) && !$menu.has(e.target).length && 
-        !$menuToggle.is(e.target) && !$menuToggle.has(e.target).length) {
-      $menuToggle.attr('aria-expanded', 'false');
-      $menu.attr('aria-hidden', 'true');
-    }
-  });
-
-  $('.mobile-menu__link').on('click', function(e) {
-    e.preventDefault();
-    $menuToggle.attr('aria-expanded', 'false');
-    $menu.attr('aria-hidden', 'true');
-    const target = $($(this).attr('href'));
-    if (target.length) {
-      $('html, body').stop().animate({ scrollTop: target.offset().top }, 600);
-    }
-  });
-
-  // Update active menu item
-  $(window).on('scroll', function() {
-    const scrollMiddle = $(window).scrollTop() + $(window).height() / 2;
-    $('.mobile-menu__link').each(function() {
-      const target = $($(this).attr('href'));
-      if (!target.length) return;
-      const top = target.offset().top;
-      const bottom = top + target.outerHeight();
-      $(this).toggleClass('active', scrollMiddle >= top && scrollMiddle <= bottom);
-    });
-  });
-
-  // ===================
-  // Scroll Animations with Word-by-Word Effect
-  // ===================
-  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        $(entry.target).addClass('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
-
-  // Word wrapper function for progressive text animation
-  function wrapWords(element) {
-    if (!element) return;
-    
-    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
-    const textNodes = [];
-    let node;
-    
-    while (node = walker.nextNode()) {
-      if (node.textContent.trim()) {
-        textNodes.push(node);
-      }
-    }
-    
-    textNodes.forEach(textNode => {
-      const words = textNode.textContent.split(/(\s+)/);
-      const fragment = document.createDocumentFragment();
-      
-      words.forEach(word => {
-        if (word.trim()) {
-          const span = document.createElement('span');
-          span.className = 'word';
-          span.textContent = word;
-          fragment.appendChild(span);
-        } else if (word) {
-          fragment.appendChild(document.createTextNode(word));
-        }
-      });
-      
-      textNode.parentNode.replaceChild(fragment, textNode);
-    });
-  }
-
-  // Animation timing
-  const wordStagger = 0.04;  // 40ms between words
-  const stepOffset = 0.8;    // Offset between animation steps
-  const initialDelay = 0.5;  // Initial delay before first animation
-
-  const $avatar = $('.intro__avatar');
-  const $greeting = $('.intro__greeting');
-  const $bio = $('.intro__bio');
-  const $links = $('.intro__links');
-
-  // Wrap words in greeting and bio for word-by-word animation
-  wrapWords($greeting[0]);
-  wrapWords($bio[0]);
-
-  // Wrap links in spans for animation
-  $links.children('a').each(function() {
-    $(this).wrap('<span class="link-item"></span>');
-  });
-
-  // Mark elements as ready (makes them visible via CSS)
-  $greeting.addClass('js-ready');
-  $bio.addClass('js-ready');
-  $links.addClass('js-ready');
-
-  // Set staggered transition delays for each word/element
-  // Avatar
-  $avatar.css('transition-delay', `${initialDelay}s`);
-
-  // Greeting words
-  const greetingStart = initialDelay + stepOffset;
-  $greeting.find('.word').each(function(i) {
-    $(this).css('transition-delay', `${greetingStart + (i * wordStagger)}s`);
-  });
-
-  // Bio words
-  const bioStart = initialDelay + stepOffset * 2;
-  $bio.find('.word').each(function(i) {
-    $(this).css('transition-delay', `${bioStart + (i * wordStagger)}s`);
-  });
-
-  // Link items
-  const linksStart = initialDelay + stepOffset * 4;
-  $links.find('.link-item').each(function(i) {
-    $(this).css('transition-delay', `${linksStart + (i * wordStagger)}s`);
-  });
-
-  // Trigger intro animations immediately (intro is visible on page load)
-  setTimeout(() => {
-    $avatar.addClass('is-visible');
-    $greeting.find('.word').addClass('is-visible');
-    $bio.find('.word').addClass('is-visible');
-    $links.find('.link-item').addClass('is-visible');
-  }, 50);
-
-  // Other sections - use observer since they're below fold
-  $('.section__title, .section__subtitle').addClass('js-ready').each((_, el) => observer.observe(el));
-  $('.work__carousel-wrapper').addClass('js-ready').each((_, el) => observer.observe(el));
-  $('.websites__item, .community__item').each((i, el) => {
-    $(el).css('transition-delay', `${i * 0.1}s`);
-    observer.observe(el);
-  });
-
-  // ===================
-  // Infinite Carousel
-  // ===================
-  function initCarousel() {
-    const $track = $('.work__carousel-track');
-    const $container = $('.work__carousel-container');
-    const $cards = $track.find('.work__card:not(.work__card--clone)');
-    const $pagination = $('.work__carousel-pagination');
-    
-    if (!$track.length || !$cards.length) return;
-
-    const totalCards = $cards.length;
-    let currentIndex = 0;
-    let isTransitioning = false;
-
-    // Clone cards for infinite scroll
-    const clonesNeeded = 3;
-    $cards.slice(-clonesNeeded).clone().addClass('work__card--clone').prependTo($track);
-    $cards.slice(0, clonesNeeded).clone().addClass('work__card--clone').appendTo($track);
-
-    const $allCards = $track.find('.work__card');
-    currentIndex = clonesNeeded; // Start at first real card
-
-    // Create pagination
-    const $counter = $('<span class="work__carousel-counter"></span>');
-    $pagination.append($counter);
-    
-    for (let i = 0; i < totalCards; i++) {
-      const $dot = $(`<button class="work__carousel-dot" aria-label="Go to slide ${i + 1}"></button>`);
-      $dot.on('click', () => goToCard(i));
-      $pagination.append($dot);
-    }
-
-    const getCardWidth = () => {
-      const cardWidth = $cards.first().outerWidth();
-      const gap = parseFloat($track.css('gap')) || 24;
-      return cardWidth + gap;
+    const setTheme = (theme) => {
+      localStorage.setItem('theme', theme);
+      const isLight = theme === 'light';
+      document.documentElement.classList.toggle('light-theme', isLight);
+      document.body.classList.toggle('light-theme', isLight);
     };
 
-    const updatePosition = (animate = true) => {
-      const cardWidth = getCardWidth();
-      const containerWidth = $container.width();
-      const centerOffset = (containerWidth / 2) - (cardWidth / 2) + (parseFloat($track.css('gap')) || 24) / 2;
-      const offset = centerOffset - (currentIndex * cardWidth);
+    setTheme(getTheme());
 
-      $track.css({
-        transition: animate ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
-        transform: `translateX(${offset}px)`
+    $$('.theme-toggle').forEach((btn) =>
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+      })
+    );
+
+    // ===================
+    // Smooth Scrolling
+    // ===================
+    $$('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', function (e) {
+        const target = $(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({ top: offsetTop(target) - 20, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ===================
+    // Progressive Blur on Intro
+    // ===================
+    const intro = $('#intro');
+    if (intro) {
+      const introHeight = intro.offsetHeight;
+      const maxBlur = 8;
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const introTop = offsetTop(intro);
+
+        if (scrollTop > introTop && scrollTop < introTop + introHeight) {
+          const progress = Math.min((scrollTop - introTop) / introHeight, 1);
+          intro.style.filter = `blur(${progress * maxBlur}px)`;
+          intro.style.opacity = String(1 - progress * 0.3);
+        } else if (scrollTop <= introTop) {
+          intro.style.filter = 'blur(0)';
+          intro.style.opacity = '1';
+        }
+      });
+    }
+
+    // ===================
+    // Navigation Dots
+    // ===================
+    const sections = ['intro', 'work', 'websites', 'community'];
+    const tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
+
+    const nav = document.createElement('div');
+    nav.id = 'page-nav';
+    nav.innerHTML =
+      '<ul>' +
+      sections
+        .map(
+          (id, i) => `
+        <li>
+          <a href="#${id}" data-section="${i}">
+            <span></span>
+            <span class="page-nav-tooltip">${tooltips[i]}</span>
+          </a>
+        </li>`
+        )
+        .join('') +
+      '</ul>';
+    document.body.appendChild(nav);
+
+    const updateActiveDot = () => {
+      const scrollMiddle = window.scrollY + window.innerHeight / 2;
+      sections.forEach((id, i) => {
+        const section = $(`#${id}`);
+        if (!section) return;
+        const top = offsetTop(section);
+        const bottom = top + section.offsetHeight;
+        const dot = $(`a[data-section="${i}"]`, nav);
+        if (dot) dot.classList.toggle('active', scrollMiddle >= top && scrollMiddle <= bottom);
       });
     };
 
-    const updateCenterCard = () => {
-      $allCards.removeClass('work__card--center');
-      $allCards.eq(currentIndex).addClass('work__card--center');
-    };
+    window.addEventListener('scroll', updateActiveDot);
+    updateActiveDot();
 
-    const updatePagination = () => {
-      let realIndex = currentIndex - clonesNeeded;
-      if (realIndex < 0) realIndex = totalCards + realIndex;
-      if (realIndex >= totalCards) realIndex = realIndex - totalCards;
-      
-      $counter.text(`${realIndex + 1}/${totalCards}`);
-      $pagination.find('.work__carousel-dot').removeClass('work__carousel-dot--active')
-        .eq(realIndex).addClass('work__carousel-dot--active');
-    };
+    // ===================
+    // Mobile Menu
+    // ===================
+    const menuToggle = $('.mobile-menu-toggle');
+    const menu = $('.mobile-menu');
 
-    const goToCard = (targetIndex) => {
-      if (isTransitioning) return;
-      currentIndex = clonesNeeded + targetIndex;
-      isTransitioning = true;
-      updatePosition();
-      updateCenterCard();
-      updatePagination();
-      setTimeout(() => { isTransitioning = false; }, 500);
-    };
+    if (menuToggle && menu) {
+      menuToggle.addEventListener('click', function () {
+        const isOpen = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!isOpen));
+        menu.setAttribute('aria-hidden', String(isOpen));
+      });
 
-    const goToNext = () => {
-      if (isTransitioning) return;
-      isTransitioning = true;
-      currentIndex++;
-      updatePosition();
-      updateCenterCard();
-      updatePagination();
-
-      setTimeout(() => {
-        if (currentIndex >= clonesNeeded + totalCards) {
-          currentIndex = clonesNeeded;
-          updatePosition(false);
-          updateCenterCard();
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !menuToggle.contains(e.target)) {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
         }
-        isTransitioning = false;
-      }, 500);
-    };
+      });
 
-    const goToPrev = () => {
-      if (isTransitioning) return;
-      isTransitioning = true;
-      currentIndex--;
-      updatePosition();
-      updateCenterCard();
-      updatePagination();
+      $$('.mobile-menu__link').forEach((link) => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          menuToggle.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+          const target = $(this.getAttribute('href'));
+          if (target) window.scrollTo({ top: offsetTop(target), behavior: 'smooth' });
+        });
+      });
 
-      setTimeout(() => {
-        if (currentIndex < clonesNeeded) {
-          currentIndex = clonesNeeded + totalCards - 1;
-          updatePosition(false);
-          updateCenterCard();
+      window.addEventListener('scroll', () => {
+        const scrollMiddle = window.scrollY + window.innerHeight / 2;
+        $$('.mobile-menu__link').forEach((link) => {
+          const target = $(link.getAttribute('href'));
+          if (!target) return;
+          const top = offsetTop(target);
+          const bottom = top + target.offsetHeight;
+          link.classList.toggle('active', scrollMiddle >= top && scrollMiddle <= bottom);
+        });
+      });
+    }
+
+    // ===================
+    // Scroll Animations with Word-by-Word Effect
+    // ===================
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
         }
-        isTransitioning = false;
-      }, 500);
-    };
+      });
+    }, observerOptions);
 
-    // Arrow buttons
-    $('.work__carousel-arrow--prev').on('click', goToPrev);
-    $('.work__carousel-arrow--next').on('click', goToNext);
+    function wrapWords(element) {
+      if (!element) return;
 
-    // Card click to center
-    $allCards.on('click', function(e) {
-      if ($(e.target).closest('.work__card-link').length) return;
-      
-      const clickedIndex = $allCards.index(this);
-      if (clickedIndex === currentIndex) return;
-      
-      e.preventDefault();
-      
-      // Handle clone clicks
-      if ($(this).hasClass('work__card--clone')) {
-        if (clickedIndex < clonesNeeded) {
-          goToCard(totalCards - (clonesNeeded - clickedIndex));
-        } else {
-          goToCard(clickedIndex - clonesNeeded - totalCards);
-        }
-      } else {
-        goToCard(clickedIndex - clonesNeeded);
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+      const textNodes = [];
+      let node;
+
+      while ((node = walker.nextNode())) {
+        if (node.textContent.trim()) textNodes.push(node);
       }
-    });
 
-    // Drag/swipe support
-    let isDragging = false;
-    let startX = 0;
-    let startTransform = 0;
+      textNodes.forEach((textNode) => {
+        const words = textNode.textContent.split(/(\s+)/);
+        const fragment = document.createDocumentFragment();
 
-    const getTransformX = () => {
-      const match = $track.css('transform').match(/matrix.*\((.+)\)/);
-      return match ? parseFloat(match[1].split(', ')[4]) : 0;
-    };
-
-    $container.on('mousedown touchstart', function(e) {
-      if ($(e.target).closest('.work__card-link').length) return;
-      isDragging = true;
-      startX = e.type === 'touchstart' ? e.originalEvent.touches[0].clientX : e.clientX;
-      startTransform = getTransformX();
-      $track.css('transition', 'none');
-    });
-
-    $(document).on('mousemove touchmove', function(e) {
-      if (!isDragging) return;
-      const clientX = e.type === 'touchmove' ? e.originalEvent.touches[0].clientX : e.clientX;
-      const delta = clientX - startX;
-      $track.css('transform', `translateX(${startTransform + delta}px)`);
-    });
-
-    $(document).on('mouseup touchend', function(e) {
-      if (!isDragging) return;
-      isDragging = false;
-      
-      const clientX = e.type === 'touchend' ? e.originalEvent.changedTouches[0].clientX : e.clientX;
-      const delta = clientX - startX;
-      const threshold = getCardWidth() * 0.3;
-
-      if (Math.abs(delta) > threshold) {
-        delta > 0 ? goToPrev() : goToNext();
-      } else {
-        updatePosition();
-      }
-    });
-
-    // Resize handler
-    let resizeTimer;
-    $(window).on('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => updatePosition(), 100);
-    });
-
-    // Initialize
-    updatePosition(false);
-    updateCenterCard();
-    updatePagination();
-  }
-
-  // ===================
-  // App Store Data (using JSONP to avoid CORS)
-  // ===================
-  function fetchAppDataJsonp(numericId, country, appId, manualScreenshot) {
-    return new Promise((resolve) => {
-      const callbackName = `itunesCallback_${numericId}_${Date.now()}`;
-      const script = document.createElement('script');
-      
-      // Define the callback
-      window[callbackName] = function(data) {
-        // Cleanup
-        delete window[callbackName];
-        script.remove();
-        
-        if (!data.results?.[0]) {
-          resolve();
-          return;
-        }
-        
-        const app = data.results[0];
-        
-        // Update all cards with this appId (including clones)
-        $(`.work__card[data-appid="${appId}"]`).each(function() {
-          const $c = $(this);
-          const $i = $c.find('.work__card-icon');
-          const $s = $c.find('.work__card-screenshot');
-
-          if ($i.length && (app.artworkUrl512 || app.artworkUrl100)) {
-            $i.attr('src', app.artworkUrl512 || app.artworkUrl100).show();
-          }
-
-          if (!manualScreenshot && $s.length && app.screenshotUrls?.[0]) {
-            $s.attr('src', app.screenshotUrls[0]).show();
+        words.forEach((word) => {
+          if (word.trim()) {
+            const span = document.createElement('span');
+            span.className = 'word';
+            span.textContent = word;
+            fragment.appendChild(span);
+          } else if (word) {
+            fragment.appendChild(document.createTextNode(word));
           }
         });
-        
-        resolve();
+
+        textNode.parentNode.replaceChild(fragment, textNode);
+      });
+    }
+
+    const wordStagger = 0.04;
+    const stepOffset = 0.8;
+    const initialDelay = 0.5;
+
+    const avatar = $('.intro__avatar');
+    const greeting = $('.intro__greeting');
+    const bio = $('.intro__bio');
+    const links = $('.intro__links');
+
+    if (greeting) wrapWords(greeting);
+    if (bio) wrapWords(bio);
+
+    if (links) {
+      $$('a', links)
+        .filter((a) => a.parentElement === links)
+        .forEach((a) => {
+          const span = document.createElement('span');
+          span.className = 'link-item';
+          a.parentNode.insertBefore(span, a);
+          span.appendChild(a);
+        });
+    }
+
+    [greeting, bio, links].forEach((el) => el && el.classList.add('js-ready'));
+
+    if (avatar) avatar.style.transitionDelay = `${initialDelay}s`;
+
+    const greetingStart = initialDelay + stepOffset;
+    if (greeting)
+      $$('.word', greeting).forEach((el, i) => {
+        el.style.transitionDelay = `${greetingStart + i * wordStagger}s`;
+      });
+
+    const bioStart = initialDelay + stepOffset * 2;
+    if (bio)
+      $$('.word', bio).forEach((el, i) => {
+        el.style.transitionDelay = `${bioStart + i * wordStagger}s`;
+      });
+
+    const linksStart = initialDelay + stepOffset * 4;
+    if (links)
+      $$('.link-item', links).forEach((el, i) => {
+        el.style.transitionDelay = `${linksStart + i * wordStagger}s`;
+      });
+
+    setTimeout(() => {
+      if (avatar) avatar.classList.add('is-visible');
+      if (greeting) $$('.word', greeting).forEach((el) => el.classList.add('is-visible'));
+      if (bio) $$('.word', bio).forEach((el) => el.classList.add('is-visible'));
+      if (links) $$('.link-item', links).forEach((el) => el.classList.add('is-visible'));
+    }, 50);
+
+    $$('.section__title, .section__subtitle').forEach((el) => {
+      el.classList.add('js-ready');
+      observer.observe(el);
+    });
+    $$('.work__carousel-wrapper').forEach((el) => {
+      el.classList.add('js-ready');
+      observer.observe(el);
+    });
+    $$('.websites__item, .community__item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(el);
+    });
+
+    // ===================
+    // Infinite Carousel
+    // ===================
+    function initCarousel() {
+      const track = $('.work__carousel-track');
+      const container = $('.work__carousel-container');
+      const pagination = $('.work__carousel-pagination');
+
+      if (!track) return;
+      const cards = $$('.work__card:not(.work__card--clone)', track);
+      if (!cards.length) return;
+
+      const totalCards = cards.length;
+      let currentIndex = 0;
+      let isTransitioning = false;
+
+      const clonesNeeded = 3;
+      cards.slice(-clonesNeeded).forEach((card) => {
+        const clone = card.cloneNode(true);
+        clone.classList.add('work__card--clone');
+        track.insertBefore(clone, track.firstChild);
+      });
+      cards.slice(0, clonesNeeded).forEach((card) => {
+        const clone = card.cloneNode(true);
+        clone.classList.add('work__card--clone');
+        track.appendChild(clone);
+      });
+
+      const allCards = $$('.work__card', track);
+      currentIndex = clonesNeeded;
+
+      const counter = document.createElement('span');
+      counter.className = 'work__carousel-counter';
+      if (pagination) pagination.appendChild(counter);
+
+      for (let i = 0; i < totalCards; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'work__carousel-dot';
+        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        dot.addEventListener('click', () => goToCard(i));
+        if (pagination) pagination.appendChild(dot);
+      }
+
+      const getCardWidth = () => {
+        const cardWidth = cards[0].offsetWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 24;
+        return cardWidth + gap;
       };
-      
-      // Handle errors
-      script.onerror = function() {
-        delete window[callbackName];
-        script.remove();
-        resolve();
+
+      const updatePosition = (animate = true) => {
+        const cardWidth = getCardWidth();
+        const containerWidth = container.clientWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 24;
+        const centerOffset = containerWidth / 2 - cardWidth / 2 + gap / 2;
+        const offset = centerOffset - currentIndex * cardWidth;
+
+        track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+        track.style.transform = `translateX(${offset}px)`;
       };
-      
-      // Set timeout for cleanup
-      setTimeout(() => {
-        if (window[callbackName]) {
+
+      const updateCenterCard = () => {
+        allCards.forEach((c) => c.classList.remove('work__card--center'));
+        if (allCards[currentIndex]) allCards[currentIndex].classList.add('work__card--center');
+      };
+
+      const updatePagination = () => {
+        let realIndex = currentIndex - clonesNeeded;
+        if (realIndex < 0) realIndex = totalCards + realIndex;
+        if (realIndex >= totalCards) realIndex = realIndex - totalCards;
+
+        counter.textContent = `${realIndex + 1}/${totalCards}`;
+        $$('.work__carousel-dot', pagination).forEach((dot, i) => {
+          dot.classList.toggle('work__carousel-dot--active', i === realIndex);
+        });
+      };
+
+      function goToCard(targetIndex) {
+        if (isTransitioning) return;
+        currentIndex = clonesNeeded + targetIndex;
+        isTransitioning = true;
+        updatePosition();
+        updateCenterCard();
+        updatePagination();
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 500);
+      }
+
+      const goToNext = () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentIndex++;
+        updatePosition();
+        updateCenterCard();
+        updatePagination();
+
+        setTimeout(() => {
+          if (currentIndex >= clonesNeeded + totalCards) {
+            currentIndex = clonesNeeded;
+            updatePosition(false);
+            updateCenterCard();
+          }
+          isTransitioning = false;
+        }, 500);
+      };
+
+      const goToPrev = () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        currentIndex--;
+        updatePosition();
+        updateCenterCard();
+        updatePagination();
+
+        setTimeout(() => {
+          if (currentIndex < clonesNeeded) {
+            currentIndex = clonesNeeded + totalCards - 1;
+            updatePosition(false);
+            updateCenterCard();
+          }
+          isTransitioning = false;
+        }, 500);
+      };
+
+      const prevArrow = $('.work__carousel-arrow--prev');
+      const nextArrow = $('.work__carousel-arrow--next');
+      if (prevArrow) prevArrow.addEventListener('click', goToPrev);
+      if (nextArrow) nextArrow.addEventListener('click', goToNext);
+
+      allCards.forEach((card) => {
+        card.addEventListener('click', function (e) {
+          if (e.target.closest('.work__card-link')) return;
+
+          const clickedIndex = allCards.indexOf(this);
+          if (clickedIndex === currentIndex) return;
+
+          e.preventDefault();
+
+          if (this.classList.contains('work__card--clone')) {
+            if (clickedIndex < clonesNeeded) {
+              goToCard(totalCards - (clonesNeeded - clickedIndex));
+            } else {
+              goToCard(clickedIndex - clonesNeeded - totalCards);
+            }
+          } else {
+            goToCard(clickedIndex - clonesNeeded);
+          }
+        });
+      });
+
+      let isDragging = false;
+      let startX = 0;
+      let startTransform = 0;
+
+      const getTransformX = () => {
+        const match = getComputedStyle(track).transform.match(/matrix.*\((.+)\)/);
+        return match ? parseFloat(match[1].split(', ')[4]) : 0;
+      };
+
+      container.addEventListener('mousedown', startDrag);
+      container.addEventListener('touchstart', startDrag);
+
+      function startDrag(e) {
+        if (e.target.closest('.work__card-link')) return;
+        isDragging = true;
+        startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        startTransform = getTransformX();
+        track.style.transition = 'none';
+      }
+
+      const onMove = (e) => {
+        if (!isDragging) return;
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const delta = clientX - startX;
+        track.style.transform = `translateX(${startTransform + delta}px)`;
+      };
+
+      const onEnd = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const clientX = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX;
+        const delta = clientX - startX;
+        const threshold = getCardWidth() * 0.3;
+
+        if (Math.abs(delta) > threshold) {
+          delta > 0 ? goToPrev() : goToNext();
+        } else {
+          updatePosition();
+        }
+      };
+
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('touchmove', onMove);
+      document.addEventListener('mouseup', onEnd);
+      document.addEventListener('touchend', onEnd);
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => updatePosition(), 100);
+      });
+
+      updatePosition(false);
+      updateCenterCard();
+      updatePagination();
+    }
+
+    // ===================
+    // App Store Data (using JSONP to avoid CORS)
+    // ===================
+    function fetchAppDataJsonp(numericId, country, appId, manualScreenshot) {
+      return new Promise((resolve) => {
+        const callbackName = `itunesCallback_${numericId}_${Date.now()}`;
+        const script = document.createElement('script');
+
+        window[callbackName] = function (data) {
+          delete window[callbackName];
+          script.remove();
+
+          if (!data.results?.[0]) {
+            resolve();
+            return;
+          }
+
+          const app = data.results[0];
+
+          $$(`.work__card[data-appid="${appId}"]`).forEach((card) => {
+            const icon = $('.work__card-icon', card);
+            const screenshot = $('.work__card-screenshot', card);
+
+            if (icon && (app.artworkUrl512 || app.artworkUrl100)) {
+              icon.setAttribute('src', app.artworkUrl512 || app.artworkUrl100);
+              icon.style.display = '';
+            }
+
+            if (!manualScreenshot && screenshot && app.screenshotUrls?.[0]) {
+              screenshot.setAttribute('src', app.screenshotUrls[0]);
+              screenshot.style.display = '';
+            }
+          });
+
+          resolve();
+        };
+
+        script.onerror = function () {
           delete window[callbackName];
           script.remove();
           resolve();
-        }
-      }, 10000);
-      
-      script.src = `https://itunes.apple.com/lookup?id=${numericId}&country=${country}&callback=${callbackName}`;
-      document.head.appendChild(script);
-    });
-  }
+        };
 
-  function fetchAppData() {
-    const fetchedIds = new Set();
-    
-    $('.work__card[data-appid]').each(function() {
-      const $card = $(this);
-      const appId = $card.data('appid');
-      const manualScreenshot = $card.data('screenshot');
-      const country = $card.data('country') || 'us';
-      const numericId = String(appId).replace(/^id/, '');
+        setTimeout(() => {
+          if (window[callbackName]) {
+            delete window[callbackName];
+            script.remove();
+            resolve();
+          }
+        }, 10000);
 
-      if (!numericId || fetchedIds.has(numericId)) return;
-      fetchedIds.add(numericId);
+        script.src = `https://itunes.apple.com/lookup?id=${numericId}&country=${country}&callback=${callbackName}`;
+        document.head.appendChild(script);
+      });
+    }
 
-      const $screenshot = $card.find('.work__card-screenshot');
+    function fetchAppData() {
+      const fetchedIds = new Set();
 
-      // Manual screenshot - set immediately
-      if (manualScreenshot && $screenshot.length) {
-        $(`.work__card[data-appid="${appId}"]`).each(function() {
-          $(this).find('.work__card-screenshot').attr('src', manualScreenshot).show();
-        });
-      }
+      $$('.work__card[data-appid]').forEach((card) => {
+        const appId = card.dataset.appid;
+        const manualScreenshot = card.dataset.screenshot;
+        const country = card.dataset.country || 'us';
+        const numericId = String(appId).replace(/^id/, '');
 
-      // Fetch from iTunes API using JSONP
-      fetchAppDataJsonp(numericId, country, appId, manualScreenshot);
-    });
-  }
+        if (!numericId || fetchedIds.has(numericId)) return;
+        fetchedIds.add(numericId);
 
-  // Initialize after short delay to ensure DOM is ready
-  setTimeout(() => {
-    initCarousel();
-    fetchAppData();
-  }, 100);
-
-  // ===================
-  // Contact Form AJAX
-  // ===================
-  const $contactForm = $('.support-form');
-  const $formWrapper = $('.form-wrapper');
-  const MIN_LOADING_TIME = 800; // Minimum time to show loader (ms)
-  const isLocalhost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
-  
-  if ($contactForm.length) {
-    $contactForm.on('submit', function(e) {
-      e.preventDefault();
-      
-      const $form = $(this);
-      const $submitBtn = $form.find('.form-submit');
-      const startTime = Date.now();
-      
-      // Add loading state
-      $submitBtn.addClass('is-loading').prop('disabled', true);
-      
-      // Get form data
-      const formData = new FormData(this);
-      
-      // On localhost, fake the submission
-      const submitPromise = isLocalhost
-        ? new Promise(resolve => {
-            console.log('🧪 Localhost: faking form submission', Object.fromEntries(formData));
-            setTimeout(resolve, 300); // Simulate network delay
-          }).then(() => ({ ok: true }))
-        : fetch($form.attr('action'), {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
+        if (manualScreenshot) {
+          $$(`.work__card[data-appid="${appId}"]`).forEach((c) => {
+            const screenshot = $('.work__card-screenshot', c);
+            if (screenshot) {
+              screenshot.setAttribute('src', manualScreenshot);
+              screenshot.style.display = '';
             }
           });
-      
-      submitPromise
-      .then(response => {
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(0, MIN_LOADING_TIME - elapsed);
-        
-        // Wait for minimum time before showing result
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            if (response.ok) {
-              resolve();
-            } else {
-              reject(new Error('Form submission failed'));
-            }
-          }, remaining);
-        });
-      })
-      .then(() => {
-        // Success - show success state
-        $formWrapper.addClass('is-success');
-        $form[0].reset();
-        $submitBtn.removeClass('is-loading').prop('disabled', false);
-      })
-      .catch(error => {
-        // Error - show alert and reset button
-        alert('Oops! There was a problem sending your message. Please try again.');
-        console.error('Form error:', error);
-        $submitBtn.removeClass('is-loading').prop('disabled', false);
-      });
-    });
-    
-    // Reset form handler
-    $('.form-success__reset').on('click', function() {
-      $formWrapper.removeClass('is-success');
-    });
-  }
+        }
 
-});
+        fetchAppDataJsonp(numericId, country, appId, manualScreenshot);
+      });
+    }
+
+    setTimeout(() => {
+      initCarousel();
+      fetchAppData();
+    }, 100);
+
+    // ===================
+    // Contact Form
+    // ===================
+    const contactForm = $('.support-form');
+    const formWrapper = $('.form-wrapper');
+    const MIN_LOADING_TIME = 800;
+    const isLocalhost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const submitBtn = $('.form-submit', this);
+        const startTime = Date.now();
+
+        if (submitBtn) {
+          submitBtn.classList.add('is-loading');
+          submitBtn.disabled = true;
+        }
+
+        const formData = new FormData(this);
+
+        const submitPromise = isLocalhost
+          ? new Promise((resolve) => {
+              console.log('Localhost: faking form submission', Object.fromEntries(formData));
+              setTimeout(resolve, 300);
+            }).then(() => ({ ok: true }))
+          : fetch(this.getAttribute('action'), {
+              method: 'POST',
+              body: formData,
+              headers: { Accept: 'application/json' },
+            });
+
+        submitPromise
+          .then((response) => {
+            const elapsed = Date.now() - startTime;
+            const remaining = Math.max(0, MIN_LOADING_TIME - elapsed);
+
+            return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                response.ok ? resolve() : reject(new Error('Form submission failed'));
+              }, remaining);
+            });
+          })
+          .then(() => {
+            if (formWrapper) formWrapper.classList.add('is-success');
+            contactForm.reset();
+            if (submitBtn) {
+              submitBtn.classList.remove('is-loading');
+              submitBtn.disabled = false;
+            }
+          })
+          .catch((error) => {
+            alert('Oops! There was a problem sending your message. Please try again.');
+            console.error('Form error:', error);
+            if (submitBtn) {
+              submitBtn.classList.remove('is-loading');
+              submitBtn.disabled = false;
+            }
+          });
+      });
+
+      const resetBtn = $('.form-success__reset');
+      if (resetBtn)
+        resetBtn.addEventListener('click', () => {
+          if (formWrapper) formWrapper.classList.remove('is-success');
+        });
+    }
+  }
+})();
