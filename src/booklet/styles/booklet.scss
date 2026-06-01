@@ -1,4 +1,4 @@
-@import "themes";
+@use "themes";
 
   *{ box-sizing:border-box; }
   html,body{ margin:0; }
@@ -462,16 +462,24 @@
     width:100vw; height:100dvh; margin:0; padding:0; gap:0;
     overflow:visible;
     perspective:1600px; perspective-origin:0% 50%;
+    transform-style:preserve-3d;
     background:var(--mobile-bg);
   }
   body.is-mobile .slidewrap{
     position:absolute; top:0; left:0; margin:0;
     width:100vw !important; height:100dvh;
     transform-origin:left center;
+    transform-style:preserve-3d;
     backface-visibility:hidden; -webkit-backface-visibility:hidden;
     will-change:transform; touch-action:pan-y;
     background:var(--paper); overflow:hidden;
     box-shadow:0 0 40px rgba(0,0,0,.35);
+  }
+  body.is-mobile .slidewrap::after{
+    content:''; position:absolute; inset:0; z-index:-1;
+    background:var(--paper);
+    transform:rotateY(180deg);
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
   }
   body.is-mobile .slidewrap.pg-hidden{ visibility:hidden; }
 
@@ -651,6 +659,7 @@
     position:fixed; top:96px; left:0; right:0; bottom:120px; margin:0; padding:0; gap:0;
     display:block; max-width:none; overflow:visible;
     perspective:2800px; perspective-origin:50% 50%;
+    transform-style:preserve-3d;
   }
   /* soft "table" vignette beneath the open book */
   body.is-reader .deck::after{
@@ -664,6 +673,7 @@
     position:absolute; inset:0; margin:auto;
     width:var(--disp,560px); height:var(--disp,560px);
     transform-origin:left center;
+    transform-style:preserve-3d;
     backface-visibility:hidden; -webkit-backface-visibility:hidden;
     border-radius:8px; overflow:hidden; will-change:transform;
     user-select:none; -webkit-user-select:none;
@@ -686,6 +696,12 @@
   body.is-reader .slidewrap .bg{
     -webkit-user-drag:none; user-drag:none;
     -webkit-touch-callout:none; pointer-events:none;
+  }
+  body.is-reader .slidewrap::after{
+    content:''; position:absolute; inset:0; z-index:-1;
+    background:var(--paper);
+    transform:rotateY(180deg);
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
   }
   body.is-reader .slidewrap.pg-hidden{ visibility:hidden; }
   body.is-reader .plate{ display:none; }

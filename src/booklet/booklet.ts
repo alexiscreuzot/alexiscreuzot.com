@@ -102,8 +102,6 @@ export function initBooklet(): void {
   const SPRING = 'transform .6s cubic-bezier(.36,0,.3,1)';
   const FLIP_FWD = SPRING;
   const FLIP_BACK = 'transform .45s cubic-bezier(.22,.61,.36,1)';
-  const FLIP_RIFFLE_FWD = 'transform .34s cubic-bezier(.4,0,.4,1)';
-  const FLIP_RIFFLE_BACK = 'transform .3s cubic-bezier(.4,0,.4,1)';
 
   let mobileActive = false;
   let readerActive = false;
@@ -154,13 +152,23 @@ export function initBooklet(): void {
     w.classList.toggle('pg-hidden', !!hidden);
   }
 
-  function arrange(animate: boolean, flipIndex?: number, flipTransition?: string) {
+  function arrange(animate: boolean, flipIndex?: number, flipTransition?: string, underIndex?: number) {
     const t = animate ? SPRING : 'none';
+    const flipping = animate && flipIndex !== undefined;
     wraps.forEach((w, i) => {
-      const tt = animate && i === flipIndex ? flipTransition || FLIP_FWD : t;
+      const isFlip = flipping && i === flipIndex;
+      const tt = isFlip ? flipTransition || FLIP_FWD : flipping ? 'none' : t;
+
+      // While a page swings open backward, keep the page we're leaving in the
+      // reading area beneath it so the gap never exposes an in-between page.
+      if (underIndex !== undefined && i === underIndex && i !== flipIndex) {
+        setWrap(w, 0, 20, false, tt);
+        return;
+      }
+
       if (i < cur) setWrap(w, -180, 40, false, tt);
       else if (i === cur) setWrap(w, 0, 30, false, tt);
-      else if (i === cur + 1) setWrap(w, 0, 20, false, tt);
+      else if (i === cur + 1) setWrap(w, underIndex === undefined ? 0 : -180, 20, underIndex !== undefined, tt);
       else setWrap(w, 0, 1, true, tt);
     });
   }
@@ -215,47 +223,28 @@ export function initBooklet(): void {
     updateScrollCue();
   }
 
-  let riffleTimer: ReturnType<typeof setTimeout> | null = null;
-  function clearRiffle() {
-    if (riffleTimer) {
-      clearTimeout(riffleTimer);
-      riffleTimer = null;
-    }
-  }
-
-  function riffle(to: number) {
-    clearRiffle();
-    const dir = to > cur ? 1 : -1;
-    function step() {
-      const dist = Math.abs(to - cur);
-      go(cur + dir, true);
-      if (cur === to) {
-        riffleTimer = null;
-        return;
-      }
-      const gap = Math.max(55, Math.min(150, 700 / dist));
-      riffleTimer = setTimeout(step, gap);
-    }
-    step();
-  }
-
-  function go(n: number, riffleStep?: boolean) {
-    if (!riffleStep) clearRiffle();
+  function go(n: number) {
     n = Math.max(0, Math.min(total - 1, n));
     if (n === cur) {
       arrange(true);
       return;
     }
     const prev = cur;
-    if (!riffleStep && Math.abs(n - prev) > 1) return riffle(n);
     cur = n;
     storeSet(STORE_PAGE, String(cur));
     const s = currentSlide() as HTMLElement | null;
     if (s) s.scrollTop = 0;
-    const fwd = riffleStep ? FLIP_RIFFLE_FWD : FLIP_FWD;
-    const back = riffleStep ? FLIP_RIFFLE_BACK : FLIP_BACK;
-    if (n > prev) arrange(true, prev, fwd);
-    else arrange(true, n, back);
+    if (n > prev) {
+      arrange(true, prev, FLIP_FWD);
+    } else {
+      arrange(true, n, FLIP_BACK, prev);
+      const flip = wraps[n];
+      const done = () => {
+        flip.removeEventListener('transitionend', done);
+        if (cur === n) arrange(false);
+      };
+      flip.addEventListener('transitionend', done);
+    }
     updateUI();
     if (hintEl) hintEl.style.display = 'none';
   }
@@ -270,7 +259,6 @@ export function initBooklet(): void {
 
   function gStart(x: number, y: number, target?: EventTarget | null) {
     if (!paged()) return;
-    clearRiffle();
     gOn = true;
     gAxis = null;
     gx0 = x;
@@ -292,10 +280,12 @@ export function initBooklet(): void {
       gAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
     }
     if (gAxis !== 'x') return false;
-    if (dx < 0 && cur < total - 1)
+    if (dx < 0 && cur < total - 1) {
       setWrap(wraps[cur], Math.max(dx / gvw, -1) * 180, 30, false, 'none');
-    else if (dx > 0 && cur > 0)
-      setWrap(wraps[cur - 1], -180 + Math.min(dx / gvw, 1) * 180, 40, false, 'none');
+    } else if (dx > 0 && cur > 0) {
+      const t = Math.min(dx / gvw, 1);
+      setWrap(wraps[cur - 1], -180 + t * 180, 40, false, 'none');
+    }
     return true;
   }
 
