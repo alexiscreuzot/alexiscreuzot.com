@@ -2,5 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "jekyll",
   "buildCommand": "JEKYLL_ENV=production bundle exec jekyll build",
-  "outputDirectory": "_site"
+  "outputDirectory": "_site",
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
+      "destination": "/Horizonte33/:path*"
+    }
+  ]
 }
