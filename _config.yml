@@ -26,6 +26,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vercel.json
+  - middleware.js
   - .bundle
   - .tool-versions
   - .ruby-version
