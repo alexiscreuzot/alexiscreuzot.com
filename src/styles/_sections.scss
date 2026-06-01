@@ -646,6 +646,174 @@ section#websites {
 }
 
 // ===================
+// HOMES SECTION
+// ===================
+section#homes {
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+
+  .container { width: 100%; padding: 2rem 0; }
+
+  .section__title {
+    text-align: left;
+    margin-bottom: 0.5rem;
+    color: transparent;
+    background: $gradient;
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 1.8rem;
+    display: inline-block;
+  }
+
+  .section__subtitle {
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    margin-bottom: 2rem;
+    margin-top: 0;
+  }
+
+  .homes__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .homes__item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(var(--font-color-base-rgb), 0.08);
+    background: rgba(var(--font-color-base-rgb), 0.01);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .homes__item-cover {
+    position: relative;
+    display: block;
+    height: 320px;
+    overflow: hidden;
+  }
+
+  .homes__item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .homes__item-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem 1.75rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.25) 45%, transparent 75%);
+    pointer-events: none;
+  }
+
+  .homes__item-overlay-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .homes__item-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1.1;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .homes__item-location {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .homes__item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    flex: 1;
+  }
+
+  .homes__item-description { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+  .homes__item-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+  .homes__item-thumb {
+    display: block;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(var(--font-color-base-rgb), 0.03);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .homes__item-cta {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.6rem 1.1rem;
+    background: #ff385c;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  section#homes {
+    .homes__list { grid-template-columns: 1fr; gap: 1.25rem; }
+    .homes__item-cover { height: 260px; }
+    .homes__item-body { padding: 1.25rem; gap: 1rem; }
+    .homes__item-name { font-size: 1.4rem; }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  section#homes {
+    .section__title { font-size: 1.6rem; }
+    .section__subtitle { font-size: 1rem; margin-bottom: 1.25rem; }
+    .homes__item { border-radius: 16px; }
+    .homes__item-cover { height: 220px; }
+    .homes__item-overlay { padding: 1.25rem; }
+    .homes__item-body { padding: 1rem; }
+    .homes__item-gallery { gap: 0.4rem; }
+    .homes__item-name { font-size: 1.25rem; }
+    .homes__item-description { font-size: 0.9rem; }
+  }
+}
+
+// ===================
 // COMMUNITY SECTION
 // ===================
 section#community {

@@ -74,8 +74,8 @@
     // ===================
     // Navigation Dots
     // ===================
-    const sections = ['intro', 'work', 'websites', 'community'];
-    const tooltips = ['Intro', 'Apps', 'Websites', 'Community'];
+    const sections = ['intro', 'work', 'websites', 'homes', 'community'];
+    const tooltips = ['Intro', 'Apps', 'Websites', 'Homes', 'Community'];
 
     const nav = document.createElement('div');
     nav.id = 'page-nav';
@@ -256,7 +256,7 @@
       el.classList.add('js-ready');
       observer.observe(el);
     });
-    $$('.websites__item, .community__item').forEach((el, i) => {
+    $$('.websites__item, .homes__item, .community__item').forEach((el, i) => {
       el.style.transitionDelay = `${i * 0.1}s`;
       observer.observe(el);
     });
@@ -425,6 +425,7 @@
 
       function startDrag(e) {
         if (e.target.closest('.work__card-link')) return;
+        if (e.type === 'mousedown') e.preventDefault();
         isDragging = true;
         startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
         startTransform = getTransformX();
