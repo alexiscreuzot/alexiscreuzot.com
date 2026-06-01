@@ -19,6 +19,16 @@
       "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
       "dest": "/horizonte33/$1"
     },
+    {
+      "src": "/",
+      "has": [{ "type": "host", "value": "zen-in-rennes.alexiscreuzot.com" }],
+      "dest": "/zen-in-rennes/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "zen-in-rennes.alexiscreuzot.com" }],
+      "dest": "/zen-in-rennes/$1"
+    },
     { "handle": "filesystem" }
   ]
 }
