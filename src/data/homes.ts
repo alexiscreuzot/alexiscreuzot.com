@@ -10,7 +10,7 @@ export interface Home {
 export const homes: Home[] = [
   {
     name: 'Horizonte 33',
-    location: 'Hércules, Querétaro · Mexico',
+    location: 'Querétaro · Mexico',
     description:
       'A serene two-bedroom retreat dressed in soft linens and quiet light. Wake up unhurried, cook in a fully-equipped kitchen, and watch the city lights over Hércules from the loggia. Shared pool, gym, and casa club.',
     image: '/horizonte33/assets/images/living-view.jpg',
