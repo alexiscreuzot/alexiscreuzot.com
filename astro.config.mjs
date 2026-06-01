@@ -6,8 +6,4 @@ export default defineConfig({
   build: {
     format: 'file',
   },
-  redirects: {
-    '/horizonte33': '/horizonte33/index.html',
-    '/zen-in-rennes': '/zen-in-rennes/index.html',
-  },
 });

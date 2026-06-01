@@ -1,26 +1,10 @@
-  :root{
-    --paper:#ffffff;
-    --paper-2:#eef3f4;
-    --ink:#13201f;
-    --muted:#5c6c6c;
-    --line:#dbe6e5;
-    --accent:#3f8e8b;
-    --accent-deep:#2c6360;
-    --accent-soft:#e2eeec;
-    --gold-light:#a7cfca;
-    --surround:#101c1c;
-    --slide: 1080px;
-    --pad: 96px;
-    --serif:"Fraunces", Georgia, "Times New Roman", serif;
-    --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --script:"Allura", "Segoe Script", "Apple Chancery", cursive;
-  }
+@import "themes";
 
   *{ box-sizing:border-box; }
   html,body{ margin:0; }
   body{
     background:
-      radial-gradient(135% 80% at 50% -8%, #213533 0%, #182826 46%, #0e1716 100%) no-repeat fixed,
+      var(--body-gradient) no-repeat fixed,
       var(--surround);
     background-attachment:fixed;
     color:var(--ink);
@@ -36,14 +20,14 @@
     padding:14px 24px;
     background:rgba(22,19,15,.72);
     backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(160,205,200,.16);
+    border-bottom:1px solid var(--chrome-border);
   }
-  .toolbar .title{ font-family:var(--serif); font-weight:500; font-size:1.05rem; color:#eaf3f1; letter-spacing:.01em; }
+  .toolbar .title{ font-family:var(--serif); font-weight:500; font-size:1.05rem; color:var(--chrome-fg); letter-spacing:.01em; }
   .toolbar .title b{ color:var(--gold-light); font-weight:500; }
-  .toolbar .tb-suffix{ color:rgba(200,220,217,.5); font-weight:400; font-style:italic; }
+  .toolbar .tb-suffix{ color:var(--chrome-muted); font-weight:400; font-style:italic; }
   .toolbar .spacer{ flex:1; }
   .btn{
-    appearance:none; border:1px solid var(--gold-light); background:var(--gold-light); color:#0e1c1b;
+    appearance:none; border:1px solid var(--gold-light); background:var(--gold-light); color:var(--on-accent);
     font-family:var(--sans); font-weight:600; font-size:.85rem; letter-spacing:.02em;
     padding:11px 20px; border-radius:999px; cursor:pointer; white-space:nowrap;
     display:inline-flex; align-items:center; gap:8px; transition:opacity .2s, background .2s;
@@ -53,13 +37,13 @@
   .btn svg{ width:16px; height:16px; }
   /* Download-all is a utility, not a primary action — keep it quiet. */
   #downloadAll{
-    border:1px solid rgba(200,220,217,.16); background:transparent; color:rgba(200,220,217,.5);
+    border:1px solid rgba(220,210,194,.16); background:transparent; color:var(--chrome-muted);
     font-weight:500; font-size:.66rem; padding:5px 9px; gap:5px;
   }
   /* Only relevant alongside the grid overview, so only show it there. */
   body:not(.prefers-grid) #downloadAll{ display:none; }
   #downloadAll svg{ width:13px; height:13px; }
-  #downloadAll:hover{ opacity:1; color:rgba(200,220,217,.85); border-color:rgba(200,220,217,.32); }
+  #downloadAll:hover{ opacity:1; color:var(--chrome-muted-strong); border-color:var(--chrome-muted-border); }
 
   /* ---------- Deck / scaling ---------- */
   .deck{
@@ -79,7 +63,7 @@
   body:not(.is-mobile):not(.is-reader) .plate{
     display:block; position:absolute; left:0; right:0; bottom:-34px;
     text-align:center; font-family:var(--sans); font-size:11px; font-weight:600;
-    letter-spacing:.34em; text-transform:uppercase; color:rgba(200,220,217,.42);
+    letter-spacing:.34em; text-transform:uppercase; color:var(--chrome-plate);
     pointer-events:none;
   }
 
@@ -92,19 +76,19 @@
   .seg{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     display:inline-flex; gap:2px; padding:3px; border-radius:999px;
-    background:rgba(0,0,0,.24); border:1px solid rgba(160,205,200,.18);
+    background:rgba(0,0,0,.24); border:1px solid var(--chrome-seg);
   }
   .seg-btn{
     appearance:none; border:0; background:transparent; cursor:pointer;
     font-family:var(--sans); font-weight:600; font-size:.8rem; letter-spacing:.02em;
-    color:rgba(200,220,217,.6); padding:7px 16px; border-radius:999px; white-space:nowrap;
+    color:var(--chrome-seg-fg); padding:7px 16px; border-radius:999px; white-space:nowrap;
     display:inline-flex; align-items:center; gap:7px;
     transition:color .2s ease, background .2s ease;
   }
   .seg-btn svg{ width:15px; height:15px; }
-  .seg-btn:hover{ color:rgba(200,220,217,.92); }
-  .seg-btn.is-active{ background:var(--gold-light); color:#0e1c1b; }
-  .seg-btn.is-active:hover{ color:#0e1c1b; }
+  .seg-btn:hover{ color:var(--chrome-seg-hover); }
+  .seg-btn.is-active{ background:var(--gold-light); color:var(--on-accent); }
+  .seg-btn.is-active:hover{ color:var(--on-accent); }
   body.is-mobile #viewSeg{ display:none; }
 
   /* ---------- The slide ---------- */
@@ -118,7 +102,7 @@
       0 1px 0 rgba(255,255,255,.05),
       0 2px 6px rgba(0,0,0,.18),
       0 24px 60px rgba(0,0,0,.42),
-      inset 0 0 0 1px rgba(44,99,96,.07);
+      inset 0 0 0 1px var(--accent-ring);
     display:flex; flex-direction:column;
     padding:var(--pad);
   }
@@ -220,7 +204,7 @@
 
   /* ---------- Spacer / notes pages ---------- */
   .slide.spacer{ align-items:center; justify-content:center; text-align:center; }
-  .slide.spacer .mark-lg{ font-family:var(--serif); font-weight:300; font-size:44px; letter-spacing:.03em; color:#9fc0bd; }
+  .slide.spacer .mark-lg{ font-family:var(--serif); font-weight:300; font-size:44px; letter-spacing:.03em; color:var(--spacer-mark); }
   .slide.spacer .mark-lg b{ color:var(--accent); font-weight:500; }
   .slide.spacer .rule{ width:62px; height:1px; background:var(--line); margin:28px auto 0; }
 
@@ -241,7 +225,7 @@
     padding:18px 28px; border-radius:999px; cursor:pointer;
     align-items:center; justify-content:center; gap:10px;
     width:100%; max-width:420px; margin:28px auto 0; text-decoration:none;
-    box-shadow:0 10px 28px rgba(111,82,31,.22);
+    box-shadow:0 10px 28px var(--wifi-shadow);
     transition:opacity .2s, transform .15s;
   }
   .wifi-connect:active{ transform:scale(.98); opacity:.92; }
@@ -349,7 +333,7 @@
     font-size:58px;
     letter-spacing:.01em;
     line-height:1;
-    color:#14120e;
+    color:var(--ink);
   }
   .w-sign .sig + .sig{
     margin-top:2px;
@@ -372,7 +356,7 @@
     padding:0;
     height:100dvh;
     overflow:hidden;
-    background:#0c0a07;
+    background:var(--mobile-bg);
   }
 
   /* --- top bar + progress --- */
@@ -412,7 +396,7 @@
   body.is-mobile .m-progress{
     display:block; position:fixed; top:0; left:0; z-index:80; height:3px;
     width:0; background:linear-gradient(90deg, var(--accent), var(--gold-light));
-    box-shadow:0 0 10px rgba(160,205,200,.5);
+    box-shadow:0 0 10px var(--progress-glow);
     transition:width .45s cubic-bezier(.22,.61,.36,1);
   }
   body.is-mobile .m-counter{
@@ -478,7 +462,7 @@
     width:100vw; height:100dvh; margin:0; padding:0; gap:0;
     overflow:visible;
     perspective:1600px; perspective-origin:0% 50%;
-    background:#0c0a07;
+    background:var(--mobile-bg);
   }
   body.is-mobile .slidewrap{
     position:absolute; top:0; left:0; margin:0;
@@ -573,7 +557,7 @@
   body.is-mobile .slide-wifi .wifi-connect{
     display:flex; width:100%; max-width:none; font-size:.95rem;
     padding:13px 18px; margin:0; border-radius:12px;
-    box-shadow:0 4px 14px rgba(111,82,31,.14);
+    box-shadow:0 4px 14px var(--wifi-shadow-mobile);
   }
   body.is-mobile .slide-wifi .wifi-connect svg{ width:20px; height:20px; }
   body.is-mobile .slide-wifi .wifi-connect .es{ display:none; }
@@ -687,7 +671,7 @@
     box-shadow:
       0 1px 0 rgba(255,255,255,.06),
       24px 36px 90px rgba(0,0,0,.55),
-      0 0 0 1px rgba(44,99,96,.10);
+      0 0 0 1px var(--accent-ring-strong);
   }
   /* Keep interactive controls pointing as buttons, not the page grab cursor. */
   body.is-reader .slidewrap button,
@@ -710,7 +694,7 @@
   body.is-reader .m-progress{
     display:block; position:fixed; top:0; left:0; z-index:80; height:3px;
     width:0; background:linear-gradient(90deg, var(--accent), var(--gold-light));
-    box-shadow:0 0 10px rgba(160,205,200,.5);
+    box-shadow:0 0 10px var(--progress-glow);
     transition:width .45s cubic-bezier(.22,.61,.36,1);
   }
   body.is-reader .m-counter{
@@ -735,14 +719,14 @@
     transform:translateX(-50%);
     padding:8px 12px; border-radius:999px;
     background:rgba(22,19,15,.62);
-    border:1px solid rgba(160,205,200,.22);
+    border:1px solid var(--chrome-border);
     -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
     box-shadow:0 14px 40px rgba(0,0,0,.45);
   }
   .book-bar button{
     appearance:none; display:grid; place-items:center;
     width:42px; height:42px; border-radius:50%;
-    border:1px solid rgba(160,205,200,.4);
+    border:1px solid var(--chrome-muted-border);
     background:rgba(0,0,0,.18); color:var(--gold-light);
     cursor:pointer; transition:background .2s ease, opacity .2s ease, transform .12s ease;
   }
@@ -750,13 +734,13 @@
   .book-bar button:active{ transform:scale(.92); }
   .book-bar button svg{ width:21px; height:21px; stroke-width:2; }
   .book-bar button.is-disabled{ opacity:.32; pointer-events:none; }
-  .book-bar button.is-active{ background:var(--gold-light); color:#0e1c1b; border-color:var(--gold-light); }
+  .book-bar button.is-active{ background:var(--gold-light); color:var(--on-accent); border-color:var(--gold-light); }
   .book-count{
     min-width:74px; text-align:center;
     font-family:var(--sans); font-weight:600; font-size:.82rem; letter-spacing:.06em;
     color:rgba(246,239,226,.82); padding:0 6px; user-select:none;
   }
-  .book-sep{ width:1px; height:26px; background:rgba(160,205,200,.22); margin:0 2px; }
+  .book-sep{ width:1px; height:26px; background:var(--chrome-border); margin:0 2px; }
 
   /* ---------- Thumbnail navigator ---------- */
   .book-thumbs{ display:none; }
@@ -773,7 +757,7 @@
   }
   body.is-reader .book-thumbs.is-open{ opacity:1; pointer-events:auto; transform:translateY(0); }
   body.is-reader .book-thumbs::-webkit-scrollbar{ height:7px; }
-  body.is-reader .book-thumbs::-webkit-scrollbar-thumb{ background:rgba(160,205,200,.3); border-radius:999px; }
+  body.is-reader .book-thumbs::-webkit-scrollbar-thumb{ background:var(--chrome-seg); border-radius:999px; }
   .thumb{
     appearance:none; flex:0 0 auto; padding:0; cursor:pointer;
     position:relative; width:110px; height:110px; border-radius:6px;

@@ -1,0 +1,69 @@
+:root[data-booklet-theme='horizonte33'] {
+  --paper: #ffffff;
+  --paper-2: #f6f2ea;
+  --ink: #14120e;
+  --muted: #665d4e;
+  --line: #e8e1d2;
+  --accent: #9a7a40;
+  --accent-deep: #6f521f;
+  --accent-soft: #f2e9d6;
+  --gold-light: #dcc08c;
+  --surround: #1e1b16;
+  --body-gradient: radial-gradient(135% 80% at 50% -8%, #2c2820 0%, #211d16 46%, #15110b 100%);
+  --chrome-border: rgba(220, 192, 140, 0.16);
+  --chrome-fg: #f3ece0;
+  --chrome-muted: rgba(220, 210, 194, 0.5);
+  --chrome-muted-strong: rgba(220, 210, 194, 0.85);
+  --chrome-muted-border: rgba(220, 210, 194, 0.32);
+  --chrome-seg: rgba(220, 192, 140, 0.18);
+  --chrome-seg-fg: rgba(220, 210, 194, 0.6);
+  --chrome-seg-hover: rgba(220, 210, 194, 0.92);
+  --chrome-plate: rgba(220, 210, 194, 0.42);
+  --on-accent: #241d10;
+  --accent-ring: rgba(154, 122, 64, 0.07);
+  --accent-ring-strong: rgba(154, 122, 64, 0.1);
+  --spacer-mark: #cdbfa3;
+  --progress-glow: rgba(220, 192, 140, 0.5);
+  --mobile-bg: #0c0a07;
+  --wifi-shadow: rgba(111, 82, 31, 0.22);
+  --wifi-shadow-mobile: rgba(111, 82, 31, 0.14);
+}
+
+:root[data-booklet-theme='zen-in-rennes'] {
+  --paper: #ffffff;
+  --paper-2: #eef3f4;
+  --ink: #13201f;
+  --muted: #5c6c6c;
+  --line: #dbe6e5;
+  --accent: #3f8e8b;
+  --accent-deep: #2c6360;
+  --accent-soft: #e2eeec;
+  --gold-light: #a7cfca;
+  --surround: #101c1c;
+  --body-gradient: radial-gradient(135% 80% at 50% -8%, #213533 0%, #182826 46%, #0e1716 100%);
+  --chrome-border: rgba(160, 205, 200, 0.16);
+  --chrome-fg: #eaf3f1;
+  --chrome-muted: rgba(200, 220, 217, 0.5);
+  --chrome-muted-strong: rgba(200, 220, 217, 0.85);
+  --chrome-muted-border: rgba(200, 220, 217, 0.32);
+  --chrome-seg: rgba(160, 205, 200, 0.18);
+  --chrome-seg-fg: rgba(200, 220, 217, 0.6);
+  --chrome-seg-hover: rgba(200, 220, 217, 0.92);
+  --chrome-plate: rgba(200, 220, 217, 0.42);
+  --on-accent: #0e1c1b;
+  --accent-ring: rgba(44, 99, 96, 0.07);
+  --accent-ring-strong: rgba(44, 99, 96, 0.1);
+  --spacer-mark: #9fc0bd;
+  --progress-glow: rgba(160, 205, 200, 0.5);
+  --mobile-bg: #0c1212;
+  --wifi-shadow: rgba(44, 99, 96, 0.22);
+  --wifi-shadow-mobile: rgba(44, 99, 96, 0.14);
+}
+
+:root {
+  --slide: 1080px;
+  --pad: 96px;
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --script: "Allura", "Segoe Script", "Apple Chancery", cursive;
+}

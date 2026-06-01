@@ -1,0 +1,17 @@
+---
+import type { BookletMark } from '../types';
+
+interface Props {
+  mark: BookletMark;
+  show?: boolean;
+}
+
+const { mark, show = true } = Astro.props;
+---
+
+{show && (
+  <div class="pagefoot">
+    <span class="mark" set:html={`${mark.prefix}<b>${mark.emphasis}</b>`} />
+    <span>00</span>
+  </div>
+)}

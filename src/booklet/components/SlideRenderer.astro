@@ -1,0 +1,235 @@
+---
+import type { BookletMark, Slide } from '../types';
+import PageFoot from './PageFoot.astro';
+
+interface Props {
+  slide: Slide;
+  mark: BookletMark;
+  wifi?: { ssid: string; pass: string };
+  wifiSvg?: string;
+}
+
+const { slide, mark, wifi, wifiSvg } = Astro.props;
+---
+
+<div class="slidewrap">
+  {slide.type === 'cover' && (
+    <section class="slide photo" data-name={slide.slug}>
+      <div class="bg" style={`background-image:url('${slide.bg}')`} />
+      <div class="scrim" />
+      <div class="inner">
+        <p class="kicker">{slide.kicker}</p>
+        <h1 class="display">{slide.title}</h1>
+        <div class="cover-meta feats">
+          {slide.features.map((f) => (
+            <span class="m">
+              <i data-lucide={f.icon} />
+              <span set:html={f.html} />
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {slide.type === 'welcome' && (
+    <section class="slide slide-welcome" data-name={slide.slug}>
+      <div class="w-visual">
+        <div class="w-photo">
+          <img src={slide.photo} alt={slide.photoAlt} />
+        </div>
+        <div class="w-panel">
+          <p class="kicker">{slide.kicker}</p>
+          <h2 class="title" set:html={slide.title} />
+          <div class="w-cols">
+            <p class="w-text" set:html={slide.intro} />
+            <div>
+              <p class="w-text w-muted" set:html={slide.aside} />
+              <div class="w-sign">
+                <span class="sig-block">
+                  <span class="sig">Alexis &amp;</span>
+                  <span class="sig">Carolina</span>
+                </span>
+                <small>{slide.hostsLabel}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <PageFoot mark={mark} />
+    </section>
+  )}
+
+  {slide.type === 'facts' && (
+    <section class="slide" data-name={slide.slug}>
+      <div class="head">
+        <p class="kicker">{slide.kicker}</p>
+        <h2 class="title" set:html={slide.title} />
+      </div>
+      <div class="facts">
+        {slide.facts.map((f) => (
+          <div class="fact">
+            <div class="ic"><i data-lucide={f.icon} /></div>
+            <div>
+              <div class="lab">{f.label}</div>
+              <div class="val" set:html={`${f.value}${f.detail ? `<small>${f.detail}</small>` : ''}`} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <PageFoot mark={mark} />
+    </section>
+  )}
+
+  {slide.type === 'access' && (
+    <section class="slide access-slide" data-name={slide.slug}>
+      <div class="head">
+        <p class="kicker">{slide.kicker}</p>
+        <h2 class="title" set:html={slide.title} />
+      </div>
+      <div class="access-split">
+        <div class="access-photo">
+          <img src={slide.photo} alt={slide.photoAlt} />
+          <div class="ph-cap"><i data-lucide="map-pin" /> <span set:html={slide.photoCaption} /></div>
+        </div>
+        <div>
+          <div class="timeline">
+            {slide.steps.map((step, i) => (
+              <div class="tl-step">
+                <div class="tl-rail">
+                  <div class="tl-num">{i + 1}</div>
+                  <div class="tl-line" />
+                </div>
+                <div class="tl-body">
+                  <div class="st" set:html={step.title} />
+                  <div class="ss" set:html={step.body} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div class="access-tip">
+            <i data-lucide={slide.tipIcon} />
+            <span class="tip-txt" set:html={slide.tip} />
+          </div>
+        </div>
+      </div>
+      <PageFoot mark={mark} />
+    </section>
+  )}
+
+  {slide.type === 'wifi' && wifi && wifiSvg && (
+    <section class="slide slide-wifi" data-name={slide.slug}>
+      <div class="head">
+        <p class="kicker">{slide.kicker}</p>
+        <h2 class="title">{slide.title}</h2>
+      </div>
+      <div class="wifi-grid">
+        <div class="qr-card">
+          <img class="qr" src={wifiSvg} alt="WiFi QR code" />
+          <div class="qr-cap"><i data-lucide="scan-line" /> <span set:html={slide.scanLabel} /></div>
+        </div>
+        <div class="wifi-creds">
+          <div class="wifi-stack">
+            <button type="button" class="wifi-chip" data-wifi-copy="ssid" aria-label="Copy network name">
+              <span>
+                <span class="lab">{slide.ssidLabel}</span>
+                <span class="v">{wifi.ssid}</span>
+              </span>
+            </button>
+            <button type="button" class="wifi-chip" data-wifi-copy="pass" aria-label="Copy password">
+              <span>
+                <span class="lab">{slide.passLabel}</span>
+                <span class="v">{wifi.pass}</span>
+              </span>
+            </button>
+          </div>
+          <p class="wifi-note" set:html={slide.note} />
+        </div>
+      </div>
+      <div class="wifi-actions">
+        <button type="button" class="wifi-connect" id="wifiConnect">
+          <i data-lucide="wifi" />
+          <span class="wifi-connect-txt">{slide.connectLabel}</span>
+          <span class="es">{slide.connectSecondary}</span>
+        </button>
+        <p class="wifi-mobile-hint" id="wifiMobileHint" />
+      </div>
+      <PageFoot mark={mark} />
+    </section>
+  )}
+
+  {slide.type === 'gallery' && (
+    <section class="slide" data-name={slide.slug}>
+      <div class={`head${slide.compact ? ' compact' : ''}`}>
+        <p class="kicker">{slide.kicker}</p>
+        <h2 class="title" set:html={slide.title} />
+      </div>
+      <div class="grid2">
+        {slide.cells.map((cell) => (
+          <figure class="cell">
+            <img src={cell.src} alt="" />
+            <figcaption set:html={cell.caption} />
+          </figure>
+        ))}
+      </div>
+      <PageFoot mark={mark} />
+    </section>
+  )}
+
+  {slide.type === 'photo' && (
+    <section class="slide photo" data-name={slide.slug}>
+      <div class="bg" style={`background-image:url('${slide.bg}')`} />
+      <div class="scrim" />
+      <div class="inner">
+        <p class="kicker">{slide.kicker}</p>
+        <h2
+          class="title"
+          style={slide.style?.titleSize
+            ? `font-size:${slide.style.titleSize};${slide.style.lineHeight ? ` line-height:${slide.style.lineHeight};` : ''}`
+            : undefined}
+        >
+          {slide.title}
+        </h2>
+        <p
+          class="subtitle"
+          style={slide.style?.subtitleSize
+            ? `margin-top:${slide.style.subtitleMargin || '16px'}; font-size:${slide.style.subtitleSize};`
+            : undefined}
+          set:html={slide.subtitle}
+        />
+        {slide.footer && <div set:html={slide.footer} />}
+      </div>
+      <PageFoot mark={mark} />
+    </section>
+  )}
+
+  {slide.type === 'rows' && (
+    <section class="slide" data-name={slide.slug}>
+      <div class="head">
+        <p class="kicker">{slide.kicker}</p>
+        <h2 class="title" set:html={slide.title} />
+      </div>
+      <div class="rows">
+        {slide.rows.map((row) => (
+          <div class="row">
+            <div class="ic"><i data-lucide={row.icon} /></div>
+            <div>
+              <div class="rt" set:html={`${row.title}${row.hours ? ` <span class="rt-hours">${row.hours}</span>` : ''}`} />
+              <div class="rs" set:html={row.body} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <PageFoot mark={mark} />
+    </section>
+  )}
+
+  {slide.type === 'spacer' && (
+    <section class="slide spacer" data-name={slide.slug}>
+      <div>
+        <div class="mark-lg" set:html={`${mark.prefix}<b>${mark.emphasis}</b>`} />
+        <div class="rule" />
+      </div>
+    </section>
+  )}
+</div>
