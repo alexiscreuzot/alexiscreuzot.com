@@ -9,6 +9,7 @@
     --accent-soft:#e2eeec;
     --gold-light:#a7cfca;
     --surround:#101c1c;
+    --launch-bg:radial-gradient(135% 80% at 50% -8%, #213533 0%, #182826 46%, #101c1c 100%);
     --slide: 1080px;
     --pad: 96px;
     --serif:"Fraunces", Georgia, "Times New Roman", serif;
@@ -360,6 +361,56 @@
     color:var(--muted); letter-spacing:.04em; margin-top:5px;
   }
   .slide-welcome .pagefoot{ padding:18px 80px 44px; margin-top:0; }
+
+  /* ---------- Phone launch (PWA first paint → guide entrance) ---------- */
+  .m-launch{ display:none; }
+  html.is-phone .m-launch{
+    align-items:center; justify-content:center;
+    position:fixed; inset:0; z-index:10000; pointer-events:none;
+    background:var(--launch-bg);
+    transition:opacity .5s ease, visibility .5s ease;
+  }
+  html.is-phone .m-launch img{
+    width:108px; height:108px; border-radius:24%;
+    box-shadow:0 18px 48px rgba(0,0,0,.32);
+    animation:launchIcon .85s cubic-bezier(.22,.61,.36,1) backwards;
+  }
+  html.is-phone body.is-ready .m-launch{ opacity:0; visibility:hidden; }
+  html.is-phone body:not(.is-ready) .toolbar,
+  html.is-phone body:not(.is-ready) .deck,
+  html.is-phone body:not(.is-ready) .book-bar,
+  html.is-phone body:not(.is-ready) .book-thumbs,
+  html.is-phone body:not(.is-ready) .m-progress,
+  html.is-phone body:not(.is-ready) .m-counter,
+  html.is-phone body:not(.is-ready) .m-scrollcue,
+  html.is-phone body:not(.is-ready) .m-hint,
+  html.is-phone body:not(.is-ready) .wifi-toast{ visibility:hidden; }
+  html.is-phone body.is-mobile.is-ready .deck{
+    animation:guideIn .6s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  html.is-phone body.is-mobile.is-ready .toolbar,
+  html.is-phone body.is-mobile.is-ready .m-progress,
+  html.is-phone body.is-mobile.is-ready .m-counter{
+    animation:guideIn .6s cubic-bezier(.22,.61,.36,1) .08s forwards;
+    opacity:0;
+  }
+  @keyframes launchIcon{
+    from{ opacity:0; transform:scale(.88); }
+    to{ opacity:1; transform:scale(1); }
+  }
+  @keyframes guideIn{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:none; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html.is-phone .m-launch img,
+    html.is-phone body.is-mobile.is-ready .deck,
+    html.is-phone body.is-mobile.is-ready .toolbar,
+    html.is-phone body.is-mobile.is-ready .m-progress,
+    html.is-phone body.is-mobile.is-ready .m-counter{
+      animation:none; opacity:1; transform:none;
+    }
+  }
 
   /* =====================================================================
      MOBILE (phone) EXPERIENCE

@@ -379,6 +379,17 @@
     return !document.body.classList.contains('prefers-grid');
   }
 
+  var launchOnce = document.documentElement.classList.contains('is-phone');
+  function finishLaunch(){
+    if (!launchOnce || !mobileActive) return;
+    launchOnce = false;
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        document.body.classList.add('is-ready');
+      });
+    });
+  }
+
   function applyLayout(){
     var mobile = isMobile();
     var reader = !mobile && readerWanted();
@@ -412,6 +423,8 @@
       fitGrid();
     }
     if (window.updateWifiUI) window.updateWifiUI();
+    if (mobile) finishLaunch();
+    else document.body.classList.add('is-ready');
   }
   // Restore the last-used view (defaults to read) before first layout.
   setView(storeGet(STORE_VIEW) === 'grid');

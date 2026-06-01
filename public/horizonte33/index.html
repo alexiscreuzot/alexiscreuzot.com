@@ -27,12 +27,29 @@
 <link rel="manifest" href="assets/icons/site.webmanifest">
 <meta name="theme-color" content="#15110b">
 <meta name="apple-mobile-web-app-title" content="Horizonte 33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="color-scheme" content="dark">
+<style>
+  html.is-phone{background:#15110b;color-scheme:dark}
+  html.is-phone body{background:#15110b}
+  html.is-phone .m-launch{display:flex}
+</style>
+<script>
+(function(){
+  var c=(window.matchMedia&&matchMedia('(pointer:coarse)').matches)||('ontouchstart'in window)||navigator.maxTouchPoints>0;
+  var n=matchMedia&&matchMedia('(max-width:820px)').matches;
+  if(n||(c&&Math.min(window.innerWidth,window.innerHeight)<820))document.documentElement.classList.add('is-phone');
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Allura&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/booklet.css">
 </head>
 <body>
+
+<div class="m-launch" aria-hidden="true"><img src="assets/icons/apple-touch-icon.png" width="180" height="180" alt=""></div>
 
 <div class="toolbar">
   <div class="title">Horizonte <b>33</b><span class="tb-suffix"> · Guest Guide</span></div>
