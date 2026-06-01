@@ -502,6 +502,12 @@
     overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch;
   }
   body.is-mobile .slide::-webkit-scrollbar{ display:none; }
+  /* Flex scroll containers drop their padding-bottom when content overflows;
+     this spacer guarantees breathing room at the end of every phone scroll. */
+  body.is-mobile .slide::after{
+    content:''; display:block; flex:0 0 auto;
+    height:calc(env(safe-area-inset-bottom, 0px) + 32px);
+  }
   body.is-mobile .pagefoot{ display:none; }
   body.is-mobile .head{ margin-bottom:24px; }
   body.is-mobile .kicker{ font-size:.7rem; letter-spacing:.26em; margin:0 0 16px; }
