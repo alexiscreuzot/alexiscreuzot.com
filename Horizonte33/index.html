@@ -110,12 +110,12 @@
   }
 
   /* Export controls are tools, not part of the guest booklet:
-     show them only when previewing locally (body.is-export). */
+     show them only when previewing locally (body.is-export).
+     The Read/Grid switch (#viewSeg) stays visible for everyone. */
   body:not(.is-export) #downloadAll,
-  body:not(.is-export) #viewSeg,
   body:not(.is-export) .toolbar .hint{ display:none; }
 
-  /* Read / Grid view switch, centered in the toolbar (local owner tool). */
+  /* Read / Grid view switch, centered in the toolbar. */
   .seg{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     display:inline-flex; gap:2px; padding:3px; border-radius:999px;
