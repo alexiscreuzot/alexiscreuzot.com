@@ -7,7 +7,7 @@
     {
       "source": "/",
       "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
-      "destination": "/Horizonte33/index.html"
+      "destination": "/horizonte33/index.html"
     }
   ]
 }
