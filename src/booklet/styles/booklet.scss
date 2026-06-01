@@ -758,32 +758,43 @@
   }
   .book-sep{ width:1px; height:26px; background:var(--chrome-border); margin:0 2px; }
 
-  /* ---------- Thumbnail navigator ---------- */
+  /* ---------- Thumbnail navigator (vertical, right edge) ---------- */
   .book-thumbs{ display:none; }
   body.is-reader .book-thumbs{
-    display:flex; gap:14px;
-    position:fixed; left:0; right:0; bottom:92px; z-index:77;
-    padding:18px 24px; margin:0 auto; max-width:96vw;
-    overflow-x:auto; overflow-y:hidden;
-    scroll-behavior:smooth; justify-content:flex-start;
+    display:flex; flex-direction:column; gap:14px;
+    position:fixed; right:18px; top:50%; z-index:77;
+    padding:16px 14px; max-height:80vh;
+    overflow-y:auto; overflow-x:visible;
+    scroll-behavior:smooth; align-items:flex-end;
     opacity:0; pointer-events:none;
-    transform:translateY(14px);
+    transform:translate(20px, -50%);
     transition:opacity .28s ease, transform .28s ease;
     -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 var(--fade-top, 0px), #000 calc(100% - var(--fade-bottom, 0px)), transparent 100%);
+    mask-image:linear-gradient(180deg, transparent 0, #000 var(--fade-top, 0px), #000 calc(100% - var(--fade-bottom, 0px)), transparent 100%);
   }
-  body.is-reader .book-thumbs.is-open{ opacity:1; pointer-events:auto; transform:translateY(0); }
-  body.is-reader .book-thumbs::-webkit-scrollbar{ height:7px; }
-  body.is-reader .book-thumbs::-webkit-scrollbar-thumb{ background:var(--chrome-seg); border-radius:999px; }
+  body.is-reader .book-thumbs.is-open{ opacity:1; pointer-events:auto; transform:translate(0, -50%); }
+  body.is-reader .book-thumbs::-webkit-scrollbar{ width:0; height:0; }
   .thumb{
     appearance:none; flex:0 0 auto; padding:0; cursor:pointer;
-    position:relative; width:110px; height:110px; border-radius:6px;
-    overflow:hidden; background:var(--paper);
-    border:2px solid transparent;
-    box-shadow:0 8px 22px rgba(0,0,0,.4);
-    transition:border-color .2s ease, transform .15s ease;
+    position:relative; width:104px; height:104px; border-radius:6px;
+    overflow:visible; background:transparent;
+    border:0;
+    opacity:.5; filter:saturate(.85);
+    transition:opacity .2s ease, transform .15s ease;
   }
-  .thumb:hover{ transform:translateY(-3px); }
-  .thumb.is-current{ border-color:var(--gold-light); }
+  .thumb:hover{ transform:scale(1.04); opacity:.85; z-index:3; }
+  .thumb.is-current{ opacity:1; filter:none; transform:scale(1.08); z-index:2; }
+  .thumb-clip{
+    position:absolute; inset:0; border-radius:4px;
+    overflow:hidden; background:var(--paper);
+    box-shadow:0 8px 22px rgba(0,0,0,.4);
+    transition:box-shadow .2s ease;
+  }
+  .thumb.is-current .thumb-clip{
+    box-shadow:0 0 0 2px var(--gold-light), 0 0 16px color-mix(in srgb, var(--gold-light) 55%, transparent), 0 10px 26px rgba(0,0,0,.5);
+  }
   .thumb .slide{
     position:absolute; top:0; left:0; pointer-events:none;
     transform:scale(var(--tscale, .1018)); transform-origin:top left;
@@ -795,3 +806,23 @@
     color:#fff; background:rgba(20,18,14,.7);
     padding:1px 5px; border-radius:6px; letter-spacing:.04em;
   }
+  /* Tooltip with the page title, shown to the left of the hovered thumb.
+     Lives at body level so the scrolling panel's overflow cannot clip it. */
+  .book-tip{
+    position:fixed; z-index:90; box-sizing:content-box;
+    max-width:230px; overflow:hidden; text-overflow:ellipsis;
+    display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+    text-align:right; text-wrap:balance;
+    padding:8px 12px; border-radius:10px;
+    background:rgba(22,19,15,.7);
+    border:1px solid var(--chrome-border);
+    -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+    box-shadow:0 8px 24px rgba(0,0,0,.35);
+    font-family:var(--sans); font-size:.95rem; font-weight:500; letter-spacing:.01em;
+    line-height:1.3;
+    color:var(--gold-light);
+    opacity:0; pointer-events:none;
+    transform:translateY(-50%);
+    transition:opacity .16s ease;
+  }
+  .book-tip.show{ opacity:1; }

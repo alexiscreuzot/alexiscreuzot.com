@@ -399,19 +399,62 @@ export function initBooklet(): void {
     }
   });
 
+  let tipEl: HTMLElement | null = null;
+  function showThumbTip(thumb: HTMLElement) {
+    const text = thumb.getAttribute('data-tip');
+    if (!text) return;
+    if (!tipEl) {
+      tipEl = document.createElement('div');
+      tipEl.className = 'book-tip';
+      document.body.appendChild(tipEl);
+    }
+    tipEl.textContent = text;
+    tipEl.style.width = 'auto';
+    const range = document.createRange();
+    range.selectNodeContents(tipEl);
+    let lineW = 0;
+    for (const rect of Array.from(range.getClientRects())) lineW = Math.max(lineW, rect.width);
+    tipEl.style.width = Math.ceil(lineW) + 1 + 'px';
+    const r = thumb.getBoundingClientRect();
+    tipEl.style.right = window.innerWidth - (r.left - 12) + 'px';
+    tipEl.style.left = 'auto';
+    tipEl.style.top = r.top + r.height / 2 + 'px';
+    tipEl.classList.add('show');
+  }
+  function hideThumbTip() {
+    tipEl?.classList.remove('show');
+  }
+
+  const FADE = 28;
+  function updateThumbFades() {
+    if (!bookThumbs) return;
+    const max = bookThumbs.scrollHeight - bookThumbs.clientHeight;
+    const top = max > 1 && bookThumbs.scrollTop > 1 ? FADE : 0;
+    const bottom = max > 1 && bookThumbs.scrollTop < max - 1 ? FADE : 0;
+    bookThumbs.style.setProperty('--fade-top', top + 'px');
+    bookThumbs.style.setProperty('--fade-bottom', bottom + 'px');
+  }
+
   function buildThumbs() {
     if (thumbsBuilt || !bookThumbs) return;
     thumbsBuilt = true;
     wraps.forEach((w, i) => {
       const slide = w.querySelector('.slide');
+      const titleEl = slide?.querySelector('.title, .display');
+      const title = (titleEl?.textContent || '').replace(/\s+/g, ' ').trim();
+      const tip = title || 'Page ' + (i + 1);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'thumb';
-      btn.setAttribute('aria-label', 'Go to page ' + (i + 1));
+      btn.setAttribute('aria-label', 'Go to page ' + (i + 1) + (title ? ' — ' + title : ''));
+      btn.setAttribute('data-tip', tip);
       if (slide) {
+        const clip = document.createElement('span');
+        clip.className = 'thumb-clip';
         const mini = slide.cloneNode(true) as HTMLElement;
         mini.removeAttribute('id');
-        btn.appendChild(mini);
+        clip.appendChild(mini);
+        btn.appendChild(clip);
       }
       const num = document.createElement('span');
       num.className = 'tnum';
@@ -419,11 +462,20 @@ export function initBooklet(): void {
       btn.appendChild(num);
       btn.addEventListener('click', () => {
         go(i);
+        hideThumbTip();
         bookThumbs.classList.remove('is-open');
         bookThumbsToggle?.classList.remove('is-active');
       });
+      btn.addEventListener('mouseenter', () => showThumbTip(btn));
+      btn.addEventListener('focus', () => showThumbTip(btn));
+      btn.addEventListener('mouseleave', hideThumbTip);
+      btn.addEventListener('blur', hideThumbTip);
       bookThumbs.appendChild(btn);
     });
+    bookThumbs.addEventListener('scroll', () => {
+      updateThumbFades();
+      hideThumbTip();
+    }, { passive: true });
   }
 
   bookFirst?.addEventListener('click', () => go(0));
@@ -434,7 +486,12 @@ export function initBooklet(): void {
     if (!thumbsBuilt) buildThumbs();
     const open = bookThumbs?.classList.toggle('is-open');
     bookThumbsToggle.classList.toggle('is-active', !!open);
-    if (open) updateControls();
+    if (open) {
+      updateControls();
+      requestAnimationFrame(updateThumbFades);
+    } else {
+      hideThumbTip();
+    }
   });
 
   const segRead = document.getElementById('segRead');
