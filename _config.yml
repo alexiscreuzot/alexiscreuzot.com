@@ -1,17 +1,33 @@
-# Set the Sass partials directory, as we're using @imports
+# Site metadata
+title: Alexis Creuzot
+description: >-
+  Personal website of Alexis Creuzot, iOS developer, co-founder of Monoqle
+  and Happy Hours Coworking
+lang: en
+url: https://alexiscreuzot.com
+baseurl: ""
+timezone: UTC
+encoding: utf-8
+
+# Build output (Jekyll default; served by Vercel after build)
+destination: _site
+
+# Sass
 sass:
-  style: :compressed # You might prefer to minify using :compressed
-  # Silence deprecation warnings for @import and global built-ins
-  # These will be addressed when migrating to Dart Sass 3.0
+  style: compressed
   quiet_deps: true
   silence_deprecations:
     - import
     - global-builtin
-  
-# Site settings
-title: Alexis Creuzot
-description: 
-  Personnal Website of Alexis Creuzot, iOS Developer, co-founder of Monoqle and Happy Hours Coworking
-baseurl: "" # the subpath of your site, e.g. /blog
-destination: docs
-exclude: ["Gemfile", "Gemfile.lock", "Guardfile", "README.md"]
+
+# Do not publish source or tooling in the static output
+exclude:
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - vercel.json
+  - .bundle
+  - .tool-versions
+  - .ruby-version
+  - .gitignore
+  - node_modules

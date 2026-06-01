@@ -8,14 +8,14 @@
     <meta name="facebook-domain-verification" content="6nzeukurhjdvrvv7byiu1khra6wdm7" />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href="{{ "/images/favicon.ico?v=2" | prepend: site.baseurl }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ "/images/favicon-16x16.png?v=2" | prepend: site.baseurl }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ "/images/favicon-32x32.png?v=2" | prepend: site.baseurl }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ "/images/apple-touch-icon.png?v=2" | prepend: site.baseurl }}">
-    <link rel="manifest" href="{{ "/images/site.webmanifest?v=2" | prepend: site.baseurl }}">
-    
-    <link rel="canonical" href="{% if site.url %}{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}{% else %}{{ page.url | replace:'index.html','' | prepend: site.baseurl }}{% endif %}">
+    <link rel="icon" type="image/x-icon" href="{{ '/images/favicon.ico?v=2' | relative_url }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ '/images/favicon-16x16.png?v=2' | relative_url }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/images/favicon-32x32.png?v=2' | relative_url }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/images/apple-touch-icon.png?v=2' | relative_url }}">
+    <link rel="manifest" href="{{ '/images/site.webmanifest?v=2' | relative_url }}">
 
-    <link rel="stylesheet" href="{{ "/main.css" | prepend: site.baseurl_root }}"/>
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+    <link rel="stylesheet" href="{{ '/main.css' | relative_url }}"/>
     
   </head>
