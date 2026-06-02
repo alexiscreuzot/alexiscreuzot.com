@@ -1,0 +1,766 @@
+---
+import { limpiezaSections, limpiezaTotalItems } from '../../data/limpieza-horizonte33';
+
+const total = limpiezaTotalItems;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Horizonte 33 · Limpieza</title>
+<base href="/horizonte33/" />
+<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
+<meta name="theme-color" content="#15110b" />
+<meta name="apple-mobile-web-app-title" content="Limpieza H33" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style is:global>
+  :root {
+    --paper: #ffffff;
+    --ink: #12100c;
+    --ink-secondary: #3a342c;
+    --muted: #524a3f;
+    --line: #d9d0c0;
+    --line-strong: #c4b8a4;
+    --accent: #9a7a40;
+    --accent-deep: #5c4518;
+    --accent-soft: #f5efe3;
+    --gold-light: #e8d4a8;
+    --ok: #2d6b3c;
+    --ok-soft: #e0ede3;
+    --surround: #15110b;
+    --chrome-fg: #f5efe3;
+    --chrome-muted: #d4c9b4;
+    --body-gradient: radial-gradient(135% 80% at 50% -8%, #2c2820 0%, #211d16 46%, #15110b 100%);
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background-color: var(--surround);
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--sans);
+    color: var(--ink);
+    background-color: var(--surround);
+    background-image: var(--body-gradient);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.45;
+  }
+
+  .app {
+    min-height: 100dvh;
+    background-color: var(--surround);
+    background-image: var(--body-gradient);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+  }
+
+  .wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 32px 20px calc(108px + env(safe-area-inset-bottom));
+  }
+
+  .head {
+    text-align: center;
+    color: var(--chrome-fg);
+    padding: 16px 8px 28px;
+  }
+  .head .kicker {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+  .head h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 32px;
+    margin: 0;
+    line-height: 1.15;
+  }
+  .head h1 b { color: var(--gold-light); font-weight: 600; }
+
+  /* Status bar */
+  .status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 14px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(220, 192, 140, 0.22);
+    color: #f3ece0;
+  }
+  .status .timer {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .status .timer svg { width: 18px; height: 18px; color: var(--gold-light); }
+  .status .progress-text { font-size: 15px; color: var(--chrome-muted); font-weight: 500; }
+  .status .progress-text b { color: var(--chrome-fg); font-weight: 700; }
+
+  .bar {
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(220, 192, 140, 0.18);
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .bar > span {
+    display: block;
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--gold-light), var(--accent));
+    transition: width 0.25s ease;
+  }
+
+  /* Idle hero */
+  .hero {
+    text-align: center;
+    color: #f3ece0;
+    padding: 4px 8px 0;
+    margin-bottom: 28px;
+  }
+  .hero p {
+    color: var(--chrome-muted);
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0 0 20px;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero p b { color: var(--chrome-fg); font-weight: 600; }
+
+  /* Sections */
+  .section {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--accent-soft);
+  }
+  .section-head svg { width: 20px; height: 20px; color: var(--accent-deep); }
+  .section-head h2 {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .section-head .count {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .item-wrap {
+    border-top: 1px solid var(--line-strong);
+  }
+  .item-wrap:first-child { border-top: none; }
+  .item-main {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .item {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 12px 16px 18px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    min-width: 0;
+  }
+  .item input { position: absolute; opacity: 0; pointer-events: none; }
+  .box {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 28px;
+    margin-top: 1px;
+    border-radius: 8px;
+    border: 2px solid var(--line-strong);
+    background: #fff;
+    display: grid;
+    place-items: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .box svg { width: 17px; height: 17px; color: #fff; opacity: 0; transition: opacity 0.15s ease; }
+  .item .label-text {
+    flex: 1;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    transition: color 0.15s ease;
+  }
+
+  .detail-btn {
+    flex: 0 0 auto;
+    align-self: center;
+    appearance: none;
+    border: none;
+    background: transparent;
+    width: 40px;
+    height: 40px;
+    margin: 6px 8px 6px 0;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--muted);
+    opacity: 0.7;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .detail-btn:hover {
+    opacity: 1;
+    background: rgba(154, 122, 64, 0.08);
+    color: var(--ink-secondary);
+  }
+  .detail-btn[aria-expanded='true'] {
+    opacity: 1;
+    background: rgba(154, 122, 64, 0.1);
+    color: var(--accent-deep);
+  }
+  .detail-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2px;
+    transition: transform 0.28s ease;
+  }
+  .detail-btn[aria-expanded='true'] svg { transform: rotate(180deg); }
+
+  .detail-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s ease;
+  }
+  .detail-panel.is-open { grid-template-rows: 1fr; }
+  .detail-panel-inner { overflow: hidden; }
+  .detail-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 18px 16px 44px;
+  }
+  .detail-icon {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    color: var(--accent-deep);
+  }
+  .detail-text {
+    margin: 0;
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+    font-weight: 500;
+  }
+
+  .item input:checked + .box {
+    background: var(--ok);
+    border-color: var(--ok);
+  }
+  .item input:checked + .box svg { opacity: 1; }
+  .item input:checked ~ .label-text {
+    color: var(--muted);
+    font-weight: 500;
+    text-decoration: line-through;
+    text-decoration-color: rgba(82, 74, 63, 0.55);
+    text-decoration-thickness: 1.5px;
+  }
+
+  /* Done card */
+  .done-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 36px 24px 28px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+  .done-card .check {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 18px;
+    border-radius: 999px;
+    background: var(--ok-soft);
+    display: grid;
+    place-items: center;
+  }
+  .done-card .check svg { width: 34px; height: 34px; color: var(--ok); }
+  .done-card h2 {
+    font-family: var(--serif);
+    font-size: 24px;
+    margin: 0 0 6px;
+  }
+  .done-card p { color: var(--ink-secondary); margin: 0 0 24px; font-size: 16px; line-height: 1.5; }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .summary .cell {
+    background: var(--accent-soft);
+    border-radius: 12px;
+    padding: 14px 6px;
+  }
+  .summary .cell .k {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-secondary);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .summary .cell .v {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Buttons */
+  .btn {
+    appearance: none;
+    border: none;
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 600;
+    padding: 16px 20px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.1s ease, opacity 0.15s ease, background 0.15s ease;
+  }
+  .btn svg { width: 20px; height: 20px; }
+  .btn:active { transform: scale(0.985); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold-light), var(--accent));
+    color: #241d10;
+    box-shadow: 0 10px 28px rgba(111, 82, 31, 0.4);
+  }
+  .btn-primary:disabled {
+    background: rgba(255, 255, 255, 0.14);
+    color: rgba(245, 239, 227, 0.55);
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: rgba(220, 210, 194, 0.85);
+    border: 1px solid rgba(220, 210, 194, 0.32);
+  }
+  .btn-ghost.dark { color: var(--accent-deep); border-color: var(--line); }
+
+  /* Fixed control bar */
+  .control-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(21, 17, 11, 0.96);
+    border-top: 1px solid rgba(220, 192, 140, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .control-inner {
+    max-width: 560px;
+    margin: 0 auto;
+    display: grid;
+    gap: 10px;
+  }
+  [data-state='active'] .control-inner {
+    grid-template-columns: 1fr auto;
+    align-items: stretch;
+  }
+  .control-bar .btn { margin: 0; }
+  .btn-reset {
+    appearance: none;
+    border: 1px solid rgba(220, 210, 194, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--chrome-fg);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 18px;
+    border-radius: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.1s ease, background 0.15s ease;
+  }
+  .btn-reset:active { transform: scale(0.985); }
+  .btn-reset:hover { background: rgba(255, 255, 255, 0.06); }
+
+  .ctrl-show-idle,
+  .ctrl-show-active,
+  .ctrl-show-done { display: none; }
+  [data-state='idle'] .ctrl-show-idle { display: flex; }
+  [data-state='active'] .ctrl-show-active { display: flex; }
+  [data-state='done'] .ctrl-show-done { display: flex; }
+
+  /* State visibility */
+  [data-state] .when-idle,
+  [data-state] .when-active,
+  [data-state] .when-done { display: none; }
+  [data-state='idle'] .when-idle { display: block; }
+  [data-state='active'] .when-active { display: block; }
+  [data-state='done'] .when-done { display: block; }
+
+  /* Checkboxes disabled before start; details always readable */
+  [data-state='idle'] .item {
+    pointer-events: none;
+    opacity: 1;
+  }
+  [data-state='idle'] .label-text { color: var(--ink-secondary); }
+  [data-state='idle'] .box {
+    border-color: var(--line);
+    background: #f3efe6;
+  }
+  [data-state='idle'] .detail-btn,
+  [data-state='idle'] .detail-panel {
+    pointer-events: auto;
+  }
+</style>
+</head>
+<body>
+<div class="app" data-state="idle">
+  <div class="wrap">
+    <header class="head">
+      <p class="kicker">Horizonte 33 · Querétaro</p>
+      <h1>Limpieza <b>·</b> Checklist</h1>
+    </header>
+
+    <!-- Idle hero -->
+    <div class="when-idle hero">
+      <p>Puedes revisar las indicaciones con el botón <b>›</b> a la derecha. Cuando empieces, usa <b>Iniciar</b> abajo y marca cada tarea.</p>
+    </div>
+
+    <!-- Active status -->
+    <div class="when-active">
+      <div class="status">
+        <div class="timer"><i data-lucide="clock"></i><span id="timer">0:00</span></div>
+        <div class="progress-text"><b id="doneCount">0</b> / {total} tareas</div>
+      </div>
+      <div class="bar"><span id="barFill"></span></div>
+    </div>
+
+    <!-- Checklist (idle + active) -->
+    <div id="checklist" class="when-idle when-active">
+      {limpiezaSections.map((section) => (
+        <section class="section" data-section={section.id}>
+          <div class="section-head">
+            <i data-lucide={section.icon}></i>
+            <h2>{section.title}</h2>
+            <span class="count" data-count>0/{section.items.length}</span>
+          </div>
+          {section.items.map((item) => (
+            <div class="item-wrap">
+              <div class="item-main">
+                <label class="item">
+                  <input type="checkbox" data-item={item.id} />
+                  <span class="box"><i data-lucide="check"></i></span>
+                  <span class="label-text">{item.label}</span>
+                </label>
+                {item.note && (
+                  <button
+                    type="button"
+                    class="detail-btn"
+                    data-detail-for={item.id}
+                    aria-expanded="false"
+                    aria-label="Ver indicaciones"
+                  >
+                    <i data-lucide="chevron-down"></i>
+                  </button>
+                )}
+              </div>
+              {item.note && (
+                <div class="detail-panel" data-detail-panel={item.id} id={`detail-${item.id}`}>
+                  <div class="detail-panel-inner">
+                    <div class="detail-body">
+                      <i data-lucide="info" class="detail-icon" aria-hidden="true"></i>
+                      <p class="detail-text">{item.note}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </section>
+      ))}
+    </div>
+
+    <!-- Done summary -->
+    <div class="when-done">
+      <div class="done-card">
+        <div class="check"><i data-lucide="check"></i></div>
+        <h2>¡Limpieza terminada!</h2>
+        <p>Gracias, todo quedó listo para los siguientes huéspedes.</p>
+        <div class="summary">
+          <div class="cell"><div class="k">Inicio</div><div class="v" id="sumStart">—</div></div>
+          <div class="cell"><div class="k">Fin</div><div class="v" id="sumEnd">—</div></div>
+          <div class="cell"><div class="k">Duración</div><div class="v" id="sumDuration">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="control-bar" aria-label="Controles de limpieza">
+    <div class="control-inner">
+      <button class="btn btn-primary ctrl-show-idle" id="startBtn" type="button">
+        <i data-lucide="play"></i><span>Iniciar limpieza</span>
+      </button>
+      <button class="btn btn-primary ctrl-show-active" id="finishBtn" type="button" disabled>
+        <i data-lucide="check-check"></i><span>Terminar</span>
+      </button>
+      <button class="btn-reset ctrl-show-active" id="resetBtn" type="button">Reiniciar</button>
+      <button class="btn btn-primary ctrl-show-done" id="againBtn" type="button">
+        <i data-lucide="rotate-ccw"></i><span>Empezar otra</span>
+      </button>
+    </div>
+  </nav>
+</div>
+
+<script is:inline defer src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script is:inline define:vars={{ total }}>
+  (function () {
+    var P = 'h33-limpieza:';
+    var K = { state: P + 'state', start: P + 'startedAt', finish: P + 'finishedAt', checked: P + 'checked' };
+
+    function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    function del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+
+    var app = document.querySelector('.app');
+    var checkboxes = Array.prototype.slice.call(document.querySelectorAll('input[data-item]'));
+    var startBtn = document.getElementById('startBtn');
+    var finishBtn = document.getElementById('finishBtn');
+    var resetBtn = document.getElementById('resetBtn');
+    var againBtn = document.getElementById('againBtn');
+    var timerEl = document.getElementById('timer');
+    var doneCountEl = document.getElementById('doneCount');
+    var barFill = document.getElementById('barFill');
+
+    var tick = null;
+
+    function loadChecked() {
+      try {
+        var raw = get(K.checked);
+        if (!raw) return [];
+        var arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
+      } catch (e) { return []; }
+    }
+
+    function saveChecked() {
+      var ids = checkboxes.filter(function (c) { return c.checked; }).map(function (c) { return c.getAttribute('data-item'); });
+      set(K.checked, JSON.stringify(ids));
+    }
+
+    function fmtDuration(ms) {
+      var s = Math.max(0, Math.floor(ms / 1000));
+      var h = Math.floor(s / 3600);
+      var m = Math.floor((s % 3600) / 60);
+      var sec = s % 60;
+      if (h > 0) return h + ':' + String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+      return m + ':' + String(sec).padStart(2, '0');
+    }
+
+    function fmtClock(ts) {
+      try {
+        return new Date(ts).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+      } catch (e) { return '—'; }
+    }
+
+    function updateProgress() {
+      var done = checkboxes.filter(function (c) { return c.checked; }).length;
+      doneCountEl.textContent = String(done);
+      barFill.style.width = (total ? (done / total) * 100 : 0) + '%';
+      finishBtn.disabled = done < total;
+
+      document.querySelectorAll('.section[data-section]').forEach(function (sec) {
+        var boxes = sec.querySelectorAll('input[data-item]');
+        var checked = sec.querySelectorAll('input[data-item]:checked');
+        var label = sec.querySelector('[data-count]');
+        if (label) label.textContent = checked.length + '/' + boxes.length;
+      });
+    }
+
+    function startTimer() {
+      stopTimer();
+      function render() {
+        var startedAt = parseInt(get(K.start) || '0', 10);
+        if (!startedAt) { timerEl.textContent = '0:00'; return; }
+        timerEl.textContent = fmtDuration(Date.now() - startedAt);
+      }
+      render();
+      tick = setInterval(render, 1000);
+    }
+    function stopTimer() { if (tick) { clearInterval(tick); tick = null; } }
+
+    function setState(state) {
+      app.setAttribute('data-state', state);
+      set(K.state, state);
+    }
+
+    function start() {
+      set(K.start, String(Date.now()));
+      del(K.finish);
+      setState('active');
+      startTimer();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function finish() {
+      set(K.finish, String(Date.now()));
+      stopTimer();
+      setState('done');
+      renderSummary();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSummary() {
+      var startedAt = parseInt(get(K.start) || '0', 10);
+      var finishedAt = parseInt(get(K.finish) || '0', 10);
+      document.getElementById('sumStart').textContent = startedAt ? fmtClock(startedAt) : '—';
+      document.getElementById('sumEnd').textContent = finishedAt ? fmtClock(finishedAt) : '—';
+      document.getElementById('sumDuration').textContent =
+        startedAt && finishedAt ? fmtDuration(finishedAt - startedAt) : '—';
+    }
+
+    function reset() {
+      stopTimer();
+      del(K.start);
+      del(K.finish);
+      del(K.checked);
+      checkboxes.forEach(function (c) { c.checked = false; });
+      closeAllDetails();
+      updateProgress();
+      timerEl.textContent = '0:00';
+      setState('idle');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Restore
+    (function restore() {
+      var checked = loadChecked();
+      checkboxes.forEach(function (c) {
+        if (checked.indexOf(c.getAttribute('data-item')) !== -1) c.checked = true;
+      });
+      updateProgress();
+
+      var state = get(K.state) || 'idle';
+      if (state === 'active') { setState('active'); startTimer(); }
+      else if (state === 'done') { setState('done'); renderSummary(); }
+      else { setState('idle'); }
+    })();
+
+    checkboxes.forEach(function (c) {
+      c.addEventListener('change', function () {
+        if (app.getAttribute('data-state') !== 'active') {
+          c.checked = !c.checked;
+          return;
+        }
+        saveChecked();
+        updateProgress();
+      });
+    });
+
+    function closeAllDetails() {
+      document.querySelectorAll('.detail-panel.is-open').forEach(function (p) {
+        p.classList.remove('is-open');
+      });
+      document.querySelectorAll('.detail-btn[aria-expanded="true"]').forEach(function (b) {
+        b.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    document.querySelectorAll('.detail-btn').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = btn.getAttribute('data-detail-for');
+        var panel = document.querySelector('[data-detail-panel="' + id + '"]');
+        if (!panel) return;
+        var open = !panel.classList.contains('is-open');
+        panel.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+
+    startBtn.addEventListener('click', start);
+    finishBtn.addEventListener('click', function () { if (!finishBtn.disabled) finish(); });
+    againBtn.addEventListener('click', reset);
+    resetBtn.addEventListener('click', function () {
+      if (window.confirm('¿Reiniciar la limpieza? Se borrarán todas las marcas.')) reset();
+    });
+
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+      window.lucide.createIcons();
+    } else {
+      window.addEventListener('load', function () {
+        if (window.lucide) window.lucide.createIcons();
+      });
+    }
+  })();
+</script>
+</body>
+</html>
