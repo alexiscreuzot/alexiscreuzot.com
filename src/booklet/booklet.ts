@@ -152,10 +152,21 @@ export function initBooklet(): void {
     w.classList.toggle('pg-hidden', !!hidden);
   }
 
-  function arrange(animate: boolean, flipIndex?: number, flipTransition?: string, underIndex?: number) {
+  function arrange(
+    animate: boolean,
+    flipIndex?: number,
+    flipTransition?: string,
+    underIndex?: number,
+    keepIndex?: number
+  ) {
     const t = animate ? SPRING : 'none';
     const flipping = animate && flipIndex !== undefined;
     wraps.forEach((w, i) => {
+      // Leave a freshly-settled page's layer completely untouched. Re-writing
+      // the transform/transition on a front-facing, backface-hidden 3D layer
+      // makes WebKit (iOS PWA) flash its transparent backface for one frame,
+      // exposing the page beneath it.
+      if (keepIndex !== undefined && i === keepIndex) return;
       const isFlip = flipping && i === flipIndex;
       const tt = isFlip ? flipTransition || FLIP_FWD : flipping ? 'none' : t;
 
@@ -242,7 +253,13 @@ export function initBooklet(): void {
       const flip = wraps[n];
       const done = () => {
         flip.removeEventListener('transitionend', done);
-        if (cur === n) arrange(false);
+        if (cur !== n) return;
+        // For a single-step turn the post-flip layout is already the resting
+        // state, so we touch nothing. For a multi-page jump we still need to
+        // hide the page we left and ready the new neighbour beneath — but we
+        // must keep the just-settled page's layer untouched (see arrange's
+        // keepIndex note) to avoid the end-of-flip backface flash on iOS.
+        if (prev !== n + 1) arrange(false, undefined, undefined, undefined, n);
       };
       flip.addEventListener('transitionend', done);
     }
