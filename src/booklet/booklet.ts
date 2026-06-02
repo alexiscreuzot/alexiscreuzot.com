@@ -145,9 +145,25 @@ export function initBooklet(): void {
     });
   }
 
-  function setWrap(w: HTMLElement, angle: number, z: number, hidden: boolean, transition?: string) {
+  // Inside a preserve-3d context z-index is ignored — only real 3D depth
+  // decides stacking. Two coplanar pages (same rotateY, same translateZ) tie,
+  // and iOS' PWA compositor flickers the loser through for a frame right as a
+  // backward flip settles. Pushing the covered page a hair back in Z breaks
+  // the tie so the settled page is unambiguously in front. The shift is
+  // imperceptible under the deck's large perspective and never touches the
+  // flipping page, so the turn arc is unchanged.
+  const UNDER_DEPTH = 2;
+
+  function setWrap(
+    w: HTMLElement,
+    angle: number,
+    z: number,
+    hidden: boolean,
+    transition?: string,
+    depth = 0
+  ) {
     w.style.transition = transition || 'none';
-    w.style.transform = 'rotateY(' + angle + 'deg)';
+    w.style.transform = 'rotateY(' + angle + 'deg) translateZ(' + -depth + 'px)';
     w.style.zIndex = String(z);
     w.classList.toggle('pg-hidden', !!hidden);
   }
@@ -173,13 +189,13 @@ export function initBooklet(): void {
       // While a page swings open backward, keep the page we're leaving in the
       // reading area beneath it so the gap never exposes an in-between page.
       if (underIndex !== undefined && i === underIndex && i !== flipIndex) {
-        setWrap(w, 0, 20, false, tt);
+        setWrap(w, 0, 20, false, tt, UNDER_DEPTH);
         return;
       }
 
       if (i < cur) setWrap(w, -180, 40, false, tt);
       else if (i === cur) setWrap(w, 0, 30, false, tt);
-      else if (i === cur + 1) setWrap(w, underIndex === undefined ? 0 : -180, 20, underIndex !== undefined, tt);
+      else if (i === cur + 1) setWrap(w, underIndex === undefined ? 0 : -180, 20, underIndex !== undefined, tt, UNDER_DEPTH);
       else setWrap(w, 0, 1, true, tt);
     });
   }
