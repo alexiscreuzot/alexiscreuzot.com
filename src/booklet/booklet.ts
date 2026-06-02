@@ -262,8 +262,31 @@ export function initBooklet(): void {
     updateScrollCue();
   }
 
+  let flipEl: HTMLElement | null = null;
+  let flipDone: ((e: TransitionEvent) => void) | null = null;
+
+  function cancelFlip() {
+    if (flipEl && flipDone) {
+      flipEl.removeEventListener('transitionend', flipDone);
+    }
+    flipEl = null;
+    flipDone = null;
+  }
+
   function clearFlipFwd() {
     deck?.classList.remove('is-flip-fwd');
+  }
+
+  function attachFlipDone(flip: HTMLElement, onDone: () => void) {
+    const done = (e: TransitionEvent) => {
+      if (e.target !== flip || e.propertyName !== 'transform') return;
+      if (flipEl !== flip) return;
+      cancelFlip();
+      onDone();
+    };
+    flipEl = flip;
+    flipDone = done;
+    flip.addEventListener('transitionend', done);
   }
 
   function go(n: number) {
@@ -273,25 +296,40 @@ export function initBooklet(): void {
       return;
     }
     const prev = cur;
-    if (n > prev && n === prev + 1) {
+    cancelFlip();
+
+    if (n === prev + 1) {
+      cur = n;
+      storeSet(STORE_PAGE, String(cur));
+      const s = currentSlide() as HTMLElement | null;
+      if (s) s.scrollTop = 0;
+      updateUI();
+
       deck?.classList.add('is-flip-fwd');
       arrange(true, prev, FLIP_FWD, undefined, undefined, prev);
-      const flip = wraps[prev];
-      const done = (e: TransitionEvent) => {
-        if (e.target !== flip || e.propertyName !== 'transform') return;
-        flip.removeEventListener('transitionend', done);
-        if (cur !== prev) return;
-        cur = n;
-        storeSet(STORE_PAGE, String(cur));
-        const s = currentSlide() as HTMLElement | null;
-        if (s) s.scrollTop = 0;
+      attachFlipDone(wraps[prev], () => {
         clearFlipFwd();
         arrange(false);
-        updateUI();
-      };
-      flip.addEventListener('transitionend', done);
+      });
       return;
     }
+
+    if (n === prev - 1) {
+      cur = n;
+      storeSet(STORE_PAGE, String(cur));
+      const s = currentSlide() as HTMLElement | null;
+      if (s) s.scrollTop = 0;
+      updateUI();
+
+      clearFlipFwd();
+      arrange(true, n, FLIP_BACK, prev);
+      attachFlipDone(wraps[n], () => {
+        /* single-step resting layout is already correct */
+      });
+      return;
+    }
+
+    clearFlipFwd();
     cur = n;
     storeSet(STORE_PAGE, String(cur));
     const s = currentSlide() as HTMLElement | null;
@@ -300,18 +338,10 @@ export function initBooklet(): void {
       arrange(true, prev, FLIP_FWD);
     } else {
       arrange(true, n, FLIP_BACK, prev);
-      const flip = wraps[n];
-      const done = () => {
-        flip.removeEventListener('transitionend', done);
+      attachFlipDone(wraps[n], () => {
         if (cur !== n) return;
-        // For a single-step turn the post-flip layout is already the resting
-        // state, so we touch nothing. For a multi-page jump we still need to
-        // hide the page we left and ready the new neighbour beneath — but we
-        // must keep the just-settled page's layer untouched (see arrange's
-        // keepIndex note) to avoid the end-of-flip backface flash on iOS.
         if (prev !== n + 1) arrange(false, undefined, undefined, undefined, n);
-      };
-      flip.addEventListener('transitionend', done);
+      });
     }
     updateUI();
   }
@@ -376,6 +406,7 @@ export function initBooklet(): void {
       if (dx < 0 && (far || flick)) return go(cur + 1);
       if (dx > 0 && (far || flick)) return go(cur - 1);
       clearFlipFwd();
+      cancelFlip();
       arrange(true);
     } else if (gAxis === null && dt < 320 && Math.abs(dx) < 8 && Math.abs(dy) < 8) {
       if (readerActive) {
@@ -399,6 +430,7 @@ export function initBooklet(): void {
       gOn = false;
       gAxis = null;
       clearFlipFwd();
+      cancelFlip();
       arrange(true);
     }
   }
