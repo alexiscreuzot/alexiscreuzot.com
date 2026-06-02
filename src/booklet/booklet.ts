@@ -175,10 +175,12 @@ export function initBooklet(): void {
     flipIndex?: number,
     flipTransition?: string,
     underIndex?: number,
-    keepIndex?: number
+    keepIndex?: number,
+    atCur?: number
   ) {
     const t = animate ? SPRING : 'none';
     const flipping = animate && flipIndex !== undefined;
+    const page = atCur ?? cur;
     wraps.forEach((w, i) => {
       // Leave a freshly-settled page's layer completely untouched. Re-writing
       // the transform/transition on a front-facing, backface-hidden 3D layer
@@ -188,6 +190,12 @@ export function initBooklet(): void {
       const isFlip = flipping && i === flipIndex;
       const tt = isFlip ? flipTransition || FLIP_FWD : flipping ? 'none' : t;
 
+      if (isFlip) {
+        if (flipTransition === FLIP_BACK) setWrap(w, 0, 30, false, tt);
+        else setWrap(w, -180, 40, false, tt);
+        return;
+      }
+
       // While a page swings open backward, keep the page we're leaving in the
       // reading area beneath it so the gap never exposes an in-between page.
       if (underIndex !== undefined && i === underIndex && i !== flipIndex) {
@@ -195,9 +203,10 @@ export function initBooklet(): void {
         return;
       }
 
-      if (i < cur) setWrap(w, -180, 40, false, tt);
-      else if (i === cur) setWrap(w, 0, 30, false, tt);
-      else if (i === cur + 1) setWrap(w, underIndex === undefined ? 0 : -180, 20, underIndex !== undefined, tt, UNDER_DEPTH);
+      if (i < page) setWrap(w, -180, 40, false, tt);
+      else if (i === page) setWrap(w, 0, 30, false, tt);
+      else if (i === page + 1)
+        setWrap(w, underIndex === undefined ? 0 : -180, 20, underIndex !== undefined, tt);
       else setWrap(w, 0, 1, true, tt);
     });
   }
@@ -253,6 +262,10 @@ export function initBooklet(): void {
     updateScrollCue();
   }
 
+  function clearFlipFwd() {
+    deck?.classList.remove('is-flip-fwd');
+  }
+
   function go(n: number) {
     n = Math.max(0, Math.min(total - 1, n));
     if (n === cur) {
@@ -260,6 +273,25 @@ export function initBooklet(): void {
       return;
     }
     const prev = cur;
+    if (n > prev && n === prev + 1) {
+      deck?.classList.add('is-flip-fwd');
+      arrange(true, prev, FLIP_FWD, undefined, undefined, prev);
+      const flip = wraps[prev];
+      const done = (e: TransitionEvent) => {
+        if (e.target !== flip || e.propertyName !== 'transform') return;
+        flip.removeEventListener('transitionend', done);
+        if (cur !== prev) return;
+        cur = n;
+        storeSet(STORE_PAGE, String(cur));
+        const s = currentSlide() as HTMLElement | null;
+        if (s) s.scrollTop = 0;
+        clearFlipFwd();
+        arrange(false);
+        updateUI();
+      };
+      flip.addEventListener('transitionend', done);
+      return;
+    }
     cur = n;
     storeSet(STORE_PAGE, String(cur));
     const s = currentSlide() as HTMLElement | null;
@@ -316,7 +348,10 @@ export function initBooklet(): void {
     }
     if (gAxis !== 'x') return false;
     if (dx < 0 && cur < total - 1) {
-      setWrap(wraps[cur], Math.max(dx / gvw, -1) * 180, 30, false, 'none');
+      deck?.classList.add('is-flip-fwd');
+      const angle = Math.max(dx / gvw, -1) * 180;
+      setWrap(wraps[cur], angle, 40, false, 'none');
+      setWrap(wraps[cur + 1], 0, 20, false, 'none');
     } else if (dx > 0 && cur > 0) {
       const lin = Math.min(dx / (gvw * BACK_DRAG_RANGE), 1);
       const eased =
@@ -340,6 +375,7 @@ export function initBooklet(): void {
       gAxis = null;
       if (dx < 0 && (far || flick)) return go(cur + 1);
       if (dx > 0 && (far || flick)) return go(cur - 1);
+      clearFlipFwd();
       arrange(true);
     } else if (gAxis === null && dt < 320 && Math.abs(dx) < 8 && Math.abs(dy) < 8) {
       if (readerActive) {
@@ -362,6 +398,7 @@ export function initBooklet(): void {
     if (gOn) {
       gOn = false;
       gAxis = null;
+      clearFlipFwd();
       arrange(true);
     }
   }
