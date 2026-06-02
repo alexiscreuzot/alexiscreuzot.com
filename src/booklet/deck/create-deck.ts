@@ -292,6 +292,10 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     clearFlipFwd();
     deck.classList.add('is-flip-back');
 
+    if (n + 1 < total) {
+      setWrapTransform(wraps[n + 1], 0, 20, false, 'none', UNDER_DEPTH);
+    }
+
     cur = n;
     storeSet(storage, storePageKey, String(cur));
     if (counterEl) counterEl.textContent = cur + 1 + ' / ' + total;
@@ -299,20 +303,19 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     updateControls();
 
     void opening.offsetHeight;
-    setWrapTransform(opening, 0, 40, false, FLIP_BACK);
+    setWrapTransform(opening, 0, 30, false, FLIP_BACK);
     attachFlipDone(opening, () => {
-      resetSlideScroll();
-      if (n + 1 < total) setWrapTransform(wraps[n + 1], 0, 20, false, 'none', UNDER_DEPTH);
-      opening.style.transition = 'none';
-      opening.style.zIndex = '30';
       for (let i = n + 2; i < total; i++) {
         setWrapTransform(wraps[i], 0, 1, true, 'none');
       }
-      clearFlipBack();
-      body.classList.toggle('pg-dark', cur === total - 1);
-      body.classList.toggle('pg-bare', cur === 0 || cur === total - 1);
-      if (hintEl) hintEl.style.display = cur === 0 ? '' : 'none';
-      updateScrollCue();
+      win.requestAnimationFrame(() => {
+        clearFlipBack();
+        resetSlideScroll();
+        body.classList.toggle('pg-dark', cur === total - 1);
+        body.classList.toggle('pg-bare', cur === 0 || cur === total - 1);
+        if (hintEl) hintEl.style.display = cur === 0 ? '' : 'none';
+        updateScrollCue();
+      });
     });
   }
 
