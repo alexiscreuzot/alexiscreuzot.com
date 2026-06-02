@@ -11,6 +11,13 @@ export const UNDER_DEPTH = 2;
 export const BACK_DRAG_RANGE = 0.6;
 export const BACK_BLANK_FRAC = 0.1;
 
+export function backwardDragEased(lin: number): number {
+  const t = Math.min(Math.max(lin, 0), 1);
+  return t < BACK_BLANK_FRAC
+    ? (t / BACK_BLANK_FRAC) * 0.5
+    : 0.5 + ((t - BACK_BLANK_FRAC) / (1 - BACK_BLANK_FRAC)) * 0.5;
+}
+
 export function setWrapTransform(
   wrap: HTMLElement,
   angle: number,
