@@ -130,18 +130,14 @@ const { slide, mark, wifi, wifiSvg } = Astro.props;
         </div>
         <div class="wifi-creds">
           <div class="wifi-stack">
-            <button type="button" class="wifi-chip" data-wifi-copy="ssid" aria-label="Copy network name">
-              <span>
-                <span class="lab">{slide.ssidLabel}</span>
-                <span class="v">{wifi.ssid}</span>
-              </span>
-            </button>
-            <button type="button" class="wifi-chip" data-wifi-copy="pass" aria-label="Copy password">
-              <span>
-                <span class="lab">{slide.passLabel}</span>
-                <span class="v">{wifi.pass}</span>
-              </span>
-            </button>
+            <div class="wifi-chip">
+              <span class="lab">{slide.ssidLabel}</span>
+              <span class="v">{wifi.ssid}</span>
+            </div>
+            <div class="wifi-chip wifi-chip-pass">
+              <span class="lab">{slide.passLabel}</span>
+              <span class="v">{wifi.pass}</span>
+            </div>
           </div>
           <p class="wifi-note" set:html={slide.note} />
         </div>

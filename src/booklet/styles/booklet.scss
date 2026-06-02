@@ -52,6 +52,12 @@
     justify-content:center; align-items:flex-start;
     gap:64px 48px; max-width:1220px; margin:0 auto;
   }
+  .deck,
+  .deck *{
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-touch-callout:none;
+  }
   .slidewrap{
     position:relative; width:var(--disp,560px); height:var(--disp,560px);
     transition:transform .35s cubic-bezier(.22,.61,.36,1);
@@ -121,14 +127,11 @@
   .wifi-connect .es{ font-weight:500; }
   .slide-wifi .wifi-stack{ display:flex; flex-direction:column; gap:26px; }
   .wifi-chip{
-    display:block; width:100%; text-align:left; cursor:pointer;
-    appearance:none; border:0; background:transparent; padding:0;
+    display:block; width:100%; text-align:left;
     border-top:1px solid var(--line); padding-top:22px;
     font:inherit; color:inherit;
   }
-  .wifi-chip[data-wifi-copy="pass"]{
-    margin-top:16px;
-  }
+  .wifi-chip-pass{ margin-top:16px; }
   .wifi-chip .lab{
     text-transform:uppercase; letter-spacing:.18em; font-size:15px; font-weight:600; color:var(--muted);
     display:block;
@@ -550,13 +553,8 @@
   body.is-mobile .slide-wifi .wifi-note{ display:none; }
   body.is-mobile .slide-wifi .wifi-stack{ gap:8px; }
   body.is-mobile .slide-wifi .wifi-chip{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
     border:1px solid var(--line); border-radius:12px; padding:11px 14px;
-    background:#fff; transition:background .2s, border-color .2s;
-  }
-  body.is-mobile .slide-wifi .wifi-chip:active{ background:var(--accent-soft); }
-  body.is-mobile .slide-wifi .wifi-chip.copied{
-    border-color:var(--accent); background:var(--accent-soft);
+    background:#fff;
   }
   body.is-mobile .slide-wifi .wifi-chip .lab{
     font-size:.62rem; letter-spacing:.14em; margin:0;
@@ -676,7 +674,7 @@
   body.is-reader .deck::after{
     content:''; position:fixed; left:50%; top:50%; z-index:0;
     width:min(86vw, 1100px); height:min(86vw, 1100px);
-    transform:translate(-50%,-46%);
+    transform:translate(-50%,-46%) translateZ(-120px);
     background:radial-gradient(closest-side, rgba(0,0,0,.5), rgba(0,0,0,0) 72%);
     pointer-events:none;
   }
@@ -687,7 +685,6 @@
     transform-style:preserve-3d;
     backface-visibility:hidden; -webkit-backface-visibility:hidden;
     border-radius:8px; overflow:hidden; will-change:transform;
-    user-select:none; -webkit-user-select:none;
     cursor:grab;
     box-shadow:
       0 1px 0 rgba(255,255,255,.06),
@@ -696,8 +693,7 @@
   }
   /* Keep interactive controls pointing as buttons, not the page grab cursor. */
   body.is-reader .slidewrap button,
-  body.is-reader .slidewrap a,
-  body.is-reader .slidewrap [data-wifi-copy]{ cursor:pointer; }
+  body.is-reader .slidewrap a{ cursor:pointer; }
   /* While actively dragging a page, show the closed-hand cursor everywhere. */
   body.is-reader.is-grabbing,
   body.is-reader.is-grabbing .slidewrap,

@@ -153,6 +153,8 @@ export function initBooklet(): void {
   // imperceptible under the deck's large perspective and never touches the
   // flipping page, so the turn arc is unchanged.
   const UNDER_DEPTH = 2;
+  const BACK_DRAG_RANGE = 0.6;
+  const BACK_BLANK_FRAC = 0.1;
 
   function setWrap(
     w: HTMLElement,
@@ -316,8 +318,12 @@ export function initBooklet(): void {
     if (dx < 0 && cur < total - 1) {
       setWrap(wraps[cur], Math.max(dx / gvw, -1) * 180, 30, false, 'none');
     } else if (dx > 0 && cur > 0) {
-      const t = Math.min(dx / gvw, 1);
-      setWrap(wraps[cur - 1], -180 + t * 180, 40, false, 'none');
+      const lin = Math.min(dx / (gvw * BACK_DRAG_RANGE), 1);
+      const eased =
+        lin < BACK_BLANK_FRAC
+          ? (lin / BACK_BLANK_FRAC) * 0.5
+          : 0.5 + ((lin - BACK_BLANK_FRAC) / (1 - BACK_BLANK_FRAC)) * 0.5;
+      setWrap(wraps[cur - 1], -180 + eased * 180, 40, false, 'none');
     }
     return true;
   }
@@ -341,7 +347,7 @@ export function initBooklet(): void {
         return;
       }
       const target = gTarget as HTMLElement | null;
-      if (target?.closest?.('button, a, input, textarea, select, [data-wifi-copy]')) {
+      if (target?.closest?.('button, a, input, textarea, select')) {
         gAxis = null;
         return;
       }
@@ -369,7 +375,7 @@ export function initBooklet(): void {
     'touchstart',
     (e) => {
       const t = e.touches[0];
-      gStart(t.clientX, t.clientY);
+      gStart(t.clientX, t.clientY, e.target);
     },
     { passive: true }
   );
@@ -391,9 +397,7 @@ export function initBooklet(): void {
     if (e.pointerType === 'touch') return;
     const interactive =
       e.target &&
-      (e.target as HTMLElement).closest?.(
-        'button, a, input, textarea, select, [data-wifi-copy]'
-      );
+      (e.target as HTMLElement).closest?.('button, a, input, textarea, select');
     if (!interactive) setGrabbing(true);
     gStart(e.clientX, e.clientY, e.target);
   });
@@ -413,6 +417,9 @@ export function initBooklet(): void {
     }
   });
   deck.addEventListener('dragstart', (e) => e.preventDefault());
+  deck.addEventListener('selectstart', (e) => {
+    if (paged()) e.preventDefault();
+  });
   window.addEventListener('pointerup', (e) => {
     if (e.pointerType !== 'touch') setGrabbing(false);
   });
@@ -642,12 +649,15 @@ function initWifi(BOOKLET: BookletRuntimeConfig): void {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove('show'), ms);
   }
-  let chipTimer: ReturnType<typeof setTimeout>;
-  function flashChip(chip: HTMLElement | null) {
-    if (!chip) return;
-    chip.classList.add('copied');
-    clearTimeout(chipTimer);
-    chipTimer = setTimeout(() => chip.classList.remove('copied'), 1200);
+  function copyText(text: string, onDone: () => void) {
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(onDone).catch(() => legacyCopy(text, onDone));
+      return;
+    }
+    legacyCopy(text, onDone);
+  }
+  function copyPassword() {
+    copyText(WIFI.pass, () => showToast(S.passwordCopied));
   }
   function legacyCopy(text: string, onDone: () => void) {
     const ta = document.createElement('textarea');
@@ -664,20 +674,6 @@ function initWifi(BOOKLET: BookletRuntimeConfig): void {
       showToast(S.legacyCopyFallback, 5000);
     }
     ta.remove();
-  }
-  function copyText(text: string, onDone: () => void, chip?: HTMLElement | null) {
-    const done = () => {
-      if (chip) flashChip(chip);
-      onDone();
-    };
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy(text, done));
-      return;
-    }
-    legacyCopy(text, done);
-  }
-  function copyPassword(chip?: HTMLElement | null) {
-    copyText(WIFI.pass, () => showToast(S.passwordCopied), chip);
   }
 
   function updateWifiUI() {
@@ -699,29 +695,12 @@ function initWifi(BOOKLET: BookletRuntimeConfig): void {
     }
   }
 
-  function isPaged() {
-    return (
-      document.body.classList.contains('is-mobile') ||
-      document.body.classList.contains('is-reader')
-    );
-  }
-
   document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    const chip = target.closest('[data-wifi-copy]') as HTMLElement | null;
-    if (chip && isPaged()) {
-      const kind = chip.getAttribute('data-wifi-copy');
-      if (kind === 'ssid') {
-        copyText(WIFI.ssid, () => showToast(S.networkCopied), chip);
-      } else {
-        copyPassword(chip);
-      }
-      return;
-    }
-    const btn = target.closest('.wifi-connect');
+    const btn = (e.target as HTMLElement).closest('.wifi-connect');
     if (!btn || !document.body.classList.contains('is-mobile')) return;
+    e.stopPropagation();
     if (isAndroid()) window.location.href = wifiUri();
-    else copyPassword(btn as HTMLElement);
+    else copyPassword();
   });
 
   window.updateWifiUI = updateWifiUI;
