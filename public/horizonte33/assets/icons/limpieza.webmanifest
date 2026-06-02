@@ -1,0 +1,30 @@
+{
+  "name": "Horizonte 33 · Limpieza",
+  "short_name": "Limpieza",
+  "description": "Checklist de limpieza · Horizonte 33",
+  "theme_color": "#15110b",
+  "background_color": "#15110b",
+  "display": "standalone",
+  "start_url": "../../limpieza/",
+  "scope": "../../limpieza/",
+  "icons": [
+    {
+      "src": "limpieza-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "limpieza-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "limpieza-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

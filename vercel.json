@@ -13,6 +13,16 @@
       "dest": "/horizonte33/index.html"
     },
     {
+      "src": "/limpieza",
+      "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
+      "dest": "/horizonte33/limpieza/index.html"
+    },
+    {
+      "src": "/limpieza/",
+      "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
+      "dest": "/horizonte33/limpieza/index.html"
+    },
+    {
       "src": "/(.*)",
       "has": [{ "type": "host", "value": "horizonte33.alexiscreuzot.com" }],
       "dest": "/horizonte33/$1"

@@ -1,7 +1,10 @@
 ---
-import { limpiezaSections, limpiezaTotalItems } from '../../data/limpieza-horizonte33';
+import { limpiezaSections, limpiezaTotalItems } from '../../../data/limpieza-horizonte33';
 
 const total = limpiezaTotalItems;
+const onHorizonteHost = Astro.url.hostname === 'horizonte33.alexiscreuzot.com';
+const basePath = onHorizonteHost ? '/' : '/horizonte33/';
+const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
 ---
 
 <!DOCTYPE html>
@@ -11,12 +14,15 @@ const total = limpiezaTotalItems;
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
 <title>Horizonte 33 · Limpieza</title>
-<base href="/horizonte33/" />
-<link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
-<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
-<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
+<base href={basePath} />
+<link rel="icon" href="assets/icons/limpieza-icon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/icons/limpieza-icon-192.png" sizes="192x192" type="image/png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/limpieza-icon-180.png" />
+<link rel="manifest" href={manifestPath} />
 <meta name="theme-color" content="#15110b" />
-<meta name="apple-mobile-web-app-title" content="Limpieza H33" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Limpieza" />
+<meta name="mobile-web-app-capable" content="yes" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
