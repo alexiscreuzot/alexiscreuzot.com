@@ -9,6 +9,7 @@
   --accent-soft: #f2e9d6;
   --gold-light: #dcc08c;
   --surround: #1e1b16;
+  --theme-color: #15110b;
   --body-gradient: radial-gradient(135% 80% at 50% -8%, #2c2820 0%, #211d16 46%, #15110b 100%);
   --chrome-border: rgba(220, 192, 140, 0.16);
   --chrome-fg: #f3ece0;
@@ -27,6 +28,9 @@
   --mobile-bg: #0c0a07;
   --wifi-shadow: rgba(111, 82, 31, 0.22);
   --wifi-shadow-mobile: rgba(111, 82, 31, 0.14);
+  --icon-grad-1: #e7cf9f;
+  --icon-grad-2: #c8a868;
+  --icon-grad-3: #9a7a40;
 }
 
 :root[data-booklet-theme='zen-in-rennes'] {
@@ -40,6 +44,7 @@
   --accent-soft: #e2eeec;
   --gold-light: #a7cfca;
   --surround: #101c1c;
+  --theme-color: #101c1c;
   --body-gradient: radial-gradient(135% 80% at 50% -8%, #213533 0%, #182826 46%, #0e1716 100%);
   --chrome-border: rgba(160, 205, 200, 0.16);
   --chrome-fg: #eaf3f1;
@@ -58,6 +63,9 @@
   --mobile-bg: #0c1212;
   --wifi-shadow: rgba(44, 99, 96, 0.22);
   --wifi-shadow-mobile: rgba(44, 99, 96, 0.14);
+  --icon-grad-1: #cfe6e2;
+  --icon-grad-2: #84bdb7;
+  --icon-grad-3: #3f8e8b;
 }
 
 :root {

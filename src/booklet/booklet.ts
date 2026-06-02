@@ -219,6 +219,7 @@ export function initBooklet(): void {
     if (progressEl) progressEl.style.width = ((cur + 1) / total) * 100 + '%';
     document.body.classList.toggle('pg-dark', cur === total - 1);
     document.body.classList.toggle('pg-bare', cur === 0 || cur === total - 1);
+    if (hintEl) hintEl.style.display = cur === 0 ? '' : 'none';
     updateControls();
     updateScrollCue();
   }
@@ -246,7 +247,6 @@ export function initBooklet(): void {
       flip.addEventListener('transitionend', done);
     }
     updateUI();
-    if (hintEl) hintEl.style.display = 'none';
   }
 
   let gOn = false;
@@ -557,6 +557,17 @@ export function initBooklet(): void {
 
   initWifi(BOOKLET);
   if (IS_LOCAL) initExport(BOOKLET, EXPORT_LIBS);
+
+  // Minimum 1.5s loader
+  const loader = document.getElementById('bookletLoader');
+  if (loader) {
+    const minWait = new Promise(resolve => setTimeout(resolve, 1500));
+    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+    Promise.all([minWait, fontsReady]).then(() => {
+      loader.classList.add('is-hidden');
+      setTimeout(() => loader.remove(), 600);
+    });
+  }
 }
 
 function initWifi(BOOKLET: BookletRuntimeConfig): void {

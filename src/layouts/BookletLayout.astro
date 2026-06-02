@@ -22,6 +22,7 @@ const runtimeConfig = {
 <html lang={meta.lang} data-booklet-theme={meta.theme}>
 <head>
 <meta charset="UTF-8" />
+<base href={`/${meta.slug}/`} />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{meta.title}</title>
 <link rel="icon" href="assets/icons/favicon.ico" sizes="any">
@@ -52,6 +53,22 @@ const runtimeConfig = {
   {slides.map((slide) => (
     <SlideRenderer slide={slide} mark={meta.mark} wifi={meta.wifi} wifiSvg={meta.wifiSvg} />
   ))}
+</div>
+
+<div class="booklet-loader" id="bookletLoader">
+  <div class="booklet-loader-content">
+    <svg class="booklet-loader-icon" viewBox="0 0 24 24" fill="none" stroke="url(#loader-grad)" stroke-linecap="round" stroke-linejoin="round">
+      <defs>
+        <linearGradient id="loader-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--icon-grad-1)" />
+          <stop offset="55%" stop-color="var(--icon-grad-2)" />
+          <stop offset="100%" stop-color="var(--icon-grad-3)" />
+        </linearGradient>
+      </defs>
+      <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
+    </svg>
+    <div class="booklet-loader-spinner"></div>
+  </div>
 </div>
 
 <div class="book-thumbs" id="bookThumbs" aria-label="Page thumbnails"></div>
