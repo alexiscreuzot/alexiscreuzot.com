@@ -11,6 +11,7 @@ import {
   FLIP_FWD,
   resetWraps,
   setWrapTransform,
+  UNDER_DEPTH,
 } from './flip-layout';
 import {
   createThumbnailPanel,
@@ -65,6 +66,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
   let flipEl: HTMLElement | null = null;
   let flipDone: ((e: TransitionEvent) => void) | null = null;
+  let fakeDragRaf: number | undefined;
 
   function paged() {
     return mobileActive || readerActive;
@@ -112,13 +114,22 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     clearFlipBack();
   }
 
+  function cancelFakeDrag() {
+    if (fakeDragRaf !== undefined) {
+      win.cancelAnimationFrame(fakeDragRaf);
+      fakeDragRaf = undefined;
+    }
+  }
+
   function snapStackToCur() {
+    cancelFakeDrag();
     cancelFlip();
     clearFlipClasses();
     arrange(false);
   }
 
   function abortFlipTransition() {
+    cancelFakeDrag();
     cancelFlip();
     clearFlipClasses();
   }
@@ -192,6 +203,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
   function completeForwardSingleStep(fromRest: boolean) {
     if (cur >= total - 1) return;
+    cancelFakeDrag();
     const prev = cur;
     const turning = wraps[prev];
     const n = prev + 1;
@@ -220,7 +232,56 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     });
   }
 
-  function completeBackwardSingleStep(fromRest: boolean) {
+  function finalizeBackwardPage(n: number) {
+    const opening = wraps[n];
+    if (n + 1 < total) setWrapTransform(wraps[n + 1], 0, 20, false, 'none', UNDER_DEPTH);
+    setWrapTransform(opening, 0, 30, false, 'none');
+    for (let i = n + 2; i < total; i++) {
+      setWrapTransform(wraps[i], 0, 1, true, 'none');
+    }
+    clearFlipBack();
+  }
+
+  function simulateBackwardDragTap() {
+    if (cur <= 0) return;
+
+    if (fakeDragRaf !== undefined) {
+      cancelFakeDrag();
+      completeBackwardSingleStep();
+      return;
+    }
+
+    if (flipEl) {
+      abortFlipTransition();
+      finalizeBackwardPage(cur);
+      if (cur <= 0) return;
+      completeBackwardSingleStep();
+      return;
+    }
+
+    const startCur = cur;
+    const duration = 120;
+    const targetLin = 0.48;
+    const t0 = Date.now();
+
+    const tick = () => {
+      if (cur !== startCur) return;
+      const u = Math.min((Date.now() - t0) / duration, 1);
+      applyBackwardDrag(targetLin * u);
+      if (u < 1) {
+        fakeDragRaf = win.requestAnimationFrame(tick);
+      } else {
+        fakeDragRaf = undefined;
+        win.requestAnimationFrame(() => completeBackwardSingleStep());
+      }
+    };
+
+    clearFlipFwd();
+    applyBackwardDrag(0);
+    fakeDragRaf = win.requestAnimationFrame(tick);
+  }
+
+  function completeBackwardSingleStep() {
     if (cur <= 0) return;
     const prev = cur;
     const n = prev - 1;
@@ -228,14 +289,8 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
     if (flipEl) abortFlipTransition();
 
-    if (fromRest) {
-      clearFlipClasses();
-      deck.classList.add('is-flip-back');
-      setWrapTransform(opening, -180, 40, false, 'none');
-    } else {
-      clearFlipFwd();
-      deck.classList.add('is-flip-back');
-    }
+    clearFlipFwd();
+    deck.classList.add('is-flip-back');
 
     cur = n;
     storeSet(storage, storePageKey, String(cur));
@@ -247,8 +302,9 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     setWrapTransform(opening, 0, 40, false, FLIP_BACK);
     attachFlipDone(opening, () => {
       resetSlideScroll();
-      setWrapTransform(opening, 0, 30, false, 'none');
-      if (n + 1 < total) setWrapTransform(wraps[n + 1], 0, 20, false, 'none');
+      if (n + 1 < total) setWrapTransform(wraps[n + 1], 0, 20, false, 'none', UNDER_DEPTH);
+      opening.style.transition = 'none';
+      opening.style.zIndex = '30';
       for (let i = n + 2; i < total; i++) {
         setWrapTransform(wraps[i], 0, 1, true, 'none');
       }
@@ -290,20 +346,22 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       return;
     }
     const prev = cur;
-    if (flipEl) {
-      if (n === prev - 1) abortFlipTransition();
-      else snapStackToCur();
-    } else cancelFlip();
+    cancelFakeDrag();
 
     if (n === prev + 1) {
+      if (flipEl) snapStackToCur();
+      else cancelFlip();
       completeForwardSingleStep(true);
       return;
     }
 
     if (n === prev - 1) {
-      completeBackwardSingleStep(true);
+      simulateBackwardDragTap();
       return;
     }
+
+    if (flipEl) snapStackToCur();
+    else cancelFlip();
 
     clearFlipClasses();
     cur = n;
@@ -379,7 +437,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
         return;
       }
       if (dx > 0 && (far || flick)) {
-        completeBackwardSingleStep(false);
+        completeBackwardSingleStep();
         return;
       }
       clearFlipClasses();
@@ -397,7 +455,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       }
       const vw = win.innerWidth || 1;
       if (x > vw * 0.55) completeForwardSingleStep(true);
-      else if (x < vw * 0.45) completeBackwardSingleStep(true);
+      else if (x < vw * 0.45) simulateBackwardDragTap();
     }
     gAxis = null;
   }
@@ -406,6 +464,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     if (!gOn) return;
     gOn = false;
     gAxis = null;
+    cancelFakeDrag();
     clearFlipClasses();
     cancelFlip();
     arrange(true);
@@ -616,6 +675,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   return {
     applyLayout,
     destroy: () => {
+      cancelFakeDrag();
       cancelFlip();
       if (orientTimer !== undefined) win.clearTimeout(orientTimer);
       thumbs?.destroy();
