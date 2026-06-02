@@ -84,8 +84,11 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
   .wrap {
     max-width: 560px;
     margin: 0 auto;
-    padding: 32px 20px calc(108px + env(safe-area-inset-bottom));
+    padding: 32px 20px calc(var(--dock-h, 108px) + env(safe-area-inset-bottom));
   }
+  [data-dock-phase='working'] .app { --dock-h: 118px; }
+  [data-dock-phase='ready'] .app { --dock-h: 112px; }
+  [data-dock-phase='idle'] .app { --dock-h: 108px; }
 
   .head {
     text-align: center;
@@ -108,57 +111,6 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     line-height: 1.15;
   }
   .head h1 b { color: var(--gold-light); font-weight: 600; }
-  .head .time-estimate {
-    margin: 12px 0 0;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--chrome-muted);
-  }
-  .head .time-estimate b {
-    color: var(--chrome-fg);
-    font-weight: 600;
-  }
-
-  /* Status bar */
-  .status {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin: 0 0 14px;
-    padding: 16px 18px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(220, 192, 140, 0.22);
-    color: #f3ece0;
-  }
-  .status .timer {
-    font-variant-numeric: tabular-nums;
-    font-weight: 600;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .status .timer svg { width: 18px; height: 18px; color: var(--gold-light); }
-  .status .progress-text { font-size: 15px; color: var(--chrome-muted); font-weight: 500; }
-  .status .progress-text b { color: var(--chrome-fg); font-weight: 700; }
-
-  .bar {
-    height: 6px;
-    border-radius: 999px;
-    background: rgba(220, 192, 140, 0.18);
-    overflow: hidden;
-    margin-bottom: 24px;
-  }
-  .bar > span {
-    display: block;
-    height: 100%;
-    width: 0%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--gold-light), var(--accent));
-    transition: width 0.25s ease;
-  }
 
   /* Idle hero */
   .hero {
@@ -211,6 +163,32 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     color: var(--ink-secondary);
     font-variant-numeric: tabular-nums;
   }
+  .section-toggle {
+    display: none;
+    flex: 0 0 auto;
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-state='active'] .section-toggle { display: block; }
+  .section-toggle .box {
+    width: 24px;
+    height: 24px;
+    margin: 0;
+  }
+  .section-toggle.is-partial .box {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+  .section-toggle.is-partial .box svg { opacity: 0; }
+  .section-toggle.is-complete .box {
+    background: var(--ok);
+    border-color: var(--ok);
+  }
+  .section-toggle.is-complete .box svg { opacity: 1; }
 
   .item-wrap {
     border-top: 1px solid var(--line-strong);
@@ -387,99 +365,229 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     font-variant-numeric: tabular-nums;
   }
 
-  /* Buttons */
-  .btn {
-    appearance: none;
-    border: none;
-    width: 100%;
-    font-family: var(--sans);
-    font-size: 17px;
-    font-weight: 600;
-    padding: 16px 20px;
-    border-radius: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: transform 0.1s ease, opacity 0.15s ease, background 0.15s ease;
-  }
-  .btn svg { width: 20px; height: 20px; }
-  .btn:active { transform: scale(0.985); }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--gold-light), var(--accent));
-    color: #241d10;
-    box-shadow: 0 10px 28px rgba(111, 82, 31, 0.4);
-  }
-  .btn-primary:disabled {
-    background: rgba(255, 255, 255, 0.14);
-    color: rgba(245, 239, 227, 0.55);
-    box-shadow: none;
-    cursor: not-allowed;
-    opacity: 1;
-  }
-  .btn-ghost {
-    background: transparent;
-    color: rgba(220, 210, 194, 0.85);
-    border: 1px solid rgba(220, 210, 194, 0.32);
-  }
-  .btn-ghost.dark { color: var(--accent-deep); border-color: var(--line); }
-
-  /* Fixed control bar */
-  .control-bar {
+  /* Bottom dock — phases: idle | working | ready | finished */
+  .dock {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 20;
-    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-    background: rgba(21, 17, 11, 0.96);
-    border-top: 1px solid rgba(220, 192, 140, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
+    background: #15110b;
+    border-top: 1px solid rgba(220, 192, 140, 0.22);
   }
-  .control-inner {
+  .dock-inner {
     max-width: 560px;
     margin: 0 auto;
-    display: grid;
+  }
+  .dock-view {
+    display: none;
+    width: 100%;
+  }
+  [data-dock-phase='idle'] .dock-view[data-dock='idle'],
+  [data-dock-phase='working'] .dock-view[data-dock='working'],
+  [data-dock-phase='ready'] .dock-view[data-dock='ready'],
+  [data-dock-phase='finished'] .dock-view[data-dock='finished'] {
+    display: block;
+  }
+
+  .dock-idle {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .dock-idle-hint {
+    margin: 0;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: var(--chrome-muted);
+  }
+
+  .dock-working {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+  .dock-working-head {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    width: 100%;
+  }
+  .dock-stat {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .dock-stat--grow {
+    flex: 1;
+    align-items: flex-end;
+    text-align: right;
+  }
+  .dock-progress-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
     gap: 10px;
   }
-  [data-state='active'] .control-inner {
-    grid-template-columns: 1fr auto;
-    align-items: stretch;
-  }
-  .control-bar .btn { margin: 0; }
-  .btn-reset {
-    appearance: none;
-    border: 1px solid rgba(220, 210, 194, 0.45);
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--chrome-fg);
-    font-family: var(--sans);
-    font-size: 15px;
+  .dock-label {
+    font-size: 10px;
     font-weight: 600;
-    padding: 16px 18px;
-    border-radius: 14px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: transform 0.1s ease, background 0.15s ease;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(212, 201, 180, 0.72);
+    line-height: 1;
   }
-  .btn-reset:active { transform: scale(0.985); }
-  .btn-reset:hover { background: rgba(255, 255, 255, 0.06); }
+  .dock-time {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--chrome-fg);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .dock-count {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(245, 239, 227, 0.72);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .dock-count strong {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: -0.02em;
+  }
+  .dock-pct {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--chrome-muted);
+    font-variant-numeric: tabular-nums;
+    padding-left: 10px;
+    border-left: 1px solid rgba(220, 192, 140, 0.22);
+    line-height: 1;
+  }
+  .dock-section {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--chrome-muted);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+  .dock-section strong {
+    color: var(--chrome-fg);
+    font-weight: 600;
+  }
+  .dock-meter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .dock-bar {
+    height: 5px;
+    border-radius: 999px;
+    background: rgba(220, 192, 140, 0.18);
+    overflow: hidden;
+  }
+  .dock-bar-fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--gold-light), var(--accent));
+    transition: width 0.25s ease;
+  }
 
-  .ctrl-show-idle,
-  .ctrl-show-active,
-  .ctrl-show-done { display: none; }
-  [data-state='idle'] .ctrl-show-idle { display: flex; }
-  [data-state='active'] .ctrl-show-active { display: flex; }
-  [data-state='done'] .ctrl-show-done { display: flex; }
+  .dock-ready {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .dock-ready-meta {
+    margin: 0;
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--chrome-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .dock-ready-meta strong {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--chrome-fg);
+    letter-spacing: -0.02em;
+  }
+
+  .dock-btn {
+    appearance: none;
+    border: none;
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 18px;
+    transition: transform 0.1s ease, opacity 0.15s ease, background 0.15s ease;
+  }
+  .dock-btn[hidden] { display: none !important; }
+  .dock-btn:active { transform: scale(0.98); }
+  .dock-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .dock-view > .dock-btn,
+  .dock-ready .dock-btn {
+    width: 100%;
+    display: flex;
+  }
+  .dock-working-head .dock-btn--ghost {
+    flex: 0 0 48px;
+    width: 48px;
+    min-height: 48px;
+    align-self: flex-end;
+  }
+  .dock-btn--primary {
+    background: linear-gradient(135deg, var(--gold-light), var(--accent));
+    color: #241d10;
+  }
+  .dock-btn--primary:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(245, 239, 227, 0.45);
+    cursor: not-allowed;
+  }
+  .dock-btn--ghost {
+    flex: 0 0 48px;
+    width: 48px;
+    min-height: 48px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid rgba(220, 210, 194, 0.28);
+    color: var(--chrome-muted);
+  }
 
   /* State visibility */
   [data-state] .when-idle,
-  [data-state] .when-active,
   [data-state] .when-done { display: none; }
   [data-state='idle'] .when-idle { display: block; }
-  [data-state='active'] .when-active { display: block; }
   [data-state='done'] .when-done { display: block; }
+  [data-state='done'] #checklist { display: none; }
 
   /* Checkboxes disabled before start; details always readable */
   [data-state='idle'] .item {
@@ -498,12 +606,11 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
 </style>
 </head>
 <body>
-<div class="app" data-state="idle">
+<div class="app" data-state="idle" data-dock-phase="idle">
   <div class="wrap">
     <header class="head">
       <p class="kicker">Horizonte 33 · Querétaro</p>
       <h1>Limpieza <b>·</b> Checklist</h1>
-      <p class="time-estimate">Tiempo estimado: <b>3 a 4 horas</b></p>
     </header>
 
     <!-- Idle hero -->
@@ -511,22 +618,21 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       <p>Puedes revisar las indicaciones con el botón <b>›</b> a la derecha. Cuando empieces, usa <b>Iniciar</b> abajo y marca cada tarea.</p>
     </div>
 
-    <!-- Active status -->
-    <div class="when-active">
-      <div class="status">
-        <div class="timer"><i data-lucide="clock"></i><span id="timer">0:00</span></div>
-        <div class="progress-text"><b id="doneCount">0</b> / {total} tareas</div>
-      </div>
-      <div class="bar"><span id="barFill"></span></div>
-    </div>
-
-    <!-- Checklist (idle + active) -->
-    <div id="checklist" class="when-idle when-active">
+    <div id="checklist">
       {limpiezaSections.map((section) => (
         <section class="section" data-section={section.id}>
           <div class="section-head">
             <i data-lucide={section.icon}></i>
             <h2>{section.title}</h2>
+            <button
+              type="button"
+              class="section-toggle"
+              data-section-toggle
+              aria-label={`Marcar toda la sección: ${section.title}`}
+              aria-pressed="false"
+            >
+              <span class="box"><i data-lucide="check"></i></span>
+            </button>
             <span class="count" data-count>0/{section.items.length}</span>
           </div>
           {section.items.map((item) => (
@@ -580,18 +686,60 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     </div>
   </div>
 
-  <nav class="control-bar" aria-label="Controles de limpieza">
-    <div class="control-inner">
-      <button class="btn btn-primary ctrl-show-idle" id="startBtn" type="button">
-        <i data-lucide="play"></i><span>Iniciar limpieza</span>
-      </button>
-      <button class="btn btn-primary ctrl-show-active" id="finishBtn" type="button" disabled>
-        <i data-lucide="check-check"></i><span>Terminar</span>
-      </button>
-      <button class="btn-reset ctrl-show-active" id="resetBtn" type="button">Reiniciar</button>
-      <button class="btn btn-primary ctrl-show-done" id="againBtn" type="button">
-        <i data-lucide="rotate-ccw"></i><span>Empezar otra</span>
-      </button>
+  <nav class="dock" aria-label="Controles de limpieza">
+    <div class="dock-inner">
+      <div class="dock-view" data-dock="idle">
+        <div class="dock-idle">
+          <button class="dock-btn dock-btn--primary dock-btn--grow" id="startBtn" type="button">
+            <i data-lucide="play"></i><span>Iniciar limpieza</span>
+          </button>
+          <p class="dock-idle-hint">{total} tareas · estimado 3–4 h</p>
+        </div>
+      </div>
+
+      <div class="dock-view" data-dock="working">
+        <div class="dock-working">
+          <div class="dock-working-head">
+            <div class="dock-stat">
+              <span class="dock-label">Tiempo</span>
+              <span class="dock-time" id="timer" aria-live="polite">0:00</span>
+            </div>
+            <div class="dock-stat dock-stat--grow">
+              <span class="dock-label">Progreso</span>
+              <span class="dock-progress-line">
+                <span class="dock-count"><strong id="doneCount">0</strong> de {total}</span>
+                <span class="dock-pct" id="donePct">0%</span>
+              </span>
+            </div>
+            <button class="dock-btn dock-btn--ghost" id="resetBtn" type="button" aria-label="Reiniciar" title="Reiniciar">
+              <i data-lucide="rotate-ccw"></i>
+            </button>
+          </div>
+          <div class="dock-meter">
+            <p class="dock-section" id="dockSection">En curso: <strong>—</strong></p>
+            <div class="dock-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="dockBar">
+              <span class="dock-bar-fill" id="barFill"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dock-view" data-dock="ready">
+        <div class="dock-ready">
+          <p class="dock-ready-meta">
+            <strong id="readyTime">0:00</strong> transcurridos · <strong>{total}</strong> tareas completas
+          </p>
+          <button class="dock-btn dock-btn--primary dock-btn--grow" id="finishBtn" type="button">
+            <i data-lucide="check-check"></i><span>Terminar limpieza</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="dock-view" data-dock="finished">
+        <button class="dock-btn dock-btn--primary dock-btn--grow" id="againBtn" type="button">
+          <i data-lucide="rotate-ccw"></i><span>Empezar otra</span>
+        </button>
+      </div>
     </div>
   </nav>
 </div>
@@ -614,7 +762,11 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     var againBtn = document.getElementById('againBtn');
     var timerEl = document.getElementById('timer');
     var doneCountEl = document.getElementById('doneCount');
+    var donePctEl = document.getElementById('donePct');
     var barFill = document.getElementById('barFill');
+    var dockBar = document.getElementById('dockBar');
+    var dockSectionEl = document.getElementById('dockSection');
+    var readyTimeEl = document.getElementById('readyTime');
 
     var tick = null;
 
@@ -647,18 +799,71 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       } catch (e) { return '—'; }
     }
 
+    function currentSectionTitle() {
+      var sections = document.querySelectorAll('.section[data-section]');
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].querySelector('input[data-item]:not(:checked)')) {
+          var title = sections[i].querySelector('h2');
+          return title ? title.textContent : null;
+        }
+      }
+      return null;
+    }
+
+    function updateDockPhase() {
+      var state = app.getAttribute('data-state');
+      var done = checkboxes.filter(function (c) { return c.checked; }).length;
+      var phase = 'idle';
+      if (state === 'done') phase = 'finished';
+      else if (state === 'active') phase = done >= total ? 'ready' : 'working';
+      app.setAttribute('data-dock-phase', phase);
+      if (readyTimeEl && timerEl) readyTimeEl.textContent = timerEl.textContent;
+    }
+
     function updateProgress() {
       var done = checkboxes.filter(function (c) { return c.checked; }).length;
+      var pct = total ? Math.round((done / total) * 100) : 0;
+      var section = currentSectionTitle();
+
       doneCountEl.textContent = String(done);
-      barFill.style.width = (total ? (done / total) * 100 : 0) + '%';
-      finishBtn.disabled = done < total;
+      if (donePctEl) donePctEl.textContent = pct + '%';
+      barFill.style.width = pct + '%';
+      if (dockBar) dockBar.setAttribute('aria-valuenow', String(pct));
+      if (dockSectionEl) {
+        dockSectionEl.innerHTML = section
+          ? 'En curso: <strong>' + section + '</strong>'
+          : 'Todas las secciones revisadas';
+      }
+      updateDockPhase();
 
       document.querySelectorAll('.section[data-section]').forEach(function (sec) {
         var boxes = sec.querySelectorAll('input[data-item]');
         var checked = sec.querySelectorAll('input[data-item]:checked');
         var label = sec.querySelector('[data-count]');
         if (label) label.textContent = checked.length + '/' + boxes.length;
+
+        var toggle = sec.querySelector('[data-section-toggle]');
+        if (!toggle || !boxes.length) return;
+        var n = checked.length;
+        var all = n === boxes.length;
+        var some = n > 0 && !all;
+        toggle.classList.toggle('is-complete', all);
+        toggle.classList.toggle('is-partial', some);
+        toggle.setAttribute('aria-pressed', all ? 'true' : 'false');
+        toggle.setAttribute(
+          'aria-label',
+          all ? 'Desmarcar sección: ' + sec.querySelector('h2').textContent : 'Marcar toda la sección: ' + sec.querySelector('h2').textContent
+        );
       });
+    }
+
+    function setSectionChecked(sec, checked) {
+      if (app.getAttribute('data-state') !== 'active') return;
+      sec.querySelectorAll('input[data-item]').forEach(function (c) {
+        c.checked = checked;
+      });
+      saveChecked();
+      updateProgress();
     }
 
     function startTimer() {
@@ -666,7 +871,9 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       function render() {
         var startedAt = parseInt(get(K.start) || '0', 10);
         if (!startedAt) { timerEl.textContent = '0:00'; return; }
-        timerEl.textContent = fmtDuration(Date.now() - startedAt);
+        var t = fmtDuration(Date.now() - startedAt);
+        timerEl.textContent = t;
+        if (readyTimeEl) readyTimeEl.textContent = t;
       }
       render();
       tick = setInterval(render, 1000);
@@ -676,6 +883,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     function setState(state) {
       app.setAttribute('data-state', state);
       set(K.state, state);
+      updateDockPhase();
     }
 
     function start() {
@@ -750,6 +958,17 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       });
     }
 
+    document.querySelectorAll('[data-section-toggle]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var sec = btn.closest('.section');
+        if (!sec || app.getAttribute('data-state') !== 'active') return;
+        var boxes = Array.prototype.slice.call(sec.querySelectorAll('input[data-item]'));
+        if (!boxes.length) return;
+        var allChecked = boxes.every(function (c) { return c.checked; });
+        setSectionChecked(sec, !allChecked);
+      });
+    });
+
     document.querySelectorAll('.detail-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
@@ -764,7 +983,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     });
 
     startBtn.addEventListener('click', start);
-    finishBtn.addEventListener('click', function () { if (!finishBtn.disabled) finish(); });
+    finishBtn.addEventListener('click', finish);
     againBtn.addEventListener('click', reset);
     resetBtn.addEventListener('click', function () {
       if (window.confirm('¿Reiniciar la limpieza? Se borrarán todas las marcas.')) reset();
