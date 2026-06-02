@@ -1,4 +1,4 @@
-export function renumberSlides(root: ParentNode = document): void {
+export function renumberSlides(root: ParentNode, doc: Document): void {
   const slides = root.querySelectorAll('.slide');
   slides.forEach((s, i) => {
     const pad = (i + 1 < 10 ? '0' : '') + (i + 1);
@@ -10,7 +10,7 @@ export function renumberSlides(root: ParentNode = document): void {
     if (wrap) {
       let plate = wrap.querySelector('.plate');
       if (!plate) {
-        plate = document.createElement('div');
+        plate = doc.createElement('div');
         plate.className = 'plate';
         wrap.appendChild(plate);
       }

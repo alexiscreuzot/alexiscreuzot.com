@@ -1,3 +1,5 @@
+import type { BookletRuntimeConfig } from '../types';
+import { bindEvent, createDisposeBag, type Disposer } from '../lib/dispose';
 import { isMobile } from '../lib/env';
 import { fitDesktop, fitGrid } from '../layout/fit';
 import { storeGet, storeGetInt, storeSet } from '../lib/storage';
@@ -19,41 +21,47 @@ import {
 export interface DeckControllerOptions {
   deck: HTMLElement;
   wraps: HTMLElement[];
-  storagePrefix: string;
+  config: BookletRuntimeConfig;
+  doc: Document;
+  win: Window;
   onLayoutChange?: () => void;
 }
 
 export interface DeckController {
   applyLayout: () => void;
+  destroy: Disposer;
 }
 
 export function createDeckController(opts: DeckControllerOptions): DeckController {
-  const { deck, wraps, storagePrefix, onLayoutChange } = opts;
+  const { deck, wraps, config, doc, win, onLayoutChange } = opts;
+  const body = doc.body;
+  const dispose = createDisposeBag();
   const total = wraps.length;
-  const storage = window.localStorage;
-  const storePageKey = storagePrefix + '.page';
-  const storeViewKey = storagePrefix + '.view';
+  const storage = win.localStorage;
+  const storePageKey = config.storagePrefix + '.page';
+  const storeViewKey = config.storagePrefix + '.view';
 
-  const counterEl = document.querySelector('.m-counter');
-  const progressEl = document.querySelector('.m-progress') as HTMLElement | null;
-  const hintEl = document.querySelector('.m-hint') as HTMLElement | null;
-  const cueEl = document.querySelector('.m-scrollcue');
+  const counterEl = doc.querySelector('.m-counter');
+  const progressEl = doc.querySelector('.m-progress') as HTMLElement | null;
+  const hintEl = doc.querySelector('.m-hint') as HTMLElement | null;
+  const cueEl = doc.querySelector('.m-scrollcue');
 
-  const bookFirst = document.getElementById('bookFirst');
-  const bookPrev = document.getElementById('bookPrev');
-  const bookNext = document.getElementById('bookNext');
-  const bookLast = document.getElementById('bookLast');
-  const bookCount = document.getElementById('bookCount');
-  const bookThumbsToggle = document.getElementById('bookThumbsToggle');
-  const bookThumbs = document.getElementById('bookThumbs');
-  const segRead = document.getElementById('segRead');
-  const segGrid = document.getElementById('segGrid');
+  const bookFirst = doc.getElementById('bookFirst');
+  const bookPrev = doc.getElementById('bookPrev');
+  const bookNext = doc.getElementById('bookNext');
+  const bookLast = doc.getElementById('bookLast');
+  const bookCount = doc.getElementById('bookCount');
+  const bookThumbsToggle = doc.getElementById('bookThumbsToggle');
+  const bookThumbs = doc.getElementById('bookThumbs');
+  const segRead = doc.getElementById('segRead');
+  const segGrid = doc.getElementById('segGrid');
 
   const bookBar = { bookCount, bookFirst, bookPrev, bookNext, bookLast };
 
   let mobileActive = false;
   let readerActive = false;
   let cur = storeGetInt(storage, storePageKey, 0, total - 1, 0);
+  let orientTimer: ReturnType<typeof win.setTimeout> | undefined;
 
   let flipEl: HTMLElement | null = null;
   let flipDone: ((e: TransitionEvent) => void) | null = null;
@@ -127,8 +135,8 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     if (!paged()) return;
     if (counterEl) counterEl.textContent = cur + 1 + ' / ' + total;
     if (progressEl) progressEl.style.width = ((cur + 1) / total) * 100 + '%';
-    document.body.classList.toggle('pg-dark', cur === total - 1);
-    document.body.classList.toggle('pg-bare', cur === 0 || cur === total - 1);
+    body.classList.toggle('pg-dark', cur === total - 1);
+    body.classList.toggle('pg-bare', cur === 0 || cur === total - 1);
     if (hintEl) hintEl.style.display = cur === 0 ? '' : 'none';
     updateControls();
     updateScrollCue();
@@ -195,7 +203,9 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     ? createThumbnailPanel(
         wraps,
         { bookThumbs, bookThumbsToggle },
-        { go, updateControls }
+        { go, updateControls },
+        doc,
+        win
       )
     : null;
 
@@ -217,8 +227,8 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     gTarget = target || null;
     gvw =
       readerActive && wraps[cur]
-        ? wraps[cur].getBoundingClientRect().width || window.innerWidth || 1
-        : window.innerWidth || 1;
+        ? wraps[cur].getBoundingClientRect().width || win.innerWidth || 1
+        : win.innerWidth || 1;
   }
 
   function gMove(x: number, y: number) {
@@ -271,7 +281,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
         gAxis = null;
         return;
       }
-      const vw = window.innerWidth || 1;
+      const vw = win.innerWidth || 1;
       if (x > vw * 0.55) go(cur + 1);
       else if (x < vw * 0.45) go(cur - 1);
     }
@@ -288,17 +298,17 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   }
 
   function setGrabbing(on: boolean) {
-    if (readerActive) document.body.classList.toggle('is-grabbing', on);
-    else document.body.classList.remove('is-grabbing');
+    if (readerActive) body.classList.toggle('is-grabbing', on);
+    else body.classList.remove('is-grabbing');
   }
 
   function readerWanted() {
-    return !document.body.classList.contains('prefers-grid');
+    return !body.classList.contains('prefers-grid');
   }
 
   function setView(grid: boolean) {
     storeSet(storage, storeViewKey, grid ? 'grid' : 'read');
-    document.body.classList.toggle('prefers-grid', grid);
+    body.classList.toggle('prefers-grid', grid);
     if (segRead) {
       segRead.classList.toggle('is-active', !grid);
       segRead.setAttribute('aria-selected', String(!grid));
@@ -311,122 +321,191 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   }
 
   function applyLayout() {
-    const mobile = isMobile(window);
+    const mobile = isMobile(win);
     const reader = !mobile && readerWanted();
 
     mobileActive = mobile;
     readerActive = reader;
-    document.body.classList.toggle('is-mobile', mobile);
-    document.body.classList.toggle('is-reader', reader);
+    body.classList.toggle('is-mobile', mobile);
+    body.classList.toggle('is-reader', reader);
 
     if (paged()) {
       cur = Math.max(0, Math.min(cur, total - 1));
-      if (reader) fitDesktop(wraps, { width: window.innerWidth, height: window.innerHeight });
+      if (reader) fitDesktop(wraps, { width: win.innerWidth, height: win.innerHeight }, doc);
       arrange(false);
       updateUI();
     } else {
       bookThumbs?.classList.remove('is-open');
       bookThumbsToggle?.classList.remove('is-active');
-      resetWraps(wraps);
-      document.body.classList.remove('pg-dark', 'pg-bare');
-      fitGrid(wraps, window.innerWidth);
+      resetWraps(wraps, body);
+      body.classList.remove('pg-dark', 'pg-bare');
+      fitGrid(wraps, win.innerWidth, doc);
     }
     onLayoutChange?.();
   }
 
-  deck.addEventListener(
-    'touchstart',
-    (e) => {
-      const t = e.touches[0];
-      gStart(t.clientX, t.clientY, e.target);
-    },
-    { passive: true }
-  );
-  deck.addEventListener(
-    'touchmove',
-    (e) => {
-      const t = e.touches[0];
-      if (gMove(t.clientX, t.clientY)) e.preventDefault();
-    },
-    { passive: false }
-  );
-  deck.addEventListener('touchend', (e) => {
+  const onTouchStart = (e: TouchEvent) => {
+    const t = e.touches[0];
+    gStart(t.clientX, t.clientY, e.target);
+  };
+  const onTouchMove = (e: TouchEvent) => {
+    const t = e.touches[0];
+    if (gMove(t.clientX, t.clientY)) e.preventDefault();
+  };
+  const onTouchEnd = (e: TouchEvent) => {
     const t = e.changedTouches[0];
     gEnd(t.clientX, t.clientY);
-  });
-  deck.addEventListener('touchcancel', gCancel);
+  };
 
-  deck.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') return;
-    const interactive = (e.target as HTMLElement).closest?.('button, a, input, textarea, select');
-    if (!interactive) setGrabbing(true);
-    gStart(e.clientX, e.clientY, e.target);
-  });
-  deck.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'touch') gMove(e.clientX, e.clientY);
-  });
-  deck.addEventListener('pointerup', (e) => {
-    if (e.pointerType !== 'touch') {
-      setGrabbing(false);
-      gEnd(e.clientX, e.clientY);
-    }
-  });
-  deck.addEventListener('pointercancel', (e) => {
-    if (e.pointerType !== 'touch') {
-      setGrabbing(false);
-      gCancel();
-    }
-  });
-  deck.addEventListener('dragstart', (e) => e.preventDefault());
-  deck.addEventListener('selectstart', (e) => {
-    if (paged()) e.preventDefault();
-  });
+  bindEvent(deck, 'touchstart', onTouchStart, { passive: true }, dispose);
+  bindEvent(deck, 'touchmove', onTouchMove, { passive: false }, dispose);
+  bindEvent(deck, 'touchend', onTouchEnd, undefined, dispose);
+  bindEvent(deck, 'touchcancel', gCancel, undefined, dispose);
 
-  window.addEventListener('pointerup', (e) => {
-    if (e.pointerType !== 'touch') setGrabbing(false);
-  });
-  window.addEventListener('blur', () => setGrabbing(false));
-  deck.addEventListener('scroll', () => updateScrollCue(), true);
-  window.addEventListener('load', () => setTimeout(updateScrollCue, 60));
+  bindEvent(
+    deck,
+    'pointerdown',
+    (e: Event) => {
+      const pe = e as PointerEvent;
+      if (pe.pointerType === 'touch') return;
+      const interactive = (pe.target as HTMLElement).closest?.(
+        'button, a, input, textarea, select'
+      );
+      if (!interactive) setGrabbing(true);
+      gStart(pe.clientX, pe.clientY, pe.target);
+    },
+    undefined,
+    dispose
+  );
+  bindEvent(
+    deck,
+    'pointermove',
+    (e: Event) => {
+      const pe = e as PointerEvent;
+      if (pe.pointerType !== 'touch') gMove(pe.clientX, pe.clientY);
+    },
+    undefined,
+    dispose
+  );
+  bindEvent(
+    deck,
+    'pointerup',
+    (e: Event) => {
+      const pe = e as PointerEvent;
+      if (pe.pointerType !== 'touch') {
+        setGrabbing(false);
+        gEnd(pe.clientX, pe.clientY);
+      }
+    },
+    undefined,
+    dispose
+  );
+  bindEvent(
+    deck,
+    'pointercancel',
+    (e: Event) => {
+      const pe = e as PointerEvent;
+      if (pe.pointerType !== 'touch') {
+        setGrabbing(false);
+        gCancel();
+      }
+    },
+    undefined,
+    dispose
+  );
+  bindEvent(deck, 'dragstart', (e) => e.preventDefault(), undefined, dispose);
+  bindEvent(
+    deck,
+    'selectstart',
+    (e) => {
+      if (paged()) e.preventDefault();
+    },
+    undefined,
+    dispose
+  );
 
-  document.addEventListener('keydown', (e) => {
-    if (!paged()) return;
-    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') go(cur + 1);
-    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(cur - 1);
-    else if (e.key === 'Home') {
-      go(0);
-      e.preventDefault();
-    } else if (e.key === 'End') {
-      go(total - 1);
-      e.preventDefault();
-    }
-  });
+  bindEvent(
+    win,
+    'pointerup',
+    (e: Event) => {
+      const pe = e as PointerEvent;
+      if (pe.pointerType !== 'touch') setGrabbing(false);
+    },
+    undefined,
+    dispose
+  );
+  bindEvent(win, 'blur', () => setGrabbing(false), undefined, dispose);
+  bindEvent(deck, 'scroll', () => updateScrollCue(), { capture: true }, dispose);
+  bindEvent(win, 'load', () => win.setTimeout(updateScrollCue, 60), undefined, dispose);
 
-  bookFirst?.addEventListener('click', () => go(0));
-  bookPrev?.addEventListener('click', () => go(cur - 1));
-  bookNext?.addEventListener('click', () => go(cur + 1));
-  bookLast?.addEventListener('click', () => go(total - 1));
+  bindEvent(
+    doc,
+    'keydown',
+    (e: Event) => {
+      const ke = e as KeyboardEvent;
+      if (!paged()) return;
+      if (ke.key === 'ArrowRight' || ke.key === 'PageDown' || ke.key === ' ') go(cur + 1);
+      else if (ke.key === 'ArrowLeft' || ke.key === 'PageUp') go(cur - 1);
+      else if (ke.key === 'Home') {
+        go(0);
+        ke.preventDefault();
+      } else if (ke.key === 'End') {
+        go(total - 1);
+        ke.preventDefault();
+      }
+    },
+    undefined,
+    dispose
+  );
 
-  bookThumbsToggle?.addEventListener('click', () => {
-    if (!bookThumbs || !thumbs) return;
-    thumbs.build();
-    const open = bookThumbs.classList.toggle('is-open');
-    bookThumbsToggle.classList.toggle('is-active', open);
-    if (open) {
-      updateControls();
-      requestAnimationFrame(thumbs.updateFades);
-    } else {
-      thumbs.hideTip();
-    }
-  });
+  bookFirst && bindEvent(bookFirst, 'click', () => go(0), undefined, dispose);
+  bookPrev && bindEvent(bookPrev, 'click', () => go(cur - 1), undefined, dispose);
+  bookNext && bindEvent(bookNext, 'click', () => go(cur + 1), undefined, dispose);
+  bookLast && bindEvent(bookLast, 'click', () => go(total - 1), undefined, dispose);
 
-  segRead?.addEventListener('click', () => setView(false));
-  segGrid?.addEventListener('click', () => setView(true));
+  bookThumbsToggle &&
+    bindEvent(
+      bookThumbsToggle,
+      'click',
+      () => {
+        if (!bookThumbs || !thumbs) return;
+        thumbs.build();
+        const open = bookThumbs.classList.toggle('is-open');
+        bookThumbsToggle.classList.toggle('is-active', open);
+        if (open) {
+          updateControls();
+          requestAnimationFrame(thumbs.updateFades);
+        } else {
+          thumbs.hideTip();
+        }
+      },
+      undefined,
+      dispose
+    );
 
-  window.addEventListener('resize', applyLayout);
-  window.addEventListener('orientationchange', () => setTimeout(applyLayout, 80));
+  segRead && bindEvent(segRead, 'click', () => setView(false), undefined, dispose);
+  segGrid && bindEvent(segGrid, 'click', () => setView(true), undefined, dispose);
+
+  bindEvent(win, 'resize', applyLayout, undefined, dispose);
+  bindEvent(
+    win,
+    'orientationchange',
+    () => {
+      orientTimer = win.setTimeout(applyLayout, 80);
+    },
+    undefined,
+    dispose
+  );
 
   setView(storeGet(storage, storeViewKey) === 'grid');
 
-  return { applyLayout };
+  return {
+    applyLayout,
+    destroy: () => {
+      cancelFlip();
+      if (orientTimer !== undefined) win.clearTimeout(orientTimer);
+      thumbs?.destroy();
+      dispose.run();
+    },
+  };
 }

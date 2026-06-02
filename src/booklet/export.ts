@@ -1,12 +1,17 @@
 import type { BookletRuntimeConfig } from './types';
+import { bindEvent, createDisposeBag, type Disposer } from './lib/dispose';
 
-function loadScript(src: string): Promise<void> {
+export interface ExportController {
+  destroy: Disposer;
+}
+
+function loadScript(doc: Document, src: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    const s = document.createElement('script');
+    const s = doc.createElement('script');
     s.src = src;
     s.onload = () => resolve();
     s.onerror = () => reject(new Error('Failed to load ' + src));
-    document.head.appendChild(s);
+    doc.head.appendChild(s);
   });
 }
 
@@ -14,8 +19,8 @@ function filenameFor(slide: Element): string {
   return (slide.getAttribute('data-name') || 'slide') + '.png';
 }
 
-function renderSlide(slide: Element): Promise<string> {
-  return window.htmlToImage!.toPng(slide, {
+function renderSlide(slide: Element, win: Window): Promise<string> {
+  return win.htmlToImage!.toPng(slide, {
     width: 1080,
     height: 1080,
     pixelRatio: 2,
@@ -24,27 +29,34 @@ function renderSlide(slide: Element): Promise<string> {
   });
 }
 
-function downloadBlob(url: string, name: string): void {
-  const a = document.createElement('a');
+function downloadBlob(doc: Document, url: string, name: string): void {
+  const a = doc.createElement('a');
   a.href = url;
   a.download = name;
-  document.body.appendChild(a);
+  doc.body.appendChild(a);
   a.click();
   a.remove();
 }
 
-export function initExport(config: BookletRuntimeConfig): void {
+export function createExportController(
+  config: BookletRuntimeConfig,
+  doc: Document,
+  win: Window
+): ExportController | null {
+  const downloadAllBtn = doc.getElementById('downloadAll');
+  if (!downloadAllBtn) return null;
+
+  const dispose = createDisposeBag();
   let exportLibsPromise: Promise<void[]> | null = null;
 
   function loadExportLibs() {
     if (!exportLibsPromise) {
-      exportLibsPromise = Promise.all(config.exportLibs.map(loadScript));
+      exportLibsPromise = Promise.all(config.exportLibs.map((src) => loadScript(doc, src)));
     }
     return exportLibsPromise;
   }
 
-  const downloadAllBtn = document.getElementById('downloadAll');
-  downloadAllBtn?.addEventListener('click', async function (this: HTMLButtonElement) {
+  const onDownload = async function (this: HTMLButtonElement) {
     const btn = this;
     btn.disabled = true;
     const label = btn.querySelector('span');
@@ -52,25 +64,29 @@ export function initExport(config: BookletRuntimeConfig): void {
     try {
       if (label) label.textContent = 'Loading…';
       await loadExportLibs();
-      await document.fonts.ready;
-      const zip = new window.JSZip!();
-      const slides = Array.from(document.querySelectorAll('.slide'));
+      await doc.fonts.ready;
+      const zip = new win.JSZip!();
+      const slides = Array.from(doc.querySelectorAll('.slide'));
       for (let i = 0; i < slides.length; i++) {
         if (label) label.textContent = 'Rendering ' + (i + 1) + '/' + slides.length;
-        const dataUrl = await renderSlide(slides[i]);
+        const dataUrl = await renderSlide(slides[i], win);
         zip.file(filenameFor(slides[i]), dataUrl.split(',')[1], { base64: true });
       }
       if (label) label.textContent = 'Zipping…';
       const blob = await zip.generateAsync({ type: 'blob' });
       const url = URL.createObjectURL(blob);
-      downloadBlob(url, config.storagePrefix + '-slides.zip');
-      setTimeout(() => URL.revokeObjectURL(url), 4000);
+      downloadBlob(doc, url, config.storagePrefix + '-slides.zip');
+      win.setTimeout(() => URL.revokeObjectURL(url), 4000);
     } catch (e) {
       console.error(e);
-      alert('Export failed — make sure you opened this over a local server.');
+      win.alert('Export failed — make sure you opened this over a local server.');
     } finally {
       btn.disabled = false;
       if (label) label.textContent = original;
     }
-  });
+  };
+
+  bindEvent(downloadAllBtn, 'click', onDownload, undefined, dispose);
+
+  return { destroy: () => dispose.run() };
 }

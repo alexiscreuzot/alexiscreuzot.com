@@ -1,16 +1,23 @@
 import type { BookletRuntimeConfig } from './types';
+import { bindEvent, createDisposeBag, type Disposer } from './lib/dispose';
 import { isAndroid, isIOS } from './lib/env';
 
 export interface WifiController {
   updateUI: () => void;
+  destroy: Disposer;
 }
 
-export function createWifiController(config: BookletRuntimeConfig): WifiController {
+export function createWifiController(
+  config: BookletRuntimeConfig,
+  doc: Document,
+  win: Window
+): WifiController {
   const { wifi: WIFI, strings: S } = config;
-  const toast = document.getElementById('wifiToast');
-  const connectBtn = document.getElementById('wifiConnect');
+  const dispose = createDisposeBag();
+  const toast = doc.getElementById('wifiToast');
+  const connectBtn = doc.getElementById('wifiConnect');
   const connectTxt = connectBtn?.querySelector('.wifi-connect-txt');
-  const mobileHint = document.getElementById('wifiMobileHint');
+  const mobileHint = doc.getElementById('wifiMobileHint');
 
   function escapeWifiField(s: string) {
     return String(s).replace(/([\\;,"])/g, '\\$1');
@@ -28,26 +35,26 @@ export function createWifiController(config: BookletRuntimeConfig): WifiControll
     );
   }
 
-  let toastTimer: ReturnType<typeof setTimeout>;
+  let toastTimer: ReturnType<typeof setTimeout> | undefined;
 
   function showToast(msg: string, ms = 3800) {
     if (!toast) return;
     toast.textContent = msg;
     toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), ms);
+    if (toastTimer !== undefined) clearTimeout(toastTimer);
+    toastTimer = win.setTimeout(() => toast.classList.remove('show'), ms);
   }
 
   function legacyCopy(text: string, onDone: () => void) {
-    const ta = document.createElement('textarea');
+    const ta = doc.createElement('textarea');
     ta.value = text;
     ta.setAttribute('readonly', '');
     ta.style.position = 'fixed';
     ta.style.opacity = '0';
-    document.body.appendChild(ta);
+    doc.body.appendChild(ta);
     ta.select();
     try {
-      document.execCommand('copy');
+      doc.execCommand('copy');
       onDone();
     } catch {
       showToast(S.legacyCopyFallback, 5000);
@@ -68,7 +75,7 @@ export function createWifiController(config: BookletRuntimeConfig): WifiControll
   }
 
   function updateUI() {
-    const mobile = document.body.classList.contains('is-mobile');
+    const mobile = doc.body.classList.contains('is-mobile');
     if (!mobile) {
       if (connectTxt) connectTxt.textContent = S.connect;
       if (mobileHint) mobileHint.textContent = '';
@@ -86,14 +93,26 @@ export function createWifiController(config: BookletRuntimeConfig): WifiControll
     }
   }
 
-  document.addEventListener('click', (e) => {
-    const btn = (e.target as HTMLElement).closest('.wifi-connect');
-    if (!btn || !document.body.classList.contains('is-mobile')) return;
-    e.stopPropagation();
-    if (isAndroid()) window.location.href = wifiUri();
-    else copyPassword();
-  });
+  bindEvent(
+    doc,
+    'click',
+    (e) => {
+      const btn = (e.target as HTMLElement).closest('.wifi-connect');
+      if (!btn || !doc.body.classList.contains('is-mobile')) return;
+      e.stopPropagation();
+      if (isAndroid()) win.location.href = wifiUri();
+      else copyPassword();
+    },
+    undefined,
+    dispose
+  );
 
   updateUI();
-  return { updateUI };
+  return {
+    updateUI,
+    destroy: () => {
+      if (toastTimer !== undefined) clearTimeout(toastTimer);
+      dispose.run();
+    },
+  };
 }

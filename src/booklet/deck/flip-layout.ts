@@ -70,14 +70,14 @@ export function arrangePages(opts: ArrangeOptions): void {
   });
 }
 
-export function resetWraps(wraps: HTMLElement[]): void {
+export function resetWraps(wraps: HTMLElement[], body: HTMLElement): void {
   wraps.forEach((w) => {
     w.style.transition = 'none';
     w.style.transform = '';
     w.style.zIndex = '';
     w.classList.remove('pg-hidden');
   });
-  void document.body.offsetHeight;
+  void body.offsetHeight;
   wraps.forEach((w) => {
     w.style.transition = '';
   });

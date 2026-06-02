@@ -87,4 +87,6 @@ export interface BookletRuntimeConfig {
   wifi: { ssid: string; pass: string; type: string };
   strings: BookletWifiStrings;
   exportLibs: string[];
+  /** When omitted, export is enabled on local/private hosts only. */
+  exportEnabled?: boolean;
 }
