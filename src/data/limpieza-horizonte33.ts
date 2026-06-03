@@ -33,6 +33,39 @@ export const limpiezaSections: LimpiezaSection[] = [
     items: [
       { id: 'prep-ropa', label: 'Quitar sábanas y toallas sucias' },
       {
+        id: 'prep-lavavajillas',
+        label: 'Cargar el lavavajillas y prenderlo',
+        note: [
+          {
+            parts: [
+              { text: 'Pastilla ' },
+              { text: 'Cascade', strong: true },
+              { text: ' en el dispensador y mete los trastes' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Toca ' },
+              { key: 'P' },
+              { text: ' para ' },
+              { text: 'ECO', strong: true },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Toca ' },
+              { key: 'F' },
+              { text: ' 3 veces hasta que los 2 iconos de arriba a la derecha estén prendidos' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Cierra la puerta y arranca solo' },
+            ],
+          },
+        ],
+      },
+      {
         id: 'prep-lavadora',
         label: 'Prender la lavadora con sábanas y toallas',
         note: [
@@ -65,43 +98,6 @@ export const limpiezaSections: LimpiezaSection[] = [
               { icon: 'play' },
               { icon: 'pause' },
               { text: ' para arrancar' },
-            ],
-          },
-        ],
-      },
-      {
-        id: 'prep-lavavajillas',
-        label: 'Cargar el lavavajillas y prenderlo',
-        note: [
-          {
-            parts: [
-              { text: 'Pastilla ' },
-              { text: 'Cascade', strong: true },
-              { text: ' en el dispensador, trastes adentro, cierra la puerta' },
-            ],
-          },
-          {
-            parts: [
-              { text: 'Toca ' },
-              { icon: 'power' },
-              { text: ' para prender' },
-            ],
-          },
-          {
-            parts: [
-              { text: 'Toca ' },
-              { key: 'P' },
-              { text: ' — rápido: ' },
-              { icon: 'shower-head' },
-              { text: '; normal: ' },
-              { text: 'ECO', strong: true },
-            ],
-          },
-          {
-            parts: [
-              { text: 'Toca ' },
-              { icon: 'power' },
-              { text: ' otra vez para iniciar' },
             ],
           },
         ],

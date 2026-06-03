@@ -509,8 +509,14 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     bottom: 0;
     z-index: 20;
     padding: 16px 20px calc(16px + env(safe-area-inset-bottom));
-    background: #15110b;
+    background: rgba(21, 17, 11, 0.72);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
     border-top: 1px solid rgba(220, 192, 140, 0.22);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18);
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .dock { background: #15110b; }
   }
   .dock-inner {
     max-width: 560px;
