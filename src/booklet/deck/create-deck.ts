@@ -194,7 +194,6 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     if (cur <= 0) return;
     hideScrollCueForFlip();
     deck.classList.add('is-flip-back');
-    setWrapTransform(wraps[cur], 0, 20, false, 'none', UNDER_DEPTH);
     const angle = -180 + backwardDragEased(lin) * 180;
     setWrapTransform(wraps[cur - 1], angle, 40, false, 'none');
   }
@@ -270,8 +269,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
     if (flipEl) {
       abortFlipTransition();
-      const settled = deck.classList.contains('is-flip-fwd') && cur > 0 ? cur - 1 : cur;
-      finalizeBackwardPage(settled);
+      finalizeBackwardPage(cur);
       if (cur <= 0) return;
       completeBackwardSingleStep();
       return;
@@ -303,8 +301,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
   function completeBackwardSingleStep() {
     if (cur <= 0) return;
-    const settlingBack = deck.classList.contains('is-flip-back');
-    if (!canStartFlip() && !settlingBack) return;
+    if (!canStartFlip()) return;
     const prev = cur;
     const n = prev - 1;
     const opening = wraps[n];
@@ -328,7 +325,9 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     void opening.offsetHeight;
     setWrapTransform(opening, 0, 30, false, FLIP_BACK);
     attachFlipDone(opening, () => {
-      arrange(false, undefined, undefined, undefined, n);
+      for (let i = n + 2; i < total; i++) {
+        setWrapTransform(wraps[i], 0, 1, true, 'none');
+      }
       win.requestAnimationFrame(() => {
         clearFlipBack();
         resetSlideScroll();
@@ -426,7 +425,6 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
   function gStart(x: number, y: number, target?: EventTarget | null) {
     if (!paged()) return;
-    cancelFakeDrag();
     if (flipEl) abortFlipTransition();
     gOn = true;
     gAxis = null;
