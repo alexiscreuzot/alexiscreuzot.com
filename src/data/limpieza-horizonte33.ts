@@ -20,6 +20,7 @@ export interface LimpiezaSection {
   id: string;
   title: string;
   icon: string;
+  duration: string;
   items: LimpiezaItem[];
 }
 
@@ -28,6 +29,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'preparar',
     title: 'Preparar',
     icon: 'spray-can',
+    duration: '10 min',
     items: [
       { id: 'prep-ropa', label: 'Quitar sábanas y toallas sucias' },
       {
@@ -110,8 +112,10 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'cocina',
     title: 'Cocina',
     icon: 'utensils',
+    duration: '40 min',
     items: [
-      { id: 'cocina-superficies', label: 'Limpiar barra, cubiertas y tarja' },
+      { id: 'cocina-superficies', label: 'Limpiar barra y cubiertas' },
+      { id: 'cocina-tarja', label: 'Lavar bien la tarja' },
       { id: 'cocina-parrilla', label: 'Limpiar la estufa de inducción' },
       { id: 'cocina-horno', label: 'Limpiar horno y micro por dentro' },
       { id: 'cocina-refri',
@@ -124,6 +128,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'bano-principal',
     title: 'Baño principal',
     icon: 'bath',
+    duration: '25 min',
     items: [
       { id: 'bano1-wc', label: 'Limpiar bien el WC' },
       {
@@ -142,6 +147,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'bano-invitado',
     title: 'Baño de visitas',
     icon: 'bath',
+    duration: '25 min',
     items: [
       { id: 'bano2-wc', label: 'Limpiar bien el WC' },
       {
@@ -160,6 +166,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'recamaras',
     title: 'Recámaras',
     icon: 'bed-double',
+    duration: '40 min',
     items: [
       { id: 'recamaras-polvo', label: 'Quitar polvo de burós, muebles y lámparas' },
       {
@@ -179,6 +186,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'sala-comedor',
     title: 'Sala y comedor',
     icon: 'sofa',
+    duration: '15 min',
     items: [
       { id: 'sala-muebles', label: 'Quitar polvo de muebles y limpiar mesa del comedor' },
       {
@@ -192,6 +200,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'loggia',
     title: 'Balcón',
     icon: 'wind',
+    duration: '15 min',
     items: [
       { id: 'loggia-piso', label: 'Barrer y limpiar mesa y sillas del balcón' },
       {
@@ -205,6 +214,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'reponer',
     title: 'Reponer',
     icon: 'package-check',
+    duration: '10 min',
     items: [
       {
         id: 'reponer-toallas',
@@ -219,6 +229,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'pisos',
     title: 'Pisos',
     icon: 'droplets',
+    duration: '35 min',
     items: [
       {
         id: 'pisos-trapear',
@@ -231,6 +242,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'cierre-lavado',
     title: 'Sacar ropa y vajilla',
     icon: 'archive',
+    duration: '15 min',
     items: [
       {
         id: 'final-sabanas',
@@ -244,6 +256,7 @@ export const limpiezaSections: LimpiezaSection[] = [
     id: 'revision-final',
     title: 'Revisión final',
     icon: 'clipboard-check',
+    duration: '10 min',
     items: [
       { id: 'final-basura', label: 'Sacar la basura y poner bolsas nuevas' },
       {
@@ -257,5 +270,10 @@ export const limpiezaSections: LimpiezaSection[] = [
 
 export const limpiezaTotalItems = limpiezaSections.reduce(
   (total, section) => total + section.items.length,
+  0
+);
+
+export const limpiezaEstimatedMinutes = limpiezaSections.reduce(
+  (total, section) => total + parseInt(section.duration, 10),
   0
 );

@@ -1,7 +1,8 @@
 ---
-import { limpiezaSections, limpiezaTotalItems } from '../../../data/limpieza-horizonte33';
+import { limpiezaSections, limpiezaTotalItems, limpiezaEstimatedMinutes } from '../../../data/limpieza-horizonte33';
 
 const total = limpiezaTotalItems;
+const estimatedHours = Math.round(limpiezaEstimatedMinutes / 60);
 const onHorizonteHost = Astro.url.hostname === 'horizonte33.alexiscreuzot.com';
 const basePath = onHorizonteHost ? '/' : '/horizonte33/';
 const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
@@ -186,6 +187,14 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     font-weight: 600;
     color: var(--ink-secondary);
     font-variant-numeric: tabular-nums;
+  }
+  .section-head .duration {
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
   .section-meta {
     display: flex;
@@ -742,7 +751,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
 
     <!-- Idle hero -->
     <div class="when-idle hero">
-      <p>Puedes ver más info con el <span class="hero-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span> a la derecha. Toca el cuadro o el nombre de una sección para marcarla toda. Dale <b>Iniciar</b> abajo para empezar.</p>
+      <p>Puedes ver más info con el <span class="hero-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span> a la derecha.<br />Dale <b>Iniciar</b> abajo para empezar.</p>
     </div>
 
     <div id="checklist">
@@ -752,6 +761,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
             <i data-lucide={section.icon}></i>
             <h2>{section.title}</h2>
             <div class="section-meta">
+              <span class="duration" aria-label={`Tiempo estimado: ${section.duration}`}>~{section.duration}</span>
               <span class="count" data-count>0/{section.items.length}</span>
               <button
                 type="button"
@@ -847,7 +857,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
           <button class="dock-btn dock-btn--primary dock-btn--grow" id="startBtn" type="button">
             <i data-lucide="play"></i><span>Iniciar limpieza</span>
           </button>
-          <p class="dock-idle-hint">{total} cosas por hacer · como 3–4 h</p>
+          <p class="dock-idle-hint">{total} cosas por hacer · ~{estimatedHours} h</p>
         </div>
       </div>
 
