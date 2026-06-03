@@ -14,21 +14,27 @@
 
   <rect width="512" height="512" rx="104" fill="url(#bg)"/>
 
-  <!-- Lucide-style sparkles + clipboard checklist -->
-  <g fill="none" stroke="url(#gold)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="148" y="118" width="216" height="276" rx="28" fill="rgba(220,192,140,0.08)" stroke="url(#gold)"/>
-    <path d="M196 118v-18a60 60 0 0 1 120 0v18"/>
-    <path d="M188 248h136"/>
-    <path d="M188 296h96"/>
-    <path d="M188 344h112"/>
-    <path d="M360 108l22-22"/>
-    <path d="M382 108l-22-22"/>
-    <path d="M152 388l-18 18"/>
-    <path d="M134 388l18 18"/>
-  </g>
-  <g fill="url(#gold)" stroke="none">
-    <circle cx="392" cy="132" r="10"/>
-    <circle cx="120" cy="404" r="8"/>
-    <circle cx="404" cy="380" r="6"/>
+  <g fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- handle -->
+    <line x1="348" y1="88" x2="262" y2="228" stroke-width="20"/>
+    <!-- ferrule -->
+    <path d="M248 220 L292 238" stroke-width="14"/>
+    <!-- straw bristle wedge -->
+    <path
+      d="M244 236 L118 404 C168 392 248 398 334 408 L292 236 Z"
+      fill="rgba(220,192,140,0.12)"
+      stroke-width="14"
+    />
+    <!-- bristle strands -->
+    <g stroke-width="8" opacity="0.9">
+      <line x1="152" y1="396" x2="236" y2="244"/>
+      <line x1="176" y1="400" x2="242" y2="242"/>
+      <line x1="200" y1="402" x2="248" y2="240"/>
+      <line x1="224" y1="404" x2="254" y2="238"/>
+      <line x1="248" y1="404" x2="260" y2="236"/>
+      <line x1="272" y1="402" x2="268" y2="236"/>
+      <line x1="296" y1="398" x2="278" y2="236"/>
+      <line x1="318" y1="392" x2="286" y2="236"/>
+    </g>
   </g>
 </svg>

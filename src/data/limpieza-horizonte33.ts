@@ -1,7 +1,19 @@
+export interface LimpiezaNotePart {
+  text?: string;
+  icon?: string;
+  key?: string;
+  strong?: boolean;
+}
+
+export interface LimpiezaNoteLine {
+  title?: boolean;
+  parts: LimpiezaNotePart[];
+}
+
 export interface LimpiezaItem {
   id: string;
   label: string;
-  note?: string;
+  note?: string | LimpiezaNoteLine[];
 }
 
 export interface LimpiezaSection {
@@ -11,26 +23,86 @@ export interface LimpiezaSection {
   items: LimpiezaItem[];
 }
 
-// Order follows Airbnb's 5-step turnover: preparar, limpiar, desinfectar, reponer, revisar.
 export const limpiezaSections: LimpiezaSection[] = [
   {
     id: 'preparar',
     title: 'Preparar',
     icon: 'spray-can',
     items: [
-      { id: 'prep-ventilar', label: 'Ventilar: abrir ventanas y puerta del balcón' },
-      { id: 'prep-manos', label: 'Lavarse las manos y ponerse guantes' },
-      { id: 'prep-productos', label: 'Juntar productos y trapos de limpieza' },
-      { id: 'prep-ropa', label: 'Retirar sábanas y toallas usadas' },
+      { id: 'prep-ropa', label: 'Quitar sábanas y toallas sucias' },
       {
         id: 'prep-lavadora',
-        label: 'Iniciar la lavadora con sábanas y toallas',
-        note: 'Hazlo al inicio para que termine mientras limpias el resto del depa.',
+        label: 'Prender la lavadora con sábanas y toallas',
+        note: [
+          {
+            parts: [
+              { text: 'Pon una hoja ' },
+              { text: 'Fisroa', strong: true },
+              { text: ' en el tambor y mete sábanas/toallas (máx. ~9 kg para secar bien)' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Mantén ' },
+              { icon: 'power' },
+              { text: ' hasta prender' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Gira a ' },
+              { text: 'Lavado rápido', strong: true },
+              { text: ' y toca ' },
+              { icon: 'circle' },
+              { text: ' para secado' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Mantén ' },
+              { icon: 'play' },
+              { icon: 'pause' },
+              { text: ' para arrancar' },
+            ],
+          },
+        ],
       },
       {
         id: 'prep-lavavajillas',
-        label: 'Cargar el lavavajillas y ponerlo en marcha',
-        note: 'Igual que la lavadora: arráncalo al principio para aprovechar el tiempo.',
+        label: 'Cargar el lavavajillas y prenderlo',
+        note: [
+          {
+            parts: [
+              { text: 'Pastilla ' },
+              { text: 'Cascade', strong: true },
+              { text: ' en el dispensador, trastes adentro, cierra la puerta' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Toca ' },
+              { icon: 'power' },
+              { text: ' para prender' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Toca ' },
+              { key: 'P' },
+              { text: ' — rápido: ' },
+              { icon: 'shower-head' },
+              { text: '; normal: ' },
+              { text: 'ECO', strong: true },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Toca ' },
+              { icon: 'power' },
+              { text: ' otra vez para iniciar' },
+            ],
+          },
+        ],
       },
     ],
   },
@@ -39,17 +111,13 @@ export const limpiezaSections: LimpiezaSection[] = [
     title: 'Cocina',
     icon: 'utensils',
     items: [
-      { id: 'cocina-encimera', label: 'Limpiar encimeras y barra' },
-      { id: 'cocina-fregadero', label: 'Lavar y desinfectar el fregadero' },
-      { id: 'cocina-parrilla', label: 'Limpiar parrilla de inducción' },
-      { id: 'cocina-horno', label: 'Limpiar horno y microondas por dentro' },
-      {
-        id: 'cocina-refri',
-        label: 'Limpiar refrigerador por dentro y retirar comida olvidada',
-        note: 'Revisa bien estantes y cajones. No debe quedar nada de huéspedes anteriores.',
+      { id: 'cocina-superficies', label: 'Limpiar barra, cubiertas y tarja' },
+      { id: 'cocina-parrilla', label: 'Limpiar la estufa de inducción' },
+      { id: 'cocina-horno', label: 'Limpiar horno y micro por dentro' },
+      { id: 'cocina-refri',
+        label: 'Limpiar el refri por dentro y quitar comida que hayan dejado',
+        note: 'Revisa estantes y cajones. No debe quedar nada de los huéspedes anteriores.',
       },
-      { id: 'cocina-lavavajillas', label: 'Vaciar y acomodar el lavavajillas' },
-      { id: 'cocina-trastes', label: 'Guardar trastes y dejar todo en su lugar' },
     ],
   },
   {
@@ -57,36 +125,34 @@ export const limpiezaSections: LimpiezaSection[] = [
     title: 'Baño principal',
     icon: 'bath',
     items: [
-      { id: 'bano1-wc', label: 'Tallar y desinfectar el inodoro' },
+      { id: 'bano1-wc', label: 'Limpiar bien el WC' },
       {
-        id: 'bano1-cancel',
-        label: 'Limpiar cancel de vidrio, regadera y mampara',
-        note: 'Sin marcas de agua ni jabón. Secar con jalador hasta que quede transparente; revisar a contraluz.',
+        id: 'bano1-regadera',
+        label: 'Limpiar regadera: cancel y trampa de pelos',
+        note: 'Cancel sin manchas de agua ni jabón; seca con el jalador. Quita pelos de la trampa, enjuaga y vuelve a poner.',
       },
-      { id: 'bano1-tapa-olores', label: 'Limpiar tapa-olores del desagüe de la regadera' },
       {
         id: 'bano1-lavabo',
-        label: 'Limpiar lavabo y espejo',
-        note: 'Espejo sin manchas ni huellas. Grifería brillante, sin calcio visible.',
+        label: 'Limpiar lavamanos y espejo',
+        note: 'Espejo limpio, sin huellas. Llaves del agua brillantes, sin sarro.',
       },
     ],
   },
   {
     id: 'bano-invitado',
-    title: 'Baño de invitado',
+    title: 'Baño de visitas',
     icon: 'bath',
     items: [
-      { id: 'bano2-wc', label: 'Tallar y desinfectar el inodoro' },
+      { id: 'bano2-wc', label: 'Limpiar bien el WC' },
       {
-        id: 'bano2-cancel',
-        label: 'Limpiar cancel de vidrio, regadera y mampara',
-        note: 'Sin marcas de agua ni jabón. Secar con jalador hasta que quede transparente; revisar a contraluz.',
+        id: 'bano2-regadera',
+        label: 'Limpiar regadera: cancel y trampa de pelos',
+        note: 'Cancel sin manchas de agua ni jabón; seca con el jalador. Quita pelos de la trampa, enjuaga y vuelve a poner.',
       },
-      { id: 'bano2-tapa-olores', label: 'Limpiar tapa-olores del desagüe de la regadera' },
       {
         id: 'bano2-lavabo',
-        label: 'Limpiar lavabo y espejo',
-        note: 'Espejo sin manchas ni huellas. Grifería brillante, sin calcio visible.',
+        label: 'Limpiar lavamanos y espejo',
+        note: 'Espejo limpio, sin huellas. Llaves del agua brillantes, sin sarro.',
       },
     ],
   },
@@ -95,17 +161,17 @@ export const limpiezaSections: LimpiezaSection[] = [
     title: 'Recámaras',
     icon: 'bed-double',
     items: [
-      { id: 'recamaras-polvo', label: 'Quitar el polvo de burós, superficies y lámparas' },
+      { id: 'recamaras-polvo', label: 'Quitar polvo de burós, muebles y lámparas' },
       {
         id: 'recamaras-tender',
-        label: 'Tender las camas con ropa de cama limpia',
-        note: 'Esquinas tensas, almohadas simétricas, cobijas lisas — como en un hotel.',
+        label: 'Hacer las camas con sábanas limpias',
+        note: 'Esquinas bien puestas, almohadas parejas, cobijas lisas — como en hotel.',
       },
-      { id: 'recamaras-closets', label: 'Ordenar clósets y cajones' },
+      { id: 'recamaras-closets', label: 'Ordenar closets y cajones' },
       {
         id: 'recamaras-vidrios',
-        label: 'Limpiar ventanas y vidrios',
-        note: 'Sin marcas ni película; revisar a contraluz en ambas recámaras.',
+        label: 'Limpiar ventanas y cristales',
+        note: 'Sin manchas ni película; checa con la luz en las dos recámaras.',
       },
     ],
   },
@@ -114,63 +180,39 @@ export const limpiezaSections: LimpiezaSection[] = [
     title: 'Sala y comedor',
     icon: 'sofa',
     items: [
-      { id: 'sala-polvo', label: 'Quitar el polvo de muebles y superficies' },
-      { id: 'sala-mesa', label: 'Limpiar la mesa del comedor' },
+      { id: 'sala-muebles', label: 'Quitar polvo de muebles y limpiar mesa del comedor' },
       {
         id: 'sala-vidrios',
-        label: 'Limpiar vidrios de la sala principal',
-        note: 'Ventanales y puerta de cristal al balcón. Sin marcas; revisar a contraluz.',
+        label: 'Limpiar cristales de la sala',
+        note: 'Ventanales y puerta al balcón. Sin manchas; checa con la luz.',
       },
-      { id: 'sala-cojines', label: 'Acomodar cojines y mantas' },
     ],
   },
   {
     id: 'loggia',
-    title: 'Loggia / balcón',
+    title: 'Balcón',
     icon: 'wind',
     items: [
-      { id: 'loggia-barrer', label: 'Barrer el piso de la loggia' },
+      { id: 'loggia-piso', label: 'Barrer y limpiar mesa y sillas del balcón' },
       {
         id: 'loggia-barandal',
         label: 'Limpiar barandal del balcón',
-        note: 'Cristal del barandal sin marcas ni huellas; revisar a contraluz.',
-      },
-      { id: 'loggia-mobiliario', label: 'Limpiar mesa y sillas exteriores' },
-    ],
-  },
-  {
-    id: 'desinfectar',
-    title: 'Desinfectar superficies de contacto',
-    icon: 'shield-check',
-    items: [
-      {
-        id: 'desinf-interruptores',
-        label: 'Interruptores y apagadores',
-        note: 'Pasar desinfectante en todos los de sala, recámaras y baños.',
-      },
-      { id: 'desinf-manijas', label: 'Manijas y perillas de puertas' },
-      { id: 'desinf-controles', label: 'Controles de TV y de clima' },
-      { id: 'desinf-llaves', label: 'Llaves de agua y jaladeras' },
-      {
-        id: 'desinf-cerradura',
-        label: 'Cerradura inteligente y teclado de entrada',
-        note: 'Teclado y manija de entrada: desinfectar sin dejar residuo pegajoso.',
+        note: 'Cristal del barandal sin manchas ni huellas.',
       },
     ],
   },
   {
     id: 'reponer',
-    title: 'Reponer amenidades',
+    title: 'Reponer',
     icon: 'package-check',
     items: [
       {
         id: 'reponer-toallas',
-        label: 'Reponer toallas limpias en ambos baños',
-        note: 'Toallas dobladas y colocadas igual en los dos baños.',
+        label: 'Poner toallas limpias en los dos baños',
+        note: 'Toallas dobladas igual en los dos baños.',
       },
-      { id: 'reponer-papel', label: 'Reponer papel higiénico y pañuelos' },
-      { id: 'reponer-amenidades', label: 'Reponer jabón, shampoo y amenidades' },
-      { id: 'reponer-cafe', label: 'Reponer agua, café y cápsulas' },
+      { id: 'reponer-amenidades', label: 'Poner papel, jabón, shampoo y amenidades' },
+      { id: 'reponer-cafe', label: 'Poner agua, café y cápsulas' },
     ],
   },
   {
@@ -180,24 +222,34 @@ export const limpiezaSections: LimpiezaSection[] = [
     items: [
       {
         id: 'pisos-trapear',
-        label: 'Barrer y trapear el piso de todo el depa',
-        note: 'Hazlo al final, cuando ya terminaste el resto, para no volver a ensuciar el piso.',
+        label: 'Barrer y trapear todo el depa',
+        note: 'Al final, cuando ya terminaste todo, para no ensuciar otra vez el piso.',
       },
     ],
   },
   {
+    id: 'cierre-lavado',
+    title: 'Sacar ropa y vajilla',
+    icon: 'archive',
+    items: [
+      {
+        id: 'final-sabanas',
+        label: 'Sacar sábanas y toallas de la lavadora: doblar y guardar',
+        note: 'Si aún están húmedas, tiéndelas a secar antes de guardar.',
+      },
+      { id: 'final-vajillas', label: 'Sacar vajillas del lavavajillas y guardar' },
+    ],
+  },
+  {
     id: 'revision-final',
-    title: 'Revisión final y salida',
+    title: 'Revisión final',
     icon: 'clipboard-check',
     items: [
-      { id: 'final-lavadora', label: 'Terminar lavadora/secadora y guardar la ropa de cama' },
-      { id: 'final-basura', label: 'Sacar toda la basura y poner bolsas nuevas' },
-      { id: 'final-clima', label: 'Apagar luces, clima y televisores' },
-      { id: 'final-ventanas', label: 'Cerrar ventanas y puerta del balcón' },
+      { id: 'final-basura', label: 'Sacar la basura y poner bolsas nuevas' },
       {
         id: 'final-revision',
-        label: 'Revisión general: todo limpio, completo y en su lugar',
-        note: 'Recorre el depa como huésped: olores, polvo, manchas en vidrios, camas, cocina y baños.',
+        label: 'Revisar todo: limpio, completo y en su lugar',
+        note: 'Recorre el depa como si fueras huésped: olores, polvo, manchas, camas, cocina y baños.',
       },
     ],
   },

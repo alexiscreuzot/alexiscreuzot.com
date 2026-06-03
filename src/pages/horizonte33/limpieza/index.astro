@@ -129,6 +129,21 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     margin-right: auto;
   }
   .hero p b { color: var(--chrome-fg); font-weight: 600; }
+  .hero-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: -0.15em;
+    width: 18px;
+    height: 18px;
+    margin: 0 0.15em;
+    color: var(--chrome-fg);
+  }
+  .hero-chevron svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2px;
+  }
 
   /* Sections */
   .section {
@@ -142,10 +157,17 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
   .section-head {
     display: flex;
     align-items: center;
-    gap: 11px;
+    gap: 12px;
     padding: 15px 18px;
     border-bottom: 1px solid var(--line);
     background: var(--accent-soft);
+  }
+  [data-state='active'] .section-head {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-state='active'] .section-head:active {
+    background: #ede5d6;
   }
   .section-head svg { width: 20px; height: 20px; color: var(--accent-deep); }
   .section-head h2 {
@@ -154,30 +176,51 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     font-weight: 600;
     margin: 0;
     flex: 1;
+    min-width: 0;
     color: var(--ink);
     letter-spacing: -0.01em;
   }
   .section-head .count {
+    flex: 0 0 auto;
     font-size: 14px;
     font-weight: 600;
     color: var(--ink-secondary);
     font-variant-numeric: tabular-nums;
   }
-  .section-toggle {
-    display: none;
+  .section-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     flex: 0 0 auto;
+  }
+  .section-toggle {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     appearance: none;
     border: none;
     background: transparent;
     padding: 0;
-    cursor: pointer;
+    margin: 0;
+    cursor: default;
+    pointer-events: none;
     -webkit-tap-highlight-color: transparent;
   }
-  [data-state='active'] .section-toggle { display: block; }
+  [data-state='active'] .section-toggle {
+    cursor: pointer;
+    pointer-events: auto;
+  }
   .section-toggle .box {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     margin: 0;
+    border-color: var(--line-strong);
+    background: #fff;
+  }
+  [data-state='idle'] .section-toggle .box {
+    border-color: var(--line);
+    background: #f3efe6;
   }
   .section-toggle.is-partial .box {
     background: var(--accent-soft);
@@ -189,6 +232,20 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     border-color: var(--ok);
   }
   .section-toggle.is-complete .box svg { opacity: 1; }
+
+  .section.is-complete .section-head h2 {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(82, 74, 63, 0.55);
+    text-decoration-thickness: 1.5px;
+  }
+  .section.is-complete .label-text {
+    color: var(--muted);
+    font-weight: 500;
+    text-decoration: line-through;
+    text-decoration-color: rgba(82, 74, 63, 0.55);
+    text-decoration-thickness: 1.5px;
+  }
 
   .item-wrap {
     border-top: 1px solid var(--line-strong);
@@ -298,6 +355,76 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     line-height: 1.6;
     color: var(--ink-secondary);
     font-weight: 500;
+  }
+  .detail-list {
+    margin: 0;
+    flex: 1;
+    padding-left: 1.15em;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-secondary);
+    font-weight: 500;
+  }
+  .detail-list li {
+    margin: 0 0 8px;
+    padding-left: 4px;
+  }
+  .detail-list li:last-child { margin-bottom: 0; }
+  .detail-list li::marker {
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+  .detail-list-title {
+    list-style: none;
+    margin: 0 0 10px;
+    padding-left: 0;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .detail-list-title::marker { content: none; }
+  .detail-part {
+    display: inline;
+  }
+  .detail-inline-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: -0.15em;
+    width: 1.15em;
+    height: 1.15em;
+    margin: 0 0.12em;
+    color: var(--accent-deep);
+  }
+  .detail-inline-icon:first-child { margin-left: 0; }
+  .detail-inline-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 2.25px;
+  }
+  .detail-inline-icon + .detail-inline-icon { margin-left: 0.05em; }
+  .detail-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35em;
+    height: 1.35em;
+    margin: 0 0.15em;
+    padding: 0 0.35em;
+    border: 1px solid var(--line-strong);
+    border-radius: 5px;
+    background: var(--accent-soft);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.82em;
+    font-weight: 700;
+    line-height: 1;
+    vertical-align: 0.05em;
+  }
+  .detail-list-title .detail-inline-icon {
+    width: 1.05em;
+    height: 1.05em;
+    margin-right: 0.35em;
   }
 
   .item input:checked + .box {
@@ -615,25 +742,27 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
 
     <!-- Idle hero -->
     <div class="when-idle hero">
-      <p>Puedes revisar las indicaciones con el botón <b>›</b> a la derecha. Cuando empieces, usa <b>Iniciar</b> abajo y marca cada tarea.</p>
+      <p>Puedes ver más info con el <span class="hero-chevron" aria-hidden="true"><i data-lucide="chevron-down"></i></span> a la derecha. Toca el cuadro o el nombre de una sección para marcarla toda. Dale <b>Iniciar</b> abajo para empezar.</p>
     </div>
 
     <div id="checklist">
       {limpiezaSections.map((section) => (
         <section class="section" data-section={section.id}>
-          <div class="section-head">
+          <div class="section-head" data-section-head>
             <i data-lucide={section.icon}></i>
             <h2>{section.title}</h2>
-            <button
-              type="button"
-              class="section-toggle"
-              data-section-toggle
-              aria-label={`Marcar toda la sección: ${section.title}`}
-              aria-pressed="false"
-            >
-              <span class="box"><i data-lucide="check"></i></span>
-            </button>
-            <span class="count" data-count>0/{section.items.length}</span>
+            <div class="section-meta">
+              <span class="count" data-count>0/{section.items.length}</span>
+              <button
+                type="button"
+                class="section-toggle"
+                data-section-toggle
+                aria-label={`Marcar toda la sección: ${section.title}`}
+                aria-pressed="false"
+              >
+                <span class="box"><i data-lucide="check"></i></span>
+              </button>
+            </div>
           </div>
           {section.items.map((item) => (
             <div class="item-wrap">
@@ -649,7 +778,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
                     class="detail-btn"
                     data-detail-for={item.id}
                     aria-expanded="false"
-                    aria-label="Ver indicaciones"
+                    aria-label="Ver detalles"
                   >
                     <i data-lucide="chevron-down"></i>
                   </button>
@@ -660,7 +789,32 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
                   <div class="detail-panel-inner">
                     <div class="detail-body">
                       <i data-lucide="info" class="detail-icon" aria-hidden="true"></i>
-                      <p class="detail-text">{item.note}</p>
+                      {typeof item.note === 'string' ? (
+                        <p class="detail-text">{item.note}</p>
+                      ) : (
+                        <ul class="detail-list">
+                          {item.note.map((line) => (
+                            <li class:list={[{ 'detail-list-title': line.title }]}>
+                              {line.parts.map((part) => (
+                                <>
+                                  {part.icon && (
+                                    <span class="detail-inline-icon" aria-hidden="true">
+                                      <i data-lucide={part.icon}></i>
+                                    </span>
+                                  )}
+                                  {part.key && <kbd class="detail-key">{part.key}</kbd>}
+                                  {part.text &&
+                                    (part.strong ? (
+                                      <strong class="detail-part">{part.text}</strong>
+                                    ) : (
+                                      <span class="detail-part">{part.text}</span>
+                                    ))}
+                                </>
+                              ))}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -676,11 +830,11 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       <div class="done-card">
         <div class="check"><i data-lucide="check"></i></div>
         <h2>¡Limpieza terminada!</h2>
-        <p>Gracias, todo quedó listo para los siguientes huéspedes.</p>
+        <p>Gracias, todo quedó listo para la siguiente gente.</p>
         <div class="summary">
           <div class="cell"><div class="k">Inicio</div><div class="v" id="sumStart">—</div></div>
           <div class="cell"><div class="k">Fin</div><div class="v" id="sumEnd">—</div></div>
-          <div class="cell"><div class="k">Duración</div><div class="v" id="sumDuration">—</div></div>
+          <div class="cell"><div class="k">Tiempo</div><div class="v" id="sumDuration">—</div></div>
         </div>
       </div>
     </div>
@@ -693,7 +847,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
           <button class="dock-btn dock-btn--primary dock-btn--grow" id="startBtn" type="button">
             <i data-lucide="play"></i><span>Iniciar limpieza</span>
           </button>
-          <p class="dock-idle-hint">{total} tareas · estimado 3–4 h</p>
+          <p class="dock-idle-hint">{total} cosas por hacer · como 3–4 h</p>
         </div>
       </div>
 
@@ -716,7 +870,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
             </button>
           </div>
           <div class="dock-meter">
-            <p class="dock-section" id="dockSection">En curso: <strong>—</strong></p>
+            <p class="dock-section" id="dockSection">Ahora: <strong>—</strong></p>
             <div class="dock-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="dockBar">
               <span class="dock-bar-fill" id="barFill"></span>
             </div>
@@ -727,17 +881,17 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       <div class="dock-view" data-dock="ready">
         <div class="dock-ready">
           <p class="dock-ready-meta">
-            <strong id="readyTime">0:00</strong> transcurridos · <strong>{total}</strong> tareas completas
+            Llevas <strong id="readyTime">0:00</strong> · <strong>{total}</strong> cosas listas
           </p>
           <button class="dock-btn dock-btn--primary dock-btn--grow" id="finishBtn" type="button">
-            <i data-lucide="check-check"></i><span>Terminar limpieza</span>
+            <i data-lucide="check-check"></i><span>Terminar</span>
           </button>
         </div>
       </div>
 
       <div class="dock-view" data-dock="finished">
         <button class="dock-btn dock-btn--primary dock-btn--grow" id="againBtn" type="button">
-          <i data-lucide="rotate-ccw"></i><span>Empezar otra</span>
+          <i data-lucide="rotate-ccw"></i><span>Otra limpieza</span>
         </button>
       </div>
     </div>
@@ -831,8 +985,8 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       if (dockBar) dockBar.setAttribute('aria-valuenow', String(pct));
       if (dockSectionEl) {
         dockSectionEl.innerHTML = section
-          ? 'En curso: <strong>' + section + '</strong>'
-          : 'Todas las secciones revisadas';
+          ? 'Ahora: <strong>' + section + '</strong>'
+          : 'Ya revisaste todo';
       }
       updateDockPhase();
 
@@ -842,10 +996,12 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
         var label = sec.querySelector('[data-count]');
         if (label) label.textContent = checked.length + '/' + boxes.length;
 
+        var n = checked.length;
+        var all = boxes.length > 0 && n === boxes.length;
+        sec.classList.toggle('is-complete', all);
+
         var toggle = sec.querySelector('[data-section-toggle]');
         if (!toggle || !boxes.length) return;
-        var n = checked.length;
-        var all = n === boxes.length;
         var some = n > 0 && !all;
         toggle.classList.toggle('is-complete', all);
         toggle.classList.toggle('is-partial', some);
@@ -958,16 +1114,23 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
       });
     }
 
-    document.querySelectorAll('[data-section-toggle]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var sec = btn.closest('.section');
-        if (!sec || app.getAttribute('data-state') !== 'active') return;
+    document.querySelectorAll('[data-section-head]').forEach(function (head) {
+      head.addEventListener('click', function () {
+        if (app.getAttribute('data-state') !== 'active') return;
+        var sec = head.closest('.section');
+        if (!sec) return;
         var boxes = Array.prototype.slice.call(sec.querySelectorAll('input[data-item]'));
         if (!boxes.length) return;
         var allChecked = boxes.every(function (c) { return c.checked; });
         setSectionChecked(sec, !allChecked);
       });
     });
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
 
     document.querySelectorAll('.detail-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
@@ -979,6 +1142,7 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
         var open = !panel.classList.contains('is-open');
         panel.classList.toggle('is-open', open);
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) refreshIcons();
       });
     });
 
@@ -986,16 +1150,11 @@ const manifestPath = `${basePath}assets/icons/limpieza.webmanifest`;
     finishBtn.addEventListener('click', finish);
     againBtn.addEventListener('click', reset);
     resetBtn.addEventListener('click', function () {
-      if (window.confirm('¿Reiniciar la limpieza? Se borrarán todas las marcas.')) reset();
+      if (window.confirm('¿Empezar de nuevo? Se borra todo lo marcado.')) reset();
     });
 
-    if (window.lucide && typeof window.lucide.createIcons === 'function') {
-      window.lucide.createIcons();
-    } else {
-      window.addEventListener('load', function () {
-        if (window.lucide) window.lucide.createIcons();
-      });
-    }
+    refreshIcons();
+    window.addEventListener('load', refreshIcons);
   })();
 </script>
 </body>
