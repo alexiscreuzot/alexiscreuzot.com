@@ -420,6 +420,9 @@
     background:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.92));
   }
   body.is-mobile .m-scrollcue.show{ opacity:1; }
+  /* fade out before/during page flip so the cue does not sit over the animation */
+  body.is-mobile:has(.deck.is-flip-fwd) .m-scrollcue,
+  body.is-mobile:has(.deck.is-flip-back) .m-scrollcue{ opacity:0; }
   body.is-mobile .m-hint{
     display:block; position:fixed; right:32px; top:50%; z-index:70;
     width:160px; height:52px; margin:-26px 0 0 0; pointer-events:none;
@@ -843,15 +846,14 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: var(--body-gradient) no-repeat fixed, var(--theme-color);
+    background:
+      var(--body-gradient) no-repeat fixed,
+      var(--surround);
     background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: opacity 0.8s ease;
-  }
-  body.is-mobile .booklet-loader {
-    background: var(--mobile-bg);
   }
   .booklet-loader.is-hidden {
     opacity: 0;

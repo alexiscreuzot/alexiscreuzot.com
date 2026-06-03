@@ -68,6 +68,10 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   let flipDone: ((e: TransitionEvent) => void) | null = null;
   let fakeDragRaf: number | undefined;
 
+  function canStartFlip() {
+    return !flipEl && fakeDragRaf === undefined;
+  }
+
   function paged() {
     return mobileActive || readerActive;
   }
@@ -152,9 +156,17 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       cueEl.classList.remove('show');
       return;
     }
+    if (deck.classList.contains('is-flip-fwd') || deck.classList.contains('is-flip-back')) {
+      cueEl.classList.remove('show');
+      return;
+    }
     const s = currentSlide() as HTMLElement | null;
     const more = !!s && s.scrollTop + s.clientHeight < s.scrollHeight - 4;
     cueEl.classList.toggle('show', more);
+  }
+
+  function hideScrollCueForFlip() {
+    cueEl?.classList.remove('show');
   }
 
   function updateControls() {
@@ -180,6 +192,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
   function applyBackwardDrag(lin: number) {
     if (cur <= 0) return;
+    hideScrollCueForFlip();
     deck.classList.add('is-flip-back');
     const angle = -180 + backwardDragEased(lin) * 180;
     setWrapTransform(wraps[cur - 1], angle, 40, false, 'none');
@@ -188,6 +201,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   function applyForwardDrag(lin: number) {
     if (cur >= total - 1) return;
     const t = Math.min(Math.max(lin, 0), 1);
+    hideScrollCueForFlip();
     deck.classList.add('is-flip-fwd');
     setWrapTransform(wraps[cur], -t * 180, 40, false, 'none');
     setWrapTransform(wraps[cur + 1], 0, 20, false, 'none');
@@ -203,6 +217,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
   function completeForwardSingleStep(fromRest: boolean) {
     if (cur >= total - 1) return;
+    if (!canStartFlip()) return;
     cancelFakeDrag();
     const prev = cur;
     const turning = wraps[prev];
@@ -211,6 +226,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     if (flipEl) snapStackToCur();
 
     clearFlipClasses();
+    hideScrollCueForFlip();
     deck.classList.add('is-flip-fwd');
 
     if (fromRest) {
@@ -259,6 +275,8 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       return;
     }
 
+    if (!canStartFlip()) return;
+
     const startCur = cur;
     const duration = 120;
     const targetLin = 0.48;
@@ -283,6 +301,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
 
   function completeBackwardSingleStep() {
     if (cur <= 0) return;
+    if (!canStartFlip()) return;
     const prev = cur;
     const n = prev - 1;
     const opening = wraps[n];
@@ -290,6 +309,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     if (flipEl) abortFlipTransition();
 
     clearFlipFwd();
+    hideScrollCueForFlip();
     deck.classList.add('is-flip-back');
 
     if (n + 1 < total) {
@@ -320,16 +340,25 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   }
 
   function startForwardFlipMulti(n: number, prev: number) {
+    if (!canStartFlip()) return;
     clearFlipClasses();
+    hideScrollCueForFlip();
+    deck.classList.add('is-flip-fwd');
     cur = n;
     storeSet(storage, storePageKey, String(cur));
     resetSlideScroll();
     arrange(true, prev, FLIP_FWD);
     updateUI();
+    attachFlipDone(wraps[prev], () => {
+      clearFlipFwd();
+      updateScrollCue();
+    });
   }
 
   function startBackwardFlipMulti(n: number, prev: number) {
+    if (!canStartFlip()) return;
     clearFlipClasses();
+    hideScrollCueForFlip();
     deck.classList.add('is-flip-back');
     arrange(true, n, FLIP_BACK, prev);
     attachFlipDone(wraps[n], () => {
@@ -348,6 +377,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       arrange(true);
       return;
     }
+    if (!canStartFlip()) return;
     const prev = cur;
     cancelFakeDrag();
 
