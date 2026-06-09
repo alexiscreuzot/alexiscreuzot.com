@@ -68,16 +68,14 @@ export function initBooklet(doc: Document = document, win: Window = window): Boo
 
   const loader = doc.getElementById('bookletLoader');
   if (loader) {
-    // Keep every page layer painted while the loader covers the screen so
-    // mobile WebKit rasterizes the whole book up front; flipping then never
-    // reveals an unpainted/undecoded layer (the source of the end-of-flip
-    // flash on phones).
-    doc.body.classList.add('is-preloading');
+    // Hold the loader until every booklet image is fetched and decoded, so
+    // flipping pages never reveals an undecoded bitmap (the source of the
+    // end-of-flip flash on phones). Decoding is throttled to avoid the
+    // memory spike that crashes mobile Safari.
     disposers.push(
       dismissLoader(loader, doc, {
         win,
         ready: preloadBookletAssets(deckEl, doc, win),
-        onBeforeFade: () => doc.body.classList.remove('is-preloading'),
       })
     );
   }

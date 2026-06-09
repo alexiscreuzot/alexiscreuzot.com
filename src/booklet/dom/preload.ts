@@ -7,6 +7,9 @@
  */
 
 const PRELOAD_TIMEOUT_MS = 12000;
+// Decode a couple of images at a time: parallel-decoding the whole book
+// spikes memory hard enough to crash Safari on iPhones.
+const DECODE_CONCURRENCY = 2;
 
 const URL_RE = /url\((['"]?)(.*?)\1\)/g;
 
@@ -38,17 +41,35 @@ export function collectImageUrls(root: ParentNode): string[] {
 
 function decodeImage(url: string, doc: Document): Promise<void> {
   return new Promise<void>((resolve) => {
-    const img = doc.createElement('img');
-    const done = () => resolve();
+    let img: HTMLImageElement | null = doc.createElement('img');
+    const done = () => {
+      // Drop the reference so the decoded bitmap can be released; the bytes
+      // stay in the HTTP/image cache, which is what makes later paints fast.
+      if (img) img.src = '';
+      img = null;
+      resolve();
+    };
     // decode() waits for both fetch and decode; fall back to load events
     // for browsers/edge cases where it rejects (e.g. detached documents).
     img.onload = () => {
-      if (typeof img.decode === 'function') img.decode().then(done, done);
+      if (img && typeof img.decode === 'function') img.decode().then(done, done);
       else done();
     };
     img.onerror = done;
     img.src = url;
   });
+}
+
+function decodeQueue(urls: string[], doc: Document, concurrency: number): Promise<void> {
+  let next = 0;
+  const worker = async () => {
+    while (next < urls.length) {
+      const url = urls[next++];
+      await decodeImage(url, doc);
+    }
+  };
+  const workers = Array.from({ length: Math.min(concurrency, urls.length) }, worker);
+  return Promise.all(workers).then(() => undefined);
 }
 
 export function preloadBookletAssets(
@@ -60,7 +81,7 @@ export function preloadBookletAssets(
   const urls = collectImageUrls(root);
   if (!urls.length) return Promise.resolve();
 
-  const all = Promise.all(urls.map((u) => decodeImage(u, doc))).then(() => undefined);
+  const all = decodeQueue(urls, doc, DECODE_CONCURRENCY);
   const cap = new Promise<void>((resolve) => {
     win.setTimeout(resolve, timeoutMs);
   });
