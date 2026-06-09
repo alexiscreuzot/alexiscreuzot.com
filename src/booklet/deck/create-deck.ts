@@ -75,6 +75,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   // full-screen backing store each — the memory spike that crashes iPhone
   // Safari — so we promote only the active flip window and demote the rest.
   let liveSet = new Set<number>();
+  let lastFlipTime = 0;
 
   function applyLive(indices: number[]) {
     const next = new Set<number>();
@@ -429,6 +430,11 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       arrange(true);
       return;
     }
+    
+    // Throttle page flipping to prevent rapid spamming (snapping animations instantly)
+    if (Date.now() - lastFlipTime < 350) return;
+    lastFlipTime = Date.now();
+
     if (!canStartFlip()) return;
     const prev = cur;
     cancelFakeDrag();
