@@ -1,6 +1,7 @@
 import { createDeckController } from './deck/create-deck';
 import { initIcons } from './dom/icons';
 import { dismissLoader } from './dom/loader';
+import { preloadBookletAssets } from './dom/preload';
 import { renumberSlides } from './dom/renumber-slides';
 import { createExportController } from './export';
 import { isExportEnabled } from './lib/export-enabled';
@@ -66,7 +67,20 @@ export function initBooklet(doc: Document = document, win: Window = window): Boo
   }
 
   const loader = doc.getElementById('bookletLoader');
-  if (loader) disposers.push(dismissLoader(loader, doc));
+  if (loader) {
+    // Keep every page layer painted while the loader covers the screen so
+    // mobile WebKit rasterizes the whole book up front; flipping then never
+    // reveals an unpainted/undecoded layer (the source of the end-of-flip
+    // flash on phones).
+    doc.body.classList.add('is-preloading');
+    disposers.push(
+      dismissLoader(loader, doc, {
+        win,
+        ready: preloadBookletAssets(deckEl, doc, win),
+        onBeforeFade: () => doc.body.classList.remove('is-preloading'),
+      })
+    );
+  }
 
   return {
     ok: true,

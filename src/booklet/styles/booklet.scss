@@ -493,6 +493,9 @@
   body.is-mobile .deck.is-flip-fwd .slidewrap::after{ content:none; }
   body.is-mobile .deck.is-flip-back .slidewrap::after{ content:none; }
   body.is-mobile .slidewrap.pg-hidden{ visibility:hidden; }
+  /* While the loader covers the screen, keep every page painted so the
+     compositor rasterizes the whole stack before the first flip. */
+  body.is-mobile.is-preloading .slidewrap.pg-hidden{ visibility:visible; }
 
   /* --- content reflow: readable, full-bleed portrait --- */
   body.is-mobile .slide{
@@ -718,6 +721,7 @@
   body.is-reader .deck.is-flip-fwd .slidewrap::after{ content:none; }
   body.is-reader .deck.is-flip-back .slidewrap::after{ content:none; }
   body.is-reader .slidewrap.pg-hidden{ visibility:hidden; }
+  body.is-reader.is-preloading .slidewrap.pg-hidden{ visibility:visible; }
   body.is-reader .plate{ display:none; }
 
   /* progress bar + page counter for the reader */
