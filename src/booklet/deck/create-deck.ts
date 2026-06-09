@@ -151,22 +151,22 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   }
 
   function updateScrollCue() {
-    if (!cueEl) return;
-    if (!mobileActive) {
-      cueEl.classList.remove('show');
-      return;
-    }
-    if (deck.classList.contains('is-flip-fwd') || deck.classList.contains('is-flip-back')) {
-      cueEl.classList.remove('show');
+    const flipping =
+      deck.classList.contains('is-flip-fwd') || deck.classList.contains('is-flip-back');
+    if (!mobileActive || flipping) {
+      cueEl?.classList.remove('show');
+      body.classList.remove('is-scrolled');
       return;
     }
     const s = currentSlide() as HTMLElement | null;
     const more = !!s && s.scrollTop + s.clientHeight < s.scrollHeight - 4;
-    cueEl.classList.toggle('show', more);
+    cueEl?.classList.toggle('show', more);
+    body.classList.toggle('is-scrolled', !!s && s.scrollTop > 8);
   }
 
   function hideScrollCueForFlip() {
     cueEl?.classList.remove('show');
+    body.classList.remove('is-scrolled');
   }
 
   function updateControls() {
@@ -544,7 +544,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       bookThumbs?.classList.remove('is-open');
       bookThumbsToggle?.classList.remove('is-active');
       resetWraps(wraps, body);
-      body.classList.remove('pg-dark', 'pg-bare');
+      body.classList.remove('pg-dark', 'pg-bare', 'is-scrolled');
       fitGrid(wraps, win.innerWidth, doc);
     }
     onLayoutChange?.();
