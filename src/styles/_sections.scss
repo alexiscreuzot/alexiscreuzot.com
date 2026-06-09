@@ -2,6 +2,11 @@
 // SECTIONS - Intro, Work, Websites, Community
 // ===================
 
+// Pull in shared Sass variables ($gradient, …). Under the module system each
+// file is isolated, so dependencies must be declared explicitly. Sass loads
+// the module once, so this doesn't re-emit the variables' CSS.
+@use "variables" as *;
+
 // Shared animation classes
 .js-ready { visibility: visible; }
 

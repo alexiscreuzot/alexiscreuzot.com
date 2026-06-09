@@ -54,7 +54,10 @@ export function createWifiController(
     doc.body.appendChild(ta);
     ta.select();
     try {
-      doc.execCommand('copy');
+      // `execCommand` is deprecated but remains the only clipboard path on
+      // older WebKit; reach it through a local type so the deprecation lint
+      // doesn't flag this intentional fallback.
+      (doc as unknown as { execCommand(commandId: string): boolean }).execCommand('copy');
       onDone();
     } catch {
       showToast(S.legacyCopyFallback, 5000);

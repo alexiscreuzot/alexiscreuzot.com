@@ -1,19 +1,19 @@
 @charset "utf-8";
 
 // 1. Variables (theme colors, CSS custom properties)
-@import "variables";
+@use "variables";
 
 // 2. Base (normalize, container, typography)
-@import "base";
+@use "base";
 
 // 3. Layout (html/body styles, sections, banner, footer)
-@import "layout";
+@use "layout";
 
 // 4. Components (theme toggle, mobile menu, page nav)
-@import "components";
+@use "components";
 
 // 5. Sections (intro, work, websites, community)
-@import "sections";
+@use "sections";
 
 // 6. Pages (privacy, terms - kept separate)
-@import "privacy";
+@use "privacy";

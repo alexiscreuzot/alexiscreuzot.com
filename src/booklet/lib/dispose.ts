@@ -17,15 +17,16 @@ export function createDisposeBag(): DisposeBag {
   };
 }
 
-export function bindEvent(
+export function bindEvent<E extends Event = Event>(
   target: EventTarget,
   type: string,
-  listener: EventListenerOrEventListenerObject,
+  listener: (event: E) => void,
   options?: boolean | AddEventListenerOptions,
   bag?: DisposeBag
 ): Disposer {
-  target.addEventListener(type, listener, options);
-  const off = () => target.removeEventListener(type, listener, options);
+  const handler = listener as EventListener;
+  target.addEventListener(type, handler, options);
+  const off = () => target.removeEventListener(type, handler, options);
   bag?.add(off);
   return off;
 }

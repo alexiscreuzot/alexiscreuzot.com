@@ -60,7 +60,7 @@ function decodeImage(url: string, doc: Document): Promise<void> {
   });
 }
 
-function decodeQueue(urls: string[], doc: Document, concurrency: number): Promise<void> {
+async function decodeQueue(urls: string[], doc: Document, concurrency: number): Promise<void> {
   let next = 0;
   const worker = async () => {
     while (next < urls.length) {
@@ -69,7 +69,7 @@ function decodeQueue(urls: string[], doc: Document, concurrency: number): Promis
     }
   };
   const workers = Array.from({ length: Math.min(concurrency, urls.length) }, worker);
-  return Promise.all(workers).then(() => undefined);
+  await Promise.all(workers);
 }
 
 export function preloadBookletAssets(

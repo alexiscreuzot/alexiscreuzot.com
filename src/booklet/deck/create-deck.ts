@@ -67,6 +67,39 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   let flipEl: HTMLElement | null = null;
   let flipDone: ((e: TransitionEvent) => void) | null = null;
   let fakeDragRaf: number | undefined;
+  let scrollCueRaf: number | undefined;
+  let resizeRaf: number | undefined;
+
+  // Pages currently promoted to their own compositor layer (via `will-change`,
+  // gated by `.bk-live` in CSS). Keeping every page promoted retains a
+  // full-screen backing store each — the memory spike that crashes iPhone
+  // Safari — so we promote only the active flip window and demote the rest.
+  let liveSet = new Set<number>();
+
+  function applyLive(indices: number[]) {
+    const next = new Set<number>();
+    for (const i of indices) if (i >= 0 && i < total) next.add(i);
+    liveSet.forEach((i) => {
+      if (!next.has(i)) wraps[i]?.classList.remove('bk-live');
+    });
+    next.forEach((i) => {
+      if (!liveSet.has(i)) wraps[i]?.classList.add('bk-live');
+    });
+    liveSet = next;
+  }
+
+  // Steady state: promote the current page and its immediate neighbours, drop
+  // everything else. Called once a flip settles (the compositor releases the
+  // demoted layers' backing stores).
+  function settleLive() {
+    applyLive(paged() ? [cur - 1, cur, cur + 1] : []);
+  }
+
+  // During a flip the page swinging out can be far from the destination (a
+  // multi-page jump), so keep those extra pages promoted until it settles.
+  function pinLive(extra: number[]) {
+    applyLive([cur - 1, cur, cur + 1, ...extra]);
+  }
 
   function canStartFlip() {
     return !flipEl && fakeDragRaf === undefined;
@@ -130,6 +163,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     cancelFlip();
     clearFlipClasses();
     arrange(false);
+    settleLive();
   }
 
   function abortFlipTransition() {
@@ -167,6 +201,16 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   function hideScrollCueForFlip() {
     cueEl?.classList.remove('show');
     body.classList.remove('is-scrolled');
+  }
+
+  // The scroll cue reads layout (scrollTop/clientHeight/scrollHeight); coalesce
+  // bursts of scroll events into a single read per frame to avoid jank.
+  function scheduleScrollCue() {
+    if (scrollCueRaf !== undefined) return;
+    scrollCueRaf = win.requestAnimationFrame(() => {
+      scrollCueRaf = undefined;
+      updateScrollCue();
+    });
   }
 
   function updateControls() {
@@ -235,6 +279,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     }
 
     cur = n;
+    pinLive([prev]);
     storeSet(storage, storePageKey, String(cur));
     resetSlideScroll();
     updateUI();
@@ -244,6 +289,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     attachFlipDone(turning, () => {
       settleForwardStack(n);
       clearFlipFwd();
+      settleLive();
       updateScrollCue();
     });
   }
@@ -317,6 +363,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     }
 
     cur = n;
+    pinLive([prev]);
     storeSet(storage, storePageKey, String(cur));
     if (counterEl) counterEl.textContent = cur + 1 + ' / ' + total;
     if (progressEl) progressEl.style.width = ((cur + 1) / total) * 100 + '%';
@@ -331,6 +378,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       win.requestAnimationFrame(() => {
         clearFlipBack();
         resetSlideScroll();
+        settleLive();
         body.classList.toggle('pg-dark', cur === total - 1);
         body.classList.toggle('pg-bare', cur === 0 || cur === total - 1);
         if (hintEl) hintEl.style.display = cur === 0 ? '' : 'none';
@@ -345,12 +393,14 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     hideScrollCueForFlip();
     deck.classList.add('is-flip-fwd');
     cur = n;
+    pinLive([prev]);
     storeSet(storage, storePageKey, String(cur));
     resetSlideScroll();
     arrange(true, prev, FLIP_FWD);
     updateUI();
     attachFlipDone(wraps[prev], () => {
       clearFlipFwd();
+      settleLive();
       updateScrollCue();
     });
   }
@@ -360,6 +410,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     clearFlipClasses();
     hideScrollCueForFlip();
     deck.classList.add('is-flip-back');
+    pinLive([prev, n]);
     arrange(true, n, FLIP_BACK, prev);
     attachFlipDone(wraps[n], () => {
       cur = n;
@@ -367,6 +418,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       resetSlideScroll();
       arrange(false, undefined, undefined, undefined, n);
       clearFlipBack();
+      settleLive();
       updateUI();
     });
   }
@@ -476,6 +528,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       clearFlipClasses();
       cancelFlip();
       arrange(true);
+      settleLive();
     } else if (gAxis === null && dt < 320 && Math.abs(dx) < 8 && Math.abs(dy) < 8) {
       if (readerActive) {
         gAxis = null;
@@ -501,6 +554,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     clearFlipClasses();
     cancelFlip();
     arrange(true);
+    settleLive();
   }
 
   function setGrabbing(on: boolean) {
@@ -547,6 +601,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       body.classList.remove('pg-dark', 'pg-bare', 'is-scrolled');
       fitGrid(wraps, win.innerWidth, doc);
     }
+    settleLive();
     onLayoutChange?.();
   }
 
@@ -641,7 +696,7 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
     dispose
   );
   bindEvent(win, 'blur', () => setGrabbing(false), undefined, dispose);
-  bindEvent(deck, 'scroll', () => updateScrollCue(), { capture: true }, dispose);
+  bindEvent(deck, 'scroll', scheduleScrollCue, { capture: true }, dispose);
   bindEvent(win, 'load', () => win.setTimeout(updateScrollCue, 60), undefined, dispose);
 
   bindEvent(
@@ -692,7 +747,17 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
   segRead && bindEvent(segRead, 'click', () => setView(false), undefined, dispose);
   segGrid && bindEvent(segGrid, 'click', () => setView(true), undefined, dispose);
 
-  bindEvent(win, 'resize', applyLayout, undefined, dispose);
+  // iOS fires a storm of resize events while the URL bar slides in/out, and
+  // applyLayout is heavy (getBoundingClientRect, querySelectorAll, full
+  // re-arrange). Coalesce to one run per frame.
+  const onResize = () => {
+    if (resizeRaf !== undefined) return;
+    resizeRaf = win.requestAnimationFrame(() => {
+      resizeRaf = undefined;
+      applyLayout();
+    });
+  };
+  bindEvent(win, 'resize', onResize, undefined, dispose);
   bindEvent(
     win,
     'orientationchange',
@@ -711,6 +776,8 @@ export function createDeckController(opts: DeckControllerOptions): DeckControlle
       cancelFakeDrag();
       cancelFlip();
       if (orientTimer !== undefined) win.clearTimeout(orientTimer);
+      if (scrollCueRaf !== undefined) win.cancelAnimationFrame(scrollCueRaf);
+      if (resizeRaf !== undefined) win.cancelAnimationFrame(resizeRaf);
       thumbs?.destroy();
       dispose.run();
     },

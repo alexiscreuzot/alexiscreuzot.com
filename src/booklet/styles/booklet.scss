@@ -485,10 +485,15 @@
     transform-origin:left center;
     transform-style:preserve-3d; -webkit-transform-style:preserve-3d;
     backface-visibility:hidden; -webkit-backface-visibility:hidden;
-    will-change:transform; touch-action:pan-y;
+    touch-action:pan-y;
     background:var(--paper); overflow:hidden;
     box-shadow:0 0 40px rgba(0,0,0,.35);
   }
+  /* Only the pages in the active flip window get promoted to their own GPU
+     layer (managed in create-deck.ts). Leaving will-change on every page pins
+     a full-screen backing store per slide — a dozen of them is what exhausts
+     memory and crashes Safari on iPhone. */
+  body.is-mobile .slidewrap.bk-live{ will-change:transform; }
   body.is-mobile .slidewrap::after{
     content:''; position:absolute; inset:0; z-index:-1;
     background:var(--paper);
@@ -497,7 +502,14 @@
   }
   body.is-mobile .deck.is-flip-fwd .slidewrap::after{ content:none; }
   body.is-mobile .deck.is-flip-back .slidewrap::after{ content:none; }
-  body.is-mobile .slidewrap.pg-hidden{ visibility:hidden; }
+  /* Off-stack pages discard their rendered output (and decoded bitmaps) so the
+     compositor never holds the whole book at once. A page always leaves
+     .pg-hidden one full step before it animates in, so this never flashes. */
+  body.is-mobile .slidewrap.pg-hidden{
+    visibility:hidden;
+    content-visibility:hidden;
+    contain-intrinsic-size:100vw 100dvh;
+  }
 
   /* --- content reflow: readable, full-bleed portrait --- */
   body.is-mobile .slide{
@@ -694,7 +706,7 @@
     transform-origin:left center;
     transform-style:preserve-3d;
     backface-visibility:hidden; -webkit-backface-visibility:hidden;
-    border-radius:8px; overflow:hidden; will-change:transform;
+    border-radius:8px; overflow:hidden;
     cursor:grab;
     box-shadow:
       0 1px 0 rgba(255,255,255,.06),
@@ -722,7 +734,13 @@
   }
   body.is-reader .deck.is-flip-fwd .slidewrap::after{ content:none; }
   body.is-reader .deck.is-flip-back .slidewrap::after{ content:none; }
-  body.is-reader .slidewrap.pg-hidden{ visibility:hidden; }
+  /* See mobile rule: promote only the active flip window. */
+  body.is-reader .slidewrap.bk-live{ will-change:transform; }
+  body.is-reader .slidewrap.pg-hidden{
+    visibility:hidden;
+    content-visibility:hidden;
+    contain-intrinsic-size:var(--disp,560px) var(--disp,560px);
+  }
   body.is-reader .plate{ display:none; }
 
   /* progress bar + page counter for the reader */
