@@ -114,9 +114,42 @@ export const limpiezaSections: LimpiezaSection[] = [
       { id: 'cocina-tarja', label: 'Lavar bien la tarja' },
       { id: 'cocina-parrilla', label: 'Limpiar la estufa de inducción' },
       { id: 'cocina-horno', label: 'Limpiar horno y micro por dentro' },
+      {
+        id: 'cocina-tostadora',
+        label: 'Limpiar la tostadora de pan',
+        note: 'Desconéctala, saca la bandeja de migas, vacíala y límpiala. Pasa un trapo por fuera; no metas agua adentro.',
+      },
       { id: 'cocina-refri',
         label: 'Limpiar el refri por dentro y quitar comida que hayan dejado',
         note: 'Revisa estantes y cajones. No debe quedar nada de los huéspedes anteriores.',
+      },
+      {
+        id: 'cocina-cafetera',
+        label: 'Llenar de agua la cafetera Nespresso Seenza Mini',
+        note: [
+          {
+            parts: [
+              { text: 'Quita el tanque de atrás y tira el agua vieja' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Llénalo con ' },
+              { text: 'agua potable', strong: true },
+              { text: ' (de garrafón), no de la llave' },
+            ],
+          },
+          {
+            parts: [
+              { text: 'Vuelve a poner el tanque y revisa que quede bien encajado' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'cocina-jarra',
+        label: 'Llenar la jarra con agua',
+        note: 'Lava la jarra, llénala con agua potable de garrafón y déjala en su lugar.',
       },
     ],
   },
@@ -217,8 +250,6 @@ export const limpiezaSections: LimpiezaSection[] = [
         label: 'Poner toallas limpias en los dos baños',
         note: 'Toallas dobladas igual en los dos baños.',
       },
-      { id: 'reponer-amenidades', label: 'Poner papel, jabón, shampoo y amenidades' },
-      { id: 'reponer-cafe', label: 'Poner agua, café y cápsulas' },
     ],
   },
   {
