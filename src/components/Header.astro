@@ -1,0 +1,40 @@
+---
+const links = [
+  { href: '#work', label: 'Work' },
+  { href: '#community', label: 'Open Source' },
+];
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="#intro" class="site-header__wordmark">Alexis <em>Creuzot</em></a>
+
+    <nav class="site-header__nav" aria-label="Main navigation">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+      <a href="/contact.html" class="site-header__cta">Say hi</a>
+    </nav>
+
+    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-menu" aria-label="Mobile navigation" aria-hidden="true">
+  <ul class="mobile-menu__list">
+    {
+      [{ href: '#intro', label: 'Intro' }, ...links, { href: '/contact.html', label: 'Say hi' }].map(
+        (link, i) => (
+          <li class="mobile-menu__item">
+            <a href={link.href} class="mobile-menu__link" style={`--menu-delay: ${0.08 + i * 0.06}s`}>
+              <span class="mobile-menu__index">0{i + 1}</span>
+              {link.label}
+            </a>
+          </li>
+        )
+      )
+    }
+  </ul>
+</nav>

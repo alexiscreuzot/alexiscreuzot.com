@@ -1,66 +1,159 @@
 ---
 import { works } from '../data/works';
+import { websites } from '../data/websites';
+
+interface Slide {
+  kind: 'iOS' | 'Web';
+  name: string;
+  tagline: string;
+  description: string;
+  color: string;
+  href: string;
+  cta: string;
+  icon?: string;
+  screenshot?: string;
+  image?: string;
+}
 
 const excluded = ['dailycig', 'pilot', 'follow', 'cycle', 'cyqle'];
-const activeWorks = works.filter((project) => !excluded.includes(project.id) && project.appid);
+
+const apps: Slide[] = works
+  .filter((p) => !excluded.includes(p.id) && p.appid)
+  .map((p) => ({
+    kind: 'iOS',
+    name: p.name,
+    tagline: p.tagline,
+    description: p.description,
+    color: p.color,
+    href: `https://itunes.apple.com/app/${p.appid}`,
+    cta: 'App Store',
+    icon: p.icon,
+    screenshot: p.screenshot,
+  }));
+
+const webs: Slide[] = websites.map((w) => ({
+  kind: 'Web',
+  name: w.name,
+  tagline: w.tagline,
+  description: w.description,
+  color: w.color,
+  href: w.discontinued && w.archive_url ? w.archive_url : `https://${w.url}`,
+  cta: w.url,
+  icon: w.icon ?? `https://www.google.com/s2/favicons?domain=${w.url}&sz=128`,
+  image: w.image,
+}));
+
+// Weave a website slide in after every two apps
+const slides: Slide[] = [];
+for (let a = 0, w = 0; a < apps.length || w < webs.length; ) {
+  for (let k = 0; k < 2 && a < apps.length; k++) slides.push(apps[a++]);
+  if (w < webs.length) slides.push(webs[w++]);
+}
+
+const total = String(slides.length).padStart(2, '0');
 ---
 
-<section id="work">
+<section id="work" class="block work">
   <div class="container">
-    <h2 class="section__title">Apps</h2>
-    <p class="section__subtitle">This is what keeps the lights on</p>
-    <div class="work__carousel-wrapper">
-      <button class="work__carousel-arrow work__carousel-arrow--prev" aria-label="Previous app">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 18l-6-6 6-6"></path>
-        </svg>
-      </button>
-      <div class="work__carousel-container">
-        <div class="work__carousel-gradient work__carousel-gradient--left"></div>
-        <div class="work__carousel-track">
-          {
-            activeWorks.map((project) => (
-              <div
-                class="work__card work__card--active"
-                style={`--project-color: #${project.color};`}
-                data-appid={project.appid}
-                data-screenshot={project.screenshot}
-                data-country={project.country}
-              >
-                <div class="work__card-image-wrapper">
-                  <img class="work__card-icon" src="" alt={`${project.name} icon`} style="display: none;" />
-                  <img class="work__card-screenshot" src="" alt={`${project.name} screenshot`} style="display: none;" />
+    <header class="section-head reveal">
+      <div class="section-head__meta"><span class="eyebrow">01 — Work</span></div>
+      <h2 class="section-head__title">Ideas, <em>shipped</em></h2>
+      <p class="section-head__sub">
+        A decade of apps and websites — some featured by Apple, all built with care.
+      </p>
+    </header>
+
+    <div class="showcase reveal" data-showcase>
+      <div class="showcase__stage" data-stage>
+        {
+          slides.map((slide, i) => (
+            <article
+              class:list={['showcase__slide', { 'is-active': i === 0 }]}
+              style={`--c: #${slide.color}`}
+              data-slide
+            >
+              <div class="showcase__content">
+                <div class="showcase__top">
+                  <span class:list={['showcase__icon', { 'showcase__icon--round': slide.kind === 'Web' }]}>
+                    <img src={slide.icon} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
+                  </span>
+                  <span class="showcase__kind">{slide.kind}</span>
                 </div>
-                <div class="work__card-overlay">
-                  <div class="work__card-info">
-                    <h3 class="work__card-name">{project.name}</h3>
-                    <p class="work__card-tagline">{project.tagline}</p>
-                  </div>
-                  <a
-                    href={`https://itunes.apple.com/app/${project.appid}`}
-                    class="work__card-link"
-                    target="_blank"
-                    aria-label={`View ${project.name} on App Store`}
-                  >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                  </a>
-                </div>
+
+                <h3 class="showcase__name">{slide.name}</h3>
+                <p class="showcase__tagline">{slide.tagline}</p>
+                <p class="showcase__desc">{slide.description}</p>
+
+                <a href={slide.href} class="showcase__link" target="_blank" rel="noopener">
+                  {slide.cta}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7" />
+                    <polyline points="7 7 17 7 17 17" />
+                  </svg>
+                </a>
               </div>
-            ))
-          }
-        </div>
-        <div class="work__carousel-gradient work__carousel-gradient--right"></div>
+
+              {slide.kind === 'iOS' && slide.screenshot && (
+                <div class="showcase__media showcase__media--phone">
+                  <img src={slide.screenshot} alt={`${slide.name} screenshot`} loading="lazy" />
+                </div>
+              )}
+
+              {slide.kind === 'Web' && slide.image && (
+                <div class="showcase__media showcase__media--browser">
+                  <div class="showcase__window">
+                    <span class="showcase__browser-bar">
+                      <i />
+                      <i />
+                      <i />
+                    </span>
+                    <img src={slide.image} alt={`${slide.name} preview`} loading="lazy" />
+                  </div>
+                </div>
+              )}
+            </article>
+          ))
+        }
       </div>
-      <button class="work__carousel-arrow work__carousel-arrow--next" aria-label="Next app">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 18l6-6-6-6"></path>
-        </svg>
-      </button>
+
+      <div class="showcase__bar">
+        <div class="showcase__nav">
+          <button class="showcase__btn" data-prev aria-label="Previous project">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12" />
+              <polyline points="12 19 5 12 12 5" />
+            </svg>
+          </button>
+          <button class="showcase__btn" data-next aria-label="Next project">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+        <span class="showcase__counter"><span data-counter>01</span> / {total}</span>
+      </div>
+
+      <p class="showcase__index" aria-label="All projects">
+        {
+          slides.map((slide, i) => (
+            <>
+              <button
+                class:list={['showcase__word', { 'is-active': i === 0 }]}
+                style={`--c: #${slide.color}`}
+                data-goto={i}
+              >
+                {slide.name}
+              </button>
+              {i < slides.length - 1 && (
+                <span class="showcase__sep" aria-hidden="true">
+                  ✺
+                </span>
+              )}
+            </>
+          ))
+        }
+      </p>
     </div>
-    <div class="work__carousel-pagination"></div>
   </div>
 </section>

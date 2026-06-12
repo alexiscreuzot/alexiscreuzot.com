@@ -1,10 +1,11 @@
 export interface Website {
   url: string;
   name: string;
-  description?: string;
+  tagline: string;
+  color: string;
+  description: string;
   icon?: string;
   image?: string;
-  stack?: string[];
   discontinued?: boolean;
   archive_url?: string;
 }
@@ -13,39 +14,30 @@ export const websites: Website[] = [
   {
     url: 'surfaceable.ai',
     name: 'Surfaceable',
+    tagline: 'AI brand visibility',
+    color: '6C5CE7',
     description:
-      'AI brand visibility consultancy that surfaces where your brand drops out of multi-turn AI conversations across ChatGPT, Claude, and Gemini.',
+      'Consultancy that surfaces where your brand drops out of multi-turn AI conversations across ChatGPT, Claude and Gemini — tracking revenue, not vanity scores.',
     icon: 'https://surfaceable.ai/icon-512.png',
-    stack: ['Next.js', 'TypeScript', 'Tailwind', 'Motion'],
-  },
-  {
-    url: 'withaurastudio.com',
-    name: 'AuraStudio - AI Portraits, Perfected',
-    description:
-      'Landing page for an iOS app that turns a single selfie into cinematic AI portraits across 30+ styles, powered by Gemini 2.5.',
-    icon: 'https://withaurastudio.com/app-icon.png',
-    stack: ['Next.js', 'TypeScript', 'Tailwind'],
+    image: 'https://surfaceable.ai/og.png',
   },
   {
     url: 'airglowai.com',
-    name: 'airglow ai',
+    name: 'Airglow',
+    tagline: 'Listing photos that book',
+    color: '38BDF8',
     description:
-      'AI photo enhancer for Airbnb listings. Import listing photos, edit with generative AI, and download polished versions ready to boost bookings.',
+      'AI photo enhancer for Airbnb hosts. Import listing photos, edit with generative AI, and download polished versions ready to boost bookings.',
     icon: 'https://airglowai.com/android-chrome-512x512.png',
-    stack: ['Next.js 16', 'TypeScript', 'Tailwind', 'Gemini'],
+    image: 'https://airglowai.com/opengraph-image?8b6af11bf9c0134f',
   },
   {
     url: 'linglo.me',
-    name: 'Linglo - Language Learning Platform',
+    name: 'Linglo',
+    tagline: 'Teach languages, independently',
+    color: '34D399',
     description:
-      'A modern language learning platform offering interactive lessons and personalized learning experiences.',
-    stack: ['Next.js 15', 'TypeScript', 'Tailwind', 'Prisma'],
-  },
-  {
-    url: 'monalisacafebar.com',
-    name: 'Coffee place in Santiago de Querétaro',
-    description:
-      'A beautiful website for a local coffee shop in Santiago de Querétaro with elegant design.',
-    stack: ['Jekyll', 'HTML', 'CSS', 'Design'],
+      'A free teaching platform for independent language teachers — interactive lessons and personalized learning paths.',
+    image: 'https://linglo-me.vercel.app/preview.jpg',
   },
 ];
