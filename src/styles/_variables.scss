@@ -2,18 +2,10 @@
 // THEME VARIABLES
 // ===================
 
-$gradient: linear-gradient(-40deg, #FC5A95 0%, #B954EB 50%, #78DAFC 100%);
-
-$font-color-base: #F3F3FE;
-$font-color-highlight: #58BAFC;
-$color-background: #121212;
-
-$font-color-base-light: #000000;
-$font-color-highlight-light: #0052a3;
-$color-background-light: #ffffff;
+$gradient-warm: linear-gradient(135deg, #e8622a 0%, #d4a574 55%, #f5efe6 100%);
 
 :root {
-  // Editorial palette (homepage)
+  // Editorial palette (site-wide)
   --ink: #16110d;
   --ink-soft: #221c17;
   --ink-rgb: 22, 17, 13;
@@ -32,27 +24,18 @@ $color-background-light: #ffffff;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
 
-  // Legacy tokens (contact, privacy, terms)
-  --font-color-base: #{$font-color-base};
-  --font-color-highlight: #{$font-color-highlight};
-  --color-background: #{$color-background};
-  --gradient: #{$gradient};
+  // Semantic aliases (contact, privacy, terms, shared utilities)
+  --font-color-base: var(--cream);
+  --font-color-highlight: var(--orange);
+  --color-background: var(--ink);
+  --gradient: #{$gradient-warm};
 
-  --font-color-base-rgb: 243, 243, 254;
-  --font-color-highlight-rgb: 88, 186, 252;
-  --color-background-rgb: 18, 18, 18;
+  --font-color-base-rgb: var(--cream-rgb);
+  --font-color-highlight-rgb: var(--orange-rgb);
+  --color-background-rgb: var(--ink-rgb);
 
-  --text-primary: rgba(var(--font-color-base-rgb), 0.95);
-  --text-secondary: rgba(var(--font-color-base-rgb), 0.85);
-  --text-tertiary: rgba(var(--font-color-base-rgb), 0.65);
-  --text-quaternary: rgba(var(--font-color-base-rgb), 0.35);
-}
-
-.light-theme {
-  --font-color-base: #{$font-color-base-light};
-  --font-color-highlight: #{$font-color-highlight-light};
-  --color-background: #{$color-background-light};
-  --font-color-base-rgb: 0, 0, 0;
-  --font-color-highlight-rgb: 0, 82, 163;
-  --color-background-rgb: 255, 255, 255;
+  --text-primary: rgba(var(--cream-rgb), 0.95);
+  --text-secondary: rgba(var(--cream-rgb), 0.78);
+  --text-tertiary: rgba(var(--cream-rgb), 0.58);
+  --text-quaternary: rgba(var(--cream-rgb), 0.38);
 }

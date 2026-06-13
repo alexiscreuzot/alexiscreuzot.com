@@ -222,6 +222,28 @@
     const isLocalhost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
 
     if (contactForm) {
+      const productSelect = $('#product', contactForm);
+      const deviceGroup = $('.form-group--device', contactForm);
+
+      const syncDeviceField = () => {
+        if (!productSelect || !deviceGroup) return;
+
+        const option = productSelect.options[productSelect.selectedIndex];
+        const isWebsite =
+          productSelect.value !== '' && option.parentElement?.label === 'Websites';
+
+        deviceGroup.hidden = isWebsite;
+        if (isWebsite) {
+          const deviceInput = $('#device', deviceGroup);
+          if (deviceInput) deviceInput.value = '';
+        }
+      };
+
+      if (productSelect) {
+        productSelect.addEventListener('change', syncDeviceField);
+        syncDeviceField();
+      }
+
       contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -260,6 +282,7 @@
           .then(() => {
             if (formWrapper) formWrapper.classList.add('is-success');
             contactForm.reset();
+            syncDeviceField();
             if (submitBtn) {
               submitBtn.classList.remove('is-loading');
               submitBtn.disabled = false;

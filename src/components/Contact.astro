@@ -1,7 +1,12 @@
 ---
 import { works } from '../data/works';
+import { websites } from '../data/websites';
 
-const personalApps = works.filter((work) => work.personal);
+const excluded = ['dailycig', 'pilot', 'follow', 'cycle', 'cyqle'];
+
+const contactApps = works
+  .filter((work) => !excluded.includes(work.id) && work.appid)
+  .map((work) => work.name);
 ---
 
 <section id="contact">
@@ -59,14 +64,19 @@ const personalApps = works.filter((work) => work.personal);
 
             <div class="form-row">
               <div class="form-group">
-                <label for="app">Related App <span class="optional">(if applicable)</span></label>
-                <select id="app" name="app">
+                <label for="product">Related App or Website <span class="optional">(if applicable)</span></label>
+                <select id="product" name="product">
                   <option value="">None / Not applicable</option>
-                  {personalApps.map((work) => <option value={work.name}>{work.name}</option>)}
+                  <optgroup label="Apps">
+                    {contactApps.map((name) => <option value={name}>{name}</option>)}
+                  </optgroup>
+                  <optgroup label="Websites">
+                    {websites.map((site) => <option value={site.name}>{site.name}</option>)}
+                  </optgroup>
                 </select>
               </div>
 
-              <div class="form-group">
+              <div class="form-group form-group--device">
                 <label for="device">Device & iOS <span class="optional">(for app issues)</span></label>
                 <input type="text" id="device" name="device" placeholder="iPhone 15, iOS 17" />
               </div>
