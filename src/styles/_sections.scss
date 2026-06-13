@@ -42,7 +42,7 @@
 
   &__title {
     font-size: clamp(3.4rem, 10.5vw, 8.5rem);
-    font-weight: 620;
+    font-weight: 600;
     line-height: 0.9;
     letter-spacing: -0.03em;
     text-transform: uppercase;
@@ -114,14 +114,14 @@
     overflow: hidden;
     aspect-ratio: 0.86;
     background: var(--gradient);
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(0 0 0 0);
     transition: clip-path 1.3s var(--ease-out-expo) 0.55s;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1.22);
+      transform: scale(1);
       transition: transform 1.6s var(--ease-out-expo) 0.55s;
     }
   }
@@ -135,9 +135,9 @@
     height: 124px;
     display: grid;
     place-items: center;
-    opacity: 0;
+    opacity: 1;
+    transform: scale(1);
     transition: opacity 0.8s ease 1.6s, transform 0.8s var(--ease-out-expo) 1.6s;
-    transform: scale(0.6);
 
     svg {
       width: 100%;
@@ -163,6 +163,18 @@
   }
 }
 
+// Animate hero entrances only when JS is running
+html.js body:not(.is-loaded) .hero__portrait-frame {
+  clip-path: inset(100% 0 0 0);
+
+  img { transform: scale(1.22); }
+}
+
+html.js body:not(.is-loaded) .hero__portrait-badge {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
 body.is-loaded .hero__portrait-frame {
   clip-path: inset(0 0 0 0);
   img { transform: scale(1); }
@@ -180,18 +192,27 @@ body.is-loaded .hero__portrait-badge {
 
   > * {
     display: block;
-    transform: translateY(115%);
+    transform: none;
     transition: transform 1.1s var(--ease-out-expo);
     transition-delay: var(--d, 0s);
   }
 }
 
+html.js body:not(.is-loaded) .hero-mask > * {
+  transform: translateY(115%);
+}
+
 body.is-loaded .hero-mask > * { transform: none; }
 
 .hero__links {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.9s ease 1.35s, transform 0.9s var(--ease-out-expo) 1.35s;
+}
+
+html.js body:not(.is-loaded) .hero__links {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.9s ease 1.35s, transform 0.9s var(--ease-out-expo) 1.35s;
 }
 
 body.is-loaded .hero__links {
@@ -214,7 +235,7 @@ body.is-loaded .hero__links {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: rgba(var(--cream-rgb), 0.45);
-  opacity: 0;
+  opacity: 1;
   transition: opacity 1s ease 2s;
 
   &::after {
@@ -227,6 +248,8 @@ body.is-loaded .hero__links {
 }
 
 body.is-loaded .hero__scroll { opacity: 1; }
+
+html.js body:not(.is-loaded) .hero__scroll { opacity: 0; }
 
 @keyframes scroll-pulse {
   0% { transform: scaleY(0); transform-origin: top; }
@@ -353,7 +376,7 @@ body.is-loaded .hero__scroll { opacity: 1; }
   .showcase__name {
     font-family: var(--font-display);
     font-size: clamp(1.9rem, 3.4vw, 2.7rem);
-    font-weight: 560;
+    font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.01em;
     margin-bottom: 0.4rem;
@@ -538,7 +561,7 @@ body.is-loaded .hero__scroll { opacity: 1; }
   .showcase__word {
     font-family: var(--font-display);
     font-size: clamp(1.1rem, 2vw, 1.5rem);
-    font-weight: 520;
+    font-weight: 500;
     line-height: 1.3;
     color: rgba(var(--cream-rgb), 0.35);
     transition: color 0.3s ease;

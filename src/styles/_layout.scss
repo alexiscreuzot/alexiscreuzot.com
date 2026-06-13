@@ -12,6 +12,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  color: var(--cream);
 }
 
 a, button {
@@ -46,6 +47,25 @@ section {
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 // Editorial section header: "01 / Apps"

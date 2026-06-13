@@ -11,7 +11,7 @@ const siteTitle = 'Alexis Creuzot — iOS Developer & Indie Maker';
 const description =
   'Personal website of Alexis Creuzot — iOS developer and indie maker. Apps, websites and open source.';
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL('/images/portrait.png', Astro.site);
+const ogImage = new URL('/images/id_new.jpg', Astro.site);
 ---
 
 <!DOCTYPE html>
@@ -52,6 +52,15 @@ const ogImage = new URL('/images/portrait.png', Astro.site);
   </head>
 
   <body>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      requestAnimationFrame(function () {
+        setTimeout(function () {
+          document.body.classList.add('is-loaded');
+        }, 80);
+      });
+    </script>
+    <span class="is-loaded is-visible" hidden aria-hidden="true"></span>
     <slot />
     <Telemetry />
   </body>
