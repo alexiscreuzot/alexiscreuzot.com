@@ -118,13 +118,13 @@ const total = String(slides.length).padStart(2, '0');
 
       <div class="showcase__bar">
         <div class="showcase__nav">
-          <button class="showcase__btn" data-prev aria-label="Previous project">
+          <button type="button" class="showcase__btn" data-prev aria-label="Previous project">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="19" y1="12" x2="5" y2="12" />
               <polyline points="12 19 5 12 12 5" />
             </svg>
           </button>
-          <button class="showcase__btn" data-next aria-label="Next project">
+          <button type="button" class="showcase__btn" data-next aria-label="Next project">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
@@ -134,26 +134,23 @@ const total = String(slides.length).padStart(2, '0');
         <span class="showcase__counter"><span data-counter>01</span> / {total}</span>
       </div>
 
-      <p class="showcase__index" aria-label="All projects">
+      <div class="showcase__index" aria-label="All projects">
         {
           slides.map((slide, i) => (
             <>
               <button
+                type="button"
                 class:list={['showcase__word', { 'is-active': i === 0 }]}
                 style={`--c: #${slide.color}`}
                 data-goto={i}
               >
                 {slide.name}
               </button>
-              {i < slides.length - 1 && (
-                <span class="showcase__sep" aria-hidden="true">
-                  ✺
-                </span>
-              )}
+              {i < slides.length - 1 && <span class="showcase__sep" aria-hidden="true">✺</span>}
             </>
           ))
         }
-      </p>
+      </div>
     </div>
   </div>
 </section>
