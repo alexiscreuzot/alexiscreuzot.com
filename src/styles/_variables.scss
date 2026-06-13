@@ -1,40 +1,53 @@
 // ===================
-// THEME VARIABLES - KISS Consolidated
+// THEME VARIABLES
 // ===================
 
-// Gradient
 $gradient: linear-gradient(-40deg, #FC5A95 0%, #B954EB 50%, #78DAFC 100%);
 
-// Dark theme (default)
 $font-color-base: #F3F3FE;
 $font-color-highlight: #58BAFC;
 $color-background: #121212;
 
-// Light theme
 $font-color-base-light: #000000;
 $font-color-highlight-light: #0052a3;
 $color-background-light: #ffffff;
 
-// CSS Custom Properties
 :root {
+  // Editorial palette (homepage)
+  --ink: #16110d;
+  --ink-soft: #221c17;
+  --ink-rgb: 22, 17, 13;
+  --ink-line: rgba(245, 239, 230, 0.12);
+
+  --cream: #f5efe6;
+  --cream-rgb: 245, 239, 230;
+
+  --orange: #e8622a;
+  --orange-deep: #c44e20;
+  --orange-rgb: 232, 98, 42;
+
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+
+  // Legacy tokens (contact, privacy, terms)
   --font-color-base: #{$font-color-base};
   --font-color-highlight: #{$font-color-highlight};
   --color-background: #{$color-background};
   --gradient: #{$gradient};
-  
-  // RGB values for rgba() usage
+
   --font-color-base-rgb: 243, 243, 254;
   --font-color-highlight-rgb: 88, 186, 252;
   --color-background-rgb: 18, 18, 18;
-  
-  // Typography hierarchy
+
   --text-primary: rgba(var(--font-color-base-rgb), 0.95);
   --text-secondary: rgba(var(--font-color-base-rgb), 0.85);
   --text-tertiary: rgba(var(--font-color-base-rgb), 0.65);
   --text-quaternary: rgba(var(--font-color-base-rgb), 0.35);
 }
 
-// Light theme - just toggle the class, CSS handles the rest
 .light-theme {
   --font-color-base: #{$font-color-base-light};
   --font-color-highlight: #{$font-color-highlight-light};
