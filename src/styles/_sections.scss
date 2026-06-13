@@ -14,7 +14,7 @@
   padding: calc(5rem + env(safe-area-inset-top)) 0 3rem;
   overflow: hidden;
 
-  // warm glow bleeding from the portrait side
+  // dual-tone glow echoing the portrait lighting
   &::before {
     content: '';
     position: absolute;
@@ -24,7 +24,9 @@
     height: 60vw;
     max-width: 820px;
     max-height: 820px;
-    background: radial-gradient(circle, rgba(var(--orange-rgb), 0.22) 0%, transparent 62%);
+    background:
+      radial-gradient(circle at 62% 38%, rgba(var(--accent-2-rgb), 0.2) 0%, transparent 58%),
+      radial-gradient(circle at 78% 52%, rgba(var(--orange-rgb), 0.26) 0%, transparent 62%);
     pointer-events: none;
   }
 
@@ -157,7 +159,7 @@
     &::after {
       content: '✺';
       position: absolute;
-      color: var(--orange);
+      color: var(--accent-2);
       font-size: 1.6rem;
     }
   }
@@ -242,7 +244,7 @@ body.is-loaded .hero__links {
     content: '';
     width: 1px;
     height: 42px;
-    background: linear-gradient(to bottom, var(--orange), transparent);
+    background: linear-gradient(to bottom, var(--orange), var(--accent-2), transparent);
     animation: scroll-pulse 2s var(--ease-out-expo) infinite;
   }
 }

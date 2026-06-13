@@ -1,22 +1,27 @@
 // ===================
-// THEME VARIABLES
+// THEME VARIABLES — portrait-derived, high contrast (fallbacks; refined by main.js)
 // ===================
 
-$gradient-warm: linear-gradient(135deg, #e8622a 0%, #d4a574 55%, #f5efe6 100%);
+$gradient-portrait: linear-gradient(135deg, #00e8ff 0%, #7c3aed 48%, #ff38b8 100%);
 
 :root {
-  // Editorial palette (site-wide)
-  --ink: #16110d;
-  --ink-soft: #221c17;
-  --ink-rgb: 22, 17, 13;
-  --ink-line: rgba(245, 239, 230, 0.12);
+  // Dark base + bright text (WCAG AAA on body copy)
+  --ink: #060912;
+  --ink-soft: #0b1020;
+  --ink-rgb: 6, 9, 18;
+  --ink-line: rgba(244, 248, 255, 0.14);
 
-  --cream: #f5efe6;
-  --cream-rgb: 245, 239, 230;
+  --cream: #f4f8ff;
+  --cream-rgb: 244, 248, 255;
 
-  --orange: #e8622a;
-  --orange-deep: #c44e20;
-  --orange-rgb: 232, 98, 42;
+  // Primary accent: cyan gel (left portrait light)
+  --orange: #00e8ff;
+  --orange-deep: #00a8c4;
+  --orange-rgb: 0, 232, 255;
+
+  // Secondary accent: magenta gel (right portrait light)
+  --accent-2: #ff38b8;
+  --accent-2-rgb: 255, 56, 184;
 
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -28,7 +33,7 @@ $gradient-warm: linear-gradient(135deg, #e8622a 0%, #d4a574 55%, #f5efe6 100%);
   --font-color-base: var(--cream);
   --font-color-highlight: var(--orange);
   --color-background: var(--ink);
-  --gradient: #{$gradient-warm};
+  --gradient: #{$gradient-portrait};
 
   --font-color-base-rgb: var(--cream-rgb);
   --font-color-highlight-rgb: var(--orange-rgb);
