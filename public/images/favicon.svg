@@ -1,5 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Alexis Creuzot">
-  <rect width="32" height="32" rx="6" fill="#16110d"/>
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e8ff"/>
+      <stop offset="100%" stop-color="#ff38b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="6" fill="#060912"/>
   <text
     x="16"
     y="24"
@@ -8,6 +14,6 @@
     font-size="22"
     font-weight="600"
     font-style="italic"
-    fill="#e8622a"
+    fill="url(#accent)"
   >A</text>
 </svg>
