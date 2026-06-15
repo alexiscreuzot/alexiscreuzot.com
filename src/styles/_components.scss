@@ -45,6 +45,10 @@
     span { display: none; }
     padding: 12px;
   }
+
+  .site-header__wordmark {
+    font-size: 1rem;
+  }
 }
 
 // ===================
@@ -180,6 +184,10 @@
   background: var(--ink);
   display: flex;
   align-items: center;
+  padding:
+    calc(1.5rem + env(safe-area-inset-top))
+    0
+    calc(1.5rem + env(safe-area-inset-bottom));
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.45s ease, visibility 0.45s;
@@ -235,6 +243,20 @@
 @media screen and (max-width: 880px) {
   .site-header__nav, .site-header__cta { display: none; }
   .menu-toggle { display: flex; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .hero__links a:active,
+  .showcase__link:active,
+  .showcase__btn:active,
+  .gift-pill:active,
+  .site-footer .footer__cta:active {
+    transform: scale(0.97);
+  }
+
+  .menu-toggle:active .menu-toggle__line {
+    opacity: 0.7;
+  }
 }
 
 // (floating app preview removed — screenshots now live inside the work carousel)
