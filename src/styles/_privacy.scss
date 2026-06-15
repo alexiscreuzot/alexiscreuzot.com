@@ -570,6 +570,7 @@ body:has(.back-button) .site-footer {
   section#terms,
   section#support,
   section#contact {
-    padding-top: calc(4.75rem + env(safe-area-inset-top));
+    padding-top: var(--space-header-clear);
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
   }
 }

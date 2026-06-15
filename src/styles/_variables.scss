@@ -44,3 +44,30 @@ $gradient-portrait: linear-gradient(135deg, #00e8ff 0%, #7c3aed 48%, #ff38b8 100
   --text-tertiary: rgba(var(--cream-rgb), 0.58);
   --text-quaternary: rgba(var(--cream-rgb), 0.38);
 }
+
+@media screen and (max-width: 880px) {
+  :root {
+    --space-gutter: clamp(20px, 4vw, 28px);
+    --space-section-y: clamp(3.25rem, 7vw, 4.5rem);
+    --space-section-y-slim: clamp(2rem, 5vw, 3rem);
+    --header-bar: 3.25rem;
+    --header-inner-pad-y: 0.4rem;
+    --header-height: calc(
+      env(safe-area-inset-top) + (var(--header-inner-pad-y) * 2) + var(--header-bar)
+    );
+    --space-header-clear: calc(var(--header-height) + 1rem);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  :root {
+    --space-gutter: 20px;
+    --space-section-y: clamp(2.5rem, 7vw, 3.25rem);
+    --space-section-y-slim: clamp(1.75rem, 5vw, 2.5rem);
+    --header-bar: 3rem;
+    --header-height: calc(
+      env(safe-area-inset-top) + (var(--header-inner-pad-y) * 2) + var(--header-bar)
+    );
+    --space-header-clear: calc(var(--header-height) + 0.85rem);
+  }
+}

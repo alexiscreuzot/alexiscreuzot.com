@@ -27,6 +27,12 @@ button{cursor:pointer;}
   box-sizing: border-box;
 }
 
+@media screen and (max-width: 880px) {
+  .container {
+    padding-inline: var(--space-gutter);
+  }
+}
+
 @media (min-width: 1200px) {
   .container { max-width: 1200px; }
 }

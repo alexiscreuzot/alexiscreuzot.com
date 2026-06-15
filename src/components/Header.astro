@@ -9,16 +9,20 @@ const links = [
   <div class="container site-header__inner">
     <a href="#intro" class="site-header__wordmark">Alexis <em>Creuzot</em></a>
 
-    <nav class="site-header__nav" aria-label="Main navigation">
-      {links.map((link) => <a href={link.href}>{link.label}</a>)}
-      <a href="/contact.html" class="site-header__cta">Say hi</a>
-    </nav>
+    <div class="site-header__end">
+      <nav class="site-header__nav" aria-label="Main navigation">
+        {links.map((link) => <a href={link.href}>{link.label}</a>)}
+        <a href="/contact.html" class="site-header__cta">Say hi</a>
+      </nav>
 
-    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-      <span class="menu-toggle__line"></span>
-      <span class="menu-toggle__line"></span>
-      <span class="menu-toggle__line"></span>
-    </button>
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="menu-toggle__icon" aria-hidden="true">
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+          <span class="menu-toggle__line"></span>
+        </span>
+      </button>
+    </div>
   </div>
 </header>
 
