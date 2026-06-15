@@ -291,6 +291,8 @@ html.js body:not(.is-loaded) .hero__scroll { opacity: 0; }
 // WORK — one-at-a-time project showcase
 // ===================
 .work {
+  padding-bottom: clamp(2.5rem, 4vw, 3.5rem);
+
   // Slides are stacked in the same grid cell and crossfade
   .showcase__stage {
     display: grid;
@@ -664,6 +666,8 @@ html.js body:not(.is-loaded) .hero__scroll { opacity: 0; }
 // COMMUNITY — compact footnotes, pill cloud
 // ===================
 .community {
+  padding-top: clamp(1.25rem, 2.5vw, 2rem);
+
   .community__head {
     display: flex;
     flex-wrap: wrap;
