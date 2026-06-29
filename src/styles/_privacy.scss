@@ -12,29 +12,11 @@ section#contact {
     calc(5.5rem + env(safe-area-inset-top))
     0
     calc(2.5rem + env(safe-area-inset-bottom));
-}
 
-// Page Header
-.page-header {
-  text-align: center;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-
-  h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.4rem, 6vw, 3.6rem);
-    font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--cream);
-    margin-bottom: 0.75rem;
-  }
-
-  .page-intro {
-    font-size: 1rem;
-    color: rgba(var(--cream-rgb), 0.58);
-    margin: 0;
-    font-weight: 400;
-    max-width: 36ch;
+  // Reuse the editorial section-head from the homepage, aligned to the
+  // same narrow column as the page content below it.
+  .section-head {
+    max-width: 640px;
     margin-inline: auto;
   }
 }
@@ -68,7 +50,7 @@ section#contact {
 // ===================
 
 .legal-content {
-  max-width: 620px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
