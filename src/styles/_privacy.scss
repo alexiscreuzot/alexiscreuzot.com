@@ -211,6 +211,10 @@ section#contact {
     }
   }
 
+  .faq-toggle:checked ~ .faq-answer {
+    grid-template-rows: 1fr;
+  }
+
   .faq-toggle:checked ~ .faq-answer p {
     padding-bottom: 0.85rem;
   }
