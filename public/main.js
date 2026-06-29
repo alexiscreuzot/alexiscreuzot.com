@@ -87,7 +87,7 @@
     buckets.forEach((entry) => {
       if (!best || entry.score > best.score) best = entry;
     });
-    if (!best) return [0, 232, 255];
+    if (!best) return [45, 153, 251];
     return [
       Math.round(best.r / best.n),
       Math.round(best.g / best.n),
@@ -107,18 +107,15 @@
     return ((Math.atan2(y, x) * 180) / Math.PI + 360) % 360;
   };
 
+  // Keep the dark/light tones subtly tuned to the portrait, but leave the
+  // accent palette fixed (violet/magenta) so the whole site stays on-brand.
   const applyPortraitTheme = (accentLeft, accentRight) => {
-    const primary = boostAccent(accentLeft);
-    const secondary = boostAccent(accentRight);
-    const [h1] = rgbToHsl(...primary);
-    const [h2] = rgbToHsl(...secondary);
+    const [h1] = rgbToHsl(...boostAccent(accentLeft));
+    const [h2] = rgbToHsl(...boostAccent(accentRight));
     const hue = blendHue(h1, h2);
     const ink = hslToRgb(hue, 0.48, 0.04);
     const inkSoft = hslToRgb(hue, 0.38, 0.08);
     const cream = hslToRgb(hue, 0.04, 0.98);
-    const [, ps] = rgbToHsl(...primary);
-    const primaryDeep = hslToRgb(h1, Math.min(1, ps + 0.05), 0.42);
-    const mix = hslToRgb(blendHue(h1, h2), 0.72, 0.52);
     const root = document.documentElement;
 
     root.style.setProperty('--ink', toHex(ink));
@@ -126,15 +123,6 @@
     root.style.setProperty('--ink-rgb', ink.join(', '));
     root.style.setProperty('--cream', toHex(cream));
     root.style.setProperty('--cream-rgb', cream.join(', '));
-    root.style.setProperty('--orange', toHex(primary));
-    root.style.setProperty('--orange-deep', toHex(primaryDeep));
-    root.style.setProperty('--orange-rgb', primary.join(', '));
-    root.style.setProperty('--accent-2', toHex(secondary));
-    root.style.setProperty('--accent-2-rgb', secondary.join(', '));
-    root.style.setProperty(
-      '--gradient',
-      `linear-gradient(135deg, ${toHex(primary)} 0%, ${toHex(mix)} 48%, ${toHex(secondary)} 100%)`
-    );
     root.style.setProperty('--ink-line', `rgba(${cream.join(', ')}, 0.14)`);
 
     const meta = document.querySelector('meta[name="theme-color"]');
@@ -179,7 +167,6 @@
     // Smooth Scrolling
     // ===================
     const HEADER_OFFSET = () => (header?.offsetHeight ?? 72) + 8;
-    const isMobileNav = () => window.matchMedia('(max-width: 880px)').matches;
 
     $$('a[href^="#"]').forEach((link) => {
       link.addEventListener('click', function (e) {
@@ -199,19 +186,10 @@
     // ===================
     const header = $('.site-header');
     if (header) {
-      let lastY = window.scrollY;
-
       window.addEventListener(
         'scroll',
         () => {
-          const y = window.scrollY;
-          header.classList.toggle('is-scrolled', y > 30);
-          if (!isMobileNav()) {
-            header.classList.toggle('is-hidden', y > lastY && y > 400);
-          } else {
-            header.classList.remove('is-hidden');
-          }
-          lastY = y;
+          header.classList.toggle('is-scrolled', window.scrollY > 30);
         },
         { passive: true }
       );

@@ -58,7 +58,6 @@
   z-index: 900;
   padding-top: env(safe-area-inset-top);
   transition:
-    transform 0.5s var(--ease-out-expo),
     background-color 0.4s var(--ease-out-expo),
     backdrop-filter 0.4s var(--ease-out-expo),
     -webkit-backdrop-filter 0.4s var(--ease-out-expo),
@@ -71,8 +70,6 @@
     -webkit-backdrop-filter: blur(18px);
     border-bottom-color: var(--ink-line);
   }
-
-  &.is-hidden { transform: translateY(-100%); }
 
   &__inner {
     display: flex;

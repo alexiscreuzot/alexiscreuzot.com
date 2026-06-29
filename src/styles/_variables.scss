@@ -2,7 +2,7 @@
 // THEME VARIABLES — portrait-derived, high contrast (fallbacks; refined by main.js)
 // ===================
 
-$gradient-portrait: linear-gradient(135deg, #00e8ff 0%, #7c3aed 48%, #ff38b8 100%);
+$gradient-portrait: linear-gradient(135deg, #2d99fb 0%, #7c3aed 100%);
 
 :root {
   // Dark base + bright text (WCAG AAA on body copy)
@@ -14,14 +14,14 @@ $gradient-portrait: linear-gradient(135deg, #00e8ff 0%, #7c3aed 48%, #ff38b8 100
   --cream: #f4f8ff;
   --cream-rgb: 244, 248, 255;
 
-  // Primary accent: cyan gel (left portrait light)
-  --orange: #00e8ff;
-  --orange-deep: #00a8c4;
-  --orange-rgb: 0, 232, 255;
+  // Primary accent: azure blue
+  --orange: #2d99fb;
+  --orange-deep: #1c7ed6;
+  --orange-rgb: 45, 153, 251;
 
-  // Secondary accent: magenta gel (right portrait light)
-  --accent-2: #ff38b8;
-  --accent-2-rgb: 255, 56, 184;
+  // Secondary accent: violet (used sparingly)
+  --accent-2: #7c3aed;
+  --accent-2-rgb: 124, 58, 237;
 
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
