@@ -5,9 +5,10 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title?: string;
   showFooter?: boolean;
+  showFooterCta?: boolean;
 }
 
-const { title, showFooter = true } = Astro.props;
+const { title, showFooter = true, showFooterCta = true } = Astro.props;
 ---
 
 <Base title={title}>
@@ -21,7 +22,7 @@ const { title, showFooter = true } = Astro.props;
 
   <slot />
 
-  {showFooter && <Footer />}
+  {showFooter && <Footer showCta={showFooterCta} />}
 
   <script is:inline src="/main.js?v=8" defer></script>
 </Base>
